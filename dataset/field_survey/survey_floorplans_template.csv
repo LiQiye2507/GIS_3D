@@ -2,4 +2,37 @@ building_id,floor_number,floor_label,wing_or_row,col_index,element_type,room_cod
 C,1,1,Hàng trên,1,Kho,,Kho Tầng 1,Utility,,,Ví dụ mẫu từ floorplan_toa_C_layout.csv
 C,1,1,Hàng trên,3,Phòng,C113,Phòng C113,Theory,,,Điền thêm thông tin sức chứa & thiết bị nếu có
 A,1,1,Cánh chính,1,Giảng đường,A.GĐ1,Giảng đường 1,Theory,400,,"Mẫu để điền tiếp cho Tòa A, B, D, E, Thư viện..."
+A,1,1,,,Phòng,A.101,Phòng Công tác sinh viên,Office,,,
+A,1,1,,,Phòng,A.102,Phòng Đào tạo Đại học chính quy,Office,,,
+A,1,1,,,Phòng,A.103,Phòng Y tế,Office,,,
+A,1,1,,,Phòng,A.104,Phòng Đào tạo Đại học từ xa,Office,,,
+A,1,1,,,Phòng,A.105,Phòng Tổ chức - Hành chính,Office,,,
+A,1,1,,,Phòng,A.106,Phòng học chương trình tiên tiến,Theory,,,
+A,1,1,,,Phòng,A.107,Phòng Tổ chức - Hành chính,Office,,,
+A,1,1,,,Phòng,A.108,Phòng Quản trị thiết bị,Office,,,
+A,1,1,,,Phòng,A.109,Phòng Phó hiệu trưởng,Office,,,
+A,1,1,,,Phòng,A.110,Phòng Thí nghiệm Hệ thống thông tin,Lab,,,
+A,1,1,,,Phòng,A.111,Phòng Kế hoạch - Tài chính,Office,,,
+A,1,1,,,Phòng,A.112,Phòng họp,Office,,,
+A,1,1,,,Phòng,A.113,Phòng Kế hoạch - Tài chính,Office,,,
+A,1,1,,,Phòng,A.114,Phòng họp,Office,,,
+A,1,1,,,Phòng,A.115,Phòng Hiệu trưởng,Office,,,
+A,1,1,,,Phòng,A.116,Phòng Thí nghiệm truyền thông Đa phương tiện,Lab,,,
+A,1,1,,,Phòng,A.117,Phòng Phó hiệu trưởng,Office,,,
+A,1,1,,,Phòng,A.118,Phòng Thanh tra - Pháp chế - Đảm bảo chất lượng,Office,,,
+A,1,1,,,Phòng,A.119,Phòng Phó hiệu trưởng,Office,,,
+A,1,1,,,Phòng,A.120,Phòng máy Chương trình tiên tiến,Lab,,,
+A,1,1,,,Phòng,A.121,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.123,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.125,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.127,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.181,,Office,,,TODO: kiểm chứng thực địa – chưa có tên; TODO: kiểm chứng mã phòng (có thể là A.1B1)
+A,1,1,,,Phòng,A.182,,Office,,,TODO: kiểm chứng thực địa – chưa có tên; TODO: kiểm chứng mã phòng (có thể là A.1B2)
+A,1,1,,,Phòng,A.183,,Office,,,TODO: kiểm chứng thực địa – chưa có tên; TODO: kiểm chứng mã phòng (có thể là A.1B3)
+A,1,1,,,Phòng,A.184,,Office,,,TODO: kiểm chứng thực địa – chưa có tên; TODO: kiểm chứng mã phòng (có thể là A.1B4)
+A,1,1,,,Phòng,A.1A2,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.1A4,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.1A6,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.1A8,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
+A,1,1,,,Phòng,A.TV,Thư viện UIT,Library,,,
 
