@@ -1,0 +1,70 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "addr:city": "Hồ Chí Minh",
+        "amenity": "university",
+        "name": "Trường Đại học Công nghệ Thông tin",
+        "name:en": "University of Information Technology",
+        "name:vi": "Trường Đại học Công nghệ Thông tin",
+        "operator": "Đại học Quốc gia Thành phố Hồ Chí Minh",
+        "operator:type": "university",
+        "website": "https://www.uit.edu.vn/",
+        "wikidata": "Q5873994",
+        "wikipedia": "vi:Trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh",
+        "osm_type": "way",
+        "osm_id": 1303838982,
+        "area_m2": 77697.0
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8016693,
+              10.8701079
+            ],
+            [
+              106.8026322,
+              10.8688555
+            ],
+            [
+              106.8029416,
+              10.8681458
+            ],
+            [
+              106.8039263,
+              10.8688472
+            ],
+            [
+              106.8045606,
+              10.8695156
+            ],
+            [
+              106.8051924,
+              10.8701937
+            ],
+            [
+              106.8029489,
+              10.8718309
+            ],
+            [
+              106.8027563,
+              10.8714107
+            ],
+            [
+              106.8023241,
+              10.8708307
+            ],
+            [
+              106.8016693,
+              10.8701079
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
