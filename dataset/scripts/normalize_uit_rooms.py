@@ -74,6 +74,12 @@ def main() -> None:
         if not is_room:
             continue
 
+        # Sơ đồ Tầng 1-3 Tòa A không có giảng đường A.GĐ1-3
+        code = r["room_code"].strip()
+        if code.startswith("A.GĐ"):
+            issues.append(f"- `A` / `{code}`: không có trong sơ đồ Tầng 1–3 Tòa A, loại khỏi LOD 3 (TODO: kiểm chứng thực địa).")
+            continue
+
         floor_str = r["floor"].strip()
         floor_num = int(floor_str) if floor_str.isdigit() else None
         if floor_num is None:

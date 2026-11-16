@@ -9,9 +9,6 @@ A,3,A313,Phòng A313,Theory,,7.6,11.1,Không,,,có trong danh sách: PhongCLC (s
 A,3,A315,Phòng A315,Theory,50,7.6,11.1,Không,,,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
 A,3,A323,Phòng A323,Theory,30,7.6,11.1,Không,,,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
 A,3,A325,Phòng A325,Theory,48,7.6,11.1,Không,,,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
-A,,A.GĐ1,Giảng đường A.GĐ1,Theory,,,,Không,,,giảng đường tòa A; chưa rõ tầng; có trong: Phong Thuong (sheet ẩn)
-A,,A.GĐ2,Giảng đường A.GĐ2,Theory,,,,Không,,,giảng đường tòa A; chưa rõ tầng; có trong: Phong Thuong (sheet ẩn)
-A,,A.GĐ3,Giảng đường A.GĐ3,Theory,,,,Không,,,giảng đường tòa A; chưa rõ tầng; có trong: Phong Thuong (sheet ẩn)
 B,1,B1.01,Phòng B1.01,Theory,,0.0,3.5,Có,37,E,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
 B,1,B1.02,Phòng B1.02,Theory,60,0.0,3.5,Có,35,L,"có trong: Phong Thuong (sheet ẩn), Tong hop"
 B,1,B1.04,Phòng B1.04,Theory,60,0.0,3.5,Có,35,K,"có trong: Phong Thuong (sheet ẩn), Tong hop"
