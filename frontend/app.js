@@ -326,7 +326,7 @@ function setLighting(mode) {
   lightingIconSunEl.classList.toggle('hidden', cfg.nightIcon);
   lightingIconMoonEl.classList.toggle('hidden', !cfg.nightIcon);
 
-  if (!map.isStyleLoaded()) return;
+  if (!map.getLayer('campus-ground')) return;
 
   map.setLight(cfg.light);
   if (map.getLayer('campus-ground')) {
