@@ -1,6 +1,6 @@
 const API = 'http://localhost:8000';
 const DEFAULT_CENTER = [106.80333, 10.87002];
-const DEFAULT_ZOOM = 17.1;
+const DEFAULT_ZOOM = 17.6;
 const DEFAULT_PITCH = 55;
 const DEFAULT_BEARING = 128;
 
@@ -45,7 +45,6 @@ const LIGHTING_CONFIG = {
     groundColor: '#6B7A4A',
     pathColor: '#D9D2C3',
     buildingColor: '#2E4A66',
-    roofOpacity: 1,
     rasterBrightness: 1,
     nightIcon: false,
   },
@@ -56,18 +55,16 @@ const LIGHTING_CONFIG = {
     groundColor: '#6E6A45',
     pathColor: '#D8C3A8',
     buildingColor: '#3A4560',
-    roofOpacity: 1,
     rasterBrightness: 1,
     nightIcon: false,
   },
   night: {
     label: 'Ban đêm',
     bodyClass: 'light-night',
-    light: { anchor: 'map', color: '#8FA8FF', intensity: 0.25, position: [1.15, 210, 30] },
+    light: { anchor: 'map', color: '#C8D0E6', intensity: 0.32, position: [1.15, 210, 30] },
     groundColor: '#2F3A2A',
     pathColor: '#7D7A72',
     buildingColor: '#1C2738',
-    roofOpacity: 0.85,
     rasterBrightness: 0.55,
     nightIcon: true,
   },
@@ -133,6 +130,7 @@ const radiusValueEl = document.getElementById('radius-value');
 const radiusFillEl = document.getElementById('radius-fill');
 const radiusThumbEl = document.getElementById('radius-thumb');
 const amenitiesListEl = document.getElementById('amenities-list');
+const coordBoxEl = document.getElementById('coord-box');
 const coordDmsEl = document.getElementById('coord-dms');
 const coordZoomEl = document.getElementById('coord-zoom');
 const btnInfoEl = document.getElementById('btn-info');
@@ -162,7 +160,9 @@ async function api(path, signal) {
       try {
         const body = await res.json();
         if (body && body.detail) detail = body.detail;
-      } catch (_) {}
+      } catch (err) {
+        console.error(err);
+      }
       throw new Error(detail);
     }
     return await res.json();
@@ -323,9 +323,6 @@ function setLighting(mode) {
     }
   });
   updateBuildingWallColors();
-  if (map.getLayer('buildings-roof')) {
-    map.setPaintProperty('buildings-roof', 'fill-extrusion-opacity', cfg.roofOpacity);
-  }
   if (map.getLayer('satellite-layer')) {
     map.setPaintProperty('satellite-layer', 'raster-brightness-max', cfg.rasterBrightness);
   }
@@ -434,19 +431,30 @@ function updateBuildingWallColors() {
   const selectedFeat = selectedBuildingIndex >= 0 ? buildingsList[selectedBuildingIndex] : null;
   const selectedCode = selectedFeat && selectedFeat.properties ? selectedFeat.properties.building_code : null;
   const colorExpr = selectedCode
-    ? ['match', ['get', 'building_code'], selectedCode, '#3D6A93', cfg.buildingColor]
+    ? ['match', ['get', 'building_code'], selectedCode, '#5B8DB8', cfg.buildingColor]
     : cfg.buildingColor;
   ['buildings-3d-layer', 'building-a-shell'].forEach((layerId) => {
     if (map.getLayer(layerId)) {
       map.setPaintProperty(layerId, 'fill-extrusion-color', colorExpr);
     }
   });
+  if (map.getLayer('buildings-roof')) {
+    const roofMap = { A: '#BFE3C0', C: '#F2B98E' };
+    if (selectedCode) roofMap[selectedCode] = '#FFFFFF';
+    const roofExpr = ['match', ['get', 'building_code']];
+    Object.entries(roofMap).forEach(([code, color]) => {
+      roofExpr.push(code, color);
+    });
+    roofExpr.push('#E6E1D6');
+    map.setPaintProperty('buildings-roof', 'fill-extrusion-color', roofExpr);
+  }
 }
 
 function closeBuildingPanel() {
   if (selectedBuildingIndex === -1 && buildingPanelEl.classList.contains('hidden')) return;
   selectedBuildingIndex = -1;
   buildingPanelEl.classList.add('hidden');
+  coordBoxEl.style.visibility = '';
   placesCountEl.classList.remove('hidden');
   placesCountEl.textContent = defaultPlacesCount;
   placesTitleEl.textContent = 'Danh sách địa điểm';
@@ -495,6 +503,7 @@ function selectBuildingByIndex(idx) {
 
   setPlacesPanelOpen(false);
   buildingPanelEl.classList.remove('hidden');
+  coordBoxEl.style.visibility = 'hidden';
 
   placesCountEl.classList.add('hidden');
   placesTitleEl.textContent = p.name || p.building_code || 'Công trình';
@@ -694,7 +703,9 @@ searchInputEl.addEventListener('input', () => {
     try {
       const items = await api(`/api/search?q=${encodeURIComponent(q)}`, searchAbortController.signal);
       renderSearchResults(items);
-    } catch (_) {}
+    } catch (err) {
+      console.error(err);
+    }
   }, 300);
 });
 
@@ -806,7 +817,9 @@ async function updateProximity() {
       map.getSource('amenities').setData(fc);
     }
     renderAmenitiesList(fc);
-  } catch (_) {}
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function setPickingMode(active) {
@@ -893,13 +906,15 @@ document.getElementById('btn-route').addEventListener('click', async () => {
     if (!bounds.isEmpty()) {
       map.fitBounds(bounds, { padding: 60, pitch: 60, maxZoom: 19.5 });
     }
-  } catch (_) {}
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-function initLayers(buildingsFc, roomsFc) {
+function initLayers(buildingsFc, roomsFc, boundaryFc) {
   roomsByCode = new Map(roomsFc.features.map((f) => [f.properties.room_code, f.properties]));
 
-  map.addSource('campus-boundary', { type: 'geojson', data: 'data/campus_boundary.geojson' });
+  map.addSource('campus-boundary', { type: 'geojson', data: boundaryFc });
   map.addSource('campus-paths', { type: 'geojson', data: 'data/campus_paths.geojson' });
   map.addSource('buildings', { type: 'geojson', data: buildingsFc });
   map.addSource('rooms', { type: 'geojson', data: roomsFc });
@@ -909,6 +924,9 @@ function initLayers(buildingsFc, roomsFc) {
   map.addSource('route-3d', { type: 'geojson', data: EMPTY_FC });
 
   const cfg = LIGHTING_CONFIG[currentLighting];
+  const boundaryGeom = boundaryFc && boundaryFc.features && boundaryFc.features[0]
+    ? boundaryFc.features[0].geometry
+    : null;
 
   map.addLayer({
     id: 'campus-ground',
@@ -926,6 +944,7 @@ function initLayers(buildingsFc, roomsFc) {
     id: 'campus-paths',
     type: 'line',
     source: 'campus-paths',
+    ...(boundaryGeom ? { filter: ['within', boundaryGeom] } : {}),
     layout: {
       'line-cap': 'round',
       'line-join': 'round',
@@ -1009,7 +1028,6 @@ function initLayers(buildingsFc, roomsFc) {
       ],
       'fill-extrusion-base': ['-', ['coalesce', ['get', 'height_m'], 10], 0.4],
       'fill-extrusion-height': ['+', ['coalesce', ['get', 'height_m'], 10], 0.05],
-      'fill-extrusion-opacity': cfg.roofOpacity,
     },
   });
 
@@ -1290,12 +1308,19 @@ map.on('move', updateCoordBox);
 map.on('load', async () => {
   markIntroStep('map');
   try {
-    const [buildingsFc, roomsFc, amenitiesFc] = await Promise.all([
+    const [buildingsFc, roomsFc, amenitiesFc, boundaryFc] = await Promise.all([
       api('/api/buildings').finally(() => markIntroStep('buildings')),
       api('/api/rooms?building_code=A').finally(() => markIntroStep('rooms')),
-      api('/api/amenities/nearby?lat=10.8700&lng=106.8030&radius=500').catch(() => EMPTY_FC),
+      api('/api/amenities/nearby?lat=10.8700&lng=106.8030&radius=500').catch((err) => {
+        console.error(err);
+        return EMPTY_FC;
+      }),
+      fetch('data/campus_boundary.geojson').then((res) => {
+        if (!res.ok) throw new Error(`Lỗi tải ranh giới khuôn viên (${res.status})`);
+        return res.json();
+      }),
     ]);
-    initLayers(buildingsFc, roomsFc);
+    initLayers(buildingsFc, roomsFc, boundaryFc);
     renderBuildingsList(buildingsFc);
     const bCount = buildingsFc.features.length;
     const rCount = roomsFc.features.length;
@@ -1321,7 +1346,8 @@ map.on('load', async () => {
     }
     const totalFloors = buildingA && buildingA.properties.total_floors ? buildingA.properties.total_floors : 3;
     renderFloorSwitcher(totalFloors);
-  } catch (_) {
+  } catch (err) {
+    console.error(err);
     markIntroStep('glb');
     setLighting(currentLighting);
     renderFloorSwitcher(3);

@@ -242,7 +242,7 @@ body.light-dusk #map {
 }
 
 body.light-night #map {
-  background: radial-gradient(ellipse at 50% 38%, #1D2533 0%, #10151F 55%, #080B0F 100%);
+  background: radial-gradient(ellipse at 50% 38%, #12151C 0%, #0A0C10 55%, #040507 100%);
 }
 
 .eyebrow {
