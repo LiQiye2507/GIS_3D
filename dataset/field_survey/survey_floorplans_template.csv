@@ -35,4 +35,27 @@ A,1,1,,,Phòng,A.1A4,,Office,,,TODO: kiểm chứng thực địa – chưa có 
 A,1,1,,,Phòng,A.1A6,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
 A,1,1,,,Phòng,A.1A8,,Office,,,TODO: kiểm chứng thực địa – chưa có tên
 A,1,1,,,Phòng,A.TV,Thư viện UIT,Library,,,
+A,2,2,,,Phòng,A.201,Phòng trưởng phòng Công tác sinh viên,Office,,,
+A,2,2,,,Phòng,A.203,Phòng trưởng phòng Dữ liệu & CNTT,Office,,,
+A,2,2,,,Phòng,A.205,Phòng thực hành Vật lý,Lab,,,
+A,2,2,,,Phòng,A.207,Phòng Dữ liệu & CNTT,Office,,,
+A,2,2,,,Phòng,A.209,Trung tâm Công nghệ Đào tạo trực tuyến,Office,,,
+A,2,2,,,Phòng,A.211,Văn phòng Công đoàn,Office,,,
+A,2,2,,,Phòng,A.213,Phòng thực hành khoa Kỹ thuật máy tính,Lab,,,
+A,2,2,,,Phòng,A.215,Phòng Dữ liệu & CNTT,Office,,,
+A,2,2,,,Phòng,A.TV2,Thư viện UIT,Library,,,
+A,3,3,Cạnh trên,,Phòng,A.301,Phòng học A.301,Theory,30,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Cạnh trên,,Phòng,A.303,Phòng học A.303,Theory,,,TODO: kiểm chứng thực địa – theo sơ đồ minh họa Tầng 3
+A,3,3,Cạnh trên,,Phòng,A.305,Phòng học A.305,Theory,30,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Cạnh Đông-Bắc,,Phòng,A.307,Phòng học A.307,Theory,30,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Cạnh phải,,Phòng,A.309,Phòng học A.309,Theory,30,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Cạnh phải,,Phòng,A.311,Phòng học A.311,Theory,25,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Cạnh Đông-Nam,,Phòng,A.313,Phòng học A.313,Theory,,,Có trong danh sách PhongCLC
+A,3,3,Cạnh dưới,,Phòng,A.315,Phòng học A.315,Theory,50,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Cạnh dưới,,Phòng,A.317,Phòng học A.317,Theory,,,TODO: kiểm chứng thực địa – theo sơ đồ minh họa Tầng 3
+A,3,3,Cạnh dưới,,Phòng,A.319,Phòng học A.319,Theory,,,TODO: kiểm chứng thực địa – theo sơ đồ minh họa Tầng 3
+A,3,3,Cạnh Tây-Nam,,Phòng,A.321,Phòng học A.321,Theory,,,TODO: kiểm chứng thực địa – theo sơ đồ minh họa Tầng 3
+A,3,3,Cạnh trái,,Phòng,A.323,Phòng học A.323,Theory,30,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Cạnh trái,,Phòng,A.325,Phòng học A.325,Theory,48,,Có trong danh sách PhongCLC & Tong hop
+A,3,3,Trung tâm,,Hội trường,A.HT,Hội trường Tòa A,Theory,300,,TODO: kiểm chứng thực địa – khối tròn trung tâm Tầng 3
 

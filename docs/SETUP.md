@@ -4,17 +4,18 @@ Môi trường đã kiểm tra: Windows 11, PowerShell, Python 3.14 có sẵn.
 
 ## 1. Cài PostgreSQL + PostGIS + pgRouting (~20–30 phút)
 
-1. Tải **PostgreSQL 17** (bộ cài EDB): https://www.postgresql.org/download/windows/
+1. Tải **PostgreSQL 16** (bộ cài EDB): https://www.postgresql.org/download/windows/
 2. Chạy bộ cài:
    - Giữ các thành phần mặc định (PostgreSQL Server, pgAdmin 4, Command Line Tools, **Stack Builder**).
    - Đặt mật khẩu cho user `postgres` và **ghi lại**. Giữ port `5432`.
 3. Khi cài xong, Stack Builder tự mở (hoặc mở từ Start Menu):
-   - Chọn server `PostgreSQL 17 on port 5432`.
-   - Mục **Spatial Extensions** → tick **PostGIS 3.x Bundle for PostgreSQL 17** (gói này có sẵn **pgRouting**).
+   - Chọn server `PostgreSQL 16 on port 5432`.
+   - Mục **Spatial Extensions** → tick **PostGIS 3.x Bundle for PostgreSQL 16** (gói này có sẵn **pgRouting**).
    - Cài với lựa chọn mặc định. Nếu được hỏi tạo spatial database mẫu thì chọn **No**.
 4. Thêm `psql` vào PATH (PowerShell, chỉ làm một lần, sau đó mở lại terminal):
    ```powershell
-   [Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files\PostgreSQL\17\bin", "User")
+   $u = [Environment]::GetEnvironmentVariable("Path", "User")
+   [Environment]::SetEnvironmentVariable("Path", "$u;C:\Program Files\PostgreSQL\16\bin", "User")
    ```
 5. Kiểm tra:
    ```powershell
@@ -80,4 +81,5 @@ Backend phải bật CORS cho `http://localhost:5500`.
 | `password authentication failed` | Sai `PGPASSWORD`, hoặc sai mật khẩu trong `.env` |
 | Tiếng Việt bị lỗi font trong DB | Quên `$env:PGCLIENTENCODING = "UTF8"` → chạy lại mục 2 |
 | `could not open extension control file ... pgrouting` | Chưa cài PostGIS Bundle qua Stack Builder (bước 1.3) |
+| `could not load library ".../postgis-3.dll": The specified module could not be found` | Thiếu `libwinpthread-1.dll` trong `bin`. PowerShell (Admin): `Copy-Item "C:\Program Files\PostgreSQL\16\bin\postgisgui\libwinpthread-1.dll" "C:\Program Files\PostgreSQL\16\bin\"` |
 | `Address already in use` (port 8000/5500) | Đổi port, ví dụ `--port 8001`, rồi sửa URL API trong frontend |

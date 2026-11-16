@@ -15,7 +15,7 @@ Hệ thống WebGIS 3D tra cứu phòng học theo tầng, tiện ích xung quan
 | `GET /api/route` | Dẫn đường liên tầng bằng pgRouting |
 
 ## Công nghệ
-- **CSDL:** PostgreSQL 17 + PostGIS + pgRouting (cài trực tiếp trên Windows, không Docker)
+- **CSDL:** PostgreSQL 16 + PostGIS + pgRouting (cài trực tiếp trên Windows, không Docker)
 - **Backend:** Python FastAPI, Psycopg2 – trả GeoJSON FeatureCollection
 - **Frontend:** HTML/CSS/Vanilla JS, MapLibre GL JS + Three.js (custom 3D layer)
 
@@ -55,7 +55,7 @@ cd frontend
 python -m http.server 5500   # mở http://localhost:5500 (không mở index.html bằng file://)
 ```
 
-Yêu cầu: PostgreSQL 17 + PostGIS Bundle (có pgRouting) cài qua Stack Builder, `psql` có trong PATH. Gặp lỗi xem mục "Lỗi thường gặp" trong [docs/SETUP.md](docs/SETUP.md).
+Yêu cầu: PostgreSQL 16 + PostGIS Bundle (có pgRouting) cài qua Stack Builder, `psql` có trong PATH. Gặp lỗi xem mục "Lỗi thường gặp" trong [docs/SETUP.md](docs/SETUP.md).
 
 ## Thông tin
 Đồ án môn **IE402 – Hệ thống thông tin địa lý 3D**, Trường ĐH Công nghệ Thông tin – ĐHQG-HCM.
