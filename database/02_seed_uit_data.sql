@@ -55,7 +55,7 @@ INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, o
 VALUES
 ('Căng tin Sinh viên UIT', 'Canteen', NULL, 1, 1.0, '06:30 - 18:00', ST_GeomFromText('POINT Z (106.80235 10.86945 1.0)', 4326)),
 ('Nhà giữ xe Sinh viên Khu A-B', 'Parking', NULL, 1, 0.5, '06:00 - 21:30', ST_GeomFromText('POINT Z (106.80220 10.87040 0.5)', 4326)),
-('Trụ ATM BIDV / Vietcombank Cổng trường', 'ATM', NULL, 1, 1.0, '24/7', ST_GeomFromText('POINT Z (106.80285 10.87055 1.0)', 4326)),
+('Trụ ATM ngoài Cổng A', 'ATM', NULL, 1, 1.0, '24/7', ST_GeomFromText('POINT Z (106.80197 10.87035 1.0)', 4326)), -- TODO: kiểm chứng thực địa (tọa độ ước lượng, chưa rõ ngân hàng)
 ('Cây nước uống nóng lạnh Tầng 1 Tòa C', 'Water', 3, 1, 1.2, '24/7', ST_GeomFromText('POINT Z (106.80289 10.86981 1.2)', 4326)),
 ('Cây nước uống nóng lạnh Tầng 3 Tòa C', 'Water', 3, 3, 8.8, '24/7', ST_GeomFromText('POINT Z (106.80289 10.86981 8.8)', 4326)),
 ('Phòng Y tế Sinh viên', 'Medical', 1, 1, 1.0, '07:30 - 16:30', ST_GeomFromText('POINT Z (106.80265 10.87015 1.0)', 4326));

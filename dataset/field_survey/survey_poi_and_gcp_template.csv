@@ -8,7 +8,7 @@ P006,POI,Gate,Cổng 1 (Cổng A - Đường Hàn Thuyên),,1,10.8704376,106.802
 P007,POI,Gate,Cổng 2 (Cổng B),,1,10.8689966,106.8039237,,,"OSM gate 11303698308","Kiểm chứng thực địa bằng GPS"
 P008,POI,Sport,Sân Bóng UIT,,1,10.8690826,106.8035092,,,"OSM way 695034808","Kèm Sân Bóng Chuyền (10.869146,106.803080) & Bóng Rổ (10.869118,106.802870)"
 P009,POI,Library,Thư viện ĐH CNTT,A,1,10.8706604,106.8030239,,,"OSM node 2645632780","Kiểm chứng số tầng và giờ mở cửa thư viện"
-P010,POI,ATM,Trụ ATM Cổng A (Đường Hàn Thuyên),,1,10.8703800,106.8019800,,24/7,"Sơ đồ khảo sát & OSM gate 11303698309","TODO: kiểm chứng thực địa – nằm ngoài đường bên ngoài Cổng A, bên phải, phía trước khu bảo vệ Cổng A"
+P010,POI,ATM,Trụ ATM ngoài Cổng A (Đường Hàn Thuyên),,1,10.87035,106.80197,,24/7,"Ước lượng từ OSM gate 11303698309 + mô tả người dùng","TODO: kiểm chứng thực địa (GPS, tên ngân hàng). Bên phải Cổng A nhìn từ ngoài vào, trước chốt bảo vệ"
 P011,POI,Water,Máy bán nước tự động Tầng 1 Tòa A,A,1,10.8705350,106.8030350,,24/7,"Sơ đồ Tầng 1 Tòa A & OSM way 259211695","TODO: kiểm chứng thực địa – hành lang nối Thư viện UIT và phòng A.127 (cạnh cầu thang Thư viện Tầng 1)"
 P012,POI,Medical,Phòng Y tế Sinh viên,,1,,,,,"Chờ đo thực địa","MỚI - kiểm tra nằm ở tòa nào, tầng mấy"
 GCP01,GCP,ControlPoint,Góc Tây Tòa C (gần Tòa E),C,1,,,,,"Chờ đo thực địa","QUAN TRỌNG: OSM thiếu footprint Tòa C - đứng góc thoáng đo GPS 30-60s"
