@@ -51,7 +51,8 @@ const LIGHTING_CONFIG = {
     glassColor: '#3E6A8F',
     slabColor: '#E6E1D6',
     treeColor: '#4F7A3A',
-    shadow: { az: 135, len: 0.7, opacity: 0.32 },
+    shadow: { az: 290, len: 0.9, opacity: 0.32 },
+    lampHeadColor: '#2B2F36',
     lampGlowOpacity: 0,
     rasterBrightness: 1,
     nightIcon: false,
@@ -68,7 +69,8 @@ const LIGHTING_CONFIG = {
     glassColor: '#4A5878',
     slabColor: '#D9C7B0',
     treeColor: '#5A6B38',
-    shadow: { az: 100, len: 1.8, opacity: 0.38 },
+    shadow: { az: 255, len: 1.0, opacity: 0.38 },
+    lampHeadColor: '#3A3530',
     lampGlowOpacity: 0,
     rasterBrightness: 1,
     nightIcon: false,
@@ -86,6 +88,7 @@ const LIGHTING_CONFIG = {
     slabColor: '#3A4250',
     treeColor: '#22331F',
     shadow: { az: 135, len: 0, opacity: 0 },
+    lampHeadColor: '#FFD58A',
     lampGlowOpacity: 0.85,
     rasterBrightness: 0.55,
     nightIcon: true,
@@ -358,6 +361,9 @@ function setLighting(mode) {
   }
   if (map.getLayer('tree-crowns-top')) {
     map.setPaintProperty('tree-crowns-top', 'fill-extrusion-color', cfg.treeColor);
+  }
+  if (map.getLayer('lamp-heads')) {
+    map.setPaintProperty('lamp-heads', 'fill-extrusion-color', cfg.lampHeadColor);
   }
   if (map.getSource('building-shadows') && cachedBuildingsFc) {
     map.getSource('building-shadows').setData(buildShadowFc(cachedBuildingsFc, key));
@@ -1298,6 +1304,14 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc, extrasFc) {
       properties: {},
     })),
   };
+  const lampHeadsFc = {
+    type: 'FeatureCollection',
+    features: lampPoints.map(([lng, lat]) => ({
+      type: 'Feature',
+      geometry: pointToPolygon(lng, lat, 0.45, 6),
+      properties: {},
+    })),
+  };
   const treeTrunksFc = {
     type: 'FeatureCollection',
     features: treePoints.map(([lng, lat]) => ({
@@ -1352,6 +1366,7 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc, extrasFc) {
   });
   map.addSource('building-floors', { type: 'geojson', data: buildFloorParts(buildingsFc) });
   map.addSource('lamp-posts', { type: 'geojson', data: lampPostsFc });
+  map.addSource('lamp-heads', { type: 'geojson', data: lampHeadsFc });
   map.addSource('tree-trunks', { type: 'geojson', data: treeTrunksFc });
   map.addSource('tree-crowns', { type: 'geojson', data: treeCrownsFc });
   map.addSource('rooms', { type: 'geojson', data: roomsFc });
@@ -1502,6 +1517,17 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc, extrasFc) {
       'fill-extrusion-color': '#2B2F36',
       'fill-extrusion-base': GROUND_Z + 0.2,
       'fill-extrusion-height': GROUND_Z + 6,
+    },
+  });
+
+  map.addLayer({
+    id: 'lamp-heads',
+    type: 'fill-extrusion',
+    source: 'lamp-heads',
+    paint: {
+      'fill-extrusion-color': cfg.lampHeadColor,
+      'fill-extrusion-base': GROUND_Z + 5.6,
+      'fill-extrusion-height': GROUND_Z + 6.2,
     },
   });
 
@@ -1776,6 +1802,13 @@ function createBuildingAGlbLayer(props, onGlbDone) {
       loader.load(
         props.glb_model_url,
         (gltf) => {
+          gltf.scene.traverse((mesh) => {
+            if (!mesh.isMesh || !mesh.geometry) return;
+            if (!mesh.geometry.attributes.normal) {
+              mesh.geometry.computeVertexNormals();
+            }
+            mesh.material = new THREE.MeshLambertMaterial({ vertexColors: true });
+          });
           scene.add(gltf.scene);
           mapInstance.triggerRepaint();
           if (onGlbDone) onGlbDone();
