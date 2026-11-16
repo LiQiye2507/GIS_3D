@@ -1,4 +1,5 @@
 const API = 'http://localhost:8000';
+const GROUND_Z = 4;
 const DEFAULT_CENTER = [106.80333, 10.87002];
 const DEFAULT_ZOOM = 17.6;
 const DEFAULT_PITCH = 55;
@@ -44,10 +45,13 @@ const LIGHTING_CONFIG = {
     light: { anchor: 'map', color: '#ffffff', intensity: 0.45, position: [1.15, 210, 30] },
     groundColor: '#6B7A4A',
     pathColor: '#D9D2C3',
+    asphaltColor: '#4A4038',
+    curbColor: '#D9D2C3',
     buildingColor: '#2E4A66',
     glassColor: '#3E6A8F',
     slabColor: '#E6E1D6',
     treeColor: '#4F7A3A',
+    shadow: { az: 135, len: 0.7, opacity: 0.32 },
     lampGlowOpacity: 0,
     rasterBrightness: 1,
     nightIcon: false,
@@ -58,10 +62,13 @@ const LIGHTING_CONFIG = {
     light: { anchor: 'map', color: '#FFB27A', intensity: 0.55, position: [1.15, 260, 20] },
     groundColor: '#6E6A45',
     pathColor: '#D8C3A8',
+    asphaltColor: '#4D3F34',
+    curbColor: '#D8C3A8',
     buildingColor: '#3A4560',
     glassColor: '#4A5878',
     slabColor: '#D9C7B0',
     treeColor: '#5A6B38',
+    shadow: { az: 100, len: 1.8, opacity: 0.38 },
     lampGlowOpacity: 0,
     rasterBrightness: 1,
     nightIcon: false,
@@ -72,10 +79,13 @@ const LIGHTING_CONFIG = {
     light: { anchor: 'map', color: '#C8D0E6', intensity: 0.32, position: [1.15, 210, 30] },
     groundColor: '#2F3A2A',
     pathColor: '#7D7A72',
+    asphaltColor: '#24211F',
+    curbColor: '#5E5B55',
     buildingColor: '#1C2738',
     glassColor: '#E2B866',
     slabColor: '#3A4250',
     treeColor: '#22331F',
+    shadow: { az: 135, len: 0, opacity: 0 },
     lampGlowOpacity: 0.85,
     rasterBrightness: 0.55,
     nightIcon: true,
@@ -101,6 +111,7 @@ let isPickingLocation = false;
 let userPos = null;
 let userMarker = null;
 let buildingsList = [];
+let cachedBuildingsFc = null;
 let selectedBuildingIndex = -1;
 let defaultPlacesCount = '00';
 let defaultPlacesSummary = '0 ĐỊA ĐIỂM · 0 TIỆN ÍCH';
@@ -303,6 +314,7 @@ const map = new maplibregl.Map({
 });
 
 map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+map.setPadding({ top: 60, bottom: 110, left: 0, right: 0 });
 
 function setLayerVisibility(id, visible) {
   if (map.getLayer(id)) {
@@ -332,14 +344,29 @@ function setLighting(mode) {
   if (map.getLayer('campus-ground')) {
     map.setPaintProperty('campus-ground', 'fill-extrusion-color', cfg.groundColor);
   }
-  if (map.getLayer('campus-paths')) {
-    map.setPaintProperty('campus-paths', 'line-color', cfg.pathColor);
+  if (map.getLayer('road-curb')) {
+    map.setPaintProperty('road-curb', 'fill-extrusion-color', cfg.curbColor);
+  }
+  if (map.getLayer('road-asphalt')) {
+    map.setPaintProperty('road-asphalt', 'fill-extrusion-color', cfg.asphaltColor);
+  }
+  if (map.getLayer('footway')) {
+    map.setPaintProperty('footway', 'fill-extrusion-color', cfg.pathColor);
   }
   if (map.getLayer('tree-crowns')) {
     map.setPaintProperty('tree-crowns', 'fill-extrusion-color', cfg.treeColor);
   }
-  if (map.getLayer('lamp-glow')) {
-    map.setPaintProperty('lamp-glow', 'circle-opacity', cfg.lampGlowOpacity);
+  if (map.getLayer('tree-crowns-top')) {
+    map.setPaintProperty('tree-crowns-top', 'fill-extrusion-color', cfg.treeColor);
+  }
+  if (map.getSource('building-shadows') && cachedBuildingsFc) {
+    map.getSource('building-shadows').setData(buildShadowFc(cachedBuildingsFc, key));
+  }
+  if (map.getLayer('building-shadows')) {
+    map.setPaintProperty('building-shadows', 'fill-extrusion-opacity', cfg.shadow.opacity);
+  }
+  if (map.getLayer('campus-extras')) {
+    map.setPaintProperty('campus-extras', 'fill-extrusion-color', getExtrasColorExpr(key));
   }
   updateBuildingWallColors();
   if (map.getLayer('satellite-layer')) {
@@ -465,15 +492,16 @@ function getFeatureCenter(feature) {
 
 function buildFloorParts(buildingsFc) {
   const features = [];
+  const baseZ = GROUND_Z + 0.2;
   (buildingsFc.features || []).forEach((feat) => {
     const props = feat.properties || {};
     if (props.building_code === 'A') return;
     const n = Number(props.total_floors) || 1;
-    const top = Number(props.height_m) || 10;
-    const fh = (top - 1.2) / n;
+    const top = (Number(props.height_m) || 10) + GROUND_Z;
+    const fh = (top - baseZ) / n;
     for (let k = 0; k < n; k += 1) {
-      const glassBase = 1.2 + k * fh;
-      const slabTop = 1.2 + (k + 1) * fh;
+      const glassBase = baseZ + k * fh;
+      const slabTop = baseZ + (k + 1) * fh;
       const slabBase = Math.max(glassBase, slabTop - 0.6);
       features.push({
         type: 'Feature',
@@ -835,7 +863,6 @@ function buildRoute3dPolygons(routeFc) {
   const features = [];
   routeFc.features.forEach((feat) => {
     const { path_type: pathType } = feat.properties;
-    if (pathType !== 'Corridor' && pathType !== 'Stairs') return;
     const coords = feat.geometry && feat.geometry.coordinates;
     if (!coords || coords.length < 2) return;
 
@@ -851,7 +878,8 @@ function buildRoute3dPolygons(routeFc) {
 
       const offLng = ((-dy / len) * 0.4) / mPerDegLng;
       const offLat = ((dx / len) * 0.4) / 111320;
-      const base = p1[2] ?? 0;
+      const rawZ = p1[2] ?? 0;
+      const base = GROUND_Z + (pathType === 'Walkway' ? Math.max(0.36, rawZ) : rawZ);
 
       features.push({
         type: 'Feature',
@@ -1110,20 +1138,158 @@ function pointToPolygon(lng, lat, radiusM, sides = 8) {
   return { type: 'Polygon', coordinates: [ring] };
 }
 
-function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
+function buildRoadPolygons(pathsFc, widthFor, boundaryGeom = null) {
+  const features = [];
+  const halfScale = 0.5;
+  (pathsFc && pathsFc.features ? pathsFc.features : []).forEach((feat) => {
+    const hw = (feat.properties && feat.properties.highway) || '';
+    const w = widthFor(hw);
+    if (!w || w <= 0) return;
+    const geom = feat.geometry;
+    if (!geom) return;
+    const lines = geom.type === 'MultiLineString'
+      ? geom.coordinates
+      : geom.type === 'LineString' ? [geom.coordinates] : [];
+
+    lines.forEach((coords) => {
+      if (!coords || coords.length < 2) return;
+      const seenNodes = new Set();
+      for (let i = 0; i < coords.length - 1; i += 1) {
+        const p1 = coords[i];
+        const p2 = coords[i + 1];
+        if (boundaryGeom && (!pointInPolygonGeom(p1, boundaryGeom) || !pointInPolygonGeom(p2, boundaryGeom))) {
+          continue;
+        }
+        const midLatRad = (((p1[1] + p2[1]) / 2) * Math.PI) / 180;
+        const mPerDegLng = 111320 * Math.cos(midLatRad);
+        const dx = (p2[0] - p1[0]) * mPerDegLng;
+        const dy = (p2[1] - p1[1]) * 110540;
+        const len = Math.hypot(dx, dy);
+        if (len < 0.05) continue;
+
+        const halfW = w * halfScale;
+        const offLng = ((-dy / len) * halfW) / mPerDegLng;
+        const offLat = ((dx / len) * halfW) / 110540;
+        features.push({
+          type: 'Feature',
+          properties: { highway: hw },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [p1[0] + offLng, p1[1] + offLat],
+              [p2[0] + offLng, p2[1] + offLat],
+              [p2[0] - offLng, p2[1] - offLat],
+              [p1[0] - offLng, p1[1] - offLat],
+              [p1[0] + offLng, p1[1] + offLat],
+            ]],
+          },
+        });
+
+        [p1, p2].forEach((pt) => {
+          const key = `${pt[0]},${pt[1]}`;
+          if (seenNodes.has(key)) return;
+          seenNodes.add(key);
+          features.push({
+            type: 'Feature',
+            properties: { highway: hw },
+            geometry: pointToPolygon(pt[0], pt[1], halfW, 8),
+          });
+        });
+      }
+    });
+  });
+  return { type: 'FeatureCollection', features };
+}
+
+function buildShadowFc(buildingsFc, mode) {
+  const cfg = LIGHTING_CONFIG[mode] || LIGHTING_CONFIG.day;
+  const shadow = cfg.shadow || { az: 135, len: 0, opacity: 0 };
+  if (!shadow.opacity || !shadow.len) return EMPTY_FC;
+
+  const rad = ((shadow.az ?? 135) * Math.PI) / 180;
+  const sinAz = Math.sin(rad);
+  const cosAz = Math.cos(rad);
+  const features = [];
+
+  (buildingsFc && buildingsFc.features ? buildingsFc.features : []).forEach((feat) => {
+    const geom = feat.geometry;
+    if (!geom) return;
+    const h = Number(feat.properties && feat.properties.height_m) || 10;
+    const dist = h * shadow.len;
+    const dxM = dist * sinAz;
+    const dyM = dist * cosAz;
+
+    const rings = geom.type === 'Polygon'
+      ? [geom.coordinates[0]]
+      : geom.type === 'MultiPolygon'
+        ? geom.coordinates.map((poly) => poly[0])
+        : [];
+
+    rings.forEach((ring) => {
+      if (!ring || ring.length < 3) return;
+      const refLat = ring[0][1];
+      const dLng = dxM / (111320 * Math.cos((refLat * Math.PI) / 180));
+      const dLat = dyM / 110540;
+
+      for (let i = 0; i < ring.length - 1; i += 1) {
+        const p = ring[i];
+        const q = ring[i + 1];
+        if (p[0] === q[0] && p[1] === q[1]) continue;
+        features.push({
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              p,
+              q,
+              [q[0] + dLng, q[1] + dLat],
+              [p[0] + dLng, p[1] + dLat],
+              p,
+            ]],
+          },
+        });
+      }
+
+      features.push({
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'Polygon',
+          coordinates: [ring.map(([lng, lat]) => [lng + dLng, lat + dLat])],
+        },
+      });
+    });
+  });
+
+  return { type: 'FeatureCollection', features };
+}
+
+function getExtrasColorExpr(mode) {
+  const cfg = LIGHTING_CONFIG[mode] || LIGHTING_CONFIG.day;
+  const isNight = mode === 'night';
+  return [
+    'match',
+    ['get', 'kind'],
+    'court', isNight ? '#2C4A6E' : '#4F86C6',
+    'parking', isNight ? '#2C4A6E' : '#5B8FD0',
+    'building', cfg.slabColor,
+    cfg.slabColor,
+  ];
+}
+
+function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc, extrasFc) {
+  cachedBuildingsFc = buildingsFc;
   roomsByCode = new Map(roomsFc.features.map((f) => [f.properties.room_code, f.properties]));
 
   const lampPoints = samplePathPoints(pathsFc, 25, 4, buildingsFc, boundaryFc);
-  const treePoints = samplePathPoints(pathsFc, 18, 7, buildingsFc, boundaryFc);
+  const treePoints = samplePathPoints(pathsFc, 32, 7, buildingsFc, boundaryFc).filter(([lng, lat]) => {
+    const mPerDegLng = 111320 * Math.cos((lat * Math.PI) / 180);
+    return lampPoints.every(([lLng, lLat]) =>
+      Math.hypot((lng - lLng) * mPerDegLng, (lat - lLat) * 110540) >= 3
+    );
+  });
 
-  const lampGlowFc = {
-    type: 'FeatureCollection',
-    features: lampPoints.map(([lng, lat]) => ({
-      type: 'Feature',
-      geometry: { type: 'Point', coordinates: [lng, lat] },
-      properties: {},
-    })),
-  };
   const lampPostsFc = {
     type: 'FeatureCollection',
     features: lampPoints.map(([lng, lat]) => ({
@@ -1142,19 +1308,50 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
   };
   const treeCrownsFc = {
     type: 'FeatureCollection',
-    features: treePoints.map(([lng, lat]) => ({
-      type: 'Feature',
-      geometry: pointToPolygon(lng, lat, 2.2, 8),
-      properties: {},
-    })),
+    features: treePoints.flatMap(([lng, lat], i) => {
+      const r = 1.8 + (i % 3) * 0.5;
+      return [
+        {
+          type: 'Feature',
+          geometry: pointToPolygon(lng, lat, r, 8),
+          properties: { r, part: 'base' },
+        },
+        {
+          type: 'Feature',
+          geometry: pointToPolygon(lng, lat, r * 0.65, 8),
+          properties: { r: r * 0.65, part: 'top' },
+        },
+      ];
+    }),
   };
 
+  const boundaryGeom = boundaryFc && boundaryFc.features && boundaryFc.features[0]
+    ? boundaryFc.features[0].geometry
+    : null;
+  const isVehicular = (hw) => hw === 'residential' || hw === 'service';
+
   map.addSource('campus-boundary', { type: 'geojson', data: boundaryFc });
+  map.addSource('campus-extras', { type: 'geojson', data: extrasFc || EMPTY_FC });
   map.addSource('campus-paths', { type: 'geojson', data: pathsFc });
+  map.addSource('road-curb', {
+    type: 'geojson',
+    data: buildRoadPolygons(pathsFc, (hw) => (isVehicular(hw) ? 9 : 0), boundaryGeom),
+  });
+  map.addSource('road-asphalt', {
+    type: 'geojson',
+    data: buildRoadPolygons(pathsFc, (hw) => (isVehicular(hw) ? 7 : 0), boundaryGeom),
+  });
+  map.addSource('footway', {
+    type: 'geojson',
+    data: buildRoadPolygons(pathsFc, (hw) => (isVehicular(hw) ? 0 : 3.5), boundaryGeom),
+  });
   map.addSource('buildings', { type: 'geojson', data: buildingsFc });
+  map.addSource('building-shadows', {
+    type: 'geojson',
+    data: buildShadowFc(buildingsFc, currentLighting),
+  });
   map.addSource('building-floors', { type: 'geojson', data: buildFloorParts(buildingsFc) });
   map.addSource('lamp-posts', { type: 'geojson', data: lampPostsFc });
-  map.addSource('lamp-glow', { type: 'geojson', data: lampGlowFc });
   map.addSource('tree-trunks', { type: 'geojson', data: treeTrunksFc });
   map.addSource('tree-crowns', { type: 'geojson', data: treeCrownsFc });
   map.addSource('rooms', { type: 'geojson', data: roomsFc });
@@ -1164,18 +1361,15 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
   map.addSource('route-3d', { type: 'geojson', data: EMPTY_FC });
 
   const cfg = LIGHTING_CONFIG[currentLighting];
-  const boundaryGeom = boundaryFc && boundaryFc.features && boundaryFc.features[0]
-    ? boundaryFc.features[0].geometry
-    : null;
 
   map.addLayer({
     id: 'campus-plinth',
     type: 'fill-extrusion',
     source: 'campus-boundary',
     paint: {
-      'fill-extrusion-color': '#1A1F26',
+      'fill-extrusion-color': '#1C1A17',
       'fill-extrusion-base': 0,
-      'fill-extrusion-height': 1.0,
+      'fill-extrusion-height': GROUND_Z,
     },
   });
 
@@ -1185,68 +1379,89 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
     source: 'campus-boundary',
     paint: {
       'fill-extrusion-color': cfg.groundColor,
-      'fill-extrusion-base': 1.0,
-      'fill-extrusion-height': 1.2,
+      'fill-extrusion-base': GROUND_Z,
+      'fill-extrusion-height': GROUND_Z + 0.2,
       'fill-extrusion-vertical-gradient': true,
     },
   });
 
   map.addLayer({
-    id: 'campus-paths',
-    type: 'line',
-    source: 'campus-paths',
-    ...(boundaryGeom ? { filter: ['within', boundaryGeom] } : {}),
-    layout: {
-      'line-cap': 'round',
-      'line-join': 'round',
-    },
+    id: 'road-curb',
+    type: 'fill-extrusion',
+    source: 'road-curb',
     paint: {
-      'line-color': cfg.pathColor,
-      'line-width': ['interpolate', ['exponential', 2], ['zoom'], 15, 1, 17, 3, 18, 6, 19, 12, 20, 24],
+      'fill-extrusion-color': cfg.curbColor,
+      'fill-extrusion-base': GROUND_Z + 0.2,
+      'fill-extrusion-height': GROUND_Z + 0.3,
     },
   });
 
   map.addLayer({
-    id: 'lamp-glow',
-    type: 'circle',
-    source: 'lamp-glow',
+    id: 'footway',
+    type: 'fill-extrusion',
+    source: 'footway',
     paint: {
-      'circle-color': '#FFD58A',
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 17, 3, 20, 14],
-      'circle-blur': 1,
-      'circle-opacity': cfg.lampGlowOpacity,
+      'fill-extrusion-color': cfg.pathColor,
+      'fill-extrusion-base': GROUND_Z + 0.2,
+      'fill-extrusion-height': GROUND_Z + 0.3,
     },
   });
 
   map.addLayer({
-    id: 'buildings-2d',
-    type: 'fill',
-    source: 'buildings',
+    id: 'road-asphalt',
+    type: 'fill-extrusion',
+    source: 'road-asphalt',
     paint: {
-      'fill-color': '#94A3B8',
-      'fill-opacity': 0.22,
-      'fill-outline-color': '#475569',
+      'fill-extrusion-color': cfg.asphaltColor,
+      'fill-extrusion-base': GROUND_Z + 0.2,
+      'fill-extrusion-height': GROUND_Z + 0.35,
+    },
+  });
+
+  map.addLayer({
+    id: 'building-shadows',
+    type: 'fill-extrusion',
+    source: 'building-shadows',
+    paint: {
+      'fill-extrusion-color': '#000',
+      'fill-extrusion-base': GROUND_Z + 0.36,
+      'fill-extrusion-height': GROUND_Z + 0.37,
+      'fill-extrusion-opacity': cfg.shadow.opacity,
+    },
+  });
+
+  map.addLayer({
+    id: 'campus-extras',
+    type: 'fill-extrusion',
+    source: 'campus-extras',
+    paint: {
+      'fill-extrusion-color': getExtrasColorExpr(currentLighting),
+      'fill-extrusion-base': [
+        'match',
+        ['get', 'kind'],
+        'parking', GROUND_Z + 2.6,
+        GROUND_Z + 0.2,
+      ],
+      'fill-extrusion-height': [
+        'match',
+        ['get', 'kind'],
+        'court', GROUND_Z + 0.4,
+        'parking', GROUND_Z + 2.9,
+        'building', ['+', GROUND_Z + 0.2, ['coalesce', ['get', 'height_m'], 3.8]],
+        GROUND_Z + 0.4,
+      ],
     },
   });
 
   map.addLayer({
     id: 'radius-circle',
-    type: 'fill',
+    type: 'fill-extrusion',
     source: 'radius-circle',
     paint: {
-      'fill-color': '#2563EB',
-      'fill-opacity': 0.14,
-    },
-  });
-
-  map.addLayer({
-    id: 'radius-circle-line',
-    type: 'line',
-    source: 'radius-circle',
-    paint: {
-      'line-color': '#60A5FA',
-      'line-width': 2,
-      'line-dasharray': [2, 2],
+      'fill-extrusion-color': '#2563EB',
+      'fill-extrusion-base': GROUND_Z + 0.2,
+      'fill-extrusion-height': GROUND_Z + 0.35,
+      'fill-extrusion-opacity': 0.35,
     },
   });
 
@@ -1274,8 +1489,8 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
         'C', '#F2B98E',
         '#E6E1D6',
       ],
-      'fill-extrusion-base': ['-', ['coalesce', ['get', 'height_m'], 10], 0.4],
-      'fill-extrusion-height': ['+', ['coalesce', ['get', 'height_m'], 10], 0.05],
+      'fill-extrusion-base': ['+', GROUND_Z - 0.4, ['coalesce', ['get', 'height_m'], 10]],
+      'fill-extrusion-height': ['+', GROUND_Z + 0.05, ['coalesce', ['get', 'height_m'], 10]],
     },
   });
 
@@ -1285,8 +1500,8 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
     source: 'lamp-posts',
     paint: {
       'fill-extrusion-color': '#2B2F36',
-      'fill-extrusion-base': 1.2,
-      'fill-extrusion-height': 6,
+      'fill-extrusion-base': GROUND_Z + 0.2,
+      'fill-extrusion-height': GROUND_Z + 6,
     },
   });
 
@@ -1296,8 +1511,8 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
     source: 'tree-trunks',
     paint: {
       'fill-extrusion-color': '#5A4632',
-      'fill-extrusion-base': 1.2,
-      'fill-extrusion-height': 3,
+      'fill-extrusion-base': GROUND_Z + 0.2,
+      'fill-extrusion-height': GROUND_Z + 3,
     },
   });
 
@@ -1305,10 +1520,23 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
     id: 'tree-crowns',
     type: 'fill-extrusion',
     source: 'tree-crowns',
+    filter: ['==', ['get', 'part'], 'base'],
     paint: {
       'fill-extrusion-color': cfg.treeColor,
-      'fill-extrusion-base': 3,
-      'fill-extrusion-height': 7.5,
+      'fill-extrusion-base': GROUND_Z + 3,
+      'fill-extrusion-height': GROUND_Z + 6,
+    },
+  });
+
+  map.addLayer({
+    id: 'tree-crowns-top',
+    type: 'fill-extrusion',
+    source: 'tree-crowns',
+    filter: ['==', ['get', 'part'], 'top'],
+    paint: {
+      'fill-extrusion-color': cfg.treeColor,
+      'fill-extrusion-base': GROUND_Z + 6,
+      'fill-extrusion-height': GROUND_Z + 7.5,
     },
   });
 
@@ -1329,8 +1557,8 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
         ['Stairs', 'WC'], ROOM_COLORS.Stairs,
         '#64748B',
       ],
-      'fill-extrusion-base': ['get', 'base_height'],
-      'fill-extrusion-height': ['get', 'extrude_height'],
+      'fill-extrusion-base': ['+', GROUND_Z, ['get', 'base_height']],
+      'fill-extrusion-height': ['+', GROUND_Z, ['get', 'extrude_height']],
       'fill-extrusion-opacity': 0.92,
     },
   });
@@ -1343,8 +1571,8 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
     layout: { visibility: 'none' },
     paint: {
       'fill-extrusion-color': '#EAB308',
-      'fill-extrusion-base': ['get', 'base_height'],
-      'fill-extrusion-height': ['get', 'extrude_height'],
+      'fill-extrusion-base': ['+', GROUND_Z, ['get', 'base_height']],
+      'fill-extrusion-height': ['+', GROUND_Z, ['get', 'extrude_height']],
       'fill-extrusion-opacity': 0.98,
     },
   });
@@ -1357,24 +1585,13 @@ function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
     filter: ['==', ['get', 'building_code'], 'A'],
     paint: {
       'fill-extrusion-color': cfg.buildingColor,
-      'fill-extrusion-base': 1.2,
-      'fill-extrusion-height': ['coalesce', ['get', 'height_m'], 12],
+      'fill-extrusion-base': GROUND_Z + 0.2,
+      'fill-extrusion-height': ['+', GROUND_Z, ['coalesce', ['get', 'height_m'], 12]],
       'fill-extrusion-opacity': 0.9,
     },
   });
 
   const routeVis = document.getElementById('toggle-route').checked ? 'visible' : 'none';
-  map.addLayer({
-    id: 'route-line',
-    type: 'line',
-    source: 'route',
-    layout: { visibility: routeVis, 'line-cap': 'round', 'line-join': 'round' },
-    paint: {
-      'line-color': '#EF4444',
-      'line-width': 5,
-    },
-  });
-
   map.addLayer({
     id: 'route-3d',
     type: 'fill-extrusion',
@@ -1516,9 +1733,7 @@ document.getElementById('btn-fullscreen').addEventListener('click', () => {
 });
 
 document.getElementById('toggle-route').addEventListener('change', (e) => {
-  const visible = e.target.checked;
-  setLayerVisibility('route-line', visible);
-  setLayerVisibility('route-3d', visible);
+  setLayerVisibility('route-3d', e.target.checked);
 });
 
 document.getElementById('toggle-amenities').addEventListener('change', (e) => {
@@ -1528,7 +1743,7 @@ document.getElementById('toggle-amenities').addEventListener('change', (e) => {
 function createBuildingAGlbLayer(props, onGlbDone) {
   const origin = maplibregl.MercatorCoordinate.fromLngLat(
     [Number(props.anchor_lng), Number(props.anchor_lat)],
-    0
+    GROUND_Z
   );
   const s = origin.meterInMercatorCoordinateUnits();
   const rotYRad = ((Number(props.model_rotation) || 0) * Math.PI) / 180;
@@ -1615,7 +1830,7 @@ updateRadiusVisual();
 map.on('load', async () => {
   markIntroStep('map');
   try {
-    const [buildingsFc, roomsFc, amenitiesFc, boundaryFc, pathsFc] = await Promise.all([
+    const [buildingsFc, roomsFc, amenitiesFc, boundaryFc, pathsFc, extrasFc] = await Promise.all([
       api('/api/buildings').finally(() => markIntroStep('buildings')),
       api('/api/rooms?building_code=A').finally(() => markIntroStep('rooms')),
       api('/api/amenities/nearby?lat=10.8700&lng=106.8030&radius=500').catch((err) => {
@@ -1630,8 +1845,11 @@ map.on('load', async () => {
         if (!res.ok) throw new Error(`Lỗi tải đường khuôn viên (${res.status})`);
         return res.json();
       }),
+      fetch('data/campus_extras.geojson')
+        .then((res) => (res.ok ? res.json() : EMPTY_FC))
+        .catch(() => EMPTY_FC),
     ]);
-    initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc);
+    initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc, extrasFc);
     renderBuildingsList(buildingsFc);
     const bCount = buildingsFc.features.length;
     const rCount = roomsFc.features.length;

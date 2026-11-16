@@ -1272,17 +1272,18 @@ body.light-night #map {
 
 /* HUD giữa dưới: Cách khám phá */
 #hud-bottom-center {
-  bottom: 38px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  text-align: center;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
   white-space: nowrap;
 }
 
 .explore-eyebrow {
   font-size: 10px;
   color: var(--ink-36);
-  margin-bottom: 5px;
 }
 
 .explore-guide {
