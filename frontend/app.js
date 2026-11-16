@@ -33,6 +33,8 @@ const AMENITY_COLORS = {
 const EMPTY_FC = { type: 'FeatureCollection', features: [] };
 
 let currentLod = 1;
+let prevLodBeforeLod2 = 1;
+let glbLoadFailed = false;
 let currentFloor = null;
 let loadingCount = 0;
 let toastTimer = null;
@@ -174,14 +176,20 @@ function applyHighlightFilter() {
 
 function applyLod(lod) {
   if (lod === 2) {
-    showToast('LOD 2 đang phát triển');
-    return;
+    if (!map.getLayer('building-a-glb') || glbLoadFailed) {
+      showToast('Không tải được mô hình LOD 2', true);
+      return;
+    }
+    if (currentLod !== 2) prevLodBeforeLod2 = currentLod;
   }
   currentLod = lod;
+  const showGlb = lod === 2;
   const showIndoor = lod === 3;
+  setLayerVisibility('building-a-glb', showGlb);
   setLayerVisibility('rooms-3d-layer', showIndoor);
   setLayerVisibility('room-highlight', showIndoor);
-  if (map.getLayer('building-a-shell')) {
+  setLayerVisibility('building-a-shell', !showGlb);
+  if (!showGlb && map.getLayer('building-a-shell')) {
     map.setPaintProperty('building-a-shell', 'fill-extrusion-opacity', showIndoor ? 0.15 : 0.9);
   }
   updateLodButtons();
@@ -668,6 +676,86 @@ document.getElementById('toggle-amenities').addEventListener('change', (e) => {
   setLayerVisibility('amenities-layer', e.target.checked);
 });
 
+function createBuildingAGlbLayer(props) {
+  const origin = maplibregl.MercatorCoordinate.fromLngLat(
+    [Number(props.anchor_lng), Number(props.anchor_lat)],
+    0
+  );
+  const s = origin.meterInMercatorCoordinateUnits();
+  const rotYRad = ((Number(props.model_rotation) || 0) * Math.PI) / 180;
+
+  let camera;
+  let scene;
+  let renderer;
+
+  return {
+    id: 'building-a-glb',
+    type: 'custom',
+    renderingMode: '3d',
+    layout: { visibility: 'none' },
+    onAdd(mapInstance, gl) {
+      if (typeof THREE === 'undefined' || !THREE.GLTFLoader) {
+        glbLoadFailed = true;
+        return;
+      }
+      camera = new THREE.Camera();
+      scene = new THREE.Scene();
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(80, 120, 60);
+      scene.add(directionalLight);
+
+      const loader = new THREE.GLTFLoader();
+      loader.load(
+        props.glb_model_url,
+        (gltf) => {
+          scene.add(gltf.scene);
+          mapInstance.triggerRepaint();
+        },
+        undefined,
+        () => {
+          glbLoadFailed = true;
+          if (currentLod === 2) {
+            showToast('Không tải được mô hình LOD 2', true);
+            applyLod(prevLodBeforeLod2);
+          }
+        }
+      );
+
+      renderer = new THREE.WebGLRenderer({
+        canvas: mapInstance.getCanvas(),
+        context: gl,
+        antialias: true,
+      });
+      renderer.autoClear = false;
+    },
+    render(gl, matrix) {
+      if (!renderer || !scene || !camera) return;
+      const rotationX = new THREE.Matrix4().makeRotationAxis(
+        new THREE.Vector3(1, 0, 0),
+        Math.PI / 2
+      );
+      const rotationY = new THREE.Matrix4().makeRotationAxis(
+        new THREE.Vector3(0, 1, 0),
+        rotYRad
+      );
+      const m = new THREE.Matrix4().fromArray(matrix);
+      const l = new THREE.Matrix4()
+        .makeTranslation(origin.x, origin.y, origin.z)
+        .scale(new THREE.Vector3(s, -s, s))
+        .multiply(rotationX)
+        .multiply(rotationY);
+
+      camera.projectionMatrix = m.multiply(l);
+      renderer.resetState();
+      renderer.render(scene, camera);
+      map.triggerRepaint();
+    },
+  };
+}
+
 map.on('load', async () => {
   try {
     const [buildingsFc, roomsFc] = await Promise.all([
@@ -676,6 +764,16 @@ map.on('load', async () => {
     ]);
     initLayers(buildingsFc, roomsFc);
     const buildingA = buildingsFc.features.find((f) => f.properties.building_code === 'A');
+    if (
+      buildingA &&
+      buildingA.properties.glb_model_url &&
+      buildingA.properties.anchor_lng != null &&
+      buildingA.properties.anchor_lat != null
+    ) {
+      map.addLayer(createBuildingAGlbLayer(buildingA.properties));
+      // Custom layer không tự đọc layout.visibility lúc addLayer trong MapLibre 4.7
+      setLayerVisibility('building-a-glb', false);
+    }
     const totalFloors = buildingA && buildingA.properties.total_floors ? buildingA.properties.total_floors : 3;
     renderFloorSwitcher(totalFloors);
   } catch (_) {
