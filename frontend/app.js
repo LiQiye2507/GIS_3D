@@ -1000,20 +1000,6 @@ function initLayers(buildingsFc, roomsFc, boundaryFc) {
     },
   });
 
-  // Tách lớp vỏ Tòa A riêng vì fill-extrusion-opacity không nhận expression theo thuộc tính
-  map.addLayer({
-    id: 'building-a-shell',
-    type: 'fill-extrusion',
-    source: 'buildings',
-    filter: ['==', ['get', 'building_code'], 'A'],
-    paint: {
-      'fill-extrusion-color': cfg.buildingColor,
-      'fill-extrusion-base': 1.2,
-      'fill-extrusion-height': ['coalesce', ['get', 'height_m'], 12],
-      'fill-extrusion-opacity': 0.9,
-    },
-  });
-
   map.addLayer({
     id: 'buildings-roof',
     type: 'fill-extrusion',
@@ -1065,6 +1051,20 @@ function initLayers(buildingsFc, roomsFc, boundaryFc) {
       'fill-extrusion-base': ['get', 'base_height'],
       'fill-extrusion-height': ['get', 'extrude_height'],
       'fill-extrusion-opacity': 0.98,
+    },
+  });
+
+  // Tách lớp vỏ Tòa A riêng vì fill-extrusion-opacity không nhận expression theo thuộc tính; đặt sau room-highlight để vỏ mờ không che phòng ở LOD 3
+  map.addLayer({
+    id: 'building-a-shell',
+    type: 'fill-extrusion',
+    source: 'buildings',
+    filter: ['==', ['get', 'building_code'], 'A'],
+    paint: {
+      'fill-extrusion-color': cfg.buildingColor,
+      'fill-extrusion-base': 1.2,
+      'fill-extrusion-height': ['coalesce', ['get', 'height_m'], 12],
+      'fill-extrusion-opacity': 0.9,
     },
   });
 
