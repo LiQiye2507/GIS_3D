@@ -1,0 +1,68 @@
+﻿building_code,floor_number,row_group,col_index,col_letter,element_type,room_code,room_name,room_type,capacity,base_height,extrude_height,special_label
+C,1,Hàng trên,1,A,Kho,C1-STORE1,Kho Tầng 1,WC,,0.0,3.5,
+C,1,Hàng trên,2,B,Cầu thang,C1-STAIR1,Cầu Thang Tầng 1,WC,,0.0,3.5,
+C,1,Hàng trên,3,C,Phòng,C113,Phòng C113 (Phòng WB),Theory,,0.0,3.5,Phòng WB
+C,1,Hàng trên,5,E,Phòng,C111,Phòng C111 (Phòng máy),Lab,,0.0,3.5,Phòng máy
+C,1,Hàng trên,6,F,Phòng,C109,Phòng C109 (Phòng máy),Lab,,0.0,3.5,Phòng máy
+C,1,Hàng trên,7,G,Phòng,C107,Phòng C107 (Phòng máy),Lab,,0.0,3.5,Phòng máy
+C,1,Hàng trên,8,H,Phòng,C105,Phòng C105 (Phòng LV),Office,,0.0,3.5,Phòng LV
+C,1,Hàng trên,9,I,Phòng,C103,Phòng C103 (Phòng LV),Office,,0.0,3.5,Phòng LV
+C,1,Hàng trên,10,J,Cầu thang,C1-STAIR2,Cầu Thang Tầng 1,WC,,0.0,3.5,
+C,1,Hàng trên,11,K,Phòng,C101,Phòng C101,Theory,,0.0,3.5,
+C,1,Hàng trên,12,L,WC,C1-WC1,WC Tầng 1,WC,,0.0,3.5,
+C,1,Hàng trên,13,M,Cầu thang,C1-STAIR3,Cầu Thang Tầng 1,WC,,0.0,3.5,
+C,1,Hàng giữa,1,A,WC,C1-WC2,WC Tầng 1,WC,,0.0,3.5,
+C,1,Hàng giữa,11,K,Hồ nước,C1-POOL1,HỒ NƯỚC Tầng 1,WC,,0.0,3.5,
+C,1,Hàng dưới,1,A,WC,C1-WC3,WC Tầng 1,WC,,0.0,3.5,
+C,1,Hàng dưới,3,C,Phòng,C110,Phòng C110 (Phòng WB),Theory,,0.0,3.5,Phòng WB
+C,1,Hàng dưới,5,E,Phòng,C108,Phòng C108 (Phòng WB),Theory,,0.0,3.5,Phòng WB
+C,1,Hàng dưới,6,F,Phòng,C106,Phòng C106 (Phòng WB),Theory,50,0.0,3.5,Phòng WB
+C,1,Hàng dưới,7,G,Phòng,C104,Phòng C104,Theory,170,0.0,3.5,
+C,1,Hàng dưới,11,K,Phòng,C102,Phòng C102,Theory,,0.0,3.5,
+C,2,Hàng trên,1,A,Kho,C2-STORE1,Kho Tầng 2,WC,,3.8,7.3,
+C,2,Hàng trên,2,B,Cầu thang,C2-STAIR1,Cầu Thang Tầng 2,WC,,3.8,7.3,
+C,2,Hàng trên,3,C,Phòng,C213,Phòng C213,Theory,120,3.8,7.3,
+C,2,Hàng trên,5,E,Phòng,C211,Phòng C211 (Phòng WB),Theory,80,3.8,7.3,Phòng WB
+C,2,Hàng trên,6,F,Phòng,C209,Phòng C209 (Phòng WB),Theory,50,3.8,7.3,Phòng WB
+C,2,Hàng trên,7,G,Phòng,C207,Phòng C207 (Phòng WB),Theory,50,3.8,7.3,Phòng WB
+C,2,Hàng trên,8,H,Phòng,C205,Phòng C205 (Phòng WB),Theory,80,3.8,7.3,Phòng WB
+C,2,Hàng trên,9,I,Phòng,C203,Phòng C203 (Phòng LV),Office,,3.8,7.3,Phòng LV
+C,2,Hàng trên,10,J,Cầu thang,C2-STAIR2,Cầu Thang Tầng 2,WC,,3.8,7.3,
+C,2,Hàng trên,11,K,Phòng,C201,Phòng C201,Theory,50,3.8,7.3,
+C,2,Hàng trên,12,L,WC,C2-WC1,WC Tầng 2,WC,,3.8,7.3,
+C,2,Hàng trên,13,M,Cầu thang,C2-STAIR3,Cầu Thang Tầng 2,WC,,3.8,7.3,
+C,2,Hàng giữa,1,A,WC,C2-WC2,WC Tầng 2,WC,,3.8,7.3,
+C,2,Hàng dưới,1,A,WC,C2-WC3,WC Tầng 2,WC,,3.8,7.3,
+C,2,Hàng dưới,3,C,Phòng,C218,Phòng C218,Theory,50,3.8,7.3,
+C,2,Hàng dưới,4,D,Phòng,C216,Phòng C216,Theory,50,3.8,7.3,
+C,2,Hàng dưới,5,E,Phòng,C214,Phòng C214,Theory,80,3.8,7.3,
+C,2,Hàng dưới,6,F,Phòng,C212,Phòng C212,Theory,50,3.8,7.3,
+C,2,Hàng dưới,7,G,Phòng,C210,Phòng C210,Theory,50,3.8,7.3,
+C,2,Hàng dưới,8,H,Phòng,C208,Phòng C208,Theory,50,3.8,7.3,
+C,2,Hàng dưới,9,I,Phòng,C206,Phòng C206,Theory,50,3.8,7.3,
+C,2,Hàng dưới,11,K,Phòng,C204,Phòng C204 (Phòng LV),Office,,3.8,7.3,Phòng LV
+C,2,Hàng dưới,12,L,Phòng,C202,Phòng C202,Theory,70,3.8,7.3,
+C,3,Hàng trên,1,A,Kho,C3-STORE1,Kho Tầng 3,WC,,7.6,11.1,
+C,3,Hàng trên,2,B,Cầu thang,C3-STAIR1,Cầu Thang Tầng 3,WC,,7.6,11.1,
+C,3,Hàng trên,3,C,Phòng,C315,Phòng C315,Theory,50,7.6,11.1,
+C,3,Hàng trên,4,D,Phòng,C313,Phòng C313,Theory,50,7.6,11.1,
+C,3,Hàng trên,5,E,Phòng,C311,Phòng C311,Theory,80,7.6,11.1,
+C,3,Hàng trên,6,F,Phòng,C309,Phòng C309,Theory,80,7.6,11.1,
+C,3,Hàng trên,7,G,Phòng,C307,Phòng C307,Theory,50,7.6,11.1,
+C,3,Hàng trên,8,H,Phòng,C305,Phòng C305,Theory,50,7.6,11.1,
+C,3,Hàng trên,9,I,Phòng,C303,Phòng C303 (Phòng LV),Office,,7.6,11.1,Phòng LV
+C,3,Hàng trên,10,J,Cầu thang,C3-STAIR2,Cầu Thang Tầng 3,WC,,7.6,11.1,
+C,3,Hàng trên,11,K,Phòng,C301,Phòng C301,Theory,50,7.6,11.1,
+C,3,Hàng trên,12,L,WC,C3-WC1,WC Tầng 3,WC,,7.6,11.1,
+C,3,Hàng trên,13,M,Cầu thang,C3-STAIR3,Cầu Thang Tầng 3,WC,,7.6,11.1,
+C,3,Hàng giữa,1,A,WC,C3-WC2,WC Tầng 3,WC,,7.6,11.1,
+C,3,Hàng dưới,1,A,WC,C3-WC3,WC Tầng 3,WC,,7.6,11.1,
+C,3,Hàng dưới,3,C,Phòng,C318,Phòng C318,Theory,50,7.6,11.1,
+C,3,Hàng dưới,4,D,Phòng,C316,Phòng C316,Theory,50,7.6,11.1,
+C,3,Hàng dưới,5,E,Phòng,C314,Phòng C314,Theory,80,7.6,11.1,
+C,3,Hàng dưới,6,F,Phòng,C312,Phòng C312,Theory,50,7.6,11.1,
+C,3,Hàng dưới,7,G,Phòng,C310,Phòng C310,Theory,50,7.6,11.1,
+C,3,Hàng dưới,8,H,Phòng,C308,Phòng C308,Theory,50,7.6,11.1,
+C,3,Hàng dưới,9,I,Phòng,C306,Phòng C306,Theory,50,7.6,11.1,
+C,3,Hàng dưới,11,K,Phòng,C304,Phòng C304 (Phòng LV),Office,,7.6,11.1,Phòng LV
+C,3,Hàng dưới,12,L,Phòng,C302,Phòng C302,Theory,70,7.6,11.1,

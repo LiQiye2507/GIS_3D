@@ -1,0 +1,113 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "base_height": 0.0,
+        "ceiling_height": 3.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027543,
+              10.8695883
+            ],
+            [
+              106.8037771,
+              10.8694926
+            ],
+            [
+              106.803796,
+              10.8696907
+            ],
+            [
+              106.8027733,
+              10.8697865
+            ],
+            [
+              106.8027543,
+              10.8695883
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "base_height": 3.8,
+        "ceiling_height": 7.6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027543,
+              10.8695883
+            ],
+            [
+              106.8037771,
+              10.8694926
+            ],
+            [
+              106.803796,
+              10.8696907
+            ],
+            [
+              106.8027733,
+              10.8697865
+            ],
+            [
+              106.8027543,
+              10.8695883
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "base_height": 7.6,
+        "ceiling_height": 11.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027543,
+              10.8695883
+            ],
+            [
+              106.8037771,
+              10.8694926
+            ],
+            [
+              106.803796,
+              10.8696907
+            ],
+            [
+              106.8027733,
+              10.8697865
+            ],
+            [
+              106.8027543,
+              10.8695883
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

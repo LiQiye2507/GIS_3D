@@ -1,0 +1,2819 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-STORE1",
+        "room_name": "Kho Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Kho",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027712,
+              10.869705
+            ],
+            [
+              106.8028469,
+              10.8696979
+            ],
+            [
+              106.8028542,
+              10.8697744
+            ],
+            [
+              106.8027785,
+              10.8697815
+            ],
+            [
+              106.8027712,
+              10.869705
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-STAIR1",
+        "room_name": "Cầu Thang Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8028492,
+              10.8696977
+            ],
+            [
+              106.8029249,
+              10.8696906
+            ],
+            [
+              106.8029322,
+              10.8697671
+            ],
+            [
+              106.8028565,
+              10.8697742
+            ],
+            [
+              106.8028492,
+              10.8696977
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C113",
+        "room_name": "Phòng C113 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029272,
+              10.8696904
+            ],
+            [
+              106.8030029,
+              10.8696833
+            ],
+            [
+              106.8030102,
+              10.8697598
+            ],
+            [
+              106.8029345,
+              10.8697669
+            ],
+            [
+              106.8029272,
+              10.8696904
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C111",
+        "room_name": "Phòng C111 (Phòng máy)",
+        "room_type": "Lab",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng máy"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8030831,
+              10.8696758
+            ],
+            [
+              106.8031588,
+              10.8696688
+            ],
+            [
+              106.8031661,
+              10.8697452
+            ],
+            [
+              106.8030904,
+              10.8697523
+            ],
+            [
+              106.8030831,
+              10.8696758
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C109",
+        "room_name": "Phòng C109 (Phòng máy)",
+        "room_type": "Lab",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng máy"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8031611,
+              10.8696685
+            ],
+            [
+              106.8032368,
+              10.8696615
+            ],
+            [
+              106.8032441,
+              10.8697379
+            ],
+            [
+              106.8031684,
+              10.869745
+            ],
+            [
+              106.8031611,
+              10.8696685
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C107",
+        "room_name": "Phòng C107 (Phòng máy)",
+        "room_type": "Lab",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng máy"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8032391,
+              10.8696612
+            ],
+            [
+              106.8033148,
+              10.8696542
+            ],
+            [
+              106.8033221,
+              10.8697306
+            ],
+            [
+              106.8032464,
+              10.8697377
+            ],
+            [
+              106.8032391,
+              10.8696612
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C105",
+        "room_name": "Phòng C105 (Phòng LV)",
+        "room_type": "Office",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng LV"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803317,
+              10.869654
+            ],
+            [
+              106.8033927,
+              10.8696469
+            ],
+            [
+              106.8034001,
+              10.8697233
+            ],
+            [
+              106.8033244,
+              10.8697304
+            ],
+            [
+              106.803317,
+              10.869654
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C103",
+        "room_name": "Phòng C103 (Phòng LV)",
+        "room_type": "Office",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng LV"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803395,
+              10.8696467
+            ],
+            [
+              106.8034707,
+              10.8696396
+            ],
+            [
+              106.803478,
+              10.869716
+            ],
+            [
+              106.8034023,
+              10.8697231
+            ],
+            [
+              106.803395,
+              10.8696467
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-STAIR2",
+        "room_name": "Cầu Thang Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803473,
+              10.8696394
+            ],
+            [
+              106.8035487,
+              10.8696323
+            ],
+            [
+              106.803556,
+              10.8697087
+            ],
+            [
+              106.8034803,
+              10.8697158
+            ],
+            [
+              106.803473,
+              10.8696394
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C101",
+        "room_name": "Phòng C101",
+        "room_type": "Theory",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803551,
+              10.8696321
+            ],
+            [
+              106.8036267,
+              10.869625
+            ],
+            [
+              106.803634,
+              10.8697014
+            ],
+            [
+              106.8035583,
+              10.8697085
+            ],
+            [
+              106.803551,
+              10.8696321
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-WC1",
+        "room_name": "WC Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8036289,
+              10.8696248
+            ],
+            [
+              106.8037046,
+              10.8696177
+            ],
+            [
+              106.803712,
+              10.8696941
+            ],
+            [
+              106.8036363,
+              10.8697012
+            ],
+            [
+              106.8036289,
+              10.8696248
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-STAIR3",
+        "room_name": "Cầu Thang Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8037069,
+              10.8696175
+            ],
+            [
+              106.8037826,
+              10.8696104
+            ],
+            [
+              106.8037899,
+              10.8696868
+            ],
+            [
+              106.8037142,
+              10.8696939
+            ],
+            [
+              106.8037069,
+              10.8696175
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-WC2",
+        "room_name": "WC Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.802768,
+              10.869671
+            ],
+            [
+              106.8028437,
+              10.8696639
+            ],
+            [
+              106.8028467,
+              10.8696957
+            ],
+            [
+              106.802771,
+              10.8697028
+            ],
+            [
+              106.802768,
+              10.869671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-POOL1",
+        "room_name": "HỒ NƯỚC Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Hồ nước",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8035477,
+              10.869598
+            ],
+            [
+              106.8036234,
+              10.8695909
+            ],
+            [
+              106.8036265,
+              10.8696227
+            ],
+            [
+              106.8035508,
+              10.8696298
+            ],
+            [
+              106.8035477,
+              10.869598
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C1-WC3",
+        "room_name": "WC Tầng 1",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027604,
+              10.8695923
+            ],
+            [
+              106.8028361,
+              10.8695852
+            ],
+            [
+              106.8028434,
+              10.8696616
+            ],
+            [
+              106.8027677,
+              10.8696687
+            ],
+            [
+              106.8027604,
+              10.8695923
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C110",
+        "room_name": "Phòng C110 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029164,
+              10.8695777
+            ],
+            [
+              106.8029921,
+              10.8695706
+            ],
+            [
+              106.8029994,
+              10.869647
+            ],
+            [
+              106.8029237,
+              10.8696541
+            ],
+            [
+              106.8029164,
+              10.8695777
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C108",
+        "room_name": "Phòng C108 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8030723,
+              10.8695631
+            ],
+            [
+              106.803148,
+              10.869556
+            ],
+            [
+              106.8031553,
+              10.8696324
+            ],
+            [
+              106.8030796,
+              10.8696395
+            ],
+            [
+              106.8030723,
+              10.8695631
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C106",
+        "room_name": "Phòng C106 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8031503,
+              10.8695558
+            ],
+            [
+              106.803226,
+              10.8695487
+            ],
+            [
+              106.8032333,
+              10.8696252
+            ],
+            [
+              106.8031576,
+              10.8696322
+            ],
+            [
+              106.8031503,
+              10.8695558
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C104",
+        "room_name": "Phòng C104",
+        "room_type": "Theory",
+        "capacity": 170,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8032283,
+              10.8695485
+            ],
+            [
+              106.803304,
+              10.8695414
+            ],
+            [
+              106.8033113,
+              10.8696179
+            ],
+            [
+              106.8032356,
+              10.8696249
+            ],
+            [
+              106.8032283,
+              10.8695485
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 1,
+        "room_code": "C102",
+        "room_name": "Phòng C102",
+        "room_type": "Theory",
+        "capacity": 0,
+        "base_height": 0.0,
+        "extrude_height": 3.5,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8035402,
+              10.8695193
+            ],
+            [
+              106.8036159,
+              10.8695122
+            ],
+            [
+              106.8036232,
+              10.8695887
+            ],
+            [
+              106.8035475,
+              10.8695958
+            ],
+            [
+              106.8035402,
+              10.8695193
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C2-STORE1",
+        "room_name": "Kho Tầng 2",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Kho",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027712,
+              10.869705
+            ],
+            [
+              106.8028469,
+              10.8696979
+            ],
+            [
+              106.8028542,
+              10.8697744
+            ],
+            [
+              106.8027785,
+              10.8697815
+            ],
+            [
+              106.8027712,
+              10.869705
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C2-STAIR1",
+        "room_name": "Cầu Thang Tầng 2",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8028492,
+              10.8696977
+            ],
+            [
+              106.8029249,
+              10.8696906
+            ],
+            [
+              106.8029322,
+              10.8697671
+            ],
+            [
+              106.8028565,
+              10.8697742
+            ],
+            [
+              106.8028492,
+              10.8696977
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C213",
+        "room_name": "Phòng C213",
+        "room_type": "Theory",
+        "capacity": 120,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029272,
+              10.8696904
+            ],
+            [
+              106.8030029,
+              10.8696833
+            ],
+            [
+              106.8030102,
+              10.8697598
+            ],
+            [
+              106.8029345,
+              10.8697669
+            ],
+            [
+              106.8029272,
+              10.8696904
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C211",
+        "room_name": "Phòng C211 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 80,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8030831,
+              10.8696758
+            ],
+            [
+              106.8031588,
+              10.8696688
+            ],
+            [
+              106.8031661,
+              10.8697452
+            ],
+            [
+              106.8030904,
+              10.8697523
+            ],
+            [
+              106.8030831,
+              10.8696758
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C209",
+        "room_name": "Phòng C209 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8031611,
+              10.8696685
+            ],
+            [
+              106.8032368,
+              10.8696615
+            ],
+            [
+              106.8032441,
+              10.8697379
+            ],
+            [
+              106.8031684,
+              10.869745
+            ],
+            [
+              106.8031611,
+              10.8696685
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C207",
+        "room_name": "Phòng C207 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8032391,
+              10.8696612
+            ],
+            [
+              106.8033148,
+              10.8696542
+            ],
+            [
+              106.8033221,
+              10.8697306
+            ],
+            [
+              106.8032464,
+              10.8697377
+            ],
+            [
+              106.8032391,
+              10.8696612
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C205",
+        "room_name": "Phòng C205 (Phòng WB)",
+        "room_type": "Theory",
+        "capacity": 80,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": "Phòng WB"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803317,
+              10.869654
+            ],
+            [
+              106.8033927,
+              10.8696469
+            ],
+            [
+              106.8034001,
+              10.8697233
+            ],
+            [
+              106.8033244,
+              10.8697304
+            ],
+            [
+              106.803317,
+              10.869654
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C203",
+        "room_name": "Phòng C203 (Phòng LV)",
+        "room_type": "Office",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": "Phòng LV"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803395,
+              10.8696467
+            ],
+            [
+              106.8034707,
+              10.8696396
+            ],
+            [
+              106.803478,
+              10.869716
+            ],
+            [
+              106.8034023,
+              10.8697231
+            ],
+            [
+              106.803395,
+              10.8696467
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C2-STAIR2",
+        "room_name": "Cầu Thang Tầng 2",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803473,
+              10.8696394
+            ],
+            [
+              106.8035487,
+              10.8696323
+            ],
+            [
+              106.803556,
+              10.8697087
+            ],
+            [
+              106.8034803,
+              10.8697158
+            ],
+            [
+              106.803473,
+              10.8696394
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C201",
+        "room_name": "Phòng C201",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803551,
+              10.8696321
+            ],
+            [
+              106.8036267,
+              10.869625
+            ],
+            [
+              106.803634,
+              10.8697014
+            ],
+            [
+              106.8035583,
+              10.8697085
+            ],
+            [
+              106.803551,
+              10.8696321
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C2-WC1",
+        "room_name": "WC Tầng 2",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8036289,
+              10.8696248
+            ],
+            [
+              106.8037046,
+              10.8696177
+            ],
+            [
+              106.803712,
+              10.8696941
+            ],
+            [
+              106.8036363,
+              10.8697012
+            ],
+            [
+              106.8036289,
+              10.8696248
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C2-STAIR3",
+        "room_name": "Cầu Thang Tầng 2",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8037069,
+              10.8696175
+            ],
+            [
+              106.8037826,
+              10.8696104
+            ],
+            [
+              106.8037899,
+              10.8696868
+            ],
+            [
+              106.8037142,
+              10.8696939
+            ],
+            [
+              106.8037069,
+              10.8696175
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C2-WC2",
+        "room_name": "WC Tầng 2",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.802768,
+              10.869671
+            ],
+            [
+              106.8028437,
+              10.8696639
+            ],
+            [
+              106.8028467,
+              10.8696957
+            ],
+            [
+              106.802771,
+              10.8697028
+            ],
+            [
+              106.802768,
+              10.869671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C2-WC3",
+        "room_name": "WC Tầng 2",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027604,
+              10.8695923
+            ],
+            [
+              106.8028361,
+              10.8695852
+            ],
+            [
+              106.8028434,
+              10.8696616
+            ],
+            [
+              106.8027677,
+              10.8696687
+            ],
+            [
+              106.8027604,
+              10.8695923
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C218",
+        "room_name": "Phòng C218",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029164,
+              10.8695777
+            ],
+            [
+              106.8029921,
+              10.8695706
+            ],
+            [
+              106.8029994,
+              10.869647
+            ],
+            [
+              106.8029237,
+              10.8696541
+            ],
+            [
+              106.8029164,
+              10.8695777
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C216",
+        "room_name": "Phòng C216",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029944,
+              10.8695704
+            ],
+            [
+              106.8030701,
+              10.8695633
+            ],
+            [
+              106.8030774,
+              10.8696397
+            ],
+            [
+              106.8030017,
+              10.8696468
+            ],
+            [
+              106.8029944,
+              10.8695704
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C214",
+        "room_name": "Phòng C214",
+        "room_type": "Theory",
+        "capacity": 80,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8030723,
+              10.8695631
+            ],
+            [
+              106.803148,
+              10.869556
+            ],
+            [
+              106.8031553,
+              10.8696324
+            ],
+            [
+              106.8030796,
+              10.8696395
+            ],
+            [
+              106.8030723,
+              10.8695631
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C212",
+        "room_name": "Phòng C212",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8031503,
+              10.8695558
+            ],
+            [
+              106.803226,
+              10.8695487
+            ],
+            [
+              106.8032333,
+              10.8696252
+            ],
+            [
+              106.8031576,
+              10.8696322
+            ],
+            [
+              106.8031503,
+              10.8695558
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C210",
+        "room_name": "Phòng C210",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8032283,
+              10.8695485
+            ],
+            [
+              106.803304,
+              10.8695414
+            ],
+            [
+              106.8033113,
+              10.8696179
+            ],
+            [
+              106.8032356,
+              10.8696249
+            ],
+            [
+              106.8032283,
+              10.8695485
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C208",
+        "room_name": "Phòng C208",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8033063,
+              10.8695412
+            ],
+            [
+              106.803382,
+              10.8695341
+            ],
+            [
+              106.8033893,
+              10.8696106
+            ],
+            [
+              106.8033136,
+              10.8696176
+            ],
+            [
+              106.8033063,
+              10.8695412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C206",
+        "room_name": "Phòng C206",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8033842,
+              10.8695339
+            ],
+            [
+              106.8034599,
+              10.8695268
+            ],
+            [
+              106.8034672,
+              10.8696033
+            ],
+            [
+              106.8033915,
+              10.8696103
+            ],
+            [
+              106.8033842,
+              10.8695339
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C204",
+        "room_name": "Phòng C204 (Phòng LV)",
+        "room_type": "Office",
+        "capacity": 0,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": "Phòng LV"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8035402,
+              10.8695193
+            ],
+            [
+              106.8036159,
+              10.8695122
+            ],
+            [
+              106.8036232,
+              10.8695887
+            ],
+            [
+              106.8035475,
+              10.8695958
+            ],
+            [
+              106.8035402,
+              10.8695193
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 2,
+        "room_code": "C202",
+        "room_name": "Phòng C202",
+        "room_type": "Theory",
+        "capacity": 70,
+        "base_height": 3.8,
+        "extrude_height": 7.3,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8036182,
+              10.869512
+            ],
+            [
+              106.8036939,
+              10.8695049
+            ],
+            [
+              106.8037012,
+              10.8695814
+            ],
+            [
+              106.8036255,
+              10.8695885
+            ],
+            [
+              106.8036182,
+              10.869512
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C3-STORE1",
+        "room_name": "Kho Tầng 3",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Kho",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027712,
+              10.869705
+            ],
+            [
+              106.8028469,
+              10.8696979
+            ],
+            [
+              106.8028542,
+              10.8697744
+            ],
+            [
+              106.8027785,
+              10.8697815
+            ],
+            [
+              106.8027712,
+              10.869705
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C3-STAIR1",
+        "room_name": "Cầu Thang Tầng 3",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8028492,
+              10.8696977
+            ],
+            [
+              106.8029249,
+              10.8696906
+            ],
+            [
+              106.8029322,
+              10.8697671
+            ],
+            [
+              106.8028565,
+              10.8697742
+            ],
+            [
+              106.8028492,
+              10.8696977
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C315",
+        "room_name": "Phòng C315",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029272,
+              10.8696904
+            ],
+            [
+              106.8030029,
+              10.8696833
+            ],
+            [
+              106.8030102,
+              10.8697598
+            ],
+            [
+              106.8029345,
+              10.8697669
+            ],
+            [
+              106.8029272,
+              10.8696904
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C313",
+        "room_name": "Phòng C313",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8030051,
+              10.8696831
+            ],
+            [
+              106.8030808,
+              10.8696761
+            ],
+            [
+              106.8030882,
+              10.8697525
+            ],
+            [
+              106.8030125,
+              10.8697596
+            ],
+            [
+              106.8030051,
+              10.8696831
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C311",
+        "room_name": "Phòng C311",
+        "room_type": "Theory",
+        "capacity": 80,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8030831,
+              10.8696758
+            ],
+            [
+              106.8031588,
+              10.8696688
+            ],
+            [
+              106.8031661,
+              10.8697452
+            ],
+            [
+              106.8030904,
+              10.8697523
+            ],
+            [
+              106.8030831,
+              10.8696758
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C309",
+        "room_name": "Phòng C309",
+        "room_type": "Theory",
+        "capacity": 80,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8031611,
+              10.8696685
+            ],
+            [
+              106.8032368,
+              10.8696615
+            ],
+            [
+              106.8032441,
+              10.8697379
+            ],
+            [
+              106.8031684,
+              10.869745
+            ],
+            [
+              106.8031611,
+              10.8696685
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C307",
+        "room_name": "Phòng C307",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8032391,
+              10.8696612
+            ],
+            [
+              106.8033148,
+              10.8696542
+            ],
+            [
+              106.8033221,
+              10.8697306
+            ],
+            [
+              106.8032464,
+              10.8697377
+            ],
+            [
+              106.8032391,
+              10.8696612
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C305",
+        "room_name": "Phòng C305",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803317,
+              10.869654
+            ],
+            [
+              106.8033927,
+              10.8696469
+            ],
+            [
+              106.8034001,
+              10.8697233
+            ],
+            [
+              106.8033244,
+              10.8697304
+            ],
+            [
+              106.803317,
+              10.869654
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C303",
+        "room_name": "Phòng C303 (Phòng LV)",
+        "room_type": "Office",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": "Phòng LV"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803395,
+              10.8696467
+            ],
+            [
+              106.8034707,
+              10.8696396
+            ],
+            [
+              106.803478,
+              10.869716
+            ],
+            [
+              106.8034023,
+              10.8697231
+            ],
+            [
+              106.803395,
+              10.8696467
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C3-STAIR2",
+        "room_name": "Cầu Thang Tầng 3",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803473,
+              10.8696394
+            ],
+            [
+              106.8035487,
+              10.8696323
+            ],
+            [
+              106.803556,
+              10.8697087
+            ],
+            [
+              106.8034803,
+              10.8697158
+            ],
+            [
+              106.803473,
+              10.8696394
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C301",
+        "room_name": "Phòng C301",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.803551,
+              10.8696321
+            ],
+            [
+              106.8036267,
+              10.869625
+            ],
+            [
+              106.803634,
+              10.8697014
+            ],
+            [
+              106.8035583,
+              10.8697085
+            ],
+            [
+              106.803551,
+              10.8696321
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C3-WC1",
+        "room_name": "WC Tầng 3",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8036289,
+              10.8696248
+            ],
+            [
+              106.8037046,
+              10.8696177
+            ],
+            [
+              106.803712,
+              10.8696941
+            ],
+            [
+              106.8036363,
+              10.8697012
+            ],
+            [
+              106.8036289,
+              10.8696248
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C3-STAIR3",
+        "room_name": "Cầu Thang Tầng 3",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Cầu thang",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8037069,
+              10.8696175
+            ],
+            [
+              106.8037826,
+              10.8696104
+            ],
+            [
+              106.8037899,
+              10.8696868
+            ],
+            [
+              106.8037142,
+              10.8696939
+            ],
+            [
+              106.8037069,
+              10.8696175
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C3-WC2",
+        "room_name": "WC Tầng 3",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.802768,
+              10.869671
+            ],
+            [
+              106.8028437,
+              10.8696639
+            ],
+            [
+              106.8028467,
+              10.8696957
+            ],
+            [
+              106.802771,
+              10.8697028
+            ],
+            [
+              106.802768,
+              10.869671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C3-WC3",
+        "room_name": "WC Tầng 3",
+        "room_type": "WC",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "WC",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8027604,
+              10.8695923
+            ],
+            [
+              106.8028361,
+              10.8695852
+            ],
+            [
+              106.8028434,
+              10.8696616
+            ],
+            [
+              106.8027677,
+              10.8696687
+            ],
+            [
+              106.8027604,
+              10.8695923
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C318",
+        "room_name": "Phòng C318",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029164,
+              10.8695777
+            ],
+            [
+              106.8029921,
+              10.8695706
+            ],
+            [
+              106.8029994,
+              10.869647
+            ],
+            [
+              106.8029237,
+              10.8696541
+            ],
+            [
+              106.8029164,
+              10.8695777
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C316",
+        "room_name": "Phòng C316",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8029944,
+              10.8695704
+            ],
+            [
+              106.8030701,
+              10.8695633
+            ],
+            [
+              106.8030774,
+              10.8696397
+            ],
+            [
+              106.8030017,
+              10.8696468
+            ],
+            [
+              106.8029944,
+              10.8695704
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C314",
+        "room_name": "Phòng C314",
+        "room_type": "Theory",
+        "capacity": 80,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8030723,
+              10.8695631
+            ],
+            [
+              106.803148,
+              10.869556
+            ],
+            [
+              106.8031553,
+              10.8696324
+            ],
+            [
+              106.8030796,
+              10.8696395
+            ],
+            [
+              106.8030723,
+              10.8695631
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C312",
+        "room_name": "Phòng C312",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8031503,
+              10.8695558
+            ],
+            [
+              106.803226,
+              10.8695487
+            ],
+            [
+              106.8032333,
+              10.8696252
+            ],
+            [
+              106.8031576,
+              10.8696322
+            ],
+            [
+              106.8031503,
+              10.8695558
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C310",
+        "room_name": "Phòng C310",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8032283,
+              10.8695485
+            ],
+            [
+              106.803304,
+              10.8695414
+            ],
+            [
+              106.8033113,
+              10.8696179
+            ],
+            [
+              106.8032356,
+              10.8696249
+            ],
+            [
+              106.8032283,
+              10.8695485
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C308",
+        "room_name": "Phòng C308",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8033063,
+              10.8695412
+            ],
+            [
+              106.803382,
+              10.8695341
+            ],
+            [
+              106.8033893,
+              10.8696106
+            ],
+            [
+              106.8033136,
+              10.8696176
+            ],
+            [
+              106.8033063,
+              10.8695412
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C306",
+        "room_name": "Phòng C306",
+        "room_type": "Theory",
+        "capacity": 50,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8033842,
+              10.8695339
+            ],
+            [
+              106.8034599,
+              10.8695268
+            ],
+            [
+              106.8034672,
+              10.8696033
+            ],
+            [
+              106.8033915,
+              10.8696103
+            ],
+            [
+              106.8033842,
+              10.8695339
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C304",
+        "room_name": "Phòng C304 (Phòng LV)",
+        "room_type": "Office",
+        "capacity": 0,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": "Phòng LV"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8035402,
+              10.8695193
+            ],
+            [
+              106.8036159,
+              10.8695122
+            ],
+            [
+              106.8036232,
+              10.8695887
+            ],
+            [
+              106.8035475,
+              10.8695958
+            ],
+            [
+              106.8035402,
+              10.8695193
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "floor_number": 3,
+        "room_code": "C302",
+        "room_name": "Phòng C302",
+        "room_type": "Theory",
+        "capacity": 70,
+        "base_height": 7.6,
+        "extrude_height": 11.1,
+        "element_type": "Phòng",
+        "special_label": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.8036182,
+              10.869512
+            ],
+            [
+              106.8036939,
+              10.8695049
+            ],
+            [
+              106.8037012,
+              10.8695814
+            ],
+            [
+              106.8036255,
+              10.8695885
+            ],
+            [
+              106.8036182,
+              10.869512
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

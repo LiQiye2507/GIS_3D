@@ -1,0 +1,68 @@
+﻿floor,row_group,col_letter,col_index,element_type,room_code,element_name,special_label
+1,Hàng trên,A,1,Kho,,Kho,
+1,Hàng trên,B,2,Cầu thang,,Cầu Thang,
+1,Hàng trên,C,3,Phòng,C113,,Phòng WB
+1,Hàng trên,E,5,Phòng,C111,,Phòng máy
+1,Hàng trên,F,6,Phòng,C109,,Phòng máy
+1,Hàng trên,G,7,Phòng,C107,,Phòng máy
+1,Hàng trên,H,8,Phòng,C105,,Phòng LV
+1,Hàng trên,I,9,Phòng,C103,,Phòng LV
+1,Hàng trên,J,10,Cầu thang,,Cầu Thang,
+1,Hàng trên,K,11,Phòng,C101,,
+1,Hàng trên,L,12,WC,,WC,
+1,Hàng trên,M,13,Cầu thang,,Cầu Thang,
+1,Hàng giữa,A,1,WC,,WC,
+1,Hàng giữa,K,11,Hồ nước,,HỒ NƯỚC,
+1,Hàng dưới,A,1,WC,,WC,
+1,Hàng dưới,C,3,Phòng,C110,,Phòng WB
+1,Hàng dưới,E,5,Phòng,C108,,Phòng WB
+1,Hàng dưới,F,6,Phòng,C106,,Phòng WB
+1,Hàng dưới,G,7,Phòng,C104,,
+1,Hàng dưới,K,11,Phòng,C102,,
+2,Hàng trên,A,1,Kho,,Kho,
+2,Hàng trên,B,2,Cầu thang,,Cầu Thang,
+2,Hàng trên,C,3,Phòng,C213,,
+2,Hàng trên,E,5,Phòng,C211,,Phòng WB
+2,Hàng trên,F,6,Phòng,C209,,Phòng WB
+2,Hàng trên,G,7,Phòng,C207,,Phòng WB
+2,Hàng trên,H,8,Phòng,C205,,Phòng WB
+2,Hàng trên,I,9,Phòng,C203,,Phòng LV
+2,Hàng trên,J,10,Cầu thang,,Cầu Thang,
+2,Hàng trên,K,11,Phòng,C201,,
+2,Hàng trên,L,12,WC,,WC,
+2,Hàng trên,M,13,Cầu thang,,Cầu Thang,
+2,Hàng giữa,A,1,WC,,WC,
+2,Hàng dưới,A,1,WC,,WC,
+2,Hàng dưới,C,3,Phòng,C218,,
+2,Hàng dưới,D,4,Phòng,C216,,
+2,Hàng dưới,E,5,Phòng,C214,,
+2,Hàng dưới,F,6,Phòng,C212,,
+2,Hàng dưới,G,7,Phòng,C210,,
+2,Hàng dưới,H,8,Phòng,C208,,
+2,Hàng dưới,I,9,Phòng,C206,,
+2,Hàng dưới,K,11,Phòng,C204,,Phòng LV
+2,Hàng dưới,L,12,Phòng,C202,,
+3,Hàng trên,A,1,Kho,,Kho,
+3,Hàng trên,B,2,Cầu thang,,Cầu Thang,
+3,Hàng trên,C,3,Phòng,C315,,
+3,Hàng trên,D,4,Phòng,C313,,
+3,Hàng trên,E,5,Phòng,C311,,
+3,Hàng trên,F,6,Phòng,C309,,
+3,Hàng trên,G,7,Phòng,C307,,
+3,Hàng trên,H,8,Phòng,C305,,
+3,Hàng trên,I,9,Phòng,C303,,Phòng LV
+3,Hàng trên,J,10,Cầu thang,,Cầu Thang,
+3,Hàng trên,K,11,Phòng,C301,,
+3,Hàng trên,L,12,WC,,WC,
+3,Hàng trên,M,13,Cầu thang,,Cầu Thang,
+3,Hàng giữa,A,1,WC,,WC,
+3,Hàng dưới,A,1,WC,,WC,
+3,Hàng dưới,C,3,Phòng,C318,,
+3,Hàng dưới,D,4,Phòng,C316,,
+3,Hàng dưới,E,5,Phòng,C314,,
+3,Hàng dưới,F,6,Phòng,C312,,
+3,Hàng dưới,G,7,Phòng,C310,,
+3,Hàng dưới,H,8,Phòng,C308,,
+3,Hàng dưới,I,9,Phòng,C306,,
+3,Hàng dưới,K,11,Phòng,C304,,Phòng LV
+3,Hàng dưới,L,12,Phòng,C302,,

@@ -1,0 +1,11 @@
+building_id,name_vi,osm_id,osm_levels,doc_levels_total,verified_total_floors,has_ground_floor_G,ground_floor_height_m,typical_floor_height_m,orientation_note,floorplan_collected,field_notes
+A,"Tòa A (Giảng đường, lớp học, Thư viện)",259211695,,3,,,,3.8,"Kiểm tra Thư viện nằm ở cánh Bắc Tòa A; vị trí A.GĐ1-3 ở tầng nào",Không,
+B,Tòa B,327427158,9,9,9,Không,,3.8,"Xác nhận 9 tầng và tầng nào kết thúc ở cánh nào (tòa hình vòng cung giật cấp)",Có (chưa layout),
+C,Tòa C (Trọng điểm LOD 3),CHUA_CO_TREN_OSM,,3,3,Không,,3.8,"QUAN TRỌNG: Đầu C101/Hồ nước nằm phía Đông (gần B/Căn tin) hay Tây (gần E)?; kiểm tra C112,C114,C215; nghĩa WB,LV",Có (đủ 3 tầng),
+D,Tòa D,693343290,,,,,3.8,"Đếm số tầng thực tế và chức năng từng tầng (gần Cổng B / Cổng 2)",Không,
+E,Tòa E,693343289,12,13,13,Có,,3.8,"Xác nhận Tầng G + Tầng 1-12; kiểm tra E4.1 và E11.5; chiều cao tầng G",Có (thiếu layout các tầng),
+THUVIEN,Thư viện UIT (nằm trong Tòa A?),"node 2645632780",,2,,,,3.8,"Xác nhận có tách khối riêng hay thuộc tầng 1-2 cánh Bắc Tòa A",Không,
+NHA_PVSV,Nhà Phục vụ sinh viên (Căng tin UIT),722732584,2,,,,,3.8,"OSM ghi 2 tầng - xác nhận lại thực tế & giờ mở cửa",Không,
+OSM_490935521,Khối chưa rõ tên (Đông-Nam gần Cổng B),490935521,2,,,,,3.8,"Kiểm tra thực tế đây là công trình gì của UIT",Không,
+OSM_490935520,Khối chưa rõ tên (sát Cổng B),490935520,,,,,,3.8,"Kiểm tra thực tế đây là nhà bảo vệ / trạm gì",Không,
+OSM_1459032884,Khối nhỏ sát cánh Tây Tòa A,1459032884,,,,,,3.8,"Kiểm tra thực tế là công trình gì (56 m2)",Không,

@@ -1,0 +1,5 @@
+building_id,floor_number,floor_label,wing_or_row,col_index,element_type,room_code,room_name,room_type,capacity,equipment_info,notes
+C,1,1,Hàng trên,1,Kho,,Kho Tầng 1,Utility,,,Ví dụ mẫu từ floorplan_toa_C_layout.csv
+C,1,1,Hàng trên,3,Phòng,C113,Phòng C113,Theory,,,Điền thêm thông tin sức chứa & thiết bị nếu có
+A,1,1,Cánh chính,1,Giảng đường,A.GĐ1,Giảng đường 1,Theory,400,,"Mẫu để điền tiếp cho Tòa A, B, D, E, Thư viện..."
+

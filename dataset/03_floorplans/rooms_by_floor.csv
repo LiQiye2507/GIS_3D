@@ -1,0 +1,180 @@
+﻿building_id,floor_label,floor,room_code,element_type,label_function,in_floor_diagram,diagram_row,diagram_col,seats_tonghop,is_room,note
+A,2,2,A215,Phòng,,Không,,,50,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A301,Phòng,,Không,,,30,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A305,Phòng,,Không,,,30,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A307,Phòng,,Không,,,30,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A309,Phòng,,Không,,,30,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A311,Phòng,,Không,,,25,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A313,Phòng,,Không,,,,1,có trong danh sách: PhongCLC (sheet ẩn); chưa có sơ đồ khu A
+A,3,3,A315,Phòng,,Không,,,50,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A323,Phòng,,Không,,,30,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,3,3,A325,Phòng,,Không,,,48,1,"có trong danh sách: PhongCLC (sheet ẩn), Tong hop; chưa có sơ đồ khu A"
+A,,,A.GĐ1,Giảng đường,,Không,,,,1,giảng đường tòa A; chưa rõ tầng; có trong: Phong Thuong (sheet ẩn)
+A,,,A.GĐ2,Giảng đường,,Không,,,,1,giảng đường tòa A; chưa rõ tầng; có trong: Phong Thuong (sheet ẩn)
+A,,,A.GĐ3,Giảng đường,,Không,,,,1,giảng đường tòa A; chưa rõ tầng; có trong: Phong Thuong (sheet ẩn)
+B,1,1,B1.01,Phòng,,Có,37,E,,1,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
+B,1,1,B1.02,Phòng,,Có,35,L,60,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.04,Phòng,,Có,35,K,60,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.06,Phòng,,Có,35,J,60,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.08,Phòng,,Có,35,I,60,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.10,Phòng,,Có,35,H,70,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.12,Phòng,,Có,35,G,70,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.14,Phòng,,Có,35,E,160,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.16,Phòng,,Có,35,D,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.18,Phòng,,Có,35,C,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.20,Phòng,,Có,35,B,100,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,1,1,B1.22,Phòng,,Có,35,A,100,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,2,2,B2.01,Phòng,,Có,33,E,,1,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
+B,2,2,B2.02,Phòng,,Có,31,L,,1,có trong: PhongCLC (sheet ẩn)
+B,2,2,B2.04,Phòng,,Có,31,K,,1,có trong: PhongCLC (sheet ẩn)
+B,2,2,B2.06,Phòng,,Có,31,J,,1,
+B,2,2,B2.08,Phòng,,Có,31,I,,1,
+B,2,2,B2.10,Phòng,,Có,31,H,,1,có trong: Phong Thuong (sheet ẩn)
+B,2,2,B2.12,Phòng,,Có,31,G,,1,có trong: Phong Thuong (sheet ẩn)
+B,2,2,B2.14,Phòng,,Có,31,E,,1,
+B,2,2,B2.16,Phòng,,Có,31,D,,1,có trong: Phong Thuong (sheet ẩn)
+B,2,2,B2.18,Phòng,,Có,31,C,,1,có trong: PhongCLC (sheet ẩn)
+B,2,2,B2.20,Phòng,,Có,31,B,,1,có trong: PhongCLC (sheet ẩn)
+B,2,2,B2.22,Phòng,,Có,31,A,,1,có trong: PhongCLC (sheet ẩn)
+B,3,3,B3.01,Phòng,,Có,29,E,,1,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
+B,3,3,B3.02,Phòng,,Có,27,L,,1,
+B,3,3,B3.04,Phòng,,Có,27,K,,1,
+B,3,3,B3.06,Phòng,,Có,27,J,,1,
+B,3,3,B3.08,Phòng,,Có,27,I,,1,
+B,3,3,B3.10,Phòng,,Có,27,H,80,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,3,3,B3.12,Phòng,,Có,27,G,80,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,3,3,B3.14,Phòng,,Có,27,E,140,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,3,3,B3.16,Phòng,,Có,27,D,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,3,3,B3.18,Phòng,,Có,27,C,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,3,3,B3.20,Phòng,,Có,27,B,100,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,3,3,B3.22,Phòng,,Có,27,A,100,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,4,4,B4.01,Phòng,,Có,25,E,,1,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
+B,4,4,B4.02,Phòng,,Có,23,L,,1,
+B,4,4,B4.04,Phòng,,Có,23,K,,1,
+B,4,4,B4.06,Phòng,,Có,23,J,,1,
+B,4,4,B4.08,Phòng,,Có,23,I,,1,
+B,4,4,B4.10,Phòng,,Có,23,H,72,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,4,4,B4.12,Phòng,,Có,23,G,72,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,4,4,B4.14,Phòng,,Có,23,E,160,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,4,4,B4.16,Phòng,,Có,23,D,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,4,4,B4.18,Phòng,,Có,23,C,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,4,4,B4.20,Phòng,,Có,23,B,100,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,4,4,B4.22,Phòng,,Có,23,A,100,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,5,5,B5.01,Phòng,,Có,21,E,,1,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
+B,5,5,B5.02,Phòng,,Có,19,I,,1,
+B,5,5,B5.04,Phòng,,Có,19,H,,1,
+B,5,5,B5.06,Phòng,,Có,19,G,,1,
+B,5,5,B5.08,Phòng,,Có,19,E,,1,có trong: Phong Thuong (sheet ẩn)
+B,5,5,B5.10,Phòng,,Có,19,D,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,5,5,B5.12,Phòng,,Có,19,C,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,5,5,B5.14,Phòng,,Có,19,A,180,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,6,6,B6.01,Phòng,,Có,17,E,,1,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
+B,6,6,B6.02,Phòng,,Có,15,H,80,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,6,6,B6.04,Phòng,,Có,15,G,80,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,6,6,B6.06,Phòng,,Có,15,E,160,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,6,6,B6.08,Phòng,,Có,15,D,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,6,6,B6.10,Phòng,,Có,15,C,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,6,6,B6.12,Phòng,,Có,15,A,180,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,7,7,B7.01,Phòng,,Có,13,E,,1,"mã .01 nằm cạnh thang/WC trong sơ đồ, chưa rõ chức năng"
+B,7,7,B7.02,Phòng,,Có,11,E,160,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,7,7,B7.04,Phòng,,Có,11,D,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,7,7,B7.06,Phòng,,Có,11,C,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,7,7,B7.08,Phòng,,Có,11,A,200,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,8,8,B8.02,Phòng,,Có,7,D,90,1,có trong: Tong hop
+B,8,8,B8.04,Phòng,,Có,7,C,90,1,có trong: Tong hop
+B,8,8,B8.06,Phòng,,Có,7,B,90,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,8,8,B8.08,Phòng,,Có,7,A,90,1,có trong: Tong hop
+B,9,9,B9.02,Phòng,,Có,3,B,120,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+B,9,9,B9.04,Phòng,,Có,3,A,,1,có trong: Phong Thuong (sheet ẩn)
+C,1,1,C101,Phòng,,Có,10,K,,1,có trong: PhongCLC (sheet ẩn)
+C,1,1,C102,Phòng,,Có,12,K,,1,
+C,1,1,C103,Phòng,Phòng LV,Có,10,I,,1,
+C,1,1,C104,Phòng,,Có,12,G,170,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,1,1,C105,Phòng,Phòng LV,Có,10,H,,1,
+C,1,1,C106,Phòng,Phòng WB,Có,12,F,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,1,1,C107,Phòng,Phòng máy,Có,10,G,,1,có trong: PhongCLC (sheet ẩn)
+C,1,1,C108,Phòng,Phòng WB,Có,12,E,,1,có trong: PhongCLC (sheet ẩn)
+C,1,1,C109,Phòng,Phòng máy,Có,10,F,,1,có trong: PhongCLC (sheet ẩn)
+C,1,1,C110,Phòng,Phòng WB,Có,12,C,,1,
+C,1,1,C111,Phòng,Phòng máy,Có,10,E,,1,
+C,1,1,C112,Phòng,,Không,,,,1,có trong danh sách: PhongCLC (sheet ẩn); KHÔNG có trong sơ đồ khu C
+C,1,1,C113,Phòng,Phòng WB,Có,10,C,,1,có trong: Phong Thuong (sheet ẩn)
+C,1,1,C114,Phòng,,Không,,,,1,có trong danh sách: Phong Thuong (sheet ẩn); KHÔNG có trong sơ đồ khu C
+C,2,2,C201,Phòng,,Có,6,K,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,2,2,C202,Phòng,,Có,8,L,70,1,có trong: Tong hop
+C,2,2,C203,Phòng,Phòng LV,Có,6,I,,1,
+C,2,2,C204,Phòng,Phòng LV,Có,8,K,,1,
+C,2,2,C205,Phòng,Phòng WB,Có,6,H,80,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+C,2,2,C206,Phòng,,Có,8,I,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,2,2,C207,Phòng,Phòng WB,Có,6,G,50,1,có trong: Tong hop
+C,2,2,C208,Phòng,,Có,8,H,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,2,2,C209,Phòng,Phòng WB,Có,6,F,50,1,có trong: Tong hop
+C,2,2,C210,Phòng,,Có,8,G,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,2,2,C211,Phòng,Phòng WB,Có,6,E,80,1,có trong: Tong hop
+C,2,2,C212,Phòng,,Có,8,F,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,2,2,C213,Phòng,,Có,6,C,120,1,"có trong: Phong Thuong (sheet ẩn), Tong hop"
+C,2,2,C214,Phòng,,Có,8,E,80,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,2,2,C215,Phòng,,Không,,,,1,có trong danh sách: Phong Thuong (sheet ẩn); KHÔNG có trong sơ đồ khu C
+C,2,2,C216,Phòng,,Có,8,D,50,1,"có trong: Phong Thuong (sheet ẩn), PhongCLC (sheet ẩn), Tong hop"
+C,2,2,C218,Phòng,,Có,8,C,50,1,"có trong: Phong Thuong (sheet ẩn), PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C301,Phòng,,Có,2,K,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C302,Phòng,,Có,4,L,70,1,có trong: Tong hop
+C,3,3,C303,Phòng,Phòng LV,Có,2,I,,1,
+C,3,3,C304,Phòng,Phòng LV,Có,4,K,,1,
+C,3,3,C305,Phòng,,Có,2,H,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C306,Phòng,,Có,4,I,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C307,Phòng,,Có,2,G,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C308,Phòng,,Có,4,H,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C309,Phòng,,Có,2,F,80,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C310,Phòng,,Có,4,G,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C311,Phòng,,Có,2,E,80,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C312,Phòng,,Có,4,F,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C313,Phòng,,Có,2,D,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C314,Phòng,,Có,4,E,80,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C315,Phòng,,Có,2,C,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C316,Phòng,,Có,4,D,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+C,3,3,C318,Phòng,,Có,4,C,50,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,G,0,,Ghi chú tầng,"Bàn Bảo vệ, Bãi để xe ô tô",,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,1,1,,Ghi chú tầng,"Bàn Bảo vệ, Sảnh tiếp đón",,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,1,1,E1.1,Phòng,"Phòng Họp , Phòng Điện tòa nhà",Không,,,,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,1,1,E1.2,Phòng,"Phòng Không gian Tiếng Anh , Trung tâm Ngoại ngữ",Không,,,,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,1,1,E1.3,Phòng,"Phòng Họp , Phòng Điện tòa nhà",Không,,,,1,
+E,1,1,E1.4,Phòng,"Phòng Không gian Tiếng Anh , Trung tâm Ngoại ngữ",Không,,,,1,
+E,1,1,E1.5,Phòng,"Phòng Hệ thống Máy lạnh , Phòng nghỉ Trung tâm Ngoại ngữ",Không,,,,1,
+E,1,1,E1.7,Phòng,"Phòng Hệ thống Máy lạnh , Phòng nghỉ Trung tâm Ngoại ngữ",Không,,,,1,
+E,2,2,E2.1,Phòng,Văn phòng Các chương trình Đặc biệt,Có,16,A,,1,
+E,2,2,E2.2,Phòng,Phòng tự học,Có,18,D,,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,2,2,E2.3,Phòng,Phòng Học,Có,16,F,30,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,2,2,E2.4,Phòng,Phòng Học,Có,18,F,48,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,2,2,E2.5,Phòng,Ban Quản lý Cơ sở,Có,16,G,,1,
+E,3,3,E3.1,Phòng,Phòng Thực hành Khoa MMT&TT,Có,11,A,,1,có trong: PhongCLC (sheet ẩn)
+E,3,3,E3.2,Phòng,Phòng Học,Có,13,D,48,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,3,3,E3.3,Phòng,Phòng Học,Có,11,F,30,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,3,3,E3.4,Phòng,Phòng Học,Có,13,F,48,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,3,3,E3.5,Phòng,Phòng Giảng viên Tiếng Nhật,Có,11,G,,1,
+E,4,4,E4.1,Phòng,Phòng thí nghiệm,Có,7,A,,1,có trong: PhongCLC (sheet ẩn)
+E,4,4,E4.2,Phòng,Phòng Học,Có,9,D,48,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,4,4,E4.3,Phòng,Phòng Học,Có,7,F,30,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,4,4,E4.4,Phòng,Phòng Học,Có,9,F,48,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,4,4,E4.5,Phòng,Phòng Giảng viên Tiếng Nhật,Có,7,G,,1,
+E,5,5,,Ghi chú tầng,Khoa Khoa học Máy tính,,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,5,5,E5.1,Phòng,Phòng Thí nghiệm Truyền thông Đa phương tiện,Không,,,,1,
+E,6,6,,Ghi chú tầng,Khoa Kỹ thuật Máy tính,,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,6,6,E6.1,Phòng,Phòng Thí nghiệm Vi mạch Tích hợp Chuyên dụng,Không,,,,1,
+E,7,7,,Ghi chú tầng,Khoa Công nghệ Phần mềm,,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,7,7,E7.1,Phòng,Phòng Ăn - Phòng nghỉ Giảng viên - Viên chức & Người lao động,Không,,,,1,
+E,8,8,,Ghi chú tầng,Khoa Mạng máy tính & Truyền thông,,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,8,8,E8.1,Phòng,"Phòng Thí nghiệm An toàn Thông tin, Trung tâm An ninh mạng",Không,,,,1,
+E,9,9,,Ghi chú tầng,Khoa Hệ thống Thông tin,,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,9,9,E9.1,Phòng,Phòng Thí nghiệm Hệ thống Thông tin,Không,,,,1,
+E,10,10,,Ghi chú tầng,Khoa Khoa học & Kỹ thuật Thông tin,,,,,0,mô tả tầng trong danh sách phòng tòa E; dòng 'Khoa ...' gán theo thứ tự dòng trong file
+E,10,10,E10.1,Phòng,Phòng Học,Không,,,,1,có trong: PhongCLC (sheet ẩn)
+E,11,11,E11.1,Phòng,"Công ty Rosen , Trung tâm An ninh mạng",Có,3,A,,1,
+E,11,11,E11.2,Phòng,Phòng Học,Có,5,D,32,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,11,11,E11.3,Phòng,"Công ty Rosen , Trung tâm An ninh mạng",Có,3,F,,1,
+E,11,11,E11.4,Phòng,Phòng Học,Có,5,E,32,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,11,11,E11.5,Phòng,"(chỉ có trong sơ đồ, không có trong danh sách phòng tòa E)",Có,3,G,,1,
+E,11,11,E11.6,Phòng,Phòng Học,Có,5,F,32,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,11,11,E11.8,Phòng,Phòng Học,Có,5,G,30,1,"có trong: PhongCLC (sheet ẩn), Tong hop"
+E,12,12,E12.1,Phòng,Phòng Sinh hoạt chung,Không,,,,1,có trong: Tong hop
+E,12,12,E12.2,Phòng,Hội trường E,Không,,,,1,HT.E trong các bảng thống kê (200 chỗ theo sheet ẩn PhongCLC)

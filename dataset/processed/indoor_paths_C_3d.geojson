@@ -1,0 +1,230 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Corridor",
+        "floor_from": 1,
+        "floor_to": 1,
+        "length_m": 102.8
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8028073,
+            10.8696833,
+            0.2
+          ],
+          [
+            106.803743,
+            10.8695958,
+            0.2
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Stairs",
+        "floor_from": 1,
+        "floor_to": 2,
+        "length_m": 5.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8028907,
+            10.8697324,
+            0.2
+          ],
+          [
+            106.8028907,
+            10.8697324,
+            4.0
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Stairs",
+        "floor_from": 1,
+        "floor_to": 2,
+        "length_m": 5.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8035145,
+            10.869674,
+            0.2
+          ],
+          [
+            106.8035145,
+            10.869674,
+            4.0
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Stairs",
+        "floor_from": 1,
+        "floor_to": 2,
+        "length_m": 5.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8037484,
+            10.8696522,
+            0.2
+          ],
+          [
+            106.8037484,
+            10.8696522,
+            4.0
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Corridor",
+        "floor_from": 2,
+        "floor_to": 2,
+        "length_m": 102.8
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8028073,
+            10.8696833,
+            4.0
+          ],
+          [
+            106.803743,
+            10.8695958,
+            4.0
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Stairs",
+        "floor_from": 2,
+        "floor_to": 3,
+        "length_m": 5.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8028907,
+            10.8697324,
+            4.0
+          ],
+          [
+            106.8028907,
+            10.8697324,
+            7.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Stairs",
+        "floor_from": 2,
+        "floor_to": 3,
+        "length_m": 5.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8035145,
+            10.869674,
+            4.0
+          ],
+          [
+            106.8035145,
+            10.869674,
+            7.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Stairs",
+        "floor_from": 2,
+        "floor_to": 3,
+        "length_m": 5.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8037484,
+            10.8696522,
+            4.0
+          ],
+          [
+            106.8037484,
+            10.8696522,
+            7.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_code": "C",
+        "path_type": "Corridor",
+        "floor_from": 3,
+        "floor_to": 3,
+        "length_m": 102.8
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.8028073,
+            10.8696833,
+            7.8
+          ],
+          [
+            106.803743,
+            10.8695958,
+            7.8
+          ]
+        ]
+      }
+    }
+  ]
+}

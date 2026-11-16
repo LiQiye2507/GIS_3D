@@ -1,0 +1,2 @@
+Thư mục này hiện có: sơ đồ tổng mặt bằng minh họa (không tỷ lệ, không tọa độ) và 6 ảnh chụp xiên từ trên cao.
+Chưa có: ảnh vệ tinh/ảnh trực giao có tọa độ và DEM. Xem README.md mục 'Còn thiếu'.
