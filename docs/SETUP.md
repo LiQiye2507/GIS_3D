@@ -34,6 +34,9 @@ psql -U postgres -c "CREATE DATABASE uit_campus;"
 psql -U postgres -d uit_campus -c "CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS pgrouting;"
 psql -U postgres -d uit_campus -f database\01_schema.sql
 psql -U postgres -d uit_campus -f database\02_seed_uit_data.sql
+psql -U postgres -d uit_campus -f database\03_toa_a_indoor.sql
+psql -U postgres -d uit_campus -f database\04_campus_graph.sql
+psql -U postgres -d uit_campus -tA -f database\checks.sql
 ```
 
 Kiểm chứng:
