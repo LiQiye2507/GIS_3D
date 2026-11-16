@@ -23,10 +23,10 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 
 ## Cấu trúc thư mục
 ```text
-database/   01_schema.sql (5 bảng), 02_seed_uit_data.sql
+database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, checks.sql
 dataset/    dữ liệu thô (raster, OSM, mặt bằng tầng, POI, đường) + processed/ + scripts/
-backend/    FastAPI (main.py, db.py)
-frontend/   index.html, style.css, app.js, models/*.glb
+backend/    FastAPI (main.py, db.py, tests/test_api.py)
+frontend/   index.html, style.css, app.js, models/building_a.glb
 docs/       SETUP.md (hướng dẫn cài đặt)
 ```
 
@@ -34,13 +34,15 @@ docs/       SETUP.md (hướng dẫn cài đặt)
 Chi tiết từng bước xem [docs/SETUP.md](docs/SETUP.md).
 
 ```powershell
-# 1. Tạo DB và nạp dữ liệu (file SQL có tiếng Việt → bắt buộc UTF8)
+# 1. Tạo DB và nạp dữ liệu (file SQL có tiếng Việt → bắt buộc UTF8; nạp lại thì chạy lại cả 01→04)
 $env:PGCLIENTENCODING = "UTF8"
 $env:PGPASSWORD = "<mật_khẩu_postgres>"
 psql -U postgres -c "CREATE DATABASE uit_campus;"
 psql -U postgres -d uit_campus -c "CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS pgrouting;"
 psql -U postgres -d uit_campus -f database\01_schema.sql
 psql -U postgres -d uit_campus -f database\02_seed_uit_data.sql
+psql -U postgres -d uit_campus -f database\03_toa_a_indoor.sql
+psql -U postgres -d uit_campus -f database\04_campus_graph.sql
 
 # 2. Backend
 cd backend
@@ -56,6 +58,16 @@ python -m http.server 5500   # mở http://localhost:5500 (không mở index.htm
 ```
 
 Yêu cầu: PostgreSQL 16 + PostGIS Bundle (có pgRouting) cài qua Stack Builder, `psql` có trong PATH. Gặp lỗi xem mục "Lỗi thường gặp" trong [docs/SETUP.md](docs/SETUP.md).
+
+## Kiểm thử
+- **API (T01–T05):** `backend\.venv\Scripts\python -m pytest backend/tests -q`
+- **CSDL & pgRouting (T06):** `psql -U postgres -d uit_campus -tA -f database\checks.sql` (kiểm tra `ST_IsValid` và tuyến Cổng A → A.305)
+- **Giao diện (T07):** kiểm tra thủ công trên trình duyệt: chuyển đổi LOD 1 ↔ 2 ↔ 3, lọc tầng T1–T3, không lỗi Console.
+
+## Dữ liệu
+- Footprint tòa nhà và lối đi lấy từ OpenStreetMap.
+- Danh sách phòng Tòa A tầng 1–3 từ khảo sát thực địa.
+- Vị trí phòng Tòa A dựng theo dải quanh chu vi (gần đúng, chưa đo đạc). Model `.glb` sinh bằng `dataset/scripts/build_glb_toa_a.py`.
 
 ## Thông tin
 Đồ án môn **IE402 – Hệ thống thông tin địa lý 3D**, Trường ĐH Công nghệ Thông tin – ĐHQG-HCM.

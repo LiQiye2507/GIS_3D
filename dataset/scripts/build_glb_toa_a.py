@@ -4,6 +4,7 @@
 import json
 import math
 import os
+import sys
 import numpy as np
 import trimesh
 from shapely.geometry import Polygon
@@ -57,6 +58,7 @@ def load_building_a_footprint() -> Polygon:
 
 
 def main() -> None:
+    sys.stdout.reconfigure(encoding="utf-8")
     footprint = load_building_a_footprint()
     inset = footprint.buffer(-WALL_INSET)
     parapet = footprint - inset
