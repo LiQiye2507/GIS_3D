@@ -45,6 +45,10 @@ const LIGHTING_CONFIG = {
     groundColor: '#6B7A4A',
     pathColor: '#D9D2C3',
     buildingColor: '#2E4A66',
+    glassColor: '#3E6A8F',
+    slabColor: '#E6E1D6',
+    treeColor: '#4F7A3A',
+    lampGlowOpacity: 0,
     rasterBrightness: 1,
     nightIcon: false,
   },
@@ -55,6 +59,10 @@ const LIGHTING_CONFIG = {
     groundColor: '#6E6A45',
     pathColor: '#D8C3A8',
     buildingColor: '#3A4560',
+    glassColor: '#4A5878',
+    slabColor: '#D9C7B0',
+    treeColor: '#5A6B38',
+    lampGlowOpacity: 0,
     rasterBrightness: 1,
     nightIcon: false,
   },
@@ -65,6 +73,10 @@ const LIGHTING_CONFIG = {
     groundColor: '#2F3A2A',
     pathColor: '#7D7A72',
     buildingColor: '#1C2738',
+    glassColor: '#E2B866',
+    slabColor: '#3A4250',
+    treeColor: '#22331F',
+    lampGlowOpacity: 0.85,
     rasterBrightness: 0.55,
     nightIcon: true,
   },
@@ -92,6 +104,8 @@ let buildingsList = [];
 let selectedBuildingIndex = -1;
 let defaultPlacesCount = '00';
 let defaultPlacesSummary = '0 ĐỊA ĐIỂM · 0 TIỆN ÍCH';
+let isOrbiting = false;
+let orbitRafId = null;
 
 const loadingEl = document.getElementById('loading');
 const toastEl = document.getElementById('toast');
@@ -102,8 +116,12 @@ const introStatsEl = document.getElementById('intro-stats');
 const btnSkipIntroEl = document.getElementById('btn-skip-intro');
 const lod3DockEl = document.getElementById('lod3-dock');
 const floorSwitcherEl = document.getElementById('floor-switcher');
+const hudTopLeftEl = document.getElementById('hud-top-left');
+const hudBottomLeftEl = document.getElementById('hud-bottom-left');
 const btnPlacesToggleEl = document.getElementById('btn-places-toggle');
+const btnPlacesCloseEl = document.getElementById('btn-places-close');
 const placesPanelEl = document.getElementById('places-panel');
+const placesPanelSummaryEl = document.getElementById('places-panel-summary');
 const placesCountEl = document.getElementById('places-count');
 const placesTitleEl = document.getElementById('places-title');
 const placesSummaryEl = document.getElementById('places-summary');
@@ -130,9 +148,9 @@ const radiusValueEl = document.getElementById('radius-value');
 const radiusFillEl = document.getElementById('radius-fill');
 const radiusThumbEl = document.getElementById('radius-thumb');
 const amenitiesListEl = document.getElementById('amenities-list');
-const coordBoxEl = document.getElementById('coord-box');
-const coordDmsEl = document.getElementById('coord-dms');
-const coordZoomEl = document.getElementById('coord-zoom');
+const tourCardEl = document.getElementById('tour-card');
+const tourCardSubEl = document.getElementById('tour-card-sub');
+const btnOrbitEl = document.getElementById('btn-orbit-360');
 const btnInfoEl = document.getElementById('btn-info');
 const infoPopoverEl = document.getElementById('info-popover');
 const btnSatelliteEl = document.getElementById('btn-satellite');
@@ -317,11 +335,12 @@ function setLighting(mode) {
   if (map.getLayer('campus-paths')) {
     map.setPaintProperty('campus-paths', 'line-color', cfg.pathColor);
   }
-  ['buildings-3d-layer', 'building-a-shell'].forEach((layerId) => {
-    if (map.getLayer(layerId)) {
-      map.setPaintProperty(layerId, 'fill-extrusion-color', cfg.buildingColor);
-    }
-  });
+  if (map.getLayer('tree-crowns')) {
+    map.setPaintProperty('tree-crowns', 'fill-extrusion-color', cfg.treeColor);
+  }
+  if (map.getLayer('lamp-glow')) {
+    map.setPaintProperty('lamp-glow', 'circle-opacity', cfg.lampGlowOpacity);
+  }
   updateBuildingWallColors();
   if (map.getLayer('satellite-layer')) {
     map.setPaintProperty('satellite-layer', 'raster-brightness-max', cfg.rasterBrightness);
@@ -379,25 +398,43 @@ function applyHighlightFilter() {
   map.setFilter('room-highlight', filter);
 }
 
-function formatDms(deg, posHem, negHem) {
-  const abs = Math.abs(deg);
-  const d = Math.floor(abs);
-  const mFloat = (abs - d) * 60;
-  const m = Math.floor(mFloat);
-  const s = Math.round((mFloat - m) * 60);
-  const sFixed = s === 60 ? 59 : s;
-  return `${d}°${String(m).padStart(2, '0')}′${String(sFixed).padStart(2, '0')}″${deg >= 0 ? posHem : negHem}`;
-}
+const buildingMarkerEl = document.createElement('div');
+buildingMarkerEl.className = 'building-marker';
+const buildingMarkerLabelEl = document.createElement('span');
+buildingMarkerLabelEl.className = 'building-marker-label';
+const buildingMarkerStemEl = document.createElement('span');
+buildingMarkerStemEl.className = 'building-marker-stem';
+buildingMarkerEl.appendChild(buildingMarkerLabelEl);
+buildingMarkerEl.appendChild(buildingMarkerStemEl);
+const buildingMarker = new maplibregl.Marker({
+  element: buildingMarkerEl,
+  anchor: 'bottom',
+  offset: [0, -24],
+});
 
-function updateCoordBox() {
-  const center = map.getCenter();
-  coordDmsEl.textContent = `${formatDms(center.lat, 'N', 'S')} · ${formatDms(center.lng, 'E', 'W')}`;
-  coordZoomEl.textContent = `ZOOM ${map.getZoom().toFixed(1)}`;
+function setOrbit(active) {
+  const next = Boolean(active);
+  if (next === isOrbiting) return;
+  isOrbiting = next;
+  btnOrbitEl.setAttribute('aria-checked', String(isOrbiting));
+  if (orbitRafId) {
+    cancelAnimationFrame(orbitRafId);
+    orbitRafId = null;
+  }
+  if (!isOrbiting) return;
+  const tick = () => {
+    if (!isOrbiting) return;
+    map.setBearing(map.getBearing() + 0.08);
+    orbitRafId = requestAnimationFrame(tick);
+  };
+  orbitRafId = requestAnimationFrame(tick);
 }
 
 function setPlacesPanelOpen(open) {
   placesPanelEl.classList.toggle('hidden', !open);
   btnPlacesToggleEl.setAttribute('aria-expanded', String(open));
+  hudBottomLeftEl.classList.toggle('hidden', open);
+  hudTopLeftEl.classList.toggle('is-dimmed', open);
 }
 
 function setInfoPopoverOpen(open) {
@@ -426,18 +463,53 @@ function getFeatureCenter(feature) {
   return [(minLng + maxLng) / 2, (minLat + maxLat) / 2];
 }
 
+function buildFloorParts(buildingsFc) {
+  const features = [];
+  (buildingsFc.features || []).forEach((feat) => {
+    const props = feat.properties || {};
+    if (props.building_code === 'A') return;
+    const n = Number(props.total_floors) || 1;
+    const top = Number(props.height_m) || 10;
+    const fh = (top - 1.2) / n;
+    for (let k = 0; k < n; k += 1) {
+      const glassBase = 1.2 + k * fh;
+      const slabTop = 1.2 + (k + 1) * fh;
+      const slabBase = Math.max(glassBase, slabTop - 0.6);
+      features.push({
+        type: 'Feature',
+        geometry: feat.geometry,
+        properties: { ...props, part: 'glass', base: glassBase, top: slabBase },
+      });
+      features.push({
+        type: 'Feature',
+        geometry: feat.geometry,
+        properties: { ...props, part: 'slab', base: slabBase, top: slabTop },
+      });
+    }
+  });
+  return { type: 'FeatureCollection', features };
+}
+
 function updateBuildingWallColors() {
   const cfg = LIGHTING_CONFIG[currentLighting];
   const selectedFeat = selectedBuildingIndex >= 0 ? buildingsList[selectedBuildingIndex] : null;
   const selectedCode = selectedFeat && selectedFeat.properties ? selectedFeat.properties.building_code : null;
-  const colorExpr = selectedCode
-    ? ['match', ['get', 'building_code'], selectedCode, '#5B8DB8', cfg.buildingColor]
-    : cfg.buildingColor;
-  ['buildings-3d-layer', 'building-a-shell'].forEach((layerId) => {
-    if (map.getLayer(layerId)) {
-      map.setPaintProperty(layerId, 'fill-extrusion-color', colorExpr);
-    }
-  });
+  const glassExpr = selectedCode
+    ? ['match', ['get', 'building_code'], selectedCode, '#5B8DB8', cfg.glassColor]
+    : cfg.glassColor;
+  if (map.getLayer('buildings-3d-layer')) {
+    map.setPaintProperty(
+      'buildings-3d-layer',
+      'fill-extrusion-color',
+      ['match', ['get', 'part'], 'slab', cfg.slabColor, glassExpr]
+    );
+  }
+  if (map.getLayer('building-a-shell')) {
+    const shellExpr = selectedCode
+      ? ['match', ['get', 'building_code'], selectedCode, '#5B8DB8', cfg.buildingColor]
+      : cfg.buildingColor;
+    map.setPaintProperty('building-a-shell', 'fill-extrusion-color', shellExpr);
+  }
   if (map.getLayer('buildings-roof')) {
     const roofMap = { A: '#BFE3C0', C: '#F2B98E' };
     if (selectedCode) roofMap[selectedCode] = '#FFFFFF';
@@ -454,7 +526,8 @@ function closeBuildingPanel() {
   if (selectedBuildingIndex === -1 && buildingPanelEl.classList.contains('hidden')) return;
   selectedBuildingIndex = -1;
   buildingPanelEl.classList.add('hidden');
-  coordBoxEl.style.visibility = '';
+  tourCardEl.style.visibility = '';
+  buildingMarker.remove();
   placesCountEl.classList.remove('hidden');
   placesCountEl.textContent = defaultPlacesCount;
   placesTitleEl.textContent = 'Danh sách địa điểm';
@@ -503,7 +576,11 @@ function selectBuildingByIndex(idx) {
 
   setPlacesPanelOpen(false);
   buildingPanelEl.classList.remove('hidden');
-  coordBoxEl.style.visibility = 'hidden';
+  tourCardEl.style.visibility = 'hidden';
+
+  const center = getFeatureCenter(feat);
+  buildingMarkerLabelEl.textContent = p.name || p.building_code || 'Công trình';
+  buildingMarker.setLngLat(center).addTo(map);
 
   placesCountEl.classList.add('hidden');
   placesTitleEl.textContent = p.name || p.building_code || 'Công trình';
@@ -511,7 +588,7 @@ function selectBuildingByIndex(idx) {
 
   updateBuildingWallColors();
   map.flyTo({
-    center: getFeatureCenter(feat),
+    center,
     zoom: 18.3,
     pitch: 58,
     bearing: map.getBearing(),
@@ -519,30 +596,46 @@ function selectBuildingByIndex(idx) {
   });
 }
 
-function renderBuildingsList(buildingsFc) {
+function filterBuildingsList(query = '') {
   buildingsListEl.innerHTML = '';
-  const features = buildingsFc.features || [];
-  buildingsList = features;
-  if (!features.length) {
+  if (!buildingsList.length) {
     const li = document.createElement('li');
     li.className = 'result-empty';
     li.textContent = 'Chưa có dữ liệu công trình';
     buildingsListEl.appendChild(li);
     return;
   }
-  features.forEach((feat, idx) => {
+  const q = query.trim().toLowerCase();
+  const matches = buildingsList
+    .map((feat, idx) => ({ feat, idx }))
+    .filter(({ feat }) => {
+      if (!q) return true;
+      const p = feat.properties || {};
+      return (
+        String(p.name || '').toLowerCase().includes(q) ||
+        String(p.building_code || '').toLowerCase().includes(q)
+      );
+    });
+  if (!matches.length) {
+    const li = document.createElement('li');
+    li.className = 'result-empty';
+    li.textContent = 'Không tìm thấy công trình';
+    buildingsListEl.appendChild(li);
+    return;
+  }
+  matches.forEach(({ feat, idx }) => {
     const p = feat.properties || {};
     const li = document.createElement('li');
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'panel-row-btn';
-    const floorsText = p.total_floors ? `${p.total_floors}T` : '';
+    btn.className = 'building-row-btn';
+    const floorsText = p.total_floors ? `${p.total_floors} TẦNG` : '— TẦNG';
     btn.innerHTML = `
-      <span class="row-left">
-        <span class="row-index">${String(idx + 1).padStart(2, '0')}</span>
-        <span class="row-name">${escapeHtml(p.name || p.building_code)}</span>
+      <span class="building-row-num">${String(idx + 1).padStart(2, '0')}</span>
+      <span class="building-row-info">
+        <span class="building-row-name">${escapeHtml(p.name || p.building_code)}</span>
+        <span class="eyebrow building-row-floors">${escapeHtml(floorsText)}</span>
       </span>
-      <span class="row-meta-right">${escapeHtml(floorsText)}</span>
     `;
     btn.addEventListener('click', () => {
       selectBuildingByIndex(idx);
@@ -550,6 +643,11 @@ function renderBuildingsList(buildingsFc) {
     li.appendChild(btn);
     buildingsListEl.appendChild(li);
   });
+}
+
+function renderBuildingsList(buildingsFc) {
+  buildingsList = buildingsFc.features || [];
+  filterBuildingsList(searchInputEl.value);
 }
 
 function applyLod(lod) {
@@ -688,6 +786,7 @@ function renderSearchResults(items) {
 
 searchInputEl.addEventListener('input', () => {
   const q = searchInputEl.value.trim();
+  filterBuildingsList(q);
   clearTimeout(searchDebounceTimer);
   if (searchAbortController) {
     searchAbortController.abort();
@@ -843,6 +942,10 @@ btnPlacesToggleEl.addEventListener('click', () => {
   setPlacesPanelOpen(isHidden);
 });
 
+btnPlacesCloseEl.addEventListener('click', () => {
+  setPlacesPanelOpen(false);
+});
+
 btnInfoEl.addEventListener('click', (e) => {
   e.stopPropagation();
   const isHidden = infoPopoverEl.classList.contains('hidden');
@@ -911,12 +1014,149 @@ document.getElementById('btn-route').addEventListener('click', async () => {
   }
 });
 
-function initLayers(buildingsFc, roomsFc, boundaryFc) {
+function pointInRing(pt, ring) {
+  let inside = false;
+  const [x, y] = pt;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+function pointInPolygonGeom(pt, geom) {
+  if (!geom) return false;
+  if (geom.type === 'Polygon') {
+    if (!geom.coordinates.length || !pointInRing(pt, geom.coordinates[0])) return false;
+    for (let i = 1; i < geom.coordinates.length; i += 1) {
+      if (pointInRing(pt, geom.coordinates[i])) return false;
+    }
+    return true;
+  }
+  if (geom.type === 'MultiPolygon') {
+    return geom.coordinates.some((poly) =>
+      pointInPolygonGeom(pt, { type: 'Polygon', coordinates: poly })
+    );
+  }
+  return false;
+}
+
+function samplePathPoints(pathsFc, stepM, offsetM, buildingsFc, boundaryFc) {
+  const points = [];
+  const buildingGeoms = (buildingsFc && buildingsFc.features ? buildingsFc.features : [])
+    .map((f) => f.geometry)
+    .filter(Boolean);
+  const boundaryGeoms = (boundaryFc && boundaryFc.features ? boundaryFc.features : [])
+    .map((f) => f.geometry)
+    .filter(Boolean);
+  let sideIdx = 0;
+
+  (pathsFc && pathsFc.features ? pathsFc.features : []).forEach((feat) => {
+    const geom = feat.geometry;
+    if (!geom) return;
+    const lines = geom.type === 'MultiLineString'
+      ? geom.coordinates
+      : geom.type === 'LineString' ? [geom.coordinates] : [];
+
+    lines.forEach((coords) => {
+      if (!coords || coords.length < 2) return;
+      let acc = 0;
+      for (let i = 0; i < coords.length - 1; i += 1) {
+        const p1 = coords[i];
+        const p2 = coords[i + 1];
+        const midLatRad = (((p1[1] + p2[1]) / 2) * Math.PI) / 180;
+        const mPerDegLng = 111320 * Math.cos(midLatRad);
+        const dx = (p2[0] - p1[0]) * mPerDegLng;
+        const dy = (p2[1] - p1[1]) * 110540;
+        const segLen = Math.hypot(dx, dy);
+        if (segLen < 0.01) continue;
+
+        const nx = -dy / segLen;
+        const ny = dx / segLen;
+        let pos = stepM - acc;
+        while (pos <= segLen) {
+          const t = pos / segLen;
+          const sign = sideIdx % 2 === 0 ? 1 : -1;
+          sideIdx += 1;
+          const pt = [
+            p1[0] + (p2[0] - p1[0]) * t + (sign * nx * offsetM) / mPerDegLng,
+            p1[1] + (p2[1] - p1[1]) * t + (sign * ny * offsetM) / 110540,
+          ];
+          const inBoundary = !boundaryGeoms.length || boundaryGeoms.some((g) => pointInPolygonGeom(pt, g));
+          const inBuilding = buildingGeoms.some((g) => pointInPolygonGeom(pt, g));
+          if (inBoundary && !inBuilding) points.push(pt);
+          pos += stepM;
+        }
+        acc = segLen - (pos - stepM);
+      }
+    });
+  });
+
+  return points;
+}
+
+function pointToPolygon(lng, lat, radiusM, sides = 8) {
+  const latRad = (lat * Math.PI) / 180;
+  const dLat = radiusM / 110540;
+  const dLng = radiusM / (111320 * Math.cos(latRad));
+  const ring = [];
+  for (let i = 0; i <= sides; i += 1) {
+    const angle = (i / sides) * 2 * Math.PI;
+    ring.push([lng + dLng * Math.cos(angle), lat + dLat * Math.sin(angle)]);
+  }
+  return { type: 'Polygon', coordinates: [ring] };
+}
+
+function initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc) {
   roomsByCode = new Map(roomsFc.features.map((f) => [f.properties.room_code, f.properties]));
 
+  const lampPoints = samplePathPoints(pathsFc, 25, 4, buildingsFc, boundaryFc);
+  const treePoints = samplePathPoints(pathsFc, 18, 7, buildingsFc, boundaryFc);
+
+  const lampGlowFc = {
+    type: 'FeatureCollection',
+    features: lampPoints.map(([lng, lat]) => ({
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: [lng, lat] },
+      properties: {},
+    })),
+  };
+  const lampPostsFc = {
+    type: 'FeatureCollection',
+    features: lampPoints.map(([lng, lat]) => ({
+      type: 'Feature',
+      geometry: pointToPolygon(lng, lat, 0.25, 4),
+      properties: {},
+    })),
+  };
+  const treeTrunksFc = {
+    type: 'FeatureCollection',
+    features: treePoints.map(([lng, lat]) => ({
+      type: 'Feature',
+      geometry: pointToPolygon(lng, lat, 0.3, 4),
+      properties: {},
+    })),
+  };
+  const treeCrownsFc = {
+    type: 'FeatureCollection',
+    features: treePoints.map(([lng, lat]) => ({
+      type: 'Feature',
+      geometry: pointToPolygon(lng, lat, 2.2, 8),
+      properties: {},
+    })),
+  };
+
   map.addSource('campus-boundary', { type: 'geojson', data: boundaryFc });
-  map.addSource('campus-paths', { type: 'geojson', data: 'data/campus_paths.geojson' });
+  map.addSource('campus-paths', { type: 'geojson', data: pathsFc });
   map.addSource('buildings', { type: 'geojson', data: buildingsFc });
+  map.addSource('building-floors', { type: 'geojson', data: buildFloorParts(buildingsFc) });
+  map.addSource('lamp-posts', { type: 'geojson', data: lampPostsFc });
+  map.addSource('lamp-glow', { type: 'geojson', data: lampGlowFc });
+  map.addSource('tree-trunks', { type: 'geojson', data: treeTrunksFc });
+  map.addSource('tree-crowns', { type: 'geojson', data: treeCrownsFc });
   map.addSource('rooms', { type: 'geojson', data: roomsFc });
   map.addSource('radius-circle', { type: 'geojson', data: EMPTY_FC });
   map.addSource('amenities', { type: 'geojson', data: EMPTY_FC });
@@ -929,12 +1169,23 @@ function initLayers(buildingsFc, roomsFc, boundaryFc) {
     : null;
 
   map.addLayer({
+    id: 'campus-plinth',
+    type: 'fill-extrusion',
+    source: 'campus-boundary',
+    paint: {
+      'fill-extrusion-color': '#1A1F26',
+      'fill-extrusion-base': 0,
+      'fill-extrusion-height': 1.0,
+    },
+  });
+
+  map.addLayer({
     id: 'campus-ground',
     type: 'fill-extrusion',
     source: 'campus-boundary',
     paint: {
       'fill-extrusion-color': cfg.groundColor,
-      'fill-extrusion-base': 0,
+      'fill-extrusion-base': 1.0,
       'fill-extrusion-height': 1.2,
       'fill-extrusion-vertical-gradient': true,
     },
@@ -951,7 +1202,19 @@ function initLayers(buildingsFc, roomsFc, boundaryFc) {
     },
     paint: {
       'line-color': cfg.pathColor,
-      'line-width': ['interpolate', ['linear'], ['zoom'], 15, 1.5, 18, 6, 20, 14],
+      'line-width': ['interpolate', ['exponential', 2], ['zoom'], 15, 1, 17, 3, 18, 6, 19, 12, 20, 24],
+    },
+  });
+
+  map.addLayer({
+    id: 'lamp-glow',
+    type: 'circle',
+    source: 'lamp-glow',
+    paint: {
+      'circle-color': '#FFD58A',
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 17, 3, 20, 14],
+      'circle-blur': 1,
+      'circle-opacity': cfg.lampGlowOpacity,
     },
   });
 
@@ -990,13 +1253,12 @@ function initLayers(buildingsFc, roomsFc, boundaryFc) {
   map.addLayer({
     id: 'buildings-3d-layer',
     type: 'fill-extrusion',
-    source: 'buildings',
-    filter: ['!=', ['get', 'building_code'], 'A'],
+    source: 'building-floors',
     paint: {
-      'fill-extrusion-color': cfg.buildingColor,
-      'fill-extrusion-base': 1.2,
-      'fill-extrusion-height': ['coalesce', ['get', 'height_m'], 10],
-      'fill-extrusion-opacity': 0.9,
+      'fill-extrusion-color': ['match', ['get', 'part'], 'slab', cfg.slabColor, cfg.glassColor],
+      'fill-extrusion-base': ['get', 'base'],
+      'fill-extrusion-height': ['get', 'top'],
+      'fill-extrusion-opacity': 1,
     },
   });
 
@@ -1014,6 +1276,39 @@ function initLayers(buildingsFc, roomsFc, boundaryFc) {
       ],
       'fill-extrusion-base': ['-', ['coalesce', ['get', 'height_m'], 10], 0.4],
       'fill-extrusion-height': ['+', ['coalesce', ['get', 'height_m'], 10], 0.05],
+    },
+  });
+
+  map.addLayer({
+    id: 'lamp-posts',
+    type: 'fill-extrusion',
+    source: 'lamp-posts',
+    paint: {
+      'fill-extrusion-color': '#2B2F36',
+      'fill-extrusion-base': 1.2,
+      'fill-extrusion-height': 6,
+    },
+  });
+
+  map.addLayer({
+    id: 'tree-trunks',
+    type: 'fill-extrusion',
+    source: 'tree-trunks',
+    paint: {
+      'fill-extrusion-color': '#5A4632',
+      'fill-extrusion-base': 1.2,
+      'fill-extrusion-height': 3,
+    },
+  });
+
+  map.addLayer({
+    id: 'tree-crowns',
+    type: 'fill-extrusion',
+    source: 'tree-crowns',
+    paint: {
+      'fill-extrusion-color': cfg.treeColor,
+      'fill-extrusion-base': 3,
+      'fill-extrusion-height': 7.5,
     },
   });
 
@@ -1189,7 +1484,21 @@ lightingSliderEl.addEventListener('input', () => {
   setLighting(mode);
 });
 
+btnOrbitEl.addEventListener('click', () => {
+  setOrbit(!isOrbiting);
+});
+
+tourCardEl.addEventListener('click', () => {
+  if (!buildingsList.length) return;
+  const idx = buildingsList.findIndex((b) => b.properties && b.properties.building_code === 'A');
+  selectBuildingByIndex(idx >= 0 ? idx : 0);
+});
+
+map.on('dragstart', () => setOrbit(false));
+map.on('rotatestart', () => setOrbit(false));
+
 document.getElementById('btn-reset-view').addEventListener('click', () => {
+  setOrbit(false);
   map.easeTo({
     center: DEFAULT_CENTER,
     zoom: DEFAULT_ZOOM,
@@ -1302,13 +1611,11 @@ function createBuildingAGlbLayer(props, onGlbDone) {
 addGateMarkers();
 setLighting(currentLighting);
 updateRadiusVisual();
-updateCoordBox();
-map.on('move', updateCoordBox);
 
 map.on('load', async () => {
   markIntroStep('map');
   try {
-    const [buildingsFc, roomsFc, amenitiesFc, boundaryFc] = await Promise.all([
+    const [buildingsFc, roomsFc, amenitiesFc, boundaryFc, pathsFc] = await Promise.all([
       api('/api/buildings').finally(() => markIntroStep('buildings')),
       api('/api/rooms?building_code=A').finally(() => markIntroStep('rooms')),
       api('/api/amenities/nearby?lat=10.8700&lng=106.8030&radius=500').catch((err) => {
@@ -1319,16 +1626,22 @@ map.on('load', async () => {
         if (!res.ok) throw new Error(`Lỗi tải ranh giới khuôn viên (${res.status})`);
         return res.json();
       }),
+      fetch('data/campus_paths.geojson').then((res) => {
+        if (!res.ok) throw new Error(`Lỗi tải đường khuôn viên (${res.status})`);
+        return res.json();
+      }),
     ]);
-    initLayers(buildingsFc, roomsFc, boundaryFc);
+    initLayers(buildingsFc, roomsFc, boundaryFc, pathsFc);
     renderBuildingsList(buildingsFc);
     const bCount = buildingsFc.features.length;
     const rCount = roomsFc.features.length;
     const aCount = (amenitiesFc && amenitiesFc.features ? amenitiesFc.features.length : 0);
     defaultPlacesCount = String(bCount).padStart(2, '0');
-    defaultPlacesSummary = `${bCount} ĐỊA ĐIỂM · ${aCount} TIỆN ÍCH`;
+    defaultPlacesSummary = `${bCount} địa điểm · ${aCount} tiện ích`;
     placesCountEl.textContent = defaultPlacesCount;
     placesSummaryEl.textContent = defaultPlacesSummary;
+    placesPanelSummaryEl.textContent = defaultPlacesSummary;
+    tourCardSubEl.textContent = `TÒA A · ${bCount} ĐIỂM`;
     introStatsEl.textContent = `${bCount} công trình · ${rCount} phòng Tòa A`;
     setLighting(currentLighting);
     const buildingA = buildingsFc.features.find((f) => f.properties.building_code === 'A');

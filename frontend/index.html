@@ -122,6 +122,22 @@
 
     <span class="hud-divider" aria-hidden="true"></span>
 
+    <div class="orbit-control">
+      <span class="orbit-label">360°</span>
+      <button
+        type="button"
+        id="btn-orbit-360"
+        class="orbit-switch"
+        role="switch"
+        aria-checked="false"
+        aria-label="Tự xoay 360 độ"
+      >
+        <span class="orbit-switch-thumb" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <span class="hud-divider" aria-hidden="true"></span>
+
     <div class="lod-control" role="group" aria-label="Chọn mức độ chi tiết LOD">
       <span class="lod-prefix">LOD</span>
       <button type="button" class="lod-btn active" data-lod="1" aria-pressed="true">1</button>
@@ -176,72 +192,86 @@
     </div>
   </aside>
 
-  <div id="hud-bottom-left" class="hud-block">
-    <div id="places-panel" class="places-panel hidden" role="dialog" aria-label="Danh sách địa điểm và công cụ">
-      <section class="panel-section" aria-label="Tìm kiếm phòng">
+  <aside id="places-panel" class="places-panel hidden" role="dialog" aria-label="Danh sách địa điểm và công cụ">
+    <div class="places-panel-header">
+      <div class="places-panel-title-wrap">
+        <h2 class="places-panel-title">Danh sách<br>địa điểm</h2>
+        <p id="places-panel-summary" class="places-panel-summary">0 địa điểm · 0 tiện ích</p>
+      </div>
+      <button type="button" id="btn-places-close" class="places-close-btn" aria-label="Đóng danh sách địa điểm">×</button>
+    </div>
+
+    <section class="panel-section" aria-label="Tìm kiếm phòng và công trình">
+      <div class="search-field">
+        <svg class="search-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="M20 20l-3.5-3.5"></path>
+        </svg>
         <input
           type="search"
           id="search-input"
           class="search-underline"
-          placeholder="Tìm phòng (vd: A305)"
+          placeholder="Tìm phòng hoặc công trình (vd: A305)"
           autocomplete="off"
-          aria-label="Tìm phòng"
+          aria-label="Tìm phòng hoặc công trình"
         />
-        <ul id="search-results" class="panel-list" role="listbox" aria-label="Kết quả tìm kiếm"></ul>
-      </section>
+      </div>
+      <ul id="search-results" class="panel-list" role="listbox" aria-label="Kết quả tìm kiếm"></ul>
+    </section>
 
-      <section class="panel-section" aria-label="Danh sách công trình">
-        <h2 class="eyebrow panel-heading">CÔNG TRÌNH</h2>
-        <ul id="buildings-list" class="panel-list buildings-list"></ul>
-      </section>
+    <section class="panel-section panel-section-buildings" aria-label="Danh sách công trình">
+      <h3 class="eyebrow panel-heading">CÔNG TRÌNH</h3>
+      <ul id="buildings-list" class="panel-list buildings-list"></ul>
+    </section>
 
-      <section id="room-card" class="room-card hidden" aria-label="Thông tin phòng đang chọn">
-        <h2 id="room-card-title" class="room-card-title"></h2>
-        <dl class="room-meta">
-          <div><dt>Mã phòng</dt><dd id="rc-code"></dd></div>
-          <div><dt>Loại</dt><dd id="rc-type"></dd></div>
-          <div><dt>Tầng</dt><dd id="rc-floor"></dd></div>
-          <div><dt>Sức chứa</dt><dd id="rc-capacity"></dd></div>
-          <div><dt>Thiết bị</dt><dd id="rc-equipment"></dd></div>
-        </dl>
-        <button type="button" id="btn-route" class="btn btn-primary full-width">
-          Chỉ đường đến phòng này
-        </button>
-        <p id="route-summary" class="route-summary hidden" aria-live="polite"></p>
-      </section>
+    <section id="room-card" class="room-card hidden" aria-label="Thông tin phòng đang chọn">
+      <h3 id="room-card-title" class="room-card-title"></h3>
+      <dl class="room-meta">
+        <div><dt>Mã phòng</dt><dd id="rc-code"></dd></div>
+        <div><dt>Loại</dt><dd id="rc-type"></dd></div>
+        <div><dt>Tầng</dt><dd id="rc-floor"></dd></div>
+        <div><dt>Sức chứa</dt><dd id="rc-capacity"></dd></div>
+        <div><dt>Thiết bị</dt><dd id="rc-equipment"></dd></div>
+      </dl>
+      <button type="button" id="btn-route" class="btn btn-primary full-width">
+        Chỉ đường đến phòng này
+      </button>
+      <p id="route-summary" class="route-summary hidden" aria-live="polite"></p>
+    </section>
 
-      <section class="panel-section" aria-label="Vị trí giả lập và tiện ích lân cận">
-        <h2 class="eyebrow panel-heading">ĐỊNH VỊ &amp; TIỆN ÍCH</h2>
-        <button type="button" id="btn-pick-location" class="btn full-width" aria-pressed="false">
-          Click chọn vị trí giả lập
-        </button>
-        <div class="thin-slider-row">
-          <div class="thin-slider-meta">
-            <label for="radius-slider" class="eyebrow thin-slider-label">BÁN KÍNH</label>
-            <strong id="radius-value" class="thin-slider-val">150 m</strong>
-          </div>
-          <div class="thin-slider-wrap">
-            <div class="thin-slider-track" aria-hidden="true">
-              <div id="radius-fill" class="thin-slider-fill" style="width:40%"></div>
-              <div id="radius-thumb" class="thin-slider-thumb" style="left:40%"></div>
-            </div>
-            <input type="range" id="radius-slider" class="thin-range-input" min="50" max="300" step="10" value="150" />
-          </div>
+    <section class="panel-section" aria-label="Vị trí giả lập và tiện ích lân cận">
+      <h3 class="eyebrow panel-heading">ĐỊNH VỊ &amp; TIỆN ÍCH</h3>
+      <button type="button" id="btn-pick-location" class="btn full-width" aria-pressed="false">
+        Click chọn vị trí giả lập
+      </button>
+      <div class="thin-slider-row">
+        <div class="thin-slider-meta">
+          <label for="radius-slider" class="eyebrow thin-slider-label">BÁN KÍNH</label>
+          <strong id="radius-value" class="thin-slider-val">150 m</strong>
         </div>
-        <div class="layer-toggles">
-          <label class="toggle-item">
-            <input type="checkbox" id="toggle-route" checked />
-            <span>Đường đi</span>
-          </label>
-          <label class="toggle-item">
-            <input type="checkbox" id="toggle-amenities" checked />
-            <span>Tiện ích</span>
-          </label>
+        <div class="thin-slider-wrap">
+          <div class="thin-slider-track" aria-hidden="true">
+            <div id="radius-fill" class="thin-slider-fill" style="width:40%"></div>
+            <div id="radius-thumb" class="thin-slider-thumb" style="left:40%"></div>
+          </div>
+          <input type="range" id="radius-slider" class="thin-range-input" min="50" max="300" step="10" value="150" />
         </div>
-        <ul id="amenities-list" class="panel-list" aria-label="Danh sách tiện ích gần đây"></ul>
-      </section>
-    </div>
+      </div>
+      <div class="layer-toggles">
+        <label class="toggle-item">
+          <input type="checkbox" id="toggle-route" checked />
+          <span class="eyebrow">Đường đi</span>
+        </label>
+        <label class="toggle-item">
+          <input type="checkbox" id="toggle-amenities" checked />
+          <span class="eyebrow">Tiện ích</span>
+        </label>
+      </div>
+      <ul id="amenities-list" class="panel-list" aria-label="Danh sách tiện ích gần đây"></ul>
+    </section>
+  </aside>
 
+  <div id="hud-bottom-left" class="hud-block">
     <button
       type="button"
       id="btn-places-toggle"
@@ -271,13 +301,13 @@
   </div>
 
   <div id="hud-bottom-right" class="hud-block">
-    <div id="coord-box" class="coord-box" aria-label="Toạ độ tâm bản đồ">
-      <div class="coord-head">
-        <span class="eyebrow coord-label">TỌA ĐỘ TÂM</span>
-        <span id="coord-zoom" class="coord-zoom">ZOOM 17.1</span>
+    <button type="button" id="tour-card" class="tour-card">
+      <div class="tour-card-left">
+        <span class="tour-card-title">Bắt đầu khám phá</span>
+        <span id="tour-card-sub" class="eyebrow tour-card-sub">TÒA A · 0 ĐIỂM</span>
       </div>
-      <div id="coord-dms" class="coord-dms">10°52′12″N · 106°48′03″E</div>
-    </div>
+      <span class="tour-card-arrow" aria-hidden="true">↗</span>
+    </button>
 
     <div class="copyright-row">
       <span>© 2026</span>
