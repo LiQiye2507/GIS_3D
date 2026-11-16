@@ -4,3 +4,7 @@ psycopg2-binary
 python-dotenv
 pytest
 httpx
+# chỉ dùng cho dataset/scripts/build_glb_toa_a.py
+trimesh
+shapely
+mapbox-earcut
