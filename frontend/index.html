@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UIT 3D Smart Campus WebGIS</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="map" role="application" aria-label="Bản đồ 3D khuôn viên UIT"></div>
+
+  <aside id="sidebar" aria-label="Tìm kiếm và tiện ích">
+    <header class="sidebar-header">
+      <h1 class="app-title">UIT 3D Smart Campus</h1>
+    </header>
+
+    <section class="sidebar-section" aria-label="Tìm kiếm phòng">
+      <label for="search-input" class="field-label">Tìm phòng học / văn phòng</label>
+      <input
+        type="search"
+        id="search-input"
+        class="text-input"
+        placeholder="Nhập mã hoặc tên phòng (vd: A305)..."
+        autocomplete="off"
+      />
+      <ul id="search-results" class="result-list" role="listbox" aria-label="Kết quả tìm kiếm"></ul>
+    </section>
+
+    <section id="room-card" class="room-card hidden" aria-label="Thông tin phòng đang chọn">
+      <h2 id="room-card-title" class="room-card-title"></h2>
+      <dl class="room-meta">
+        <div><dt>Mã phòng</dt><dd id="rc-code"></dd></div>
+        <div><dt>Loại</dt><dd id="rc-type"></dd></div>
+        <div><dt>Tầng</dt><dd id="rc-floor"></dd></div>
+        <div><dt>Sức chứa</dt><dd id="rc-capacity"></dd></div>
+        <div><dt>Thiết bị</dt><dd id="rc-equipment"></dd></div>
+      </dl>
+      <button type="button" id="btn-route" class="btn btn-primary full-width">
+        Chỉ đường đến phòng này
+      </button>
+      <p id="route-summary" class="route-summary hidden" aria-live="polite"></p>
+    </section>
+
+    <section class="sidebar-section" aria-label="Vị trí giả lập và tiện ích lân cận">
+      <h2 class="section-title">Định vị &amp; Tiện ích</h2>
+      <button type="button" id="btn-pick-location" class="btn full-width" aria-pressed="false">
+        Click chọn vị trí giả lập
+      </button>
+      <div class="slider-row">
+        <label for="radius-slider" class="field-label">Bán kính: <strong id="radius-value">150 m</strong></label>
+        <input type="range" id="radius-slider" min="50" max="300" step="10" value="150" />
+      </div>
+      <ul id="amenities-list" class="result-list" aria-label="Danh sách tiện ích gần đây"></ul>
+    </section>
+  </aside>
+
+  <section id="control-panel" class="panel" aria-label="Điều khiển hiển thị 3D">
+    <h2 class="panel-title">Mức độ chi tiết (LOD)</h2>
+    <div class="btn-group" role="group" aria-label="Chọn mức độ chi tiết">
+      <button type="button" class="btn active" data-lod="1" aria-pressed="true">LOD 1</button>
+      <button type="button" class="btn" data-lod="2" aria-pressed="false">LOD 2</button>
+      <button type="button" class="btn" data-lod="3" aria-pressed="false">LOD 3</button>
+    </div>
+
+    <div class="layer-toggles">
+      <label class="toggle-item">
+        <input type="checkbox" id="toggle-satellite" />
+        <span>Nền vệ tinh</span>
+      </label>
+      <label class="toggle-item">
+        <input type="checkbox" id="toggle-route" checked />
+        <span>Đường đi</span>
+      </label>
+      <label class="toggle-item">
+        <input type="checkbox" id="toggle-amenities" checked />
+        <span>Tiện ích</span>
+      </label>
+    </div>
+
+    <h3 class="panel-subtitle">Chú giải loại phòng</h3>
+    <ul class="legend" aria-label="Chú giải màu phòng">
+      <li><span class="swatch" style="background:#3B82F6"></span>Phòng lý thuyết (Theory)</li>
+      <li><span class="swatch" style="background:#F97316"></span>Phòng thực hành (Lab)</li>
+      <li><span class="swatch" style="background:#8B5CF6"></span>Thư viện (Library)</li>
+      <li><span class="swatch" style="background:#10B981"></span>Văn phòng / Khoa (Office)</li>
+      <li><span class="swatch" style="background:#CBD5E1"></span>Hành lang (Corridor)</li>
+      <li><span class="swatch" style="background:#64748B"></span>Cầu thang / WC</li>
+      <li><span class="swatch" style="background:#EAB308"></span>Đang chọn / Highlighted</li>
+    </ul>
+  </section>
+
+  <nav id="floor-switcher" class="panel" aria-label="Chọn tầng Tòa A"></nav>
+
+  <div id="loading" class="loading hidden" role="status" aria-live="polite">
+    <span class="spinner" aria-hidden="true"></span>
+    <span>Đang tải dữ liệu...</span>
+  </div>
+
+  <div id="toast" class="toast hidden" role="alert" aria-live="assertive"></div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
