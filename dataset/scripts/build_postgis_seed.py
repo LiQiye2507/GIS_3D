@@ -57,7 +57,6 @@ def main() -> None:
 
     lines = [
         "-- File SQL duoc sinh tu dong tu dataset UIT da chuan hoa (EPSG:4326)",
-        "TRUNCATE TABLE campus_paths, amenities, rooms, floors, buildings RESTART IDENTITY CASCADE;",
         "",
     ]
 
@@ -74,12 +73,22 @@ def main() -> None:
             total_floors = int(p.get("total_floors") or p.get("building:levels") or 1)
             base_elev = float(p.get("base_elevation") or 0.0)
             height_m = float(p.get("height_m") or round(total_floors * 3.8, 2))
-            glb_url = p.get("glb_model_url") or f"/models/building_{code.lower()}.glb"
+            if code == "A":
+                glb_url = p.get("glb_model_url") or "/models/building_a.glb"
+                outer = feat["geometry"]["coordinates"][0]
+                anchor_lng = min(pt[0] for pt in outer)
+                anchor_lat = min(pt[1] for pt in outer)
+                model_rotation = 0
+            else:
+                glb_url = None
+                anchor_lng = "NULL"
+                anchor_lat = "NULL"
+                model_rotation = "NULL"
             desc = p.get("description") or p.get("notes") or ""
             wkt = ring_to_wkt_polygon(feat["geometry"]["coordinates"])
             lines.append(
-                "INSERT INTO buildings (building_code, name, total_floors, base_elevation, height_m, glb_model_url, description, geom) "
-                f"VALUES ({sql_str(code)}, {sql_str(name)}, {total_floors}, {base_elev}, {height_m}, {sql_str(glb_url)}, {sql_str(desc)}, "
+                "INSERT INTO buildings (building_code, name, total_floors, base_elevation, height_m, glb_model_url, anchor_lng, anchor_lat, model_rotation, description, geom) "
+                f"VALUES ({sql_str(code)}, {sql_str(name)}, {total_floors}, {base_elev}, {height_m}, {sql_str(glb_url)}, {anchor_lng}, {anchor_lat}, {model_rotation}, {sql_str(desc)}, "
                 f"ST_GeomFromText('{wkt}', 4326));"
             )
         lines.append("")
@@ -120,11 +129,16 @@ def main() -> None:
         lines.append("")
 
     # 4. Amenities (from CSV with valid lat/lon)
+    valid_categories = {"Canteen", "ATM", "Water", "Parking", "Medical", "FireSafety"}
     if args.poi_csv and os.path.exists(args.poi_csv):
         lines.append("-- 4. Amenities (POI 3D)")
+        lines.append("-- TODO: kiểm chứng thực địa")
         with open(args.poi_csv, "r", encoding="utf-8-sig", newline="") as f:
             for row in csv.DictReader(f):
                 if row.get("record_type", "POI") not in ("", "POI"):
+                    continue
+                cat = (row.get("category") or "").strip()
+                if cat not in valid_categories:
                     continue
                 lat_s, lon_s = (row.get("lat") or "").strip(), (row.get("lon") or "").strip()
                 if not lat_s or not lon_s:
@@ -137,22 +151,24 @@ def main() -> None:
                 open_h = (row.get("open_hours") or "").strip() or "07:00 - 17:30"
                 lines.append(
                     "INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ("
-                    f"{sql_str(row['name'])}, {sql_str(row['category'])}, {b_expr}, {fl}, {elev_z}, {sql_str(open_h)}, "
+                    f"{sql_str(row['name'])}, {sql_str(cat)}, {b_expr}, {fl}, {elev_z}, {sql_str(open_h)}, "
                     f"ST_GeomFromText('POINT Z ({float(lon_s)} {float(lat_s)} {elev_z})', 4326));"
                 )
         lines.append("")
 
     # 5. Campus Paths
-    path_feats = load_geojson(args.outdoor_paths) + load_geojson(args.indoor_paths)
+    outdoor_feats = [(feat, 0.0) for feat in load_geojson(args.outdoor_paths)]
+    indoor_feats = [(feat, 0.2) for feat in load_geojson(args.indoor_paths)]
+    path_feats = outdoor_feats + indoor_feats
     if path_feats:
         lines.append("-- 5. Campus Paths (3D Walkways / Corridors / Stairs)")
-        for feat in path_feats:
+        for feat, def_z in path_feats:
             p = feat["properties"]
             p_type = p.get("path_type") or ("Stairs" if p.get("highway") == "steps" else "Walkway")
             fl_from = int(p.get("floor_from") or 1)
             fl_to = int(p.get("floor_to") or fl_from)
             length_m = float(p.get("length_m") or 0.0)
-            wkt = linestringz_to_wkt(feat["geometry"]["coordinates"], default_z=0.2)
+            wkt = linestringz_to_wkt(feat["geometry"]["coordinates"], default_z=def_z)
             lines.append(
                 "INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ("
                 f"{sql_str(p_type)}, {fl_from}, {fl_to}, {length_m}, ST_GeomFromText('{wkt}', 4326));"
