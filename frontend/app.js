@@ -1,5 +1,11 @@
 const API = 'http://localhost:8000';
+const DEFAULT_CENTER = [106.8030, 10.8700];
+const DEFAULT_ZOOM = 17.5;
+const DEFAULT_PITCH = 60;
+const DEFAULT_BEARING = -20;
+
 const GATE_A = [106.8020546, 10.8704376];
+const GATE_B = [106.8039237, 10.8689966];
 
 const ROOM_COLORS = {
   Theory: '#3B82F6',
@@ -30,12 +36,39 @@ const AMENITY_COLORS = {
   FireSafety: '#DC2626',
 };
 
+const LIGHTING_MODES = ['day', 'sunset', 'night'];
+const LIGHTING_CONFIG = {
+  day: {
+    label: 'Ban ngày',
+    light: { anchor: 'map', color: '#ffffff', intensity: 0.45, position: [1.15, 210, 30] },
+    buildingColor: '#E9E4D8',
+    rasterBrightness: 1,
+    nightIcon: false,
+  },
+  sunset: {
+    label: 'Hoàng hôn',
+    light: { anchor: 'map', color: '#FFB27A', intensity: 0.55, position: [1.15, 260, 20] },
+    buildingColor: '#E8C7A8',
+    rasterBrightness: 1,
+    nightIcon: false,
+  },
+  night: {
+    label: 'Ban đêm',
+    light: { anchor: 'map', color: '#8FA8FF', intensity: 0.25, position: [1.15, 210, 30] },
+    buildingColor: '#3A4250',
+    rasterBrightness: 0.55,
+    nightIcon: true,
+  },
+};
+
 const EMPTY_FC = { type: 'FeatureCollection', features: [] };
 
 let currentLod = 1;
 let prevLodBeforeLod2 = 1;
 let glbLoadFailed = false;
 let currentFloor = null;
+let currentLighting = 'day';
+let isSatellite = false;
 let loadingCount = 0;
 let toastTimer = null;
 let roomsByCode = new Map();
@@ -58,6 +91,12 @@ const btnPickLocationEl = document.getElementById('btn-pick-location');
 const radiusSliderEl = document.getElementById('radius-slider');
 const radiusValueEl = document.getElementById('radius-value');
 const amenitiesListEl = document.getElementById('amenities-list');
+const btnSatelliteEl = document.getElementById('btn-satellite');
+const lightingSliderEl = document.getElementById('lighting-slider');
+const lightingValueEl = document.getElementById('lighting-value');
+const lightingKnobEl = document.getElementById('lighting-knob');
+const lightingIconSunEl = document.getElementById('lighting-icon-sun');
+const lightingIconMoonEl = document.getElementById('lighting-icon-moon');
 
 function showToast(message, isError = false) {
   toastEl.textContent = message;
@@ -102,13 +141,20 @@ function escapeHtml(text) {
 
 const map = new maplibregl.Map({
   container: 'map',
-  center: [106.8030, 10.8700],
-  zoom: 17.5,
-  pitch: 60,
-  bearing: -20,
+  center: DEFAULT_CENTER,
+  zoom: DEFAULT_ZOOM,
+  pitch: DEFAULT_PITCH,
+  bearing: DEFAULT_BEARING,
+  attributionControl: false,
   style: {
     version: 8,
     sources: {
+      dark: {
+        type: 'raster',
+        tiles: ['https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'],
+        tileSize: 256,
+        attribution: '© OpenStreetMap © CARTO',
+      },
       osm: {
         type: 'raster',
         tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
@@ -125,7 +171,13 @@ const map = new maplibregl.Map({
       },
     },
     layers: [
-      { id: 'osm-layer', type: 'raster', source: 'osm' },
+      { id: 'dark-layer', type: 'raster', source: 'dark' },
+      {
+        id: 'osm-layer',
+        type: 'raster',
+        source: 'osm',
+        layout: { visibility: 'none' },
+      },
       {
         id: 'satellite-layer',
         type: 'raster',
@@ -136,12 +188,62 @@ const map = new maplibregl.Map({
   },
 });
 
-map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
+map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
 
 function setLayerVisibility(id, visible) {
   if (map.getLayer(id)) {
     map.setLayoutProperty(id, 'visibility', visible ? 'visible' : 'none');
   }
+}
+
+function setLighting(mode) {
+  const key = LIGHTING_CONFIG[mode] ? mode : 'day';
+  currentLighting = key;
+  const cfg = LIGHTING_CONFIG[key];
+  const idx = LIGHTING_MODES.indexOf(key);
+
+  lightingValueEl.textContent = cfg.label;
+  lightingSliderEl.value = String(idx);
+  const knobPositions = ['16px', '50%', 'calc(100% - 16px)'];
+  lightingKnobEl.style.left = knobPositions[idx];
+  lightingIconSunEl.classList.toggle('hidden', cfg.nightIcon);
+  lightingIconMoonEl.classList.toggle('hidden', !cfg.nightIcon);
+
+  if (!map.isStyleLoaded()) return;
+
+  map.setLight(cfg.light);
+  ['buildings-3d-layer', 'building-a-shell'].forEach((layerId) => {
+    if (map.getLayer(layerId)) {
+      map.setPaintProperty(layerId, 'fill-extrusion-color', cfg.buildingColor);
+    }
+  });
+  ['dark-layer', 'osm-layer', 'satellite-layer'].forEach((layerId) => {
+    if (map.getLayer(layerId)) {
+      map.setPaintProperty(layerId, 'raster-brightness-max', cfg.rasterBrightness);
+    }
+  });
+}
+
+function addGateMarkers() {
+  const gates = [
+    { coords: GATE_A, label: 'CỔNG A - HÀN THUYÊN' },
+    { coords: GATE_B, label: 'CỔNG B - XA LỘ HÀ NỘI' },
+  ];
+  gates.forEach(({ coords, label }) => {
+    const el = document.createElement('div');
+    el.className = 'gate-marker';
+    const text = document.createElement('span');
+    text.className = 'gate-marker-label';
+    text.textContent = label;
+    const dot = document.createElement('span');
+    dot.className = 'gate-marker-dot';
+    el.appendChild(text);
+    el.appendChild(dot);
+    new maplibregl.Marker({ element: el, anchor: 'bottom' })
+      .setLngLat(coords)
+      .addTo(map);
+  });
 }
 
 function updateLodButtons() {
@@ -484,7 +586,7 @@ function initLayers(buildingsFc, roomsFc) {
     source: 'buildings',
     paint: {
       'fill-color': '#94A3B8',
-      'fill-opacity': 0.35,
+      'fill-opacity': 0.22,
       'fill-outline-color': '#475569',
     },
   });
@@ -495,7 +597,7 @@ function initLayers(buildingsFc, roomsFc) {
     source: 'radius-circle',
     paint: {
       'fill-color': '#2563EB',
-      'fill-opacity': 0.12,
+      'fill-opacity': 0.14,
     },
   });
 
@@ -504,11 +606,13 @@ function initLayers(buildingsFc, roomsFc) {
     type: 'line',
     source: 'radius-circle',
     paint: {
-      'line-color': '#2563EB',
+      'line-color': '#60A5FA',
       'line-width': 2,
       'line-dasharray': [2, 2],
     },
   });
+
+  const initialColor = LIGHTING_CONFIG[currentLighting].buildingColor;
 
   map.addLayer({
     id: 'buildings-3d-layer',
@@ -516,7 +620,7 @@ function initLayers(buildingsFc, roomsFc) {
     source: 'buildings',
     filter: ['!=', ['get', 'building_code'], 'A'],
     paint: {
-      'fill-extrusion-color': '#94A3B8',
+      'fill-extrusion-color': initialColor,
       'fill-extrusion-base': ['coalesce', ['get', 'base_elevation'], 0],
       'fill-extrusion-height': ['coalesce', ['get', 'height_m'], 10],
       'fill-extrusion-opacity': 0.9,
@@ -530,7 +634,7 @@ function initLayers(buildingsFc, roomsFc) {
     source: 'buildings',
     filter: ['==', ['get', 'building_code'], 'A'],
     paint: {
-      'fill-extrusion-color': '#60A5FA',
+      'fill-extrusion-color': initialColor,
       'fill-extrusion-base': ['coalesce', ['get', 'base_elevation'], 0],
       'fill-extrusion-height': ['coalesce', ['get', 'height_m'], 12],
       'fill-extrusion-opacity': 0.9,
@@ -662,8 +766,33 @@ document.querySelectorAll('[data-lod]').forEach((btn) => {
   });
 });
 
-document.getElementById('toggle-satellite').addEventListener('change', (e) => {
-  setLayerVisibility('satellite-layer', e.target.checked);
+btnSatelliteEl.addEventListener('click', () => {
+  isSatellite = !isSatellite;
+  btnSatelliteEl.classList.toggle('active', isSatellite);
+  btnSatelliteEl.setAttribute('aria-pressed', String(isSatellite));
+  setLayerVisibility('satellite-layer', isSatellite);
+});
+
+lightingSliderEl.addEventListener('input', () => {
+  const mode = LIGHTING_MODES[Number(lightingSliderEl.value)] || 'day';
+  setLighting(mode);
+});
+
+document.getElementById('btn-reset-view').addEventListener('click', () => {
+  map.easeTo({
+    center: DEFAULT_CENTER,
+    zoom: DEFAULT_ZOOM,
+    pitch: DEFAULT_PITCH,
+    bearing: DEFAULT_BEARING,
+  });
+});
+
+document.getElementById('btn-fullscreen').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
 });
 
 document.getElementById('toggle-route').addEventListener('change', (e) => {
@@ -756,6 +885,8 @@ function createBuildingAGlbLayer(props) {
   };
 }
 
+addGateMarkers();
+
 map.on('load', async () => {
   try {
     const [buildingsFc, roomsFc] = await Promise.all([
@@ -763,6 +894,7 @@ map.on('load', async () => {
       api('/api/rooms?building_code=A'),
     ]);
     initLayers(buildingsFc, roomsFc);
+    setLighting(currentLighting);
     const buildingA = buildingsFc.features.find((f) => f.properties.building_code === 'A');
     if (
       buildingA &&
@@ -777,6 +909,7 @@ map.on('load', async () => {
     const totalFloors = buildingA && buildingA.properties.total_floors ? buildingA.properties.total_floors : 3;
     renderFloorSwitcher(totalFloors);
   } catch (_) {
+    setLighting(currentLighting);
     renderFloorSwitcher(3);
   }
 });
