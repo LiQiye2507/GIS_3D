@@ -222,7 +222,8 @@ def build() -> dict:
     old = {f['properties']['building_code']: lnglat_to_enu(shape(f['geometry'])) for f in load_fc('buildings')['features']}
     T, mean_iou = fit_T(fps, old)
     new = {k: apply_T(T, fps[k]) for k in old}
-    R = {k: fit_rigid(old[k], new[k]) for k in old}
+    # khớp theo vành ngoài: sân trong của model (Tòa C) không có trong lưới phòng cũ
+    R = {k: fit_rigid(old[k], Polygon(new[k].exterior)) for k in old}
     shift = {k: np.subtract(rigid(old[k].centroid, R[k]).coords[0], old[k].centroid.coords[0]) for k in old}
 
     def displace(x, y, code=None):
