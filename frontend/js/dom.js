@@ -11,7 +11,6 @@ export const lod3DockEl = document.getElementById('lod3-dock');
 export const floorSwitcherEl = document.getElementById('floor-switcher');
 export const hudTopLeftEl = document.getElementById('hud-top-left');
 export const hudBottomLeftEl = document.getElementById('hud-bottom-left');
-export const hudBottomCenterEl = document.getElementById('hud-bottom-center');
 export const btnPlacesToggleEl = document.getElementById('btn-places-toggle');
 export const btnPlacesCloseEl = document.getElementById('btn-places-close');
 export const placesPanelEl = document.getElementById('places-panel');
