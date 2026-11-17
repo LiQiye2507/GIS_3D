@@ -15,7 +15,7 @@ def test_buildings_collection():
     assert res.status_code == 200
     body = res.json()
     assert body["type"] == "FeatureCollection"
-    assert len(body["features"]) == 6
+    assert len(body["features"]) == 7  # A, B, C, D, E, NHA_PVSV, CAFE_VOI
     toa_a = next(
         (f for f in body["features"] if f["properties"]["building_code"] == "A"),
         None,

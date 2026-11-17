@@ -1,0 +1,388 @@
+{
+ "type": "FeatureCollection",
+ "name": "sports_fields",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF01",
+    "name": "Sân thể thao 1",
+    "sport_type": null,
+    "area_m2": 354.1,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8041278,
+       10.8709041
+      ],
+      [
+       106.8043369,
+       10.8707378
+      ],
+      [
+       106.804406,
+       10.870823
+      ],
+      [
+       106.8041971,
+       10.8709891
+      ],
+      [
+       106.8041278,
+       10.8709041
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF02",
+    "name": "Sân thể thao 2",
+    "sport_type": null,
+    "area_m2": 119.4,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8045522,
+       10.8705939
+      ],
+      [
+       106.8046217,
+       10.8705946
+      ],
+      [
+       106.8046201,
+       10.8707368
+      ],
+      [
+       106.8045506,
+       10.8707361
+      ],
+      [
+       106.8045522,
+       10.8705939
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF03",
+    "name": "Sân thể thao 3",
+    "sport_type": null,
+    "area_m2": 140.2,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8046515,
+       10.870595
+      ],
+      [
+       106.8048204,
+       10.8705968
+      ],
+      [
+       106.8048196,
+       10.8706655
+      ],
+      [
+       106.8046507,
+       10.8706636
+      ],
+      [
+       106.8046515,
+       10.870595
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF04",
+    "name": "Sân thể thao 4",
+    "sport_type": null,
+    "area_m2": 246.6,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8043898,
+       10.8703426
+      ],
+      [
+       106.8046453,
+       10.8703453
+      ],
+      [
+       106.8046444,
+       10.8704252
+      ],
+      [
+       106.8043889,
+       10.8704224
+      ],
+      [
+       106.8043898,
+       10.8703426
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF05",
+    "name": "Sân thể thao 5",
+    "sport_type": null,
+    "area_m2": 140.2,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8047537,
+       10.8703261
+      ],
+      [
+       106.8049226,
+       10.8703279
+      ],
+      [
+       106.8049218,
+       10.8703966
+      ],
+      [
+       106.8047529,
+       10.8703948
+      ],
+      [
+       106.8047537,
+       10.8703261
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF06",
+    "name": "Sân thể thao 6",
+    "sport_type": null,
+    "area_m2": 151.0,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8044484,
+       10.8702802
+      ],
+      [
+       106.8044491,
+       10.8702116
+      ],
+      [
+       106.8046311,
+       10.8702136
+      ],
+      [
+       106.8046303,
+       10.8702823
+      ],
+      [
+       106.8044484,
+       10.8702802
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF07",
+    "name": "Sân thể thao 7",
+    "sport_type": null,
+    "area_m2": 147.9,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8047527,
+       10.870201
+      ],
+      [
+       106.8049263,
+       10.8702029
+      ],
+      [
+       106.804924,
+       10.8702052
+      ],
+      [
+       106.8049235,
+       10.8702403
+      ],
+      [
+       106.8049232,
+       10.8702732
+      ],
+      [
+       106.8049255,
+       10.8702764
+      ],
+      [
+       106.8047543,
+       10.8702722
+      ],
+      [
+       106.804755,
+       10.8702045
+      ],
+      [
+       106.8047527,
+       10.870201
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF08",
+    "name": "Sân thể thao 8",
+    "sport_type": null,
+    "area_m2": 140.1,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028553,
+       10.8689065
+      ],
+      [
+       106.8029248,
+       10.8689073
+      ],
+      [
+       106.8029229,
+       10.8690741
+      ],
+      [
+       106.8028535,
+       10.8690733
+      ],
+      [
+       106.8028553,
+       10.8689065
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "SF09",
+    "name": "Sân thể thao 9",
+    "sport_type": null,
+    "area_m2": 140.1,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mặt sân)",
+    "verified": false,
+    "provisional": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.80306,
+       10.8689087
+      ],
+      [
+       106.8031295,
+       10.8689095
+      ],
+      [
+       106.8031277,
+       10.8690763
+      ],
+      [
+       106.8030582,
+       10.8690755
+      ],
+      [
+       106.80306,
+       10.8689087
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

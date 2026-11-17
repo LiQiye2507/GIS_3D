@@ -13,6 +13,13 @@ venv/
 # DB backups
 *.dump
 *.backup
+*.backup.*
+
+# Model nguồn (file lớn) – chỉ giữ script
+Models_3D/*
+!Models_3D/scripts/
+Models_3D/scripts/*
+!Models_3D/scripts/*.py
 
 # OS / editor / log
 *.log

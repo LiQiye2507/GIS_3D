@@ -21,7 +21,7 @@ WITH nodes AS (
 start_v AS (
     SELECT node_id
     FROM nodes
-    ORDER BY ST_Distance(pt::geography, ST_SetSRID(ST_MakePoint(106.8020546, 10.8704376), 4326)::geography)
+    ORDER BY ST_Distance(pt::geography, ST_SetSRID(ST_MakePoint(106.802094, 10.8704303), 4326)::geography)
     LIMIT 1
 ),
 end_v AS (
