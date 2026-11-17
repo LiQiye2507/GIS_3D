@@ -85,7 +85,7 @@
     "category": "Canteen",
     "building_code": "E",
     "floor_number": 7,
-    "elevation_z": 23.8,
+    "elevation_z": 27.6,
     "open_hours": null,
     "source": "field_survey",
     "source_ref": "OSM way 693343289",
@@ -94,9 +94,9 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     106.802661,
-     10.8697176,
-     23.8
+     106.8028998,
+     10.8697979,
+     27.6
     ]
    }
   },

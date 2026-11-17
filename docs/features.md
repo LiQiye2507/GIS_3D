@@ -13,18 +13,18 @@ Web GIS 3D phục vụ **số hóa dữ liệu khuôn viên** và các chức n�
 | Ranh giới khuôn viên | (hằng số frontend, từ OSM) | 1 | – |
 | Tòa nhà | `buildings` | 6 | `building_code` (A, B, C, D, E, NHA_PVSV) |
 | Tầng | `floors` | 28 (Tòa A: 3, B: 9, C: 3, E: 13) | `building_id` + `floor_number` |
-| Phòng | `rooms` | 409 (Tòa A: 78, B: 135, C: 67, E: 129) | `room_code` (vd. `A305`, `C312`, `B1.02`, `E7.1`) |
+| Phòng | `rooms` | 434 (Tòa A: 78, B: 135, C: 67, E: 154) | `room_code` (vd. `A305`, `C312`, `B1.02`, `E7.1`) |
 | Tiện ích | `amenities` | 7 (căn tin, ATM, nước uống, bãi xe) | `id` |
 | Sân thể thao | `sports_fields` | 9 (tách từ mô hình 3D) | `field_code` (SF01–SF09) |
 | Mạng lưới đường đi | `campus_paths` | 145 cạnh (đường ngoài trời 62, hành lang 75, cầu thang 8) | `id`, `source_node`, `target_node` |
 
 **Nguồn hình học:** mô hình 3D toàn trường (`frontend/models/uit_campus.glb`) là chuẩn vị trí. Footprint các tòa được lấy từ mô hình và quy đổi sang WGS84 bằng một phép đồng dạng (tỉ lệ 0,969, xoay 0,63°, fit với footprint OSM của 5 tòa). Phòng, sàn và tiện ích của mỗi tòa được dời và xoay theo tòa đó, còn lối đi, cổng và ranh giới được dời theo các tòa lân cận. Cách tính nằm trong `Models_3D/scripts/04_align_gis_to_model.py`.
 
-**Nội thất Tòa B và Tòa E:** số hóa từ mô hình nội thất LOD 3 của từng tòa (`Models_3D/scripts/07_import_lod3_b_e.py`), lưu ở `dataset/rooms_b_e.geojson`, `dataset/floors_b_e.geojson` và nạp bằng `database/06_toa_b_e_indoor.sql`. Tọa độ được quy đổi về cùng hệ với mô hình khuôn viên (sai số khớp khoảng 5 mm); mọi phòng có `verified = false`.
+**Nội thất Tòa B và Tòa E:** bố trí phòng theo sơ đồ tầng của trường (số phòng, thứ tự phòng, vị trí WC/thang máy/cầu thang), hình dạng ô phòng cắt theo khối tòa trong mô hình 3D; tầng G Tòa E giữ theo mô hình nội thất LOD 3 (`Models_3D/scripts/07_import_lod3_b_e.py`). Dữ liệu lưu ở `dataset/rooms_b_e.geojson`, `dataset/floors_b_e.geojson` và nạp bằng `database/06_toa_b_e_indoor.sql`. Tọa độ được quy đổi về cùng hệ với mô hình khuôn viên (sai số khớp khoảng 5 mm); mọi phòng có `verified = false`.
 
 **Sân thể thao:** 9 sân tách từ mặt sân của mô hình 3D, lưu ở `dataset/sports_fields.geojson` (`Models_3D/scripts/06_extract_sports_fields.py`). Dữ liệu được nạp vào bảng `sports_fields` (`database/05_sports_fields.sql`). Loại sân (`sport_type`) và giờ mở cửa để trống, mọi sân có `verified = false`.
 
-Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí. Phòng Y tế (A103, tầng 1 Tòa A) cũng được trả về theo cách này với danh mục `Medical`; các phòng có tên bắt đầu bằng "Hội trường" (A.HT tầng 3 Tòa A, E12 và E10.1 Tòa E) được trả về với danh mục `Hall`. Biểu tượng của tiện ích trên tầng cao được đặt đúng độ cao sàn phòng.
+Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí. Phòng Y tế (A103, tầng 1 Tòa A) cũng được trả về theo cách này với danh mục `Medical`; các phòng có tên bắt đầu bằng "Hội trường" (A.HT tầng 3 Tòa A, E.HT tầng 12 và E10.1 Tòa E) được trả về với danh mục `Hall`. Biểu tượng của tiện ích trên tầng cao được đặt đúng độ cao sàn phòng.
 
 Độ cao 3D: mỗi tầng cao 3.8 m. `base_height = (tầng − 1) × 3.8`, `extrude_height = base_height + 3.5` (hành lang chỉ dày 0.2 m).
 

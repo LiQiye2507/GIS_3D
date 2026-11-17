@@ -7,6 +7,8 @@ Vì vậy:
   1. GLB nội thất cục bộ -> model khuôn viên: cộng độ lệch giữa khung bao Root_Toa_X và khung bao vỏ;
   2. khớp đồng dạng (ICP + Umeyama) đỉnh polygon phòng tầng 1 -> đỉnh khối nội thất tầng 1, gộp 4 tòa;
   3. model -> ENU -> WGS84 bằng phép T của 04_align_gis_to_model.py (align_report.json).
+Phòng các tầng (trừ tầng G Tòa E) được dựng lại theo sơ đồ tầng của trường (B_PLAN, E_PLAN): ô phòng
+chia trên mặt cắt khối tòa trong model, phòng đánh số giữ tên/loại/sức chứa của bộ Model_LOD3 nếu trùng mã.
 
 Ghi: dataset/rooms_b_e.geojson, dataset/floors_b_e.geojson, database/06_toa_b_e_indoor.sql.
 Chạy: python Models_3D/scripts/07_import_lod3_b_e.py
@@ -77,6 +79,143 @@ def fit_similarity(P, Q):
     return best
 
 
+# ---- Bố trí phòng theo sơ đồ tầng (sơ đồ do trường cung cấp, hình dạng lấy từ mặt cắt model) ----
+# Tòa B: vòng cung, tâm B_CENTER (ENU, m). Hàng ngoài = phòng học, hàng trong = WC/thang, giữa là hành lang.
+# Trên sơ đồ, trái = đầu tây (góc lớn); các tầng trên lùi dần về phía tây.
+B_CENTER = (2.0, -73.16)
+B_RINGS = {'inner': (15.0, 29.8), 'corridor': (29.8, 33.0), 'outer': (33.0, 60.0)}  # theo vách trong model
+_B14 = ['WC', 'TM', 'WC', '01', 'TM', 'TM', 'WC', 'CT', 'WC']
+B_PLAN = {  # tầng: (số phòng hàng ngoài, hàng trong từ tây sang đông)
+    1: (11, _B14), 2: (11, _B14), 3: (11, _B14), 4: (11, _B14),
+    5: (7, ['WC', 'TM', 'WC', '01', 'TM', 'TM', 'WC']),
+    6: (6, ['WC', 'TM', 'WC', '01', 'TM', 'CT']),
+    7: (4, ['WC', 'TM', 'WC', '01', 'TM']),
+    8: (4, ['WC', 'TM', 'WC']),
+    9: (2, ['WC', 'TM']),
+}
+# Tòa E: lưới 7 cột từ đông (trái sơ đồ) sang tây, cột 1 là khối tròn góc đông bắc, cột 7 là thang xoắn tây.
+# Biên cột lấy theo tỉ lệ pixel trên sơ đồ; hàng T (nam) / M (hành lang) / B (bắc) chia theo bề sâu từng cột.
+E_COLS_PX = (38, 137, 288, 431, 530, 629, 728, 823)
+E_ROWS = {'T': (0.0, 0.42), 'M': (0.42, 0.6), 'B': (0.6, 1.0)}
+_E_COMMON = [('WC', (1,), 'T'), ('TM', (2,), 'T'), ('CT', (3,), 'T'), ('TH', (7,), 'TM'), ('1', (1,), 'MB')]
+_E_STD = _E_COMMON + [('KHO', (4,), 'T'), ('3', (5,), 'T'), ('5', (6,), 'T'), ('HL', (2, 3, 4, 5, 6), 'M'), ('HL', (2,), 'B')]
+E_PLAN = {  # tầng theo sơ đồ (floor_number = tầng + 1 vì có tầng G)
+    1: _E_COMMON + [('3', (4,), 'T'), ('5', (5,), 'T'), ('7', (6,), 'T'), ('SANH', (2,), 'MB'),
+                    ('HL', (3, 4, 5, 6), 'M'), ('2', (3, 4), 'B'), ('4', (5, 6), 'B')],
+    **{k: _E_STD + [('2', (3, 4), 'B'), ('4', (5, 6), 'B')] for k in (2, 3, 4)},
+    **{k: _E_STD + [('2', (3,), 'B'), ('4', (4,), 'B'), ('6', (5,), 'B'), ('8', (6,), 'B')] for k in range(5, 12)},
+    12: _E_COMMON + [('KHO', (4,), 'T'), ('HL', (2, 3), 'M'), ('HL', (2,), 'B'), ('HT', (4, 5, 6), 'MB')],
+}
+SERVICE = {  # loại ô -> (room_type, tên, thiết bị)
+    'WC': ('WC', 'Nhà vệ sinh', None), 'TM': ('Stairs', 'Thang máy & Cầu thang bộ', 'Thang máy + thang bộ'),
+    'CT': ('Stairs', 'Cầu thang bộ', 'Thang bộ'), 'TH': ('Stairs', 'Cầu thang thoát hiểm', 'Cầu thang xoắn ngoài trời'),
+    'KHO': ('Office', 'Kho', None), 'SANH': ('Office', 'Sảnh chính', 'Quầy lễ tân, bảng thông tin'),
+    'HL': ('Corridor', 'Hành lang', None),
+}
+
+
+def section(tris: np.ndarray, T, z0: float):
+    """Mặt cắt ngang khối tòa (ENU) trong khoảng [z0, z0 + 3.5]: hợp hình chiếu các tam giác cắt qua các độ cao đó."""
+    lo, hi = tris[:, :, 2].min(1), tris[:, :, 2].max(1)
+    parts = []
+    for z in (z0 + 0.5, z0 + 1.5, z0 + 2.5, z0 + 3.3):
+        u = shapely.union_all([shapely.Polygon(t[:, :2]).buffer(0.3) for t in tris[(lo <= z) & (hi >= z)]])
+        parts += [shapely.Polygon(g.exterior) for g in getattr(u, 'geoms', [u]) if g.area > 20]
+    return al.apply_T(T, shapely.union_all(parts).buffer(-0.3)).simplify(0.2)
+
+
+def _room(code, fn, kind, num, geom, old, label):
+    """Thuộc tính phòng: phòng đánh số giữ tên/loại/sức chứa từ bộ Model_LOD3 nếu có, ô dịch vụ đặt tên theo SERVICE."""
+    base = round((fn - 1) * 3.8, 1)
+    if kind == 'R':
+        o = old.get(num, {})
+        props = {'room_code': num, 'room_name': o.get('room_name', f'Phòng học {num}'),
+                 'room_type': o.get('room_type', 'Theory'), 'capacity': o.get('capacity'),
+                 'equipment_info': o.get('equipment_info')}
+    elif kind == 'HT':
+        o = old.get('E12', {})
+        props = {'room_code': 'E.HT', 'room_name': 'Hội trường E (HTE) - Tầng 12', 'room_type': 'Theory',
+                 'capacity': o.get('capacity'), 'equipment_info': o.get('equipment_info')}
+    else:
+        rtype, name, equip = SERVICE[kind]
+        props = {'room_code': num, 'room_name': f'{name} Tòa {code} - {label}', 'room_type': rtype,
+                 'capacity': None, 'equipment_info': equip}
+    top = base + (0.2 if props['room_type'] == 'Corridor' else 3.5)
+    props.update(building_code=code, floor_number=fn, base_height=base, extrude_height=round(top, 1),
+                 source='3d_model + floor_plan', source_ref=f'Sơ đồ tầng Tòa {code} + Models_3D/buildings/toa_{code}.glb',
+                 verified=False)
+    g = shapely.make_valid(geom)
+    g = max(getattr(g, 'geoms', [g]), key=lambda p: p.area if p.geom_type == 'Polygon' else 0)
+    # làm tròn 7 chữ số thập phân ngay tại đây (như file SQL) để polygon vẫn hợp lệ sau khi làm tròn
+    return {'properties': props, 'geometry': orient(shapely.set_precision(al.enu_to_lnglat(g), 1e-7), 1.0)}
+
+
+def _sector(a0, a1, r0, r1):
+    cx, cy = B_CENTER
+    arc = np.radians(np.linspace(a0, a1, max(2, int(abs(a1 - a0)) + 1)))
+    pts = [(cx + r1 * math.cos(a), cy + r1 * math.sin(a)) for a in arc]
+    pts += [(cx + r0 * math.cos(a), cy + r0 * math.sin(a)) for a in arc[::-1]]
+    return shapely.Polygon(pts)
+
+
+def _split(a_hi, a_lo, n):
+    """Chia [a_lo, a_hi] thành n đoạn đều, đoạn đầu ở phía tây (góc lớn)."""
+    e = np.linspace(a_hi, a_lo, n + 1)
+    return list(zip(e[1:], e[:-1]))
+
+
+def layout_rooms(code, tris, T, old):
+    out = []
+    for fn, plan in (B_PLAN if code == 'B' else {k + 1: v for k, v in E_PLAN.items()}).items():
+        sec = section(tris, T, (fn - 1) * 3.8)
+        cells = []  # (kind, mã, hình)
+        if code == 'B':
+            c = shapely.get_coordinates(sec) - B_CENTER
+            ang = np.degrees(np.arctan2(c[:, 1], c[:, 0]))
+            a_lo, a_hi = ang.min(), ang.max()
+            n_out, inner = plan
+            for i, (a, b) in enumerate(_split(a_hi, a_lo, n_out)):
+                cells.append(('R', f'B{fn}.{2 * (n_out - i):02d}', _sector(a, b, *B_RINGS['outer'])))
+            seen = {}
+            for (a, b), k in zip(_split(a_hi, a_lo, len(inner)), inner):
+                if k == '01':
+                    cells.append(('R', f'B{fn}.01', _sector(a, b, *B_RINGS['inner'])))
+                    continue
+                seen[k] = seen.get(k, 0) + 1
+                cells.append((k, f'B.{k}{seen[k]}-{fn}', _sector(a, b, *B_RINGS['inner'])))
+            cells.append(('HL', f'B.HL{fn}', _sector(a_hi, a_lo, *B_RINGS['corridor'])))
+            label = f'Tầng {fn}'
+        else:
+            x0, _, x1, _ = sec.bounds
+            px = np.array(E_COLS_PX, float)
+            edges = x1 - (px - px[0]) / (px[-1] - px[0]) * (x1 - x0)  # cột 1 ở đầu đông
+            k = fn - 1
+            merged = {}
+            for kind, cols, rows in plan:
+                parts = []
+                for col in cols:
+                    strip = sec.intersection(shapely.box(edges[col], -1e4, edges[col - 1], 1e4))
+                    _, ya, _, yb = strip.bounds
+                    for r in rows:
+                        f0, f1 = E_ROWS[r]
+                        parts.append(strip.intersection(shapely.box(edges[col], ya + f0 * (yb - ya),
+                                                                    edges[col - 1], ya + f1 * (yb - ya))))
+                if kind.isdigit():
+                    key = ('R', f'E{k}.{kind}')
+                elif kind == 'HL':
+                    key = ('HL', f'E.HL{fn}')
+                else:
+                    key = (kind, f'E.{kind}-{fn}')
+                merged.setdefault(key, []).extend(parts)
+            cells = [(kind, num, shapely.union_all(p).buffer(0.01).buffer(-0.01)) for (kind, num), p in merged.items()]
+            label = f'Tầng {k}'
+        for kind, num, g in cells:
+            g = g.intersection(sec)
+            if g.area >= 1.0:
+                out.append(_room(code, fn, kind, num, g, old, label))
+    return out
+
+
 def main() -> None:
     rooms = json.loads((SRC / 'geojson' / 'rooms_ABCE_lod3.geojson').read_text(encoding='utf-8'))['features']
     floors = json.loads((SRC / 'geojson' / 'floors_ABCE_lod3.geojson').read_text(encoding='utf-8'))['features']
@@ -107,13 +246,17 @@ def main() -> None:
         model = shapely.transform(al.lnglat_to_enu(geom), lambda c: (s * (R @ c.T)).T + t)
         return orient(al.enu_to_lnglat(al.apply_T(T, model)), 1.0)
 
+    old = {f['properties']['room_code']: f['properties'] for f in rooms}
     out_rooms, out_floors = [], []
     for code in CODES:
-        own = [f for f in rooms if f['properties']['building_code'] == code]
+        # tầng G Tòa E giữ nguyên số hóa gốc; các tầng còn lại dựng lại theo sơ đồ tầng
+        own = [{'properties': f['properties'], 'geometry': to_project(shape(f['geometry']))} for f in rooms
+               if f['properties']['building_code'] == code and code == 'E' and f['properties']['floor_number'] == 1]
+        own += layout_rooms(code, campus[f'Root_Toa_{code}'], T, old)
         union = []
         for f in own:
-            g = to_project(shape(f['geometry']))
-            assert g.is_valid, f['properties']['room_code']
+            g = f['geometry']
+            assert g.is_valid and g.geom_type == 'Polygon', f['properties']['room_code']
             union.append(g)
             out_rooms.append({'type': 'Feature', 'properties': f['properties'], 'geometry': mapping(g)})
         for f in floors:
