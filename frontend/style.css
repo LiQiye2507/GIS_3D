@@ -324,22 +324,25 @@ input:focus-visible {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse at 54% 46%, #232f3c 0%, #111821 52%, #080b0f 100%);
-  transition: background 0.5s var(--ease-out);
-}
-
-body.light-day #map {
-  background: radial-gradient(ellipse at 54% 46%, #24303e 0%, #111922 52%, #080b0f 100%);
+  /* Phông nền phía sau sa bàn: đỉnh tối, sáng dần về đường chân trời, có quầng sáng nhẹ */
+  background:
+    radial-gradient(ellipse 70% 38% at 50% 58%, var(--bg-glow) 0%, transparent 70%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-horizon) 62%, var(--bg-top) 100%);
+  --bg-top: #171a1e;
+  --bg-horizon: #2a3036;
+  --bg-glow: rgba(46, 56, 64, 0.55);
 }
 
 body.light-dusk #map {
-  background:
-    radial-gradient(ellipse at 92% 45%, rgba(145, 70, 36, 0.38) 0%, rgba(64, 30, 28, 0.2) 38%, transparent 70%),
-    radial-gradient(ellipse at 42% 45%, #191622 0%, #0b0d14 55%, #07080c 100%);
+  --bg-top: #1e2647;
+  --bg-horizon: #3d3348;
+  --bg-glow: rgba(255, 143, 77, 0.22);
 }
 
 body.light-night #map {
-  background: radial-gradient(ellipse at 52% 44%, #0d192e 0%, #070e1b 54%, #04070d 100%);
+  --bg-top: #080a10;
+  --bg-horizon: #141a26;
+  --bg-glow: rgba(26, 36, 52, 0.6);
 }
 
 /* Làm mờ sân khấu 3D & HUD khi mở Credits (giống cs.uitmap.site) */
