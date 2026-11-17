@@ -168,6 +168,29 @@
      1.0
     ]
    }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P013",
+    "name": "Căn tin Cafe Voi",
+    "category": "Canteen",
+    "building_code": "CAFE_VOI",
+    "floor_number": 1,
+    "elevation_z": 1.0,
+    "open_hours": null,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (Root_Cafe_Voi)",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.8039055,
+     10.8693549,
+     1.0
+    ]
+   }
   }
  ]
 }

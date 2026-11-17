@@ -92,6 +92,7 @@ INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, o
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)', 'ATM', NULL, 1, 1.0, '24/7', ST_GeomFromText('POINT Z (106.8018981 10.8706263 1.0)', 4326));
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Máy bán nước tự động Tầng 1 Tòa A', 'Water', (SELECT id FROM buildings WHERE building_code = 'A'), 1, 1.0, '24/7', ST_GeomFromText('POINT Z (106.8031046 10.8706275 1.0)', 4326));
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Cổng 2 - Lối vào bãi xe', 'Parking', NULL, 1, 1.0, NULL, ST_GeomFromText('POINT Z (106.8042039 10.8703884 1.0)', 4326));
+INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Căn tin Cafe Voi', 'Canteen', (SELECT id FROM buildings WHERE building_code = 'CAFE_VOI'), 1, 1.0, NULL, ST_GeomFromText('POINT Z (106.8039055 10.8693549 1.0)', 4326));
 
 -- 5. Campus Paths (3D Walkways / Corridors / Stairs)
 INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Walkway', 1, 1, 75.2, ST_GeomFromText('LINESTRING Z (106.8025801 10.8700946 0.0, 106.8021882 10.8704343 0.0, 106.8021339 10.8704762 0.0, 106.8020595 10.8705355 0.0)', 4326));
