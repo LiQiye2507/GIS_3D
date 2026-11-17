@@ -84,7 +84,7 @@ map.on('load', async () => {
     initSportsLayer(sportsFc);
     setAllAmenities(amenitiesFc);
     renderBuildingsList(buildingsFc, amenitiesFc);
-    buildSearchIndex(amenitiesFc);
+    buildSearchIndex(amenitiesFc, sportsFc);
     const bCount = buildingsFc.features.length;
     const rCount = roomsFc.features.length;
     const aCount = amenitiesFc.features.filter((f) => !f.properties.room_code).length;

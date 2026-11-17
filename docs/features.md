@@ -38,7 +38,7 @@ Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp t
 | 4 | Tìm kiếm | Ô tìm trong **Danh sách địa điểm**. Gợi ý ngay khi gõ, không cần dấu (`thu vien`), chịu được gõ sai nhẹ (`A35`). Gõ đúng mã phòng (`A305`, `a.305`) thì phòng đó luôn đứng đầu. Enter mở kết quả đầu tiên. | `search.js` (Fuse.js) |
 | 5 | Định vị kết quả | Chọn một kết quả: camera bay tới, tô vàng phòng, tự chuyển sang đúng tòa và đúng tầng. | `rooms.js` (`selectRoom`) |
 | 6 | Lớp tiện ích theo danh mục | Mỗi loại có biểu tượng và màu riêng. Ô chọn trong mục **Định vị & tiện ích** vừa bật/tắt từng loại vừa là chú giải. WC và Thư viện mặc định tắt. | `amenities.js` |
-| 6b | Sân thể thao | Rê chuột lên sân để tô viền, bấm vào sân để xem mã sân, loại sân, diện tích, giờ mở cửa. Lớp vẽ trong suốt trên mặt sân của mô hình. | `sports.js` |
+| 6b | Sân thể thao | Rê chuột lên sân để tô viền, bấm vào sân để xem mã sân, loại sân, diện tích, giờ mở cửa. Tìm được trong ô tìm kiếm theo tên (`san the thao`) hoặc mã (`SF04`). Lớp vẽ trong suốt trên mặt sân của mô hình. | `sports.js` |
 
 ### B. Nên có
 

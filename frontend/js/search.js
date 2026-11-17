@@ -7,6 +7,7 @@ import { escapeHtml, getFeatureCenter } from './utils.js';
 import { selectRoom } from './rooms.js';
 import { filterBuildingsList, selectBuildingByIndex } from './buildings.js';
 import { focusAmenity } from './amenities.js';
+import { focusSportsField } from './sports.js';
 
 // "Phòng A.305 Đ" -> "phonga305d": bỏ dấu, đ -> d, chữ thường, bỏ dấu chấm / gạch / khoảng trắng
 export function normalize(text) {
@@ -25,7 +26,7 @@ let fuse = null;
 let items = [];
 let debounceTimer = null;
 
-export function buildSearchIndex(amenitiesFc) {
+export function buildSearchIndex(amenitiesFc, sportsFc) {
   items = [
     ...state.roomFeatures
       .filter((f) => f.properties.room_type !== 'Corridor')
@@ -55,6 +56,14 @@ export function buildSearchIndex(amenitiesFc) {
         meta: AMENITY_TYPES[f.properties.category]?.label || f.properties.category,
         feature: f,
       })),
+    ...sportsFc.features.map((f) => ({
+      kind: 'sports',
+      code: normalize(f.properties.field_code),
+      name: normalize(`${f.properties.name} ${f.properties.sport_type || ''}`),
+      label: f.properties.name,
+      meta: `${f.properties.field_code} · ${f.properties.area_m2} m²`,
+      feature: f,
+    })),
   ];
   fuse = new Fuse(items, {
     keys: [{ name: 'code', weight: 2 }, { name: 'name', weight: 1 }],
@@ -76,12 +85,14 @@ export function openResult(item) {
     selectRoom(item.feature.properties, getFeatureCenter(item.feature), true);
   } else if (item.kind === 'building') {
     selectBuildingByIndex(item.idx);
+  } else if (item.kind === 'sports') {
+    focusSportsField(item.feature);
   } else {
     focusAmenity(item.feature);
   }
 }
 
-const KIND_LABEL = { room: 'Phòng', building: 'Tòa', amenity: 'Tiện ích' };
+const KIND_LABEL = { room: 'Phòng', building: 'Tòa', amenity: 'Tiện ích', sports: 'Sân' };
 
 function renderResults(results) {
   searchResultsEl.innerHTML = '';
