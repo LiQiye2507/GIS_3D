@@ -224,6 +224,19 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
     },
   });
 
+  // Sàn nền mọi tòa khi bật mặt cắt ngang (measure.js): sàn tầng trệt bị cắt sẽ lộ khoảng trống bên dưới
+  map.addLayer({
+    id: 'clip-base',
+    type: 'fill-extrusion',
+    source: 'buildings',
+    layout: { visibility: 'none' },
+    paint: {
+      'fill-extrusion-color': '#d6d9dd',
+      'fill-extrusion-base': 0,
+      'fill-extrusion-height': GROUND_Z,
+    },
+  });
+
   map.addLayer({
     id: 'radius-circle',
     type: 'fill-extrusion',

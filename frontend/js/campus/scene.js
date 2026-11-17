@@ -30,6 +30,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   let hiddenCode = null; // nhớ tòa đang ẩn để áp lại khi model nạp xong (mở bằng ?room=)
   const applyHidden = () => Object.entries(buildingRoots).forEach(([c, node]) => { node.visible = c !== hiddenCode; });
   const tuned = [];
+  let depthMatClipped = null;
   const pickMeshes = [];
   const mvp = new THREE.Matrix4();
   const mvpInv = new THREE.Matrix4();
@@ -63,7 +64,13 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   let introMs = 0;
   let onFrame = null;
 
-  function patchMaterial(mat, grade) {
+  // Tòa nhà (dưới node Root_*) bị mặt cắt ngang bỏ phần cao hơn uClipY; mặt đất, đường, cây thì không
+  const isBuildingPart = (o) => {
+    for (let p = o; p; p = p.parent) if (Object.values(buildingRoots).includes(p)) return true;
+    return false;
+  };
+
+  function patchMaterial(mat, grade, clip = true) {
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uClipY = clipUniform;
       shader.vertexShader = 'varying vec3 vCampusPos;\n' + shader.vertexShader.replace(
@@ -72,8 +79,8 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       );
       let frag = 'uniform float uClipY;\nvarying vec3 vCampusPos;\n' + shader.fragmentShader.replace(
         'void main() {',
-        `void main() {
-          if (vCampusPos.y > uClipY) discard;`
+        clip ? `void main() {
+          if (vCampusPos.y > uClipY) discard;` : 'void main() {'
       );
       if (grade) {
         frag = frag.replace(
@@ -85,7 +92,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       }
       shader.fragmentShader = frag;
     };
-    mat.customProgramCacheKey = () => `campus-${mat.type}-${grade ? grade.join('-') : 'plain'}`;
+    mat.customProgramCacheKey = () => `campus-${mat.type}-${grade ? grade.join('-') : 'plain'}-${clip}`;
   }
 
   function tuneMaterials(root) {
@@ -94,12 +101,27 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     // Vật liệu bóng đổ cũng bỏ phần bị cắt ngang
     const depthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
     patchMaterial(depthMat, null);
+    depthMatClipped = depthMat;
+    const groundDepthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
+    patchMaterial(groundDepthMat, null, false);
+    // Vật liệu dùng chung giữa nhà và nền: phần nền dùng bản sao không bị cắt
+    const groundCopies = new Map();
     root.traverse((o) => {
       if (!o.isMesh) return;
       o.castShadow = true;
       o.receiveShadow = true;
       o.customDepthMaterial = depthMat;
-      (Array.isArray(o.material) ? o.material : [o.material]).forEach((mat) => {
+      if (!isBuildingPart(o) && o.material && !Array.isArray(o.material)) {
+        if (!groundCopies.has(o.material)) {
+          const copy = o.material.clone();
+          copy.userData.clipped = o.material;
+          groundCopies.set(o.material, copy);
+        }
+        o.material = groundCopies.get(o.material);
+        o.customDepthMaterial = groundDepthMat;
+      }
+      // tinh chỉnh cả vật liệu gốc của bản sao: adoptStrays có thể chạy sau và dùng lại nó
+      (Array.isArray(o.material) ? o.material : [o.material, o.material && o.material.userData.clipped]).forEach((mat) => {
         if (!mat || seen.has(mat) || !mat.color) return;
         seen.add(mat);
         if (mat.map) mat.map.anisotropy = aniso;
@@ -140,7 +162,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         } else {
           mat.envMapIntensity = role === 'prop' ? 0.55 : 0.65;
         }
-        patchMaterial(mat, mat.map ? grade : null);
+        patchMaterial(mat, mat.map ? grade : null, !mat.userData.clipped);
         tuned.push({
           mat,
           role,
@@ -258,7 +280,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     const strays = [];
     modelRoot.traverse((o) => {
       if (!o.isMesh || !o.geometry.index) return; // shortcut: lưới Draco luôn có index
-      for (let p = o; p; p = p.parent) if (Object.values(buildingRoots).includes(p)) return;
+      if (isBuildingPart(o)) return;
       strays.push(o);
     });
     const a = new THREE.Vector3();
@@ -283,10 +305,11 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       Object.entries(moved).forEach(([code, tris]) => {
         const geo = o.geometry.clone();
         geo.setIndex(tris);
-        const part = new THREE.Mesh(geo, o.material);
+        // nếu nền đã đổi sang vật liệu không cắt thì phần thuộc tòa lấy lại vật liệu gốc (bị cắt)
+        const part = new THREE.Mesh(geo, o.material.userData.clipped || o.material);
         part.castShadow = o.castShadow;
         part.receiveShadow = o.receiveShadow;
-        part.customDepthMaterial = o.customDepthMaterial;
+        part.customDepthMaterial = o.material.userData.clipped ? depthMatClipped : o.customDepthMaterial;
         o.add(part);
         buildingRoots[code].attach(part); // giữ nguyên vị trí thế giới
       });
