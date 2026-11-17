@@ -4,7 +4,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from db import fetch_all  # noqa: E402
+from utils.db import fetch_all  # noqa: E402
 from main import app  # noqa: E402
 
 client = TestClient(app)
@@ -133,3 +133,12 @@ def test_route_reaches_room_flag():
     c = client.get("/api/route", params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "C312"}).json()
     assert c["reaches_room"] is False
     assert c["floors"] == [1]
+
+
+def test_db_unavailable_returns_503(monkeypatch):
+    import utils.db
+
+    monkeypatch.setattr(utils.db, "DATABASE_URL", "postgresql://nobody@127.0.0.1:1/none?connect_timeout=1")
+    res = client.get("/api/buildings")
+    assert res.status_code == 503
+    assert res.json()["detail"] == "Không kết nối được cơ sở dữ liệu"
