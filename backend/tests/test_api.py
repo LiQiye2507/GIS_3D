@@ -49,6 +49,19 @@ def test_rooms_floor_3_heights():
             assert props["extrude_height"] == 11.1
 
 
+def test_rooms_toa_e_top_floor_heights():
+    # LOD 3 Tòa E (13 tầng, database/06_toa_b_e_indoor.sql): tầng 13 cao (13 - 1) * 3.8 = 45.6 m
+    res = client.get("/api/rooms", params={"building_code": "E", "floor_number": 13})
+    assert res.status_code == 200
+    feats = res.json()["features"]
+    assert len(feats) >= 1
+    for feat in feats:
+        props = feat["properties"]
+        assert props["base_height"] == 45.6
+        if props["room_type"] != "Corridor":
+            assert props["extrude_height"] == 49.1
+
+
 def test_rooms_unknown_building_returns_404():
     res = client.get("/api/rooms", params={"building_code": "ZZZ"})
     assert res.status_code == 404

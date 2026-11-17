@@ -11,6 +11,9 @@ export const SHEET_PADDING = { top: 60, bottom: 40, left: 0, right: 420 };
 // Tự xoay khi rảnh: độ/giây (6 = 1 vòng mỗi phút), cảnh quay cùng chiều kim đồng hồ trên màn hình
 export const SPIN_DEG_PER_SEC = 6;
 
+// Tòa có dữ liệu nội thất LOD 3 (bảng rooms)
+export const INDOOR_CODES = ['A', 'B', 'C', 'E'];
+
 // Cổng A/B đã nắn theo model 3D (Models_3D/scripts/04_align_gis_to_model.py)
 export const GATE_A = [106.802094, 10.8704303];
 export const GATE_B = [106.8038368, 10.8689126];

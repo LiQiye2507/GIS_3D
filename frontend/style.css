@@ -2141,6 +2141,10 @@ body.is-sheet-open .lod3-dock {
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
+  /* Tòa nhiều tầng (E: 13 tầng): cuộn trong khung, không đè lên thanh điều khiển phía trên */
+  max-height: calc(100vh - 380px);
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .floor-text-btn {
