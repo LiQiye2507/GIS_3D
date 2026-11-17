@@ -65,9 +65,10 @@ Yêu cầu: PostgreSQL 16 + PostGIS Bundle (có pgRouting) cài qua Stack Builde
 - **Giao diện (T07):** kiểm tra thủ công trên trình duyệt: chuyển đổi LOD 1 ↔ 2 ↔ 3, lọc tầng T1–T3, không lỗi Console.
 
 ## Dữ liệu
+- Bộ dữ liệu chuẩn duy nhất: `dataset/processed/final/` (sinh bằng `dataset/scripts/merge_dataset.py`, xem README trong thư mục đó).
 - Footprint tòa nhà và lối đi lấy từ OpenStreetMap.
-- Danh sách phòng Tòa A tầng 1–3 từ khảo sát thực địa.
-- Vị trí phòng Tòa A dựng theo dải quanh chu vi (gần đúng, chưa đo đạc). Model `.glb` sinh bằng `dataset/scripts/build_glb_toa_a.py`.
+- Phòng Tòa A tầng 1–3 lấy theo ảnh sơ đồ và danh sách phòng khảo sát thực địa. Thư viện là cánh phía Bắc, chỉ có tầng 1–2. Tầng 3 có hội trường tròn ở giữa.
+- Vị trí phòng được đặt theo khung khối nhà của mô hình 3D, nên chỉ gần đúng (chưa đo đạc).
 
 ## Thông tin
 Đồ án môn **IE402 – Hệ thống thông tin địa lý 3D**, Trường ĐH Công nghệ Thông tin – ĐHQG-HCM.
