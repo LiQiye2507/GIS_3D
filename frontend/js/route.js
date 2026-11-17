@@ -66,6 +66,8 @@ document.getElementById('btn-route').addEventListener('click', async () => {
     if (map.getSource('route-3d')) {
       map.getSource('route-3d').setData(buildRoute3dPolygons(routeFc));
     }
+    // Đĩa bán kính (cao 1.2–1.35 m) che mất tuyến đi bộ sát mặt đất
+    map.setLayoutProperty('radius-circle', 'visibility', 'none');
 
     routeSummaryEl.textContent = `Quãng đường: ${routeFc.total_length_m} m · Qua tầng ${routeFc.floors.join(' → ')}`;
     routeSummaryEl.classList.remove('hidden');
