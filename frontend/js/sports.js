@@ -1,6 +1,6 @@
 // Lớp sân thể thao: trong suốt trên nền model, tô màu khi rê chuột / khi chọn, bấm để xem thông tin
 import { state } from './state.js';
-import { escapeHtml } from './utils.js';
+import { escapeHtml, getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
 
 const COLOR = '#f59e0b';
@@ -40,6 +40,12 @@ function openSportsPopup(p, lngLat) {
       selectedId = null;
     }
   });
+}
+
+export function focusSportsField(f) {
+  const center = getFeatureCenter(f);
+  map.flyTo({ center, zoom: 19, pitch: 50, duration: 1200 });
+  openSportsPopup(f.properties, center);
 }
 
 export function initSportsLayer(fc) {
