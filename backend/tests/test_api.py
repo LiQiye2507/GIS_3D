@@ -24,6 +24,18 @@ def test_buildings_collection():
     assert toa_a["properties"]["total_floors"] == 3
 
 
+def test_sports_fields_collection():
+    res = client.get("/api/sports-fields")
+    assert res.status_code == 200
+    body = res.json()
+    assert body["type"] == "FeatureCollection"
+    assert len(body["features"]) == 9
+    for f in body["features"]:
+        assert f["geometry"]["type"] == "Polygon"
+        assert f["properties"]["field_code"].startswith("SF")
+        assert f["properties"]["area_m2"] > 0
+
+
 def test_rooms_floor_3_heights():
     res = client.get("/api/rooms", params={"building_code": "A", "floor_number": 3})
     assert res.status_code == 200

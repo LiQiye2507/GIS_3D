@@ -8,6 +8,7 @@ import { markIntroStep } from './intro.js';
 import { addGateMarkers, applyLod, initLayers, renderFloorSwitcher, setIndoorBuilding, setLighting } from './layers.js';
 import { closeBuildingPanel, renderBuildingsList, setPlacesPanelOpen } from './buildings.js';
 import { setAllAmenities, updateRadiusVisual } from './amenities.js';
+import { initSportsLayer } from './sports.js';
 import { buildSearchIndex } from './search.js';
 import { applyDeepLink } from './share.js';
 import { renderFloorOptions } from './query.js';
@@ -68,7 +69,7 @@ updateRadiusVisual();
 map.on('load', async () => {
   markIntroStep('map');
   try {
-    const [buildingsFc, roomsA, roomsC, amenitiesFc] = await Promise.all([
+    const [buildingsFc, roomsA, roomsC, amenitiesFc, sportsFc] = await Promise.all([
       api('/api/buildings').finally(() => markIntroStep('buildings')),
       api('/api/rooms?building_code=A').finally(() => markIntroStep('rooms')),
       api('/api/rooms?building_code=C').catch(() => EMPTY_FC),
@@ -76,9 +77,11 @@ map.on('load', async () => {
         console.error(err);
         return EMPTY_FC;
       }),
+      api('/api/sports-fields').catch(() => EMPTY_FC),
     ]);
     const roomsFc = { type: 'FeatureCollection', features: [...roomsA.features, ...roomsC.features] };
     initLayers(buildingsFc, roomsFc, CAMPUS_BOUNDARY_FC);
+    initSportsLayer(sportsFc);
     setAllAmenities(amenitiesFc);
     renderBuildingsList(buildingsFc, amenitiesFc);
     buildSearchIndex(amenitiesFc);

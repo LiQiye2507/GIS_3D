@@ -3,6 +3,7 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS pgrouting;
 
 -- Xóa bảng cũ nếu làm mới
+DROP TABLE IF EXISTS sports_fields CASCADE;
 DROP TABLE IF EXISTS campus_paths CASCADE;
 DROP TABLE IF EXISTS amenities CASCADE;
 DROP TABLE IF EXISTS rooms CASCADE;
@@ -78,11 +79,24 @@ CREATE TABLE campus_paths (
     geom GEOMETRY(LineStringZ, 4326) NOT NULL
 );
 
+-- 6. Bảng Sân thể thao (mở rộng, tách từ mặt sân của model 3D)
+CREATE TABLE sports_fields (
+    id SERIAL PRIMARY KEY,
+    field_code VARCHAR(10) UNIQUE NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    sport_type VARCHAR(50),               -- NULL = chưa xác định loại sân
+    area_m2 DOUBLE PRECISION NOT NULL,
+    open_hours VARCHAR(100),
+    verified BOOLEAN NOT NULL DEFAULT FALSE,
+    geom GEOMETRY(Polygon, 4326) NOT NULL
+);
+
 -- Tạo Spatial Index (R-Tree GiST) tăng tốc truy vấn không gian
 CREATE INDEX idx_buildings_geom ON buildings USING GIST (geom);
 CREATE INDEX idx_rooms_geom ON rooms USING GIST (geom);
 CREATE INDEX idx_amenities_geom ON amenities USING GIST (geom);
 CREATE INDEX idx_paths_geom ON campus_paths USING GIST (geom);
+CREATE INDEX idx_sports_geom ON sports_fields USING GIST (geom);
 
 -- Index B-tree cho định tuyến pgRouting
 CREATE INDEX idx_paths_source ON campus_paths (source_node);
