@@ -69,6 +69,23 @@ const LIGHTING_CONFIG = {
 };
 
 const EMPTY_FC = { type: 'FeatureCollection', features: [] };
+// Ranh giới khuôn viên (LOD 1), chép từ dataset/campus_boundary.geojson (OSM way 1303838982).
+const CAMPUS_BOUNDARY_FC = {
+  type: 'FeatureCollection',
+  features: [{
+    type: 'Feature',
+    properties: { id: 'UIT', name: 'Trường Đại học Công nghệ Thông tin' },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [[
+        [106.8016693, 10.8701079], [106.8026322, 10.8688555], [106.8029416, 10.8681458],
+        [106.8039263, 10.8688472], [106.8045606, 10.8695156], [106.8051924, 10.8701937],
+        [106.8029489, 10.8718309], [106.8027563, 10.8714107], [106.8023241, 10.8708307],
+        [106.8016693, 10.8701079],
+      ]],
+    },
+  }],
+};
 
 let currentLod = 2;
 let campusLoadFailed = false;
@@ -1478,19 +1495,15 @@ updateRadiusVisual();
 map.on('load', async () => {
   markIntroStep('map');
   try {
-    const [buildingsFc, roomsFc, amenitiesFc, boundaryFc] = await Promise.all([
+    const [buildingsFc, roomsFc, amenitiesFc] = await Promise.all([
       api('/api/buildings').finally(() => markIntroStep('buildings')),
       api('/api/rooms?building_code=A').finally(() => markIntroStep('rooms')),
       api('/api/amenities/nearby?lat=10.8700&lng=106.8030&radius=500').catch((err) => {
         console.error(err);
         return EMPTY_FC;
       }),
-      fetch('data/campus_boundary.geojson').then((res) => {
-        if (!res.ok) throw new Error(`Lỗi tải ranh giới khuôn viên (${res.status})`);
-        return res.json();
-      }),
     ]);
-    initLayers(buildingsFc, roomsFc, boundaryFc);
+    initLayers(buildingsFc, roomsFc, CAMPUS_BOUNDARY_FC);
     renderBuildingsList(buildingsFc, amenitiesFc);
     const bCount = buildingsFc.features.length;
     const rCount = roomsFc.features.length;
