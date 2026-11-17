@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UIT 3D Smart Campus WebGIS</title>
+  <title>UIT — Bản đồ 3D khuôn viên Trường ĐH CNTT</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080b0f'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' fill='%23f1f0ea' font-family='sans-serif' font-size='13' font-weight='600'%3EUIT%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Space+Grotesk:wght@400;500;600&display=swap"
   />
   <link
     rel="stylesheet"
@@ -16,7 +17,7 @@
   />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="light-day">
   <div id="intro" class="intro" aria-label="Màn hình giới thiệu UIT 3D Smart Campus">
     <div class="intro-top">
       <div class="intro-top-left">
@@ -35,7 +36,7 @@
         <span id="intro-wordmark-fill" class="intro-wordmark intro-wordmark-fill">UIT</span>
       </div>
       <p class="intro-lead">
-        Khuôn viên UIT dựng lại thành bản đồ 3D: tra cứu phòng theo tầng, tiện ích quanh bạn và đường đi liên tầng.
+        Khuôn viên, dựng lại thành một mô hình 3D để khám phá: tra cứu phòng theo tầng, tiện ích quanh bạn và dẫn đường liên tầng.
       </p>
     </div>
 
@@ -43,7 +44,7 @@
       <ul class="intro-notes">
         <li><span class="intro-note-num">01</span><span>Khu phố 6, Linh Trung, Thủ Đức</span></li>
         <li><span class="intro-note-num">02</span><span>10°52′12″N · 106°48′03″E</span></li>
-        <li><span class="intro-note-num">03</span><span>Mô hình khối từ dữ liệu OpenStreetMap</span></li>
+        <li><span class="intro-note-num">03</span><span>Mô hình khối từ dữ liệu PostGIS &amp; OSM</span></li>
         <li><span class="intro-note-num">04</span><span id="intro-stats">— công trình · — phòng Tòa A</span></li>
       </ul>
       <button type="button" id="btn-skip-intro" class="intro-skip-btn eyebrow">
@@ -53,327 +54,376 @@
     </div>
 
     <div class="intro-footer">
-      <span class="eyebrow intro-loading-label">ĐANG TẢI DỮ LIỆU MÔ HÌNH</span>
+      <span class="eyebrow intro-loading-label">ĐANG DỰNG CẢNH</span>
       <span id="intro-counter" class="intro-counter">000</span>
     </div>
   </div>
 
-  <div id="map" role="application" aria-label="Bản đồ 3D khuôn viên UIT"></div>
-
-  <header id="hud-top-left" class="hud-block">
-    <div class="eyebrow hud-org">Đại học Quốc gia TP. Hồ Chí Minh</div>
-    <div class="wordmark-row">
-      <span class="wordmark">UIT</span>
-      <span class="wordmark-rule" aria-hidden="true"></span>
-      <span class="wordmark-sub">Bản đồ 3D khuôn viên</span>
+  <main class="app" aria-label="UIT — Khám phá khuôn viên">
+    <div class="canvas-stage">
+      <div id="map" role="application" aria-label="Bản đồ 3D khuôn viên UIT"></div>
     </div>
-    <p class="hud-subline">Đồ án IE402 · <strong>UIT 3D Smart Campus</strong></p>
-  </header>
 
-  <div id="hud-top-right" class="hud-block" aria-label="Điều khiển hiển thị 3D">
-    <button
-      type="button"
-      id="btn-satellite"
-      class="hud-text-btn eyebrow"
-      aria-pressed="false"
-    >
-      VỆ TINH
-    </button>
-
-    <span class="hud-divider" aria-hidden="true"></span>
-
-    <div class="lighting-control" aria-label="Chế độ ánh sáng">
-      <div class="lighting-meta">
-        <span class="eyebrow lighting-label">ÁNH SÁNG</span>
-        <span id="lighting-value" class="lighting-value">Ban ngày</span>
+    <header class="hud" aria-label="Thanh điều khiển chính">
+      <div id="hud-top-left" class="hud__identity on-stage">
+        <div class="hud__edition">Đại học Quốc gia TP. Hồ Chí Minh</div>
+        <h1 class="hud__wordmark">
+          <span class="hud__uit">UIT</span>
+          <span class="hud__divider" aria-hidden="true"></span>
+          <span class="hud__explorer">Khám phá khuôn viên</span>
+        </h1>
+        <p class="hud__subtitle">
+          Đồ án IE402 · <strong>UIT 3D Smart Campus</strong>
+        </p>
       </div>
-      <div class="lighting-slider-wrap">
-        <div class="lighting-track" aria-hidden="true">
-          <span class="lighting-dot" data-pos="0"></span>
-          <span class="lighting-dot" data-pos="1"></span>
-          <span class="lighting-dot" data-pos="2"></span>
+
+      <div id="hud-top-right" class="hud__tools on-stage" aria-label="Điều khiển hiển thị 3D">
+        <div class="daynight" aria-label="Thời điểm trong ngày">
+          <div class="daynight__meta">
+            <span class="eyebrow daynight__label">ÁNH SÁNG</span>
+            <span id="lighting-value" class="daynight__value">Ban ngày</span>
+          </div>
+          <div class="daynight__slider-wrap">
+            <div class="daynight__track" aria-hidden="true">
+              <span class="daynight__dot" data-pos="0"></span>
+              <span class="daynight__dot" data-pos="1"></span>
+              <span class="daynight__dot" data-pos="2"></span>
+            </div>
+            <div id="lighting-knob" class="daynight__thumb" data-mode="day" aria-hidden="true">
+              <span class="daynight__thumb-core">
+                <svg id="lighting-icon-sun" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                </svg>
+                <svg id="lighting-icon-sunset" class="hidden" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 10V3"></path>
+                  <path d="m4.93 10.93 1.41 1.41"></path>
+                  <path d="M2 18h2"></path>
+                  <path d="M20 18h2"></path>
+                  <path d="m19.07 10.93-1.41 1.41"></path>
+                  <path d="M22 22H2"></path>
+                  <path d="M16 18a4 4 0 0 0-8 0"></path>
+                </svg>
+                <svg id="lighting-icon-moon" class="hidden" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  <path d="M18 4v3M16.5 5.5h3"></path>
+                </svg>
+              </span>
+            </div>
+            <input
+              type="range"
+              id="lighting-slider"
+              class="daynight__range"
+              min="0"
+              max="2"
+              step="1"
+              value="0"
+              aria-label="Thời điểm trong ngày"
+            />
+            <div class="daynight__stops" aria-hidden="true">
+              <span data-stop="0" class="is-active">Ngày</span>
+              <span data-stop="1">Hoàng hôn</span>
+              <span data-stop="2">Đêm</span>
+            </div>
+          </div>
         </div>
-        <div id="lighting-knob" class="lighting-knob" aria-hidden="true">
-          <svg id="lighting-icon-sun" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+
+        <nav class="hud__actions" aria-label="Điều khiển khung nhìn">
+          <div class="hud__gis-group">
+            <button
+              type="button"
+              id="btn-satellite"
+              class="hud-text-btn eyebrow"
+              aria-pressed="false"
+            >
+              VỆ TINH
+            </button>
+
+            <span class="hud-inline-sep" aria-hidden="true"></span>
+
+            <div class="lod-control" role="group" aria-label="Chọn mức độ chi tiết LOD">
+              <span class="lod-prefix">LOD</span>
+              <button type="button" class="lod-btn active" data-lod="1" aria-pressed="true">1</button>
+              <span class="lod-sep" aria-hidden="true">·</span>
+              <button type="button" class="lod-btn" data-lod="2" aria-pressed="false">2</button>
+              <span class="lod-sep" aria-hidden="true">·</span>
+              <button type="button" class="lod-btn" data-lod="3" aria-pressed="false">3</button>
+            </div>
+          </div>
+
+          <span class="hud-vrule" aria-hidden="true"></span>
+
+          <div class="orbit-control">
+            <span class="orbit-label">360°</span>
+            <button
+              type="button"
+              id="btn-orbit-360"
+              class="orbit-switch"
+              role="switch"
+              aria-checked="false"
+              aria-label="Tự xoay 360 độ"
+            >
+              <span class="orbit-switch-thumb" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            id="btn-reset-view"
+            class="icon-btn"
+            data-label="Đặt lại góc nhìn"
+            aria-label="Đặt lại góc nhìn"
+          >
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            id="btn-fullscreen"
+            class="icon-btn"
+            data-label="Toàn màn hình"
+            aria-label="Toàn màn hình"
+          >
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <aside id="lod3-dock" class="lod3-dock hidden" aria-label="Điều khiển tầng và chú giải LOD 3">
+      <nav id="floor-switcher" aria-label="Chọn tầng Tòa A"></nav>
+      <div id="lod3-legend" class="lod3-legend">
+        <div class="eyebrow lod3-legend-title">CHÚ GIẢI PHÒNG</div>
+        <ul class="legend" aria-label="Chú giải màu phòng">
+          <li><span class="swatch" style="background:#3B82F6"></span>Lý thuyết</li>
+          <li><span class="swatch" style="background:#F97316"></span>Thực hành</li>
+          <li><span class="swatch" style="background:#8B5CF6"></span>Thư viện</li>
+          <li><span class="swatch" style="background:#10B981"></span>Văn phòng</li>
+          <li><span class="swatch" style="background:#CBD5E1"></span>Hành lang</li>
+          <li><span class="swatch" style="background:#64748B"></span>Cầu thang / WC</li>
+          <li><span class="swatch" style="background:#EAB308"></span>Đang chọn</li>
+        </ul>
+      </div>
+    </aside>
+
+    <aside id="places-panel" class="explorer__drawer hidden" role="dialog" aria-label="Danh sách địa điểm">
+      <div class="explorer__head">
+        <div class="explorer__head-text">
+          <h2 class="explorer__heading">Danh sách<br>địa điểm</h2>
+          <p id="places-panel-summary" class="explorer__sub">0 địa điểm · 0 tiện ích</p>
+        </div>
+        <button type="button" id="btn-places-close" class="explorer__close" aria-label="Đóng danh sách địa điểm">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12"></path>
           </svg>
-          <svg id="lighting-icon-moon" class="hidden" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </div>
-        <input
-          type="range"
-          id="lighting-slider"
-          class="lighting-range-input"
-          min="0"
-          max="2"
-          step="1"
-          value="0"
-          aria-label="Chọn chế độ ánh sáng: Ngày, Hoàng hôn, Đêm"
-        />
-        <div class="lighting-stops" aria-hidden="true">
-          <span>Ngày</span>
-          <span>Hoàng hôn</span>
-          <span>Đêm</span>
-        </div>
+        </button>
       </div>
-    </div>
 
-    <span class="hud-divider" aria-hidden="true"></span>
-
-    <div class="orbit-control">
-      <span class="orbit-label">360°</span>
-      <button
-        type="button"
-        id="btn-orbit-360"
-        class="orbit-switch"
-        role="switch"
-        aria-checked="false"
-        aria-label="Tự xoay 360 độ"
-      >
-        <span class="orbit-switch-thumb" aria-hidden="true"></span>
-      </button>
-    </div>
-
-    <span class="hud-divider" aria-hidden="true"></span>
-
-    <div class="lod-control" role="group" aria-label="Chọn mức độ chi tiết LOD">
-      <span class="lod-prefix">LOD</span>
-      <button type="button" class="lod-btn active" data-lod="1" aria-pressed="true">1</button>
-      <span class="lod-sep" aria-hidden="true">·</span>
-      <button type="button" class="lod-btn" data-lod="2" aria-pressed="false">2</button>
-      <span class="lod-sep" aria-hidden="true">·</span>
-      <button type="button" class="lod-btn" data-lod="3" aria-pressed="false">3</button>
-    </div>
-
-    <span class="hud-divider" aria-hidden="true"></span>
-
-    <div class="hud-actions">
-      <button
-        type="button"
-        id="btn-reset-view"
-        class="hud-icon-btn"
-        aria-label="Đặt lại góc nhìn mặc định"
-        title="Đặt lại góc nhìn mặc định"
-      >
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path>
-          <path d="M3 3v5h5"></path>
-        </svg>
-      </button>
-      <button
-        type="button"
-        id="btn-fullscreen"
-        class="hud-icon-btn"
-        aria-label="Toàn màn hình"
-        title="Toàn màn hình"
-      >
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <aside id="lod3-dock" class="lod3-dock hidden" aria-label="Điều khiển tầng và chú giải LOD 3">
-    <nav id="floor-switcher" aria-label="Chọn tầng Tòa A"></nav>
-    <div id="lod3-legend" class="lod3-legend">
-      <div class="eyebrow lod3-legend-title">Chú giải phòng</div>
-      <ul class="legend" aria-label="Chú giải màu phòng">
-        <li><span class="swatch" style="background:#3B82F6"></span>Lý thuyết</li>
-        <li><span class="swatch" style="background:#F97316"></span>Thực hành</li>
-        <li><span class="swatch" style="background:#8B5CF6"></span>Thư viện</li>
-        <li><span class="swatch" style="background:#10B981"></span>Văn phòng</li>
-        <li><span class="swatch" style="background:#CBD5E1"></span>Hành lang</li>
-        <li><span class="swatch" style="background:#64748B"></span>Cầu thang / WC</li>
-        <li><span class="swatch" style="background:#EAB308"></span>Đang chọn</li>
-      </ul>
-    </div>
-  </aside>
-
-  <aside id="places-panel" class="places-panel hidden" role="dialog" aria-label="Danh sách địa điểm và công cụ">
-    <div class="places-panel-header">
-      <div class="places-panel-title-wrap">
-        <h2 class="places-panel-title">Danh sách<br>địa điểm</h2>
-        <p id="places-panel-summary" class="places-panel-summary">0 địa điểm · 0 tiện ích</p>
-      </div>
-      <button type="button" id="btn-places-close" class="places-close-btn" aria-label="Đóng danh sách địa điểm">×</button>
-    </div>
-
-    <section class="panel-section" aria-label="Tìm kiếm phòng và công trình">
-      <div class="search-field">
-        <svg class="search-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <label class="explorer__search" aria-label="Tìm tòa nhà, phòng học hoặc tiện ích">
+        <svg class="explorer__search-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="11" cy="11" r="7"></circle>
           <path d="M20 20l-3.5-3.5"></path>
         </svg>
         <input
           type="search"
           id="search-input"
-          class="search-underline"
-          placeholder="Tìm phòng hoặc công trình (vd: A305)"
+          class="explorer__search-input"
+          placeholder="Tìm tòa nhà, phòng học (vd: A305)"
           autocomplete="off"
-          aria-label="Tìm phòng hoặc công trình"
         />
-      </div>
-      <ul id="search-results" class="panel-list" role="listbox" aria-label="Kết quả tìm kiếm"></ul>
-    </section>
+      </label>
 
-    <section class="panel-section panel-section-buildings" aria-label="Danh sách công trình">
-      <h3 class="eyebrow panel-heading">CÔNG TRÌNH</h3>
-      <ul id="buildings-list" class="panel-list buildings-list"></ul>
-    </section>
+      <div class="explorer__scroll">
+        <ul id="search-results" class="explorer__search-results" role="listbox" aria-label="Kết quả tìm kiếm phòng"></ul>
 
-    <section id="room-card" class="room-card hidden" aria-label="Thông tin phòng đang chọn">
-      <h3 id="room-card-title" class="room-card-title"></h3>
-      <dl class="room-meta">
-        <div><dt>Mã phòng</dt><dd id="rc-code"></dd></div>
-        <div><dt>Loại</dt><dd id="rc-type"></dd></div>
-        <div><dt>Tầng</dt><dd id="rc-floor"></dd></div>
-        <div><dt>Sức chứa</dt><dd id="rc-capacity"></dd></div>
-        <div><dt>Thiết bị</dt><dd id="rc-equipment"></dd></div>
-      </dl>
-      <button type="button" id="btn-route" class="btn btn-primary full-width">
-        Chỉ đường đến phòng này
-      </button>
-      <p id="route-summary" class="route-summary hidden" aria-live="polite"></p>
-    </section>
+        <section class="explorer__group" aria-label="Danh sách công trình">
+          <ul id="buildings-list" class="explorer__list"></ul>
+        </section>
 
-    <section class="panel-section" aria-label="Vị trí giả lập và tiện ích lân cận">
-      <h3 class="eyebrow panel-heading">ĐỊNH VỊ &amp; TIỆN ÍCH</h3>
-      <button type="button" id="btn-pick-location" class="btn full-width" aria-pressed="false">
-        Click chọn vị trí giả lập
-      </button>
-      <div class="thin-slider-row">
-        <div class="thin-slider-meta">
-          <label for="radius-slider" class="eyebrow thin-slider-label">BÁN KÍNH</label>
-          <strong id="radius-value" class="thin-slider-val">150 m</strong>
-        </div>
-        <div class="thin-slider-wrap">
-          <div class="thin-slider-track" aria-hidden="true">
-            <div id="radius-fill" class="thin-slider-fill" style="width:40%"></div>
-            <div id="radius-thumb" class="thin-slider-thumb" style="left:40%"></div>
+        <section id="room-card" class="room-card hidden" aria-label="Thông tin phòng đang chọn">
+          <div class="eyebrow room-card-kicker">PHÒNG ĐANG CHỌN</div>
+          <h3 id="room-card-title" class="room-card-title"></h3>
+          <dl class="room-meta">
+            <div><dt>Mã phòng</dt><dd id="rc-code"></dd></div>
+            <div><dt>Loại</dt><dd id="rc-type"></dd></div>
+            <div><dt>Tầng</dt><dd id="rc-floor"></dd></div>
+            <div><dt>Sức chứa</dt><dd id="rc-capacity"></dd></div>
+            <div><dt>Thiết bị</dt><dd id="rc-equipment"></dd></div>
+          </dl>
+          <button type="button" id="btn-route" class="btn btn-primary full-width">
+            Chỉ đường đến phòng này
+          </button>
+          <p id="route-summary" class="route-summary hidden" aria-live="polite"></p>
+        </section>
+
+        <section class="explorer__tools" aria-label="Vị trí giả lập và tiện ích lân cận">
+          <h3 class="eyebrow explorer__tools-heading">ĐỊNH VỊ &amp; TIỆN ÍCH</h3>
+          <button type="button" id="btn-pick-location" class="btn full-width" aria-pressed="false">
+            Click chọn vị trí giả lập
+          </button>
+          <div class="thin-slider-row">
+            <div class="thin-slider-meta">
+              <label for="radius-slider" class="eyebrow thin-slider-label">BÁN KÍNH</label>
+              <strong id="radius-value" class="thin-slider-val">150 m</strong>
+            </div>
+            <div class="thin-slider-wrap">
+              <div class="thin-slider-track" aria-hidden="true">
+                <div id="radius-fill" class="thin-slider-fill" style="width:40%"></div>
+                <div id="radius-thumb" class="thin-slider-thumb" style="left:40%"></div>
+              </div>
+              <input type="range" id="radius-slider" class="thin-range-input" min="50" max="300" step="10" value="150" />
+            </div>
           </div>
-          <input type="range" id="radius-slider" class="thin-range-input" min="50" max="300" step="10" value="150" />
-        </div>
+          <div class="layer-toggles">
+            <label class="toggle-item">
+              <input type="checkbox" id="toggle-route" checked />
+              <span class="eyebrow">Đường đi</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="toggle-amenities" checked />
+              <span class="eyebrow">Tiện ích</span>
+            </label>
+          </div>
+          <ul id="amenities-list" class="explorer__amenities" aria-label="Danh sách tiện ích gần đây"></ul>
+        </section>
       </div>
-      <div class="layer-toggles">
-        <label class="toggle-item">
-          <input type="checkbox" id="toggle-route" checked />
-          <span class="eyebrow">Đường đi</span>
-        </label>
-        <label class="toggle-item">
-          <input type="checkbox" id="toggle-amenities" checked />
-          <span class="eyebrow">Tiện ích</span>
-        </label>
-      </div>
-      <ul id="amenities-list" class="panel-list" aria-label="Danh sách tiện ích gần đây"></ul>
-    </section>
-  </aside>
+    </aside>
 
-  <div id="hud-bottom-left" class="hud-block">
-    <button
-      type="button"
-      id="btn-places-toggle"
-      class="places-trigger"
-      aria-expanded="false"
-      aria-controls="places-panel"
-    >
-      <div class="places-trigger-top">
-        <div class="places-trigger-left">
-          <span id="places-count" class="places-count">00</span>
-          <span id="places-title" class="places-title">Danh sách địa điểm</span>
-        </div>
-        <svg id="places-arrow" class="places-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M7 17L17 7M7 7h10v10"></path>
-        </svg>
-      </div>
-      <div id="places-summary" class="eyebrow places-summary">0 ĐỊA ĐIỂM · 0 TIỆN ÍCH</div>
-      <span class="places-rule" aria-hidden="true"></span>
-    </button>
-  </div>
-
-  <div id="hud-bottom-center" class="hud-block" aria-label="Hướng dẫn thao tác bản đồ">
-    <div class="eyebrow explore-eyebrow">CÁCH KHÁM PHÁ</div>
-    <p class="explore-guide">
-      <strong>Kéo</strong> để xoay · <strong>Cuộn</strong> để thu phóng · <strong>Chuột phải</strong> để di chuyển · <strong>Nhấp</strong> để chọn công trình
-    </p>
-  </div>
-
-  <div id="hud-bottom-right" class="hud-block">
-    <button type="button" id="tour-card" class="tour-card">
-      <div class="tour-card-left">
-        <span class="tour-card-title">Bắt đầu khám phá</span>
-        <span id="tour-card-sub" class="eyebrow tour-card-sub">TÒA A · 0 ĐIỂM</span>
-      </div>
-      <span class="tour-card-arrow" aria-hidden="true">↗</span>
-    </button>
-
-    <div class="copyright-row">
-      <span>© 2026</span>
-      <span aria-hidden="true">·</span>
-      <button type="button" id="btn-info" class="info-btn" aria-expanded="false" aria-controls="info-popover">
-        Thông tin
+    <aside id="hud-bottom-left" class="explorer" aria-label="Danh sách địa điểm">
+      <button
+        type="button"
+        id="btn-places-toggle"
+        class="explorer__toggle on-stage"
+        aria-expanded="false"
+        aria-controls="places-panel"
+      >
+        <span id="places-count" class="explorer__count">00</span>
+        <span class="explorer__copy">
+          <span id="places-title" class="explorer__title">Danh sách địa điểm</span>
+          <span id="places-summary" class="eyebrow explorer__meta">0 ĐỊA ĐIỂM · 0 TIỆN ÍCH</span>
+        </span>
+        <span class="explorer__arrow" aria-hidden="true">↗</span>
       </button>
+    </aside>
+
+    <div id="hud-bottom-center" class="hints on-stage" role="note" aria-label="Hướng dẫn thao tác bản đồ">
+      <span class="eyebrow hints__label">CÁCH KHÁM PHÁ</span>
+      <ul class="hints__list">
+        <li><strong>Kéo</strong> <span>để xoay</span></li>
+        <li><strong>Cuộn</strong> <span>để thu phóng</span></li>
+        <li><strong>Chuột phải</strong> <span>để di chuyển</span></li>
+        <li><strong>Nhấp</strong> <span>để chọn công trình</span></li>
+      </ul>
     </div>
 
-    <div id="info-popover" class="info-popover hidden" role="dialog" aria-label="Nguồn dữ liệu và công nghệ">
-      <div class="eyebrow info-title">NGUỒN DỮ LIỆU &amp; CÔNG NGHỆ</div>
-      <p>Dữ liệu nền &amp; hình học: OpenStreetMap, CARTO, Esri World Imagery.</p>
-      <p>Công nghệ: MapLibre GL JS, Three.js, FastAPI, PostgreSQL / PostGIS &amp; pgRouting.</p>
-    </div>
-  </div>
-
-  <aside id="building-panel" class="building-panel hidden" aria-label="Thông tin chi tiết công trình">
-    <div class="bp-top-row">
-      <span class="eyebrow bp-eyebrow">THÔNG TIN CHI TIẾT</span>
-      <div class="bp-top-actions">
-        <span id="bp-index" class="bp-index">01 — 01</span>
-        <button type="button" id="bp-close" class="bp-close-btn" aria-label="Đóng">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12"></path>
-          </svg>
+    <div id="hud-bottom-right" class="hud-bottom-right">
+      <div id="tour-wrap" class="tour">
+        <button type="button" id="tour-card" class="tour__btn" aria-label="Bắt đầu khám phá UIT">
+          <span class="tour__leader" aria-hidden="true">
+            <span class="tour__leader-dot"></span>
+            <span class="tour__leader-line"></span>
+          </span>
+          <span class="tour__content">
+            <span class="tour__title">Bắt đầu khám phá</span>
+            <span id="tour-card-sub" class="eyebrow tour__sub">TÒA A · 0 ĐIỂM</span>
+          </span>
+          <span class="tour__arrow" aria-hidden="true">↗</span>
         </button>
       </div>
-    </div>
 
-    <div class="bp-body">
-      <div class="bp-floors-row">
-        <span class="bp-floors-dot" aria-hidden="true"></span>
-        <span id="bp-floors" class="eyebrow bp-floors-text">3 TẦNG</span>
+      <p class="colophon on-stage">
+        <span>© 2026</span>
+        <span aria-hidden="true">·</span>
+        <button type="button" id="btn-info" class="colophon__btn" aria-expanded="false" aria-controls="info-popover">
+          Credits
+        </button>
+      </p>
+
+      <div id="info-popover" class="colophon__sheet hidden" role="dialog" aria-label="Thông tin dự án và nguồn dữ liệu">
+        <div class="colophon__top">
+          <span class="eyebrow colophon__kicker">UIT / CREDITS</span>
+          <button type="button" id="btn-info-close" class="colophon__close" aria-label="Đóng thông tin">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="colophon__section">
+          <div class="eyebrow colophon__label">ĐỒ ÁN MÔN HỌC</div>
+          <p class="colophon__strong">UIT 3D Smart Campus WebGIS</p>
+          <p class="colophon__muted">Học phần Hệ thống Thông tin Địa lý 3 chiều (IE402)</p>
+        </div>
+        <div class="colophon__section">
+          <div class="eyebrow colophon__label">NGUỒN DỮ LIỆU &amp; CÔNG NGHỆ</div>
+          <p class="colophon__muted">Bản đồ &amp; hình học: OpenStreetMap, Esri World Imagery, Khảo sát Tòa A.</p>
+          <p class="colophon__muted">Nền tảng: MapLibre GL JS, Three.js, FastAPI, PostgreSQL / PostGIS &amp; pgRouting.</p>
+        </div>
       </div>
-      <h2 id="bp-name" class="bp-name"></h2>
-      <p id="bp-desc" class="bp-desc"></p>
-
-      <div class="bp-divider" aria-hidden="true"></div>
-
-      <div class="eyebrow bp-specs-title">THÔNG SỐ</div>
-      <ul id="bp-specs" class="bp-specs"></ul>
-      <!-- TODO: kiểm chứng - bổ sung ảnh khảo sát thực địa sau -->
-      <button type="button" id="bp-view-indoor" class="bp-indoor-btn hidden">
-        XEM TRONG NHÀ →
-      </button>
     </div>
 
-    <div class="bp-footer">
-      <button type="button" id="bp-prev" class="bp-nav-btn bp-nav-prev">
-        <span class="eyebrow bp-nav-label">← TRƯỚC</span>
-        <span id="bp-prev-name" class="bp-nav-name"></span>
-      </button>
-      <span class="bp-footer-divider" aria-hidden="true"></span>
-      <button type="button" id="bp-next" class="bp-nav-btn bp-nav-next">
-        <span class="eyebrow bp-nav-label">TIẾP THEO →</span>
-        <span id="bp-next-name" class="bp-nav-name"></span>
-      </button>
+    <section id="building-panel" class="sheet hidden" data-meta="facility" aria-label="Thông tin chi tiết công trình">
+      <div class="sheet__topbar">
+        <span class="eyebrow sheet__kicker">THÔNG TIN CHI TIẾT</span>
+        <div class="sheet__topbar-right">
+          <span id="bp-index" class="sheet__counter">01 — 01</span>
+          <button type="button" id="bp-close" class="sheet__close" aria-label="Đóng">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="sheet__head">
+        <div class="sheet__meta-row">
+          <span class="sheet__dot" aria-hidden="true"></span>
+          <span id="bp-floors" class="eyebrow sheet__meta-text">3 TẦNG</span>
+        </div>
+        <h2 id="bp-name" class="sheet__title"></h2>
+        <p id="bp-desc" class="sheet__lead"></p>
+      </div>
+
+      <div class="sheet__body">
+        <div class="sheet__section">
+          <div class="eyebrow sheet__section-title">ĐIỂM NỔI BẬT &amp; THÔNG SỐ</div>
+          <ul id="bp-specs" class="sheet__list"></ul>
+        </div>
+
+        <div id="bp-indoor-box" class="sheet__indoor hidden">
+          <div class="eyebrow sheet__section-title">NỘI THẤT 3D (LOD 3)</div>
+          <div class="sheet__indoor-controls">
+            <button type="button" id="bp-view-indoor" class="sheet__indoor-btn">
+              XEM TRONG NHÀ →
+            </button>
+            <div id="bp-floor-pills" class="sheet__floor-pills" aria-label="Chọn nhanh tầng Tòa A"></div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sheet__nav" aria-label="Điều hướng công trình">
+        <button type="button" id="bp-prev" class="sheet__nav-btn sheet__nav-btn--prev">
+          <span class="eyebrow sheet__nav-label">← TRƯỚC</span>
+          <span id="bp-prev-name" class="sheet__nav-name"></span>
+        </button>
+        <button type="button" id="bp-next" class="sheet__nav-btn sheet__nav-btn--next">
+          <span class="eyebrow sheet__nav-label">TIẾP THEO →</span>
+          <span id="bp-next-name" class="sheet__nav-name"></span>
+        </button>
+      </nav>
+    </section>
+
+    <div id="loading" class="loading hidden" role="status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      <span>Đang tải dữ liệu...</span>
     </div>
-  </aside>
 
-  <div id="loading" class="loading hidden" role="status" aria-live="polite">
-    <span class="spinner" aria-hidden="true"></span>
-    <span>Đang tải dữ liệu...</span>
-  </div>
-
-  <div id="toast" class="toast hidden" role="alert" aria-live="assertive"></div>
+    <div id="toast" class="toast hidden" role="alert" aria-live="assertive"></div>
+  </main>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <script src="https://unpkg.com/three@0.147.0/build/three.min.js"></script>
