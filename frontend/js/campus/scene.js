@@ -248,6 +248,52 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     });
   }
 
+  // Lưới chung của nền khuôn viên (Campus_Base_*) có vài mảnh nằm trong tòa (vd. vòng bát giác giữa Tòa A).
+  // Chúng không thuộc node Root_* nên không ẩn theo tòa ở LOD 3 và đâm xuyên mặt cắt tầng.
+  // Tách tam giác cao hơn mặt đất có tâm nằm trong footprint, gắn vào node của tòa đó (chạy một lần).
+  let straysAdopted = false;
+  function adoptStrays() {
+    if (straysAdopted || !modelRoot || !footprintRings.length) return;
+    straysAdopted = true;
+    const strays = [];
+    modelRoot.traverse((o) => {
+      if (!o.isMesh || !o.geometry.index) return; // shortcut: lưới Draco luôn có index
+      for (let p = o; p; p = p.parent) if (Object.values(buildingRoots).includes(p)) return;
+      strays.push(o);
+    });
+    const a = new THREE.Vector3();
+    const b = new THREE.Vector3();
+    const c = new THREE.Vector3();
+    strays.forEach((o) => {
+      const pos = o.geometry.getAttribute('position');
+      const idx = o.geometry.index.array;
+      const keep = [];
+      const moved = {};
+      for (let t = 0; t < idx.length; t += 3) {
+        a.fromBufferAttribute(pos, idx[t]).applyMatrix4(o.matrixWorld);
+        b.fromBufferAttribute(pos, idx[t + 1]).applyMatrix4(o.matrixWorld);
+        c.fromBufferAttribute(pos, idx[t + 2]).applyMatrix4(o.matrixWorld);
+        const x = (a.x + b.x + c.x) / 3;
+        const y = (a.y + b.y + c.y) / 3;
+        const z = (a.z + b.z + c.z) / 3;
+        const hit = y > 0.5 && footprintRings.find(({ code, ring, box }) => buildingRoots[code]
+          && x >= box[0] && x <= box[2] && z >= box[1] && z <= box[3] && pointInRing(x, z, ring));
+        (hit ? (moved[hit.code] = moved[hit.code] || []) : keep).push(idx[t], idx[t + 1], idx[t + 2]);
+      }
+      Object.entries(moved).forEach(([code, tris]) => {
+        const geo = o.geometry.clone();
+        geo.setIndex(tris);
+        const part = new THREE.Mesh(geo, o.material);
+        part.castShadow = o.castShadow;
+        part.receiveShadow = o.receiveShadow;
+        part.customDepthMaterial = o.customDepthMaterial;
+        o.add(part);
+        buildingRoots[code].attach(part); // giữ nguyên vị trí thế giới
+      });
+      if (keep.length < idx.length) o.geometry.setIndex(keep);
+    });
+  }
+
   // Tâm và đỉnh mái thật của từng tòa trong mô hình: lấy các đỉnh lưới cao hơn mặt đất nằm trong footprint CSDL
   function computeAnchors() {
     if (!modelRoot || !footprintRings.length) return;
@@ -326,6 +372,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         });
         applyHidden();
         root.updateMatrixWorld(true);
+        adoptStrays();
         computeAnchors();
         const box = new THREE.Box3().setFromObject(root);
         const size = box.getSize(new THREE.Vector3());
@@ -506,6 +553,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
           });
         });
       });
+      adoptStrays();
       computeAnchors();
     },
     // Tâm & độ cao mái (m) của tòa nhà trong mô hình; null nếu chưa dò được
