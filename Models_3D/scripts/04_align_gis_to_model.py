@@ -308,5 +308,6 @@ def self_check() -> None:
 
 
 if __name__ == '__main__':
+    sys.stdout.reconfigure(encoding='utf-8')  # console Windows mặc định cp1252
     if '--check' in sys.argv:
         self_check()
