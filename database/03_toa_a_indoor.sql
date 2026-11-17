@@ -1,5 +1,5 @@
 -- File SQL duoc sinh tu dong tu dataset UIT da chuan hoa (EPSG:4326)
--- Nguon: dataset/final/ (dataset/scripts/merge_dataset.py). Khong sua tay.
+-- Nguon: dataset/*.geojson.
 
 DELETE FROM rooms WHERE building_id = (SELECT id FROM buildings WHERE building_code = 'A');
 DELETE FROM floors WHERE building_id = (SELECT id FROM buildings WHERE building_code = 'A');
