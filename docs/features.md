@@ -32,7 +32,7 @@ Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp t
 
 | # | Chức năng | Cách dùng | Module |
 |---|---|---|---|
-| 1 | Cảnh 3D khuôn viên nhiều mức chi tiết | Nút **LOD 1/2/3** ở góc trên phải. LOD 1: khối extrude theo `height_m`. LOD 2: mô hình `.glb`. LOD 3: nội thất. Nút **↺** về góc nhìn ban đầu. Camera kiểu bàn xoay: kéo chuột trái để xoay ngang 360° và nghiêng 0–85° quanh tâm màn hình (tâm khuôn viên, hoặc tòa đang chọn), kéo chuột phải để di chuyển, cuộn để thu phóng. | `layers.js`, `campus/scene.js` |
+| 1 | Cảnh 3D khuôn viên nhiều mức chi tiết | Nút **LOD 1/2/3** ở góc trên phải. LOD 1: khối extrude theo `height_m`. LOD 2: mô hình `.glb`. LOD 3: nội thất. Nút **↺** về góc nhìn ban đầu. Camera kiểu bàn xoay: kéo chuột trái để xoay ngang 360° và nghiêng 0–85° quanh tâm màn hình (tâm khuôn viên, hoặc tòa đang chọn), kéo chuột phải để di chuyển, cuộn để thu phóng. Để yên 6 giây thì cảnh tự xoay cùng chiều kim đồng hồ (1 vòng mỗi phút). | `layers.js`, `campus/scene.js` |
 | 2 | Mô hình trong nhà theo tầng | Chọn tòa (A hoặc C) → **XEM TRONG NHÀ** → bộ chọn tầng **T1/T2/T3/Tất cả**. Vỏ tòa được ẩn, chỉ hiện phòng của tầng đang chọn. | `layers.js` (`setIndoorBuilding`, `setFloor`) |
 | 3 | Xem thông tin khi bấm (click-identify) | Bấm vào tòa, phòng hoặc biểu tượng tiện ích để hiện thẻ thông tin: tên, mã, tầng, loại, sức chứa, mô tả, giờ mở cửa. | `buildings.js`, `rooms.js`, `amenities.js` |
 | 4 | Tìm kiếm | Ô tìm trong **Danh sách địa điểm**. Gợi ý ngay khi gõ, không cần dấu (`thu vien`), chịu được gõ sai nhẹ (`A35`). Gõ đúng mã phòng (`A305`, `a.305`) thì phòng đó luôn đứng đầu. Enter mở kết quả đầu tiên. | `search.js` (Fuse.js) |
