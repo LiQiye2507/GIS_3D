@@ -2263,6 +2263,17 @@ body.is-sheet-open .lod3-dock {
   z-index: 18;
 }
 
+/* Biểu tượng tiện ích trên tầng cao, đặt theo độ cao thật (amenities.js) */
+.amenity-raised {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
 .maplibregl-popup-content {
   background: var(--scrim-strong) !important;
   color: var(--paper) !important;
