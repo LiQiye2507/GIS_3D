@@ -3,7 +3,7 @@
 Web GIS 3D phục vụ **số hóa dữ liệu khuôn viên** và các chức năng **tra cứu, truy vấn, định vị** cho Trường ĐH Công nghệ Thông tin (UIT – ĐHQG-HCM). Hệ thống không phải tour tham quan: không có ảnh 360° hay virtual tour.
 
 - **Dữ liệu:** PostgreSQL 16 + PostGIS + pgRouting, hệ tọa độ EPSG:4326. Khoảng cách luôn tính theo mét (`::geography`).
-- **Backend:** FastAPI, chia lớp `routes → controllers → services`, có 5 API GeoJSON.
+- **Backend:** FastAPI, chia lớp `routes → controllers → services`, có 6 API GeoJSON.
 - **Frontend:** HTML/CSS/JavaScript thuần, MapLibre GL JS và Three.js (mô hình `.glb`). Mỗi chức năng là một module trong `frontend/js/`.
 
 ## 1. Dữ liệu và phân cấp
@@ -15,11 +15,12 @@ Web GIS 3D phục vụ **số hóa dữ liệu khuôn viên** và các chức n�
 | Tầng | `floors` | 6 (Tòa A, C) | `building_id` + `floor_number` |
 | Phòng | `rooms` | 145 (Tòa A: 78, Tòa C: 67) | `room_code` (vd. `A305`, `C312`) |
 | Tiện ích | `amenities` | 6 (căn tin, ATM, nước uống, bãi xe) | `id` |
+| Sân thể thao | `sports_fields` | 9 (tách từ mô hình 3D) | `field_code` (SF01–SF09) |
 | Mạng lưới đường đi | `campus_paths` | 145 cạnh (đường ngoài trời 62, hành lang 75, cầu thang 8) | `id`, `source_node`, `target_node` |
 
 **Nguồn hình học:** mô hình 3D toàn trường (`frontend/models/uit_campus.glb`) là chuẩn vị trí. Footprint các tòa được lấy từ mô hình và quy đổi sang WGS84 bằng một phép đồng dạng (tỉ lệ 0,969, xoay 0,63°, fit với footprint OSM của 5 tòa). Phòng, sàn và tiện ích của mỗi tòa được dời và xoay theo tòa đó, còn lối đi, cổng và ranh giới được dời theo các tòa lân cận. Cách tính nằm trong `Models_3D/scripts/04_align_gis_to_model.py`.
 
-**Sân thể thao:** 9 sân tách từ mặt sân của mô hình 3D, lưu ở `dataset/sports_fields.geojson` (`Models_3D/scripts/06_extract_sports_fields.py`). Lớp này mới ở dạng GeoJSON, chưa nạp vào CSDL và chưa hiển thị trên bản đồ; loại sân (`sport_type`) để trống, mọi sân đánh dấu `provisional`.
+**Sân thể thao:** 9 sân tách từ mặt sân của mô hình 3D, lưu ở `dataset/sports_fields.geojson` (`Models_3D/scripts/06_extract_sports_fields.py`). Dữ liệu được nạp vào bảng `sports_fields` (`database/05_sports_fields.sql`). Loại sân (`sport_type`) và giờ mở cửa để trống, mọi sân có `verified = false`.
 
 Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí.
 
@@ -37,6 +38,7 @@ Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp t
 | 4 | Tìm kiếm | Ô tìm trong **Danh sách địa điểm**. Gợi ý ngay khi gõ, không cần dấu (`thu vien`), chịu được gõ sai nhẹ (`A35`). Gõ đúng mã phòng (`A305`, `a.305`) thì phòng đó luôn đứng đầu. Enter mở kết quả đầu tiên. | `search.js` (Fuse.js) |
 | 5 | Định vị kết quả | Chọn một kết quả: camera bay tới, tô vàng phòng, tự chuyển sang đúng tòa và đúng tầng. | `rooms.js` (`selectRoom`) |
 | 6 | Lớp tiện ích theo danh mục | Mỗi loại có biểu tượng và màu riêng. Ô chọn trong mục **Định vị & tiện ích** vừa bật/tắt từng loại vừa là chú giải. WC và Thư viện mặc định tắt. | `amenities.js` |
+| 6b | Sân thể thao | Rê chuột lên sân để tô viền, bấm vào sân để xem mã sân, loại sân, diện tích, giờ mở cửa. Lớp vẽ trong suốt trên mặt sân của mô hình. | `sports.js` |
 
 ### B. Nên có
 
@@ -66,9 +68,10 @@ Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp t
 | `GET /api/rooms?building_code=&floor_number=` | Phòng theo tòa/tầng; 404 nếu sai mã tòa |
 | `GET /api/search?q=` | Tìm phòng theo mã/tên (`ILIKE`, có chống SQL injection) |
 | `GET /api/amenities/nearby?lat=&lng=&radius=&category=` | Tiện ích trong bán kính 50–500 m, sắp theo khoảng cách. Danh mục: `Canteen, ATM, Water, Parking, Medical, FireSafety, WC, Library` |
+| `GET /api/sports-fields` | Danh sách sân thể thao (GeoJSON) |
 | `GET /api/route?start_lng=&start_lat=&end_room_code=` | Tuyến đường nhiều tầng: `total_length_m`, `floors`, `reaches_room` |
 
-Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Việt (`middlewares/errors.py`). Kiểm thử bằng lệnh `cd backend; .venv\Scripts\python -m pytest -q` (13 test).
+Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Việt (`middlewares/errors.py`). Kiểm thử bằng lệnh `cd backend; .venv\Scripts\python -m pytest -q` (14 test).
 
 ## 4. Giới hạn và hướng xử lý
 
@@ -82,7 +85,7 @@ Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Vi
 | Một số phòng Tòa C bị phân loại sai | Kho (`C*-STORE*`) và hồ nước (`C1-POOL1`) đang mang `room_type = 'WC'` | Cần nhóm khảo sát xác nhận lại loại phòng |
 | Dữ liệu chưa được kiểm chứng thực địa | Phần lớn đối tượng có `verified = false` (lấy từ OSM, sơ đồ PCCC); hình học đã nắn theo mô hình 3D, mô hình lệch OSM 8–20 m ở một số tòa | Cần đối chiếu thực địa trước khi dùng chính thức |
 | Phòng Tòa C chưa khớp hẳn vỏ tòa | Lưới phòng Tòa C là bản tạm, không có sân trong như mô hình | Khoảng 5% diện tích phòng (WC, cầu thang ở hai đầu) nhô ra ngoài vỏ vài mét; cần số hóa lại theo sơ đồ thật |
-| Sân thể thao chưa xác định | Mô hình không ghi loại sân; 3 sân phía đông bắc (SF01–SF03) nằm ngoài ranh giới khuôn viên lấy từ OSM | Cần khảo sát loại sân và đối chiếu ranh giới trước khi nạp vào CSDL |
+| Sân thể thao chưa xác định | Mô hình không ghi loại sân; 3 sân phía đông bắc (SF01–SF03) nằm ngoài ranh giới khuôn viên lấy từ OSM | Thẻ thông tin ghi "Chưa xác định"; cần khảo sát loại sân và đối chiếu ranh giới |
 | Tiện ích còn ít | Mới có 6 điểm và chưa có Y tế/PCCC | Lớp và chú giải đã hỗ trợ đủ 8 danh mục, chỉ cần bổ sung dữ liệu |
 
 ## 5. Thư viện bên ngoài (nạp từ CDN, có ghi rõ phiên bản)
