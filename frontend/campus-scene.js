@@ -6,7 +6,7 @@
 (function () {
   const DEG = Math.PI / 180;
   const MODEL_URL = 'models/campus.glb';
-  const DRACO_PATH = 'vendor/draco/';
+  const DRACO_PATH = 'https://unpkg.com/three@0.165.0/examples/jsm/libs/draco/gltf/';
 
   // Gốc (0,0,0) của mô hình, tỉ lệ (mét / đơn vị mô hình) và góc xoay ngược chiều kim đồng hồ so với hướng Đông
   const GEO = { lng: 106.8037076, lat: 10.8704966, scale: 24.865, rotDeg: 4.535 };
