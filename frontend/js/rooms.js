@@ -6,7 +6,7 @@ import { escapeHtml } from './utils.js';
 import { map } from './map.js';
 import { applyHighlightFilter, setFloor, setIndoorBuilding } from './layers.js';
 import { setPlacesPanelOpen, updateBuildingMarker } from './buildings.js';
-import { setOrbit } from './camera.js';
+import { stopSpin } from './camera.js';
 
 function buildRoomPopupHtml(props) {
   const typeLabel = ROOM_LABELS[props.room_type] || props.room_type || 'Không rõ';
@@ -59,7 +59,7 @@ export function selectRoom(roomData, lngLat, shouldFly = false) {
 
   if (lngLat) {
     if (shouldFly) {
-      setOrbit(false);
+      stopSpin();
       // Điện thoại: danh sách là bottom sheet 55vh nên đẩy phòng lên nửa trên màn hình
       const mobile = window.matchMedia('(max-width: 720px)').matches;
       map.flyTo({ center: lngLat, zoom: 19.5, pitch: 60, ...(mobile && { padding: { top: 40, bottom: innerHeight * 0.55, left: 0, right: 0 } }) });

@@ -47,7 +47,6 @@ export const tourWrapEl = document.getElementById('tour-wrap');
 export const tourCardEl = document.getElementById('tour-card');
 export const tourCardSubEl = document.getElementById('tour-card-sub');
 export const colophonEl = document.querySelector('.colophon');
-export const btnOrbitEl = document.getElementById('btn-orbit-360');
 export const btnResetViewEl = document.getElementById('btn-reset-view');
 export const btnInfoEl = document.getElementById('btn-info');
 export const btnInfoCloseEl = document.getElementById('btn-info-close');

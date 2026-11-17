@@ -1,7 +1,6 @@
 // Góc nhìn camera: tổng quan, chọn tòa nhà, tự xoay
-import { BASE_PADDING, DEFAULT_PITCH, OVERVIEW_ZOOM, SHEET_PADDING, SPIN_ORBIT, SPIN_OVERVIEW, SPIN_SELECTED, prefersReducedMotion } from './config.js';
+import { BASE_PADDING, DEFAULT_PITCH, OVERVIEW_ZOOM, SHEET_PADDING, SPIN_OVERVIEW, SPIN_SELECTED, prefersReducedMotion } from './config.js';
 import { state } from './state.js';
-import { btnOrbitEl } from './dom.js';
 import { getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
 import { closeBuildingPanel } from './buildings.js';
@@ -32,7 +31,7 @@ export function startSpin(degPerSec) {
       spinRafId = null;
       return;
     }
-    if (!map.isMoving() || state.isOrbiting) {
+    if (!map.isMoving()) {
       map.setBearing(map.getBearing() + (spinRate * Math.min(now - spinLast, 100)) / 1000);
     }
     spinLast = now;
@@ -41,16 +40,9 @@ export function startSpin(degPerSec) {
   spinRafId = requestAnimationFrame(tick);
 }
 
-function stopSpin() {
+export function stopSpin() {
   spinRate = 0;
   clearTimeout(idleTimer);
-}
-
-export function setOrbit(active) {
-  state.isOrbiting = Boolean(active);
-  btnOrbitEl.setAttribute('aria-checked', String(state.isOrbiting));
-  if (state.isOrbiting) startSpin(SPIN_ORBIT);
-  else stopSpin();
 }
 
 // Góc nhìn khi chọn tòa nhà: camera nằm phía ngoài (hướng tâm khuôn viên -> tòa nhà, lệch 22°),
@@ -96,14 +88,10 @@ export function focusCamera(feat) {
   return { center, zoom: Math.min(19.6, zoom), pitch: 67, bearing, padding: SHEET_PADDING };
 }
 
-btnOrbitEl.addEventListener('click', () => {
-  setOrbit(!state.isOrbiting);
-});
-
 // Người dùng thao tác thì dừng tự xoay, rảnh 6 giây thì xoay chậm trở lại
 map.on('movestart', (e) => {
   if (!e.originalEvent) return;
-  setOrbit(false);
+  stopSpin();
 });
 map.on('moveend', (e) => {
   if (!e.originalEvent) return;
@@ -112,7 +100,7 @@ map.on('moveend', (e) => {
 });
 
 document.getElementById('btn-reset-view').addEventListener('click', () => {
-  setOrbit(false);
+  stopSpin();
   if (state.selectedBuildingIndex >= 0) {
     closeBuildingPanel();
     return;

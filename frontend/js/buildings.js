@@ -4,7 +4,7 @@ import { state } from './state.js';
 import { bpCloseEl, bpDescEl, bpFloorPillsEl, bpFloorsEl, bpIndexEl, bpIndoorBoxEl, bpNameEl, bpNextEl, bpNextNameEl, bpPrevEl, bpPrevNameEl, bpSpecsEl, bpViewIndoorEl, btnPlacesCloseEl, btnPlacesToggleEl, btnResetViewEl, buildingPanelEl, buildingsListEl, colophonEl, hudBottomLeftEl, hudTopLeftEl, placesCountEl, placesPanelEl, placesSummaryEl, placesTitleEl, searchInputEl, searchResultsEl, tourCardEl, tourWrapEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
-import { focusCamera, overviewCamera, setOrbit, startSpin } from './camera.js';
+import { focusCamera, overviewCamera, startSpin, stopSpin } from './camera.js';
 import { applyLod, setFloor, setIndoorBuilding } from './layers.js';
 import { openAmenityPopup } from './amenities.js';
 
@@ -131,7 +131,7 @@ export function closeBuildingPanel() {
   updateBuildingWallColors();
   updateBuildingMarker();
   map.easeTo({ ...overviewCamera(), duration: 1600 });
-  if (!state.isOrbiting) map.once('moveend', () => startSpin(SPIN_OVERVIEW));
+  map.once('moveend', () => startSpin(SPIN_OVERVIEW));
 }
 
 export function selectBuildingByIndex(idx) {
@@ -205,7 +205,7 @@ export function selectBuildingByIndex(idx) {
   placesSummaryEl.textContent = `${floors} TẦNG · ĐANG CHỌN`;
 
   updateBuildingWallColors();
-  setOrbit(false);
+  stopSpin();
   map.easeTo({ ...focusCamera(feat), duration: 1700 });
   map.once('moveend', () => {
     if (state.selectedBuildingIndex === normIdx) startSpin(SPIN_SELECTED);

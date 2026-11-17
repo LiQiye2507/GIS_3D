@@ -703,53 +703,6 @@ body.is-credits-open .sheet {
   color: var(--paper-22);
 }
 
-/* 360° Auto-Orbit Switch */
-.orbit-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 42px;
-  padding: 0 3px;
-}
-
-.orbit-label {
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--paper-50);
-}
-
-.orbit-switch {
-  position: relative;
-  width: 36px;
-  height: 18px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--paper-36);
-  background: rgba(255, 255, 255, 0.035);
-  transition: background-color 0.22s var(--ease-out), border-color 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out);
-}
-
-.orbit-switch-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--paper-70);
-  transition: transform 0.22s var(--ease-out), background-color 0.22s var(--ease-out);
-}
-
-.orbit-switch[aria-checked="true"] {
-  background: var(--accent-soft);
-  border-color: var(--accent-bright);
-  box-shadow: 0 0 14px var(--accent-dim);
-}
-
-.orbit-switch[aria-checked="true"] .orbit-switch-thumb {
-  transform: translateX(18px);
-  background: var(--accent-bright);
-}
-
 /* Icon Buttons with bottom underline & hover micro tooltip */
 .icon-btn {
   position: relative;
