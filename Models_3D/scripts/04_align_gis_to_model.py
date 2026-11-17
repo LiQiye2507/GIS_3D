@@ -349,6 +349,8 @@ AMENITY_LNGLAT = {
     'Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)': (106.8018981, 10.8706263),
     'Bãi giữ xe máy UIT (Phía Bắc Tòa A)': (106.8028612, 10.8714743),
     'Phòng ăn GV - VC & NLĐ (E7.1)': (106.802661, 10.8697176, 23.8),
+    # máy bán nước tầng 1 Tòa A: góc hành lang cạnh thư viện (vị trí người dùng chỉ trên sơ đồ)
+    'Máy bán nước tự động Tầng 1 Tòa A': (106.80297, 10.8706288),
 }
 
 
