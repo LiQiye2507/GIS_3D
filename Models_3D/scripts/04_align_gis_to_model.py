@@ -333,6 +333,12 @@ GATE_2_PARKING = {
     'source_ref': 'Models_3D/uit_campus_full.glb (mái che giữa Tòa B và Nhà PVSV)', 'verified': False,
 }
 GATE_2_LNGLAT = (106.8042039, 10.8703884)
+# Tiện ích đặt lại theo model thay vì nội suy: ATM ra mặt đường trước chòi bảo vệ Cổng A,
+# bãi xe máy phía Bắc Tòa A vào mái nhà xe (cách mép mái 3 m)
+AMENITY_LNGLAT = {
+    'Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)': (106.8018981, 10.8706263),
+    'Bãi giữ xe máy UIT (Phía Bắc Tòa A)': (106.8028612, 10.8714743),
+}
 
 
 def dump_fc(fc) -> bytes:
@@ -379,6 +385,8 @@ def write_all(r) -> None:
                                         'Models_3D/scripts/04_align_gis_to_model.py; cần kiểm chứng thực địa.')
                 else:
                     p['description'] = p['description'].rstrip().rstrip('.') + '. Hình học nắn theo model 3D.'
+            elif name == 'amenities' and p['name'] in AMENITY_LNGLAT:
+                f['geometry']['coordinates'][:2] = AMENITY_LNGLAT[p['name']]
             else:
                 f['geometry']['coordinates'] = _move_coords(f['geometry']['coordinates'], move, p.get('building_code'))
         if name == 'buildings':
@@ -398,6 +406,9 @@ def write_all(r) -> None:
             if m and m.group(1) == 'buildings':
                 code = re.search(r"VALUES \('([^']+)'", line).group(1)
                 line = WKT_RE.sub(lambda w: f"ST_GeomFromText('{_wkt_polygon(new_geom[code])}'", line)
+            elif m and m.group(1) == 'amenities' and (nm := re.search(r"VALUES \('((?:[^']|'')+)'", line).group(1).replace("''", "'")) in AMENITY_LNGLAT:
+                lng, lat = AMENITY_LNGLAT[nm]
+                line = re.sub(r'POINT Z \((\S+) (\S+) ', f'POINT Z ({lng!r} {lat!r} ', line)
             elif m:
                 bc = re.search(r"building_code = '(\w+)'", line)
                 code = bc.group(1) if bc else None

@@ -86,10 +86,10 @@ INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, c
 
 -- 4. Amenities (POI 3D)
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Căn tin UIT (Nhà PVSV)', 'Canteen', (SELECT id FROM buildings WHERE building_code = 'NHA_PVSV'), 1, 1.0, NULL, ST_GeomFromText('POINT Z (106.8044813 10.8699928 1.0)', 4326));
-INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Bãi giữ xe máy UIT (Phía Bắc Tòa A)', 'Parking', NULL, 1, 1.0, NULL, ST_GeomFromText('POINT Z (106.8029541 10.8713844 1.0)', 4326));
+INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Bãi giữ xe máy UIT (Phía Bắc Tòa A)', 'Parking', NULL, 1, 1.0, NULL, ST_GeomFromText('POINT Z (106.8028612 10.8714743 1.0)', 4326));
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Bãi để xe ô tô - tầng G tòa E', 'Parking', (SELECT id FROM buildings WHERE building_code = 'E'), 0, 1.0, NULL, ST_GeomFromText('POINT Z (106.8027121 10.8698005 1.0)', 4326));
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Phòng ăn GV - VC & NLĐ (E7.1)', 'Canteen', (SELECT id FROM buildings WHERE building_code = 'E'), 7, 27.6, NULL, ST_GeomFromText('POINT Z (106.8027852 10.8697498 27.6)', 4326));
-INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)', 'ATM', NULL, 1, 1.0, '24/7', ST_GeomFromText('POINT Z (106.8020099 10.8703353 1.0)', 4326));
+INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)', 'ATM', NULL, 1, 1.0, '24/7', ST_GeomFromText('POINT Z (106.8018981 10.8706263 1.0)', 4326));
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Máy bán nước tự động Tầng 1 Tòa A', 'Water', (SELECT id FROM buildings WHERE building_code = 'A'), 1, 1.0, '24/7', ST_GeomFromText('POINT Z (106.8031046 10.8706275 1.0)', 4326));
 INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES ('Cổng 2 - Lối vào bãi xe', 'Parking', NULL, 1, 1.0, NULL, ST_GeomFromText('POINT Z (106.8042039 10.8703884 1.0)', 4326));
 
