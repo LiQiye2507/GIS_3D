@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 import struct
 import sys
 from pathlib import Path
@@ -307,7 +308,132 @@ def self_check() -> None:
     print('CHECK OK')
 
 
+# ---------- ghi dữ liệu ----------
+GEOJSON_FILES = ['buildings', 'floors', 'rooms', 'amenities', 'paths', 'campus_boundary']
+SQL_FILES = ['02_seed_uit_data.sql', '03_toa_a_indoor.sql', '04_campus_graph.sql', 'checks.sql']
+INSERT_RE = re.compile(r'INSERT INTO (\w+)')
+WKT_RE = re.compile(r"ST_GeomFromText\('([^']+)'")
+PAIR_RE = re.compile(r'(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)')
+GATE_A = (106.8020546, 10.8704376)
+GATE_B = (106.8039237, 10.8689966)
+
+
+def dump_fc(fc) -> bytes:
+    """Cùng định dạng file gốc (ogr2ogr): thụt 1 dấu cách, CRLF, không xuống dòng cuối."""
+    return json.dumps(fc, indent=1, ensure_ascii=False).replace('\n', '\r\n').encode('utf-8')
+
+
+def _lnglat_mover(displace):
+    def move(lng, lat, code=None):
+        e, n = displace((lng - O[0]) * MLNG, (lat - O[1]) * MLAT, code)
+        return round(float(O[0] + e / MLNG), 7), round(float(O[1] + n / MLAT), 7)
+    return move
+
+
+def _move_coords(c, move, code):
+    if isinstance(c[0], (int, float)):
+        return [*move(c[0], c[1], code), *c[2:]]
+    return [_move_coords(x, move, code) for x in c]
+
+
+def _round_coords(c):
+    return [round(c[0], 7), round(c[1], 7)] if isinstance(c[0], float) else [_round_coords(x) for x in c]
+
+
+def _wkt_polygon(coords) -> str:
+    return 'POLYGON(' + ', '.join('(' + ', '.join(f'{x!r} {y!r}' for x, y in ring) + ')' for ring in coords) + ')'
+
+
+def write_all(r) -> None:
+    move = _lnglat_mover(r['displace'])
+    new_geom = {k: _round_coords(mapping(orient(enu_to_lnglat(g), 1.0))['coordinates']) for k, g in r['new_buildings'].items()}
+
+    for name in GEOJSON_FILES:
+        fc = load_fc(name)
+        for f in fc['features']:
+            p = f['properties']
+            if name == 'buildings':
+                code = p['building_code']
+                f['geometry']['coordinates'] = new_geom[code]
+                if code == 'C':
+                    p['source'] = 'model'
+                    p['source_ref'] = 'Models_3D/uit_campus_full.glb (Root_Toa_C)'
+                    p['description'] = ('Footprint lấy từ model 3D (Root_Toa_C), quy đổi theo '
+                                        'Models_3D/scripts/04_align_gis_to_model.py; cần kiểm chứng thực địa.')
+                else:
+                    p['description'] = p['description'].rstrip().rstrip('.') + '. Hình học nắn theo model 3D.'
+            else:
+                f['geometry']['coordinates'] = _move_coords(f['geometry']['coordinates'], move, p.get('building_code'))
+        (ROOT / 'dataset' / f'{name}.geojson').write_bytes(dump_fc(fc))
+
+    gate_a, gate_b = move(*GATE_A), move(*GATE_B)
+    for fname in SQL_FILES:
+        src = (ROOT / 'database' / fname.replace('.sql', '.backup.sql')).read_text(encoding='utf-8')
+        out = []
+        for line in src.split('\n'):
+            m = INSERT_RE.match(line)
+            if m and m.group(1) == 'buildings':
+                code = re.search(r"VALUES \('([^']+)'", line).group(1)
+                line = WKT_RE.sub(lambda w: f"ST_GeomFromText('{_wkt_polygon(new_geom[code])}'", line)
+            elif m:
+                bc = re.search(r"building_code = '(\w+)'", line)
+                code = bc.group(1) if bc else None
+                line = WKT_RE.sub(lambda w: "ST_GeomFromText('" + PAIR_RE.sub(
+                    lambda p: '{0!r} {1!r}'.format(*move(float(p.group(1)), float(p.group(2)), code)), w.group(1)) + "'", line)
+            line = line.replace(f'{GATE_A[0]}, {GATE_A[1]}', f'{gate_a[0]!r}, {gate_a[1]!r}')
+            out.append(line)
+        (ROOT / 'database' / fname).write_bytes('\n'.join(out).encode('utf-8'))
+
+    rep = json.loads(REPORT.read_text(encoding='utf-8')) if REPORT.exists() else {}
+    rep.update({'gate_a': gate_a, 'gate_b': gate_b})
+    REPORT.write_text(json.dumps(rep, indent=1, ensure_ascii=False), encoding='utf-8')
+    print(f'Đã ghi {len(GEOJSON_FILES)} GeoJSON + {len(SQL_FILES)} SQL; Cổng A -> {gate_a}, Cổng B -> {gate_b}')
+
+
+def verify_outputs() -> None:
+    """Định dạng ghi giữ nguyên byte; mọi hình học trong SQL trùng GeoJSON (sai số < 1e-7 độ)."""
+    for name in GEOJSON_FILES:
+        src = (ROOT / 'dataset' / f'{name}.backup.geojson').read_bytes()
+        assert dump_fc(json.loads(src.decode('utf-8'))) == src, f'{name}: định dạng ghi khác bản gốc'
+    sql = {}
+    for f in SQL_FILES:
+        for line in (ROOT / 'database' / f).read_text(encoding='utf-8').splitlines():
+            m = INSERT_RE.match(line)
+            if m:
+                sql.setdefault(m.group(1), []).append(line)
+    keyed = {
+        'buildings': lambda l: re.search(r"VALUES \('([^']+)'", l).group(1),
+        'rooms': lambda l: re.search(r"VALUES \('([^']+)'", l).group(1),
+        'floors': lambda l: (re.search(r"building_code = '(\w+)'", l).group(1), int(re.search(r"\), (\d+),", l).group(1))),
+        'amenities': lambda l: re.search(r"VALUES \('((?:[^']|'')+)'", l).group(1).replace("''", "'"),
+    }
+    gj_key = {
+        'buildings': lambda p: p['building_code'], 'rooms': lambda p: p['room_code'],
+        'floors': lambda p: (p['building_code'], p['floor_number']), 'amenities': lambda p: p['name'],
+    }
+    n = 0
+    for table, fc_name in [('buildings', 'buildings'), ('rooms', 'rooms'), ('floors', 'floors'), ('amenities', 'amenities'), ('campus_paths', 'paths')]:
+        feats = json.loads((ROOT / 'dataset' / f'{fc_name}.geojson').read_text(encoding='utf-8'))['features']
+        lines = sql[table]
+        if table == 'campus_paths':
+            pairs = zip(lines, feats)
+        else:
+            by = {gj_key[table](f['properties']): f for f in feats}
+            pairs = [(l, by[keyed[table](l)]) for l in lines]
+        for line, feat in pairs:
+            g_sql = shapely.force_2d(shapely.from_wkt(WKT_RE.search(line).group(1)))
+            g_js = shapely.force_2d(shape(feat['geometry']))
+            assert g_sql.equals_exact(g_js, 1e-7), (table, line[:80])
+            n += 1
+    assert len(sql['rooms']) == 145 and n == 6 + 145 + 6 + 6 + 33, n
+    print(f'SQL==GeoJSON OK ({n} đối tượng)')
+
+
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')  # console Windows mặc định cp1252
     if '--check' in sys.argv:
         self_check()
+    if '--write' in sys.argv:
+        write_all(build())
+    if '--verify' in sys.argv:
+        verify_outputs()
