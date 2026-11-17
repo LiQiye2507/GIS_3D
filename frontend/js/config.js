@@ -14,6 +14,8 @@ export const SPIN_DEG_PER_SEC = 6;
 // Cổng A/B đã nắn theo model 3D (Models_3D/scripts/04_align_gis_to_model.py)
 export const GATE_A = [106.802094, 10.8704303];
 export const GATE_B = [106.8038368, 10.8689126];
+// Cổng 2 vào bãi xe: tâm mái che giữa Tòa B và Nhà PVSV trong model 3D (TODO: kiểm chứng thực địa)
+export const GATE_2 = [106.8042039, 10.8703884];
 
 export const ROOM_COLORS = {
   Theory: '#3B82F6',
