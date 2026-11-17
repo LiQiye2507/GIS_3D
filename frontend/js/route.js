@@ -5,8 +5,9 @@ import { routeSummaryEl } from './dom.js';
 import { api, showToast } from './utils.js';
 import { map } from './map.js';
 import { setFloor } from './layers.js';
+import { setOrbit } from './camera.js';
 
-function buildRoute3dPolygons(routeFc) {
+export function buildRoute3dPolygons(routeFc) {
   const features = [];
   routeFc.features.forEach((feat) => {
     const { path_type: pathType } = feat.properties;
@@ -47,6 +48,30 @@ function buildRoute3dPolygons(routeFc) {
   return { type: 'FeatureCollection', features };
 }
 
+function fitSegments(features) {
+  const bounds = new maplibregl.LngLatBounds();
+  features.forEach((f) => (f.geometry.coordinates || []).forEach((c) => bounds.extend([c[0], c[1]])));
+  if (!bounds.isEmpty()) map.fitBounds(bounds, { padding: 60, pitch: 60, maxZoom: 19.5 });
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let playToken = 0;
+
+// Xem toàn tuyến, rồi lần lượt bật từng tầng tuyến đi qua (mỗi tầng 2.5 s), dừng ở tầng của phòng đích
+async function playRouteByFloor(routeFc) {
+  const token = ++playToken;
+  setOrbit(false);
+  setFloor(null);
+  fitSegments(routeFc.features);
+  if (routeFc.floors.length < 2) return;
+  for (const floor of routeFc.floors) {
+    await sleep(2500);
+    if (token !== playToken) return;
+    setFloor(floor);
+    fitSegments(routeFc.features.filter((f) => f.properties.floor_from === floor || f.properties.floor_to === floor));
+  }
+}
+
 document.getElementById('btn-route').addEventListener('click', async () => {
   if (!state.selectedRoom || !state.selectedRoom.room_code) {
     showToast('Vui lòng chọn phòng đích trước', true);
@@ -75,14 +100,7 @@ document.getElementById('btn-route').addEventListener('click', async () => {
       + (routeFc.reaches_room ? '' : ` · Tòa ${state.selectedRoom.building_code} chưa có dữ liệu đường đi trong nhà, tuyến dừng ở lối vào`);
     routeSummaryEl.classList.remove('hidden');
 
-    setFloor(null);
-    const bounds = new maplibregl.LngLatBounds();
-    routeFc.features.forEach((f) => {
-      (f.geometry.coordinates || []).forEach((c) => bounds.extend([c[0], c[1]]));
-    });
-    if (!bounds.isEmpty()) {
-      map.fitBounds(bounds, { padding: 60, pitch: 60, maxZoom: 19.5 });
-    }
+    playRouteByFloor(routeFc);
   } catch (err) {
     console.error(err);
   }

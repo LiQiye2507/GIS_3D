@@ -110,6 +110,7 @@ export function applyLod(lod) {
   setLayerVisibility('buildings-lod1', lod === 1);
   setLayerVisibility('rooms-3d-layer', showIndoor);
   setLayerVisibility('room-highlight', showIndoor);
+  setLayerVisibility('rooms-query', showIndoor);
   setLayerVisibility('indoor-base', showIndoor);
   // LOD 3: ẩn vỏ tòa đang xem trong mô hình để thấy các phòng bên trong
   campus.setHidden(showIndoor ? state.indoorCode : null);
@@ -259,6 +260,21 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
     },
   });
 
+  // Kết quả truy vấn thuộc tính (query.js)
+  map.addLayer({
+    id: 'rooms-query',
+    type: 'fill-extrusion',
+    source: 'rooms',
+    filter: ['in', ['get', 'room_code'], ['literal', []]],
+    layout: { visibility: 'none' },
+    paint: {
+      'fill-extrusion-color': '#F43F5E',
+      'fill-extrusion-base': ['+', GROUND_Z, ['get', 'base_height']],
+      'fill-extrusion-height': ['+', GROUND_Z + 0.05, ['get', 'extrude_height']],
+      'fill-extrusion-opacity': 0.95,
+    },
+  });
+
   map.addLayer({
     id: 'room-highlight',
     type: 'fill-extrusion',
@@ -296,7 +312,7 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
     if (!state.isPickingLocation) map.getCanvas().style.cursor = '';
   });
   map.on('click', 'rooms-3d-layer', (e) => {
-    if (state.isPickingLocation) return;
+    if (state.isPickingLocation || state.measureMode) return;
     const feat = e.features && e.features[0];
     if (!feat) return;
     selectRoom(feat.properties, [e.lngLat.lng, e.lngLat.lat], false);
@@ -304,7 +320,7 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
 
   // Chọn tòa nhà bằng tia chiếu vào khối footprint (dùng chung cho LOD 1/2/3)
   map.on('mousemove', (e) => {
-    if (state.isPickingLocation || e.originalEvent.buttons) return;
+    if (state.isPickingLocation || state.measureMode || e.originalEvent.buttons) return;
     const code = state.currentLod === 3 && map.queryRenderedFeatures(e.point, { layers: ['rooms-3d-layer'] }).length
       ? null
       : campus.pick(e.point);
@@ -319,6 +335,7 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
   });
 
   map.on('click', (e) => {
+    if (state.measureMode) return;
     if (state.isPickingLocation) {
       setPickingMode(false);
       setUserPos([e.lngLat.lng, e.lngLat.lat]);

@@ -11,6 +11,7 @@ export const state = {
   selectedRoom: null,
   activePopup: null,
   isPickingLocation: false,
+  measureMode: null,
   userPos: null,
   buildingsList: [],
   selectedBuildingIndex: -1,

@@ -170,7 +170,7 @@ export function addAmenityLayer() {
     if (!state.isPickingLocation) map.getCanvas().style.cursor = '';
   });
   map.on('click', 'amenities-layer', (e) => {
-    if (state.isPickingLocation || !e.features.length) return;
+    if (state.isPickingLocation || state.measureMode || !e.features.length) return;
     const f = e.features[0];
     openAmenityPopup(f.properties, f.geometry.coordinates);
   });

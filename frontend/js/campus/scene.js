@@ -24,7 +24,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   const rim = new THREE.DirectionalLight('#c9dcec', 0.35);
   const fill = new THREE.DirectionalLight('#8ea6be', 0.15);
   const ambient = new THREE.HemisphereLight('#c9dcec', '#2f363d', 0.08);
-  const hideUniforms = { uHide: { value: 0 }, uHideInv: { value: new THREE.Matrix4() } };
+  const hideUniforms = { uHide: { value: 0 }, uHideInv: { value: new THREE.Matrix4() }, uClipY: { value: 1e6 } };
   const tuned = [];
   const pickMeshes = [];
   const mvp = new THREE.Matrix4();
@@ -70,13 +70,15 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uHide = hideUniforms.uHide;
       shader.uniforms.uHideInv = hideUniforms.uHideInv;
+      shader.uniforms.uClipY = hideUniforms.uClipY;
       shader.vertexShader = 'varying vec3 vCampusPos;\n' + shader.vertexShader.replace(
         '#include <project_vertex>',
         '#include <project_vertex>\n vCampusPos = (modelMatrix * vec4(transformed, 1.0)).xyz;'
       );
-      let frag = 'uniform float uHide;\nuniform mat4 uHideInv;\nvarying vec3 vCampusPos;\n' + shader.fragmentShader.replace(
+      let frag = 'uniform float uHide;\nuniform mat4 uHideInv;\nuniform float uClipY;\nvarying vec3 vCampusPos;\n' + shader.fragmentShader.replace(
         'void main() {',
         `void main() {
+          if (vCampusPos.y > uClipY) discard;
           if (uHide > 0.5) {
             vec3 q = (uHideInv * vec4(vCampusPos, 1.0)).xyz;
             if (all(lessThan(abs(q), vec3(0.5)))) discard;
@@ -462,6 +464,12 @@ export function create(map, { onReady, onError, onProgress } = {}) {
           new THREE.Vector3(...box.size)
         ).invert();
       }
+      if (renderer) renderer.shadowMap.needsUpdate = true;
+      map.triggerRepaint();
+    },
+    // Mặt cắt ngang: bỏ phần mô hình cao hơn heightM mét (null = tắt)
+    setClip(heightM) {
+      hideUniforms.uClipY.value = heightM == null ? 1e6 : heightM / GEO.scale;
       if (renderer) renderer.shadowMap.needsUpdate = true;
       map.triggerRepaint();
     },

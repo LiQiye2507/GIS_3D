@@ -218,6 +218,7 @@
           <li><span class="swatch" style="background:#10B981"></span>Văn phòng</li>
           <li><span class="swatch" style="background:#CBD5E1"></span>Hành lang</li>
           <li><span class="swatch" style="background:#64748B"></span>Cầu thang / WC</li>
+          <li><span class="swatch" style="background:#F43F5E"></span>Kết quả truy vấn</li>
           <li><span class="swatch" style="background:#EAB308"></span>Đang chọn</li>
         </ul>
       </div>
@@ -302,6 +303,39 @@
           </div>
           <div id="amenity-filters" class="amenity-filters" role="group" aria-label="Lọc tiện ích theo loại (chú giải)"></div>
           <ul id="amenities-list" class="explorer__amenities" aria-label="Danh sách tiện ích gần đây"></ul>
+          <div class="tool-row" role="group" aria-label="Tìm tiện ích gần nhất">
+            <button type="button" class="btn" data-nearest="WC">WC gần nhất</button>
+            <button type="button" class="btn" data-nearest="Canteen">Căn tin gần nhất</button>
+            <button type="button" class="btn" data-nearest="ATM">ATM gần nhất</button>
+          </div>
+        </section>
+
+        <section class="explorer__tools" aria-label="Truy vấn phòng theo thuộc tính">
+          <h3 class="eyebrow explorer__tools-heading">TRUY VẤN PHÒNG</h3>
+          <form id="query-form" class="query-form">
+            <label>Tòa<select id="q-building"><option value="A">Tòa A</option><option value="C">Tòa C</option></select></label>
+            <label>Tầng<select id="q-floor"><option value="">Tất cả</option></select></label>
+            <label>Loại phòng<select id="q-type"><option value="">Tất cả</option></select></label>
+            <label>Sức chứa ≥<input type="number" id="q-capacity" min="0" max="1000" step="5" placeholder="vd: 40" /></label>
+            <button type="submit" class="btn btn-primary full-width">Lọc phòng</button>
+          </form>
+          <p id="query-summary" class="tools-note" aria-live="polite"></p>
+          <ul id="query-results" class="explorer__search-results" aria-label="Kết quả truy vấn phòng"></ul>
+        </section>
+
+        <section class="explorer__tools" aria-label="Công cụ mặt cắt và đo đạc">
+          <h3 class="eyebrow explorer__tools-heading">MẶT CẮT &amp; ĐO ĐẠC</h3>
+          <label class="clip-row">
+            <span class="eyebrow">Mặt cắt ngang</span>
+            <input type="range" id="clip-slider" min="0" max="50" step="1" value="50" aria-describedby="clip-value" />
+            <strong id="clip-value">Tắt</strong>
+          </label>
+          <div class="tool-row" role="group" aria-label="Công cụ đo">
+            <button type="button" class="btn" data-measure="distance" aria-pressed="false">Đo khoảng cách</button>
+            <button type="button" class="btn" data-measure="area" aria-pressed="false">Đo diện tích</button>
+            <button type="button" class="btn" data-measure="height" aria-pressed="false">Đo chiều cao</button>
+          </div>
+          <p id="measure-result" class="tools-note" aria-live="polite">Chọn công cụ rồi nhấp lên bản đồ.</p>
         </section>
       </div>
     </aside>
@@ -457,7 +491,9 @@
       "imports": {
         "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
         "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/",
-        "fuse.js": "https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs"
+        "fuse.js": "https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs",
+        "@turf/area": "https://cdn.jsdelivr.net/npm/@turf/area@7.1.0/+esm",
+        "@turf/length": "https://cdn.jsdelivr.net/npm/@turf/length@7.1.0/+esm"
       }
     }
   </script>

@@ -10,10 +10,13 @@ import { closeBuildingPanel, renderBuildingsList, setPlacesPanelOpen } from './b
 import { setAllAmenities, updateRadiusVisual } from './amenities.js';
 import { buildSearchIndex } from './search.js';
 import { applyDeepLink } from './share.js';
+import { renderFloorOptions } from './query.js';
 import './camera.js';
 import './rooms.js';
 import './route.js';
 import './geolocate.js';
+import './nearest.js';
+import './measure.js';
 
 campusHandlers.onReady = () => {
   state.campusCenter = campus.modelToLngLat(campus.center.x, campus.center.z);
@@ -92,6 +95,7 @@ map.on('load', async () => {
     setLighting(state.currentLighting);
     applyLod(state.campusLoadFailed ? 1 : 2);
     setIndoorBuilding('A');
+    renderFloorOptions();
     applyDeepLink();
   } catch (err) {
     console.error(err);
