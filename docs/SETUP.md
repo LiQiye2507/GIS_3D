@@ -46,6 +46,8 @@ psql -U postgres -d uit_campus -c "SELECT postgis_version(), pgr_version();"
 psql -U postgres -d uit_campus -c "SELECT 'buildings', count(*) FROM buildings UNION ALL SELECT 'rooms', count(*) FROM rooms UNION ALL SELECT 'amenities', count(*) FROM amenities UNION ALL SELECT 'campus_paths', count(*) FROM campus_paths;"
 ```
 
+`02_seed_uit_data.sql` và `03_toa_a_indoor.sql` được sinh từ bộ dữ liệu chuẩn `dataset/processed/final/`. Cách sinh lại xem `dataset/processed/final/README.md`.
+
 Muốn nạp lại từ đầu thì chạy lại `01_schema.sql` (file này tự `DROP` bảng cũ) rồi chạy lần lượt `02_seed_uit_data.sql`, `03_toa_a_indoor.sql`, `04_campus_graph.sql` (đúng thứ tự). `checks.sql` in kết quả kiểm tra: các dòng `invalid` phải bằng 0, có tuyến `c_route_gate_to_A305`.
 
 ## 3. Chạy Backend (FastAPI)
