@@ -31,8 +31,10 @@ backend/    FastAPI, chia theo lớp:
             models/enums.py (giá trị loại phòng/tiện ích) · config/settings.py (.env)
             utils/ (db, geojson, text) · middlewares/errors.py (lỗi CSDL) · tests/test_api.py
 frontend/   index.html, style.css, models/campus.glb (mô hình toàn trường – Heli Ton, CC BY 4.0)
-            js/ (ES module): main.js (điểm vào), config, state, dom, utils, map, intro, camera,
-                layers (LOD, tầng, ánh sáng), buildings, rooms, amenities, route
+            js/ (ES module, mỗi chức năng một file): main.js (điểm vào), config, state, dom, utils, map,
+                intro, camera, layers (LOD, tầng, ánh sáng), buildings, rooms, search, amenities,
+                nearest, route, share, geolocate, query, measure
+docs/       features.md (danh sách chức năng, cách dùng, giới hạn)
             js/campus/: scene.js (lớp Three.js nạp campus.glb), geo.js (nắn tọa độ), palette.js (ánh sáng)
 ```
 
