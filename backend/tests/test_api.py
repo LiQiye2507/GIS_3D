@@ -87,7 +87,7 @@ def test_search_sql_injection_safe():
 def test_route_gate_a_to_a305():
     res = client.get(
         "/api/route",
-        params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "A.305"},
+        params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "A305"},
     )
     assert res.status_code == 200
     body = res.json()

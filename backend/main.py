@@ -127,7 +127,8 @@ def route_to_room(
     end_room_code: str = Query(..., min_length=1, max_length=30),
 ):
     room = fetch_all(
-        "SELECT room_code FROM rooms WHERE room_code = %s",
+        # Chấp nhận cả "A305" lẫn "A.305" (giống /api/search)
+        "SELECT room_code FROM rooms WHERE upper(replace(room_code, '.', '')) = upper(replace(%s, '.', '')) LIMIT 1",
         (end_room_code,),
     )
     if not room:
@@ -170,7 +171,7 @@ def route_to_room(
         WHERE d.edge <> -1
         ORDER BY d.seq
         """,
-        (start_lng, start_lat, end_room_code),
+        (start_lng, start_lat, room[0]["room_code"]),
     )
     if not rows:
         raise HTTPException(status_code=404, detail="Không tìm thấy đường đi")
