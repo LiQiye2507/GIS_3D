@@ -122,8 +122,8 @@ def test_nearby_includes_wc_rooms():
     feats = res.json()["features"]
     assert len(feats) >= 1
     assert all(f["properties"]["category"] == "WC" and f["properties"]["room_code"] for f in feats)
-    distances = [f["properties"]["distance_m"] for f in feats]
-    assert distances == sorted(distances)
+    keys = [(f["properties"]["distance_m"], f["properties"]["floor_number"]) for f in feats]
+    assert keys == sorted(keys)
 
 
 def test_route_reaches_room_flag():

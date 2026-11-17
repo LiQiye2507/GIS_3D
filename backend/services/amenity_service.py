@@ -30,5 +30,6 @@ def nearby(lng: float, lat: float, radius_m: float, category: str | None = None)
     if category is not None:
         sql += " AND i.category = %s"
         params.append(category)
-    sql += " ORDER BY distance_m"
+    # cùng khoảng cách (WC xếp chồng các tầng) thì ưu tiên tầng thấp, đi bộ tới gần hơn
+    sql += " ORDER BY distance_m, i.floor_number"
     return fetch_all(sql, tuple(params))
