@@ -222,6 +222,7 @@ def build() -> dict:
     old = {f['properties']['building_code']: lnglat_to_enu(shape(f['geometry'])) for f in load_fc('buildings')['features']}
     T, mean_iou = fit_T(fps, old)
     new = {k: apply_T(T, fps[k]) for k in old}
+    new['CAFE_VOI'] = apply_T(T, fps['CAFE_VOI'])  # tòa mới, chỉ có trong model
     # khớp theo vành ngoài: sân trong của model (Tòa C) không có trong lưới phòng cũ
     R = {k: fit_rigid(old[k], Polygon(new[k].exterior)) for k in old}
     shift = {k: np.subtract(rigid(old[k].centroid, R[k]).coords[0], old[k].centroid.coords[0]) for k in old}
@@ -317,6 +318,13 @@ WKT_RE = re.compile(r"ST_GeomFromText\('([^']+)'")
 PAIR_RE = re.compile(r'(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)')
 GATE_A = (106.8020546, 10.8704376)
 GATE_B = (106.8039237, 10.8689966)
+# Cafe Voi: không có trên OSM; chiều cao = đỉnh mái node Root_Cafe_Voi (7.28 m), số tầng ước lượng
+CAFE_VOI = {
+    'building_code': 'CAFE_VOI', 'name': 'Cafe Voi', 'total_floors': 2, 'height_m': 7.3, 'base_elevation': 0.0,
+    'description': 'Footprint và chiều cao lấy từ model 3D (Root_Cafe_Voi); số tầng tạm để 2, cần kiểm chứng thực địa.',
+    'osm_id': None, 'floors_source': 'ước lượng từ chiều cao model 3D', 'source': 'model',
+    'source_ref': 'Models_3D/uit_campus_full.glb (Root_Cafe_Voi)', 'verified': False,
+}
 
 
 def dump_fc(fc) -> bytes:
@@ -365,6 +373,9 @@ def write_all(r) -> None:
                     p['description'] = p['description'].rstrip().rstrip('.') + '. Hình học nắn theo model 3D.'
             else:
                 f['geometry']['coordinates'] = _move_coords(f['geometry']['coordinates'], move, p.get('building_code'))
+        if name == 'buildings':
+            fc['features'].append({'type': 'Feature', 'properties': dict(CAFE_VOI),
+                                   'geometry': {'type': 'Polygon', 'coordinates': new_geom['CAFE_VOI']}})
         (ROOT / 'dataset' / f'{name}.geojson').write_bytes(dump_fc(fc))
 
     gate_a, gate_b = move(*GATE_A), move(*GATE_B)
@@ -383,6 +394,14 @@ def write_all(r) -> None:
                     lambda p: '{0!r} {1!r}'.format(*move(float(p.group(1)), float(p.group(2)), code)), w.group(1)) + "'", line)
             line = line.replace(f'{GATE_A[0]}, {GATE_A[1]}', f'{gate_a[0]!r}, {gate_a[1]!r}')
             out.append(line)
+            if m and m.group(1) == 'buildings' and code == 'C':  # dòng tòa cuối cùng trong 02_seed
+                c = CAFE_VOI
+                out.append(
+                    'INSERT INTO buildings (building_code, name, total_floors, base_elevation, height_m, glb_model_url, '
+                    'anchor_lng, anchor_lat, model_rotation, description, geom) VALUES '
+                    f"('{c['building_code']}', '{c['name']}', {c['total_floors']}, {c['base_elevation']}, {c['height_m']}, "
+                    f"NULL, NULL, NULL, NULL, '{c['description']}', "
+                    f"ST_GeomFromText('{_wkt_polygon(new_geom['CAFE_VOI'])}', 4326));" + ('\r' if line.endswith('\r') else ''))
         (ROOT / 'database' / fname).write_bytes('\n'.join(out).encode('utf-8'))
 
     rep = json.loads(REPORT.read_text(encoding='utf-8')) if REPORT.exists() else {}
@@ -426,7 +445,8 @@ def verify_outputs() -> None:
             g_js = shapely.force_2d(shape(feat['geometry']))
             assert g_sql.equals_exact(g_js, 1e-7), (table, line[:80])
             n += 1
-    assert len(sql['rooms']) == 145 and n == 6 + 145 + 6 + 6 + 33, n
+    assert len(sql['rooms']) == 145 and n == 7 + 145 + 6 + 6 + 33, n
+    assert any("VALUES ('CAFE_VOI'" in l for l in sql['buildings']), 'thiếu Cafe Voi'
     print(f'SQL==GeoJSON OK ({n} đối tượng)')
 
 

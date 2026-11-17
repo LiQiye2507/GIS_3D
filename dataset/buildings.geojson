@@ -977,6 +977,89 @@
      ]
     ]
    }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "building_code": "CAFE_VOI",
+    "name": "Cafe Voi",
+    "total_floors": 2,
+    "height_m": 7.3,
+    "base_elevation": 0.0,
+    "description": "Footprint và chiều cao lấy từ model 3D (Root_Cafe_Voi); số tầng tạm để 2, cần kiểm chứng thực địa.",
+    "osm_id": null,
+    "floors_source": "ước lượng từ chiều cao model 3D",
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (Root_Cafe_Voi)",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8038323,
+       10.8692422
+      ],
+      [
+       106.803857,
+       10.8692404
+      ],
+      [
+       106.8038571,
+       10.8692352
+      ],
+      [
+       106.8039192,
+       10.8692359
+      ],
+      [
+       106.8039191,
+       10.8692411
+      ],
+      [
+       106.8039315,
+       10.8692433
+      ],
+      [
+       106.8039812,
+       10.8692439
+      ],
+      [
+       106.8039787,
+       10.8694647
+      ],
+      [
+       106.8039631,
+       10.8694646
+      ],
+      [
+       106.803963,
+       10.8694767
+      ],
+      [
+       106.8039165,
+       10.8694762
+      ],
+      [
+       106.8039166,
+       10.8694662
+      ],
+      [
+       106.8038856,
+       10.869471
+      ],
+      [
+       106.8038299,
+       10.8694629
+      ],
+      [
+       106.8038323,
+       10.8692422
+      ]
+     ]
+    ]
+   }
   }
  ]
 }

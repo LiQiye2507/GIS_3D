@@ -108,7 +108,7 @@ function getBuildingShortLabel(props) {
 function getBuildingMetaType(props) {
   const code = String((props && props.building_code) || '').toUpperCase();
   const name = String((props && props.name) || '').toLowerCase();
-  if (name.includes('căn tin') || name.includes('canteen')) return 'dining';
+  if (name.includes('căn tin') || name.includes('canteen') || name.includes('cafe')) return 'dining';
   if (['A', 'B', 'C', 'D', 'E'].includes(code)) return 'academic';
   if (name.includes('thư viện') || name.includes('library')) return 'amenity';
   return 'facility';
