@@ -1542,7 +1542,7 @@ body.is-sheet-open .gate-marker {
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--paper-44);
+  color: var(--paper-70);
 }
 
 /* Bộ lọc tiện ích theo loại, kiêm chú giải biểu tượng */
@@ -1568,7 +1568,7 @@ body.is-sheet-open .gate-marker {
 }
 
 .amenity-chip small {
-  color: var(--paper-44);
+  color: var(--paper-70);
 }
 
 .amenity-chip__icon {
@@ -2587,7 +2587,7 @@ body.is-sheet-open .lod3-dock {
   margin: 6px 0 8px;
   font-size: 11px;
   line-height: 1.4;
-  color: var(--paper-44);
+  color: var(--paper-70);
 }
 
 /* Truy vấn phòng, tiện ích gần nhất, mặt cắt, đo đạc */
