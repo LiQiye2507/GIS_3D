@@ -233,7 +233,7 @@
           type="search"
           id="search-input"
           class="explorer__search-input"
-          placeholder="Tìm tòa nhà, phòng học (vd: A305)"
+          placeholder="Tìm phòng, tòa nhà, tiện ích (vd: A305, thu vien)"
           autocomplete="off"
         />
       </label>
@@ -284,11 +284,8 @@
               <input type="checkbox" id="toggle-route" checked />
               <span class="eyebrow">Đường đi</span>
             </label>
-            <label class="toggle-item">
-              <input type="checkbox" id="toggle-amenities" checked />
-              <span class="eyebrow">Tiện ích</span>
-            </label>
           </div>
+          <div id="amenity-filters" class="amenity-filters" role="group" aria-label="Lọc tiện ích theo loại (chú giải)"></div>
           <ul id="amenities-list" class="explorer__amenities" aria-label="Danh sách tiện ích gần đây"></ul>
         </section>
       </div>
@@ -431,7 +428,8 @@
     {
       "imports": {
         "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+        "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/",
+        "fuse.js": "https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs"
       }
     }
   </script>

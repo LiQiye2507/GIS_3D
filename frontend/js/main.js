@@ -5,9 +5,10 @@ import { btnInfoCloseEl, btnInfoEl, infoPopoverEl, introStatsEl, placesCountEl, 
 import { api, showToast } from './utils.js';
 import { campus, campusHandlers, map } from './map.js';
 import { markIntroStep } from './intro.js';
-import { addGateMarkers, applyLod, initLayers, renderFloorSwitcher, setLighting } from './layers.js';
+import { addGateMarkers, applyLod, initLayers, renderFloorSwitcher, setIndoorBuilding, setLighting } from './layers.js';
 import { closeBuildingPanel, renderBuildingsList, setPlacesPanelOpen } from './buildings.js';
-import { updateRadiusVisual } from './amenities.js';
+import { setAllAmenities, updateRadiusVisual } from './amenities.js';
+import { buildSearchIndex } from './search.js';
 import './camera.js';
 import './rooms.js';
 import './route.js';
@@ -62,30 +63,33 @@ updateRadiusVisual();
 map.on('load', async () => {
   markIntroStep('map');
   try {
-    const [buildingsFc, roomsFc, amenitiesFc] = await Promise.all([
+    const [buildingsFc, roomsA, roomsC, amenitiesFc] = await Promise.all([
       api('/api/buildings').finally(() => markIntroStep('buildings')),
       api('/api/rooms?building_code=A').finally(() => markIntroStep('rooms')),
+      api('/api/rooms?building_code=C').catch(() => EMPTY_FC),
       api('/api/amenities/nearby?lat=10.8700&lng=106.8030&radius=500').catch((err) => {
         console.error(err);
         return EMPTY_FC;
       }),
     ]);
+    const roomsFc = { type: 'FeatureCollection', features: [...roomsA.features, ...roomsC.features] };
     initLayers(buildingsFc, roomsFc, CAMPUS_BOUNDARY_FC);
+    setAllAmenities(amenitiesFc);
     renderBuildingsList(buildingsFc, amenitiesFc);
+    buildSearchIndex(amenitiesFc);
     const bCount = buildingsFc.features.length;
     const rCount = roomsFc.features.length;
-    const aCount = (amenitiesFc && amenitiesFc.features ? amenitiesFc.features.length : 0);
+    const aCount = amenitiesFc.features.filter((f) => !f.properties.room_code).length;
     state.defaultPlacesCount = String(bCount).padStart(2, '0');
     state.defaultPlacesSummary = `${bCount} địa điểm · ${aCount} tiện ích`;
     placesCountEl.textContent = state.defaultPlacesCount;
     placesSummaryEl.textContent = state.defaultPlacesSummary;
     placesPanelSummaryEl.textContent = state.defaultPlacesSummary;
     tourCardSubEl.textContent = `TÒA A · ${bCount} ĐIỂM`;
-    introStatsEl.textContent = `${bCount} công trình · ${rCount} phòng Tòa A`;
+    introStatsEl.textContent = `${bCount} công trình · ${rCount} phòng (Tòa A, C)`;
     setLighting(state.currentLighting);
     applyLod(state.campusLoadFailed ? 1 : 2);
-    const buildingA = buildingsFc.features.find((f) => f.properties.building_code === 'A');
-    renderFloorSwitcher(buildingA && buildingA.properties.total_floors ? buildingA.properties.total_floors : 3);
+    setIndoorBuilding('A');
   } catch (err) {
     console.error(err);
     markIntroStep('glb');
