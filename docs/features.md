@@ -24,7 +24,7 @@ Web GIS 3D phục vụ **số hóa dữ liệu khuôn viên** và các chức n�
 
 **Sân thể thao:** 9 sân tách từ mặt sân của mô hình 3D, lưu ở `dataset/sports_fields.geojson` (`Models_3D/scripts/06_extract_sports_fields.py`). Dữ liệu được nạp vào bảng `sports_fields` (`database/05_sports_fields.sql`). Loại sân (`sport_type`) và giờ mở cửa để trống, mọi sân có `verified = false`.
 
-Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí. Phòng Y tế (A103, tầng 1 Tòa A) cũng được trả về theo cách này với danh mục `Medical`; các phòng có tên bắt đầu bằng "Hội trường" (A.HT tầng 3 Tòa A, E.HT tầng 12 và E10.1 Tòa E) được trả về với danh mục `Hall`. Biểu tượng của tiện ích trên tầng cao được đặt đúng độ cao sàn phòng.
+Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí. Phòng Y tế (A103, tầng 1 Tòa A) cũng được trả về theo cách này với danh mục `Medical`; các phòng có tên bắt đầu bằng "Hội trường" (A.HT tầng 3 Tòa A, E.HT tầng 12 Tòa E) được trả về với danh mục `Hall`. Biểu tượng của tiện ích trên tầng cao được đặt đúng độ cao sàn phòng.
 
 Độ cao 3D: mỗi tầng cao 3.8 m. `base_height = (tầng − 1) × 3.8`, `extrude_height = base_height + 3.5` (hành lang chỉ dày 0.2 m).
 

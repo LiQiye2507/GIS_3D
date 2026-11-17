@@ -5,7 +5,7 @@ from utils.db import fetch_all
 
 def nearby(lng: float, lat: float, radius_m: float, category: str | None = None) -> list[dict]:
     # WC và Thư viện được lưu là phòng (rooms.room_type) nên lấy tâm phòng làm điểm tiện ích.
-    # Phòng Y tế (A103) và hội trường (A.HT, E.HT, E10.1) mang room_type Office/Theory nên nhận diện theo tên phòng.
+    # Phòng Y tế (A103) và hội trường (A.HT, E.HT) mang room_type Office/Theory nên nhận diện theo tên phòng.
     sql = """
         WITH items AS (
             SELECT a.name, a.category, b.building_code, a.floor_number, a.elevation_z,

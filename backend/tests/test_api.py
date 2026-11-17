@@ -155,7 +155,7 @@ def test_nearby_halls_are_rooms():
     res = client.get("/api/amenities/nearby", params={"lat": 10.8700, "lng": 106.8030, "radius": 500, "category": "Hall"})
     assert res.status_code == 200
     codes = sorted(f["properties"]["room_code"] for f in res.json()["features"])
-    assert codes == ["A.HT", "E.HT", "E10.1"]
+    assert codes == ["A.HT", "E.HT"]
 
 
 def test_nearby_medical_is_room_a103():

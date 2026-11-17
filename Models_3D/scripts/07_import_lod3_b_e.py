@@ -106,6 +106,8 @@ E_PLAN = {  # tầng theo sơ đồ (floor_number = tầng + 1 vì có tầng G)
     **{k: _E_STD + [('2', (3,), 'B'), ('4', (4,), 'B'), ('6', (5,), 'B'), ('8', (6,), 'B')] for k in range(5, 12)},
     12: _E_COMMON + [('KHO', (4,), 'T'), ('HL', (2, 3), 'M'), ('HL', (2,), 'B'), ('HT', (4, 5, 6), 'MB')],
 }
+# phòng không lấy thuộc tính cũ: E10.1 ghi "Hội trường nhỏ" 90 chỗ nhưng ô phòng theo sơ đồ chỉ ~24 m²
+IGNORE_OLD = {'E10.1'}
 SERVICE = {  # loại ô -> (room_type, tên, thiết bị)
     'WC': ('WC', 'Nhà vệ sinh', None), 'TM': ('Stairs', 'Thang máy & Cầu thang bộ', 'Thang máy + thang bộ'),
     'CT': ('Stairs', 'Cầu thang bộ', 'Thang bộ'), 'TH': ('Stairs', 'Cầu thang thoát hiểm', 'Cầu thang xoắn ngoài trời'),
@@ -128,7 +130,7 @@ def _room(code, fn, kind, num, geom, old, label):
     """Thuộc tính phòng: phòng đánh số giữ tên/loại/sức chứa từ bộ Model_LOD3 nếu có, ô dịch vụ đặt tên theo SERVICE."""
     base = round((fn - 1) * 3.8, 1)
     if kind == 'R':
-        o = old.get(num, {})
+        o = {} if num in IGNORE_OLD else old.get(num, {})
         props = {'room_code': num, 'room_name': o.get('room_name', f'Phòng học {num}'),
                  'room_type': o.get('room_type', 'Theory'), 'capacity': o.get('capacity'),
                  'equipment_info': o.get('equipment_info')}

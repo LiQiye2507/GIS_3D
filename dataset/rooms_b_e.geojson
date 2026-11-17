@@ -32762,10 +32762,10 @@
    "type": "Feature",
    "properties": {
     "room_code": "E10.1",
-    "room_name": "Hội trường nhỏ / Seminar E10.1",
+    "room_name": "Phòng học E10.1",
     "room_type": "Theory",
-    "capacity": 90,
-    "equipment_info": "Âm thanh, máy chiếu",
+    "capacity": null,
+    "equipment_info": null,
     "building_code": "E",
     "floor_number": 11,
     "base_height": 38.0,
