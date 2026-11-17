@@ -26,7 +26,10 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, checks.sql
 dataset/    bộ dữ liệu chuẩn GeoJSON: buildings, floors, rooms, amenities, paths, campus_boundary
 backend/    FastAPI (main.py, db.py, tests/test_api.py)
-frontend/   index.html, style.css, app.js, campus-scene.js, models/campus.glb (mô hình toàn trường – Heli Ton, CC BY 4.0)
+frontend/   index.html, style.css, models/campus.glb (mô hình toàn trường – Heli Ton, CC BY 4.0)
+            js/ (ES module): main.js (điểm vào), config, state, dom, utils, map, intro, camera,
+                layers (LOD, tầng, ánh sáng), buildings, rooms, amenities, route
+            js/campus/: scene.js (lớp Three.js nạp campus.glb), geo.js (nắn tọa độ), palette.js (ánh sáng)
 ```
 
 ## Cài đặt & chạy (Windows, không Docker)

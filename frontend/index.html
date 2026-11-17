@@ -435,21 +435,6 @@
       }
     }
   </script>
-  <script type="module">
-    // Three.js bản module; gắn vào window để campus-scene.js và app.js (script thường) dùng chung
-    import * as THREE_NS from 'three';
-    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-    import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-    window.THREE = { ...THREE_NS, GLTFLoader, DRACOLoader };
-    for (const src of ['campus-scene.js', 'app.js']) {
-      await new Promise((resolve, reject) => {
-        const el = document.createElement('script');
-        el.src = src;
-        el.onload = resolve;
-        el.onerror = reject;
-        document.body.appendChild(el);
-      });
-    }
-  </script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
