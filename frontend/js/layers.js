@@ -1,12 +1,12 @@
 // Các lớp bản đồ, LOD, lọc tầng, ánh sáng
-import { AMENITY_COLORS, EMPTY_FC, GATE_A, GATE_B, GROUND_Z, LIGHTING_CONFIG, LIGHTING_MODES, ROOM_COLORS } from './config.js';
+import { EMPTY_FC, GATE_A, GATE_B, GROUND_Z, LIGHTING_CONFIG, LIGHTING_MODES, ROOM_COLORS } from './config.js';
 import { state } from './state.js';
 import { btnSatelliteEl, floorSwitcherEl, lightingIconMoonEl, lightingIconSunEl, lightingIconSunsetEl, lightingKnobEl, lightingSliderEl, lightingValueEl, lod3DockEl } from './dom.js';
 import { showToast } from './utils.js';
 import { campus, map } from './map.js';
 import { closeBuildingPanel, selectBuildingByIndex, updateBuildingMarker, updateBuildingWallColors } from './buildings.js';
 import { selectRoom } from './rooms.js';
-import { setPickingMode, updateProximity } from './amenities.js';
+import { addAmenityLayer, setPickingMode, updateProximity } from './amenities.js';
 
 let userMarker = null;
 let isSatellite = false;
@@ -111,22 +111,40 @@ export function applyLod(lod) {
   setLayerVisibility('buildings-lod1', lod === 1);
   setLayerVisibility('rooms-3d-layer', showIndoor);
   setLayerVisibility('room-highlight', showIndoor);
-  // LOD 3: ẩn vỏ Tòa A trong mô hình để thấy các phòng bên trong
-  campus.setHidden(showIndoor ? 'A' : null);
+  setLayerVisibility('indoor-base', showIndoor);
+  // LOD 3: ẩn vỏ tòa đang xem trong mô hình để thấy các phòng bên trong
+  campus.setHidden(showIndoor ? state.indoorCode : null);
+  applyRoomFilter();
   lod3DockEl.classList.toggle('hidden', !showIndoor);
   updateLodButtons();
   updateBuildingMarker();
 }
 
+function applyRoomFilter() {
+  if (!map.getLayer('rooms-3d-layer')) return;
+  const bld = ['==', ['get', 'building_code'], state.indoorCode];
+  map.setFilter('indoor-base', bld);
+  map.setFilter('rooms-3d-layer', currentFloor == null ? bld : ['all', bld, ['==', ['get', 'floor_number'], currentFloor]]);
+}
+
 export function setFloor(n) {
   currentFloor = n == null ? null : Number(n);
   if (state.currentLod !== 3) applyLod(3);
-  if (map.getLayer('rooms-3d-layer')) {
-    const filter = currentFloor == null ? null : ['==', ['get', 'floor_number'], currentFloor];
-    map.setFilter('rooms-3d-layer', filter);
-  }
+  applyRoomFilter();
   applyHighlightFilter();
   updateFloorButtons();
+}
+
+// Chọn tòa xem trong nhà (tòa có dữ liệu phòng): dựng lại bộ chọn tầng theo số tầng của tòa
+export function setIndoorBuilding(code) {
+  if (code === state.indoorCode && floorSwitcherEl.children.length) return;
+  state.indoorCode = code;
+  currentFloor = null;
+  const feat = state.buildingsList.find((b) => b.properties.building_code === code);
+  floorSwitcherEl.setAttribute('aria-label', `Chọn tầng Tòa ${code}`);
+  renderFloorSwitcher((feat && feat.properties.total_floors) || 3);
+  applyRoomFilter();
+  if (state.currentLod === 3) campus.setHidden(code);
 }
 
 export function renderFloorSwitcher(totalFloors) {
@@ -150,6 +168,7 @@ export function renderFloorSwitcher(totalFloors) {
 
 export function initLayers(buildingsFc, roomsFc, boundaryFc) {
   state.roomsByCode = new Map(roomsFc.features.map((f) => [f.properties.room_code, f.properties]));
+  state.roomFeatures = roomsFc.features;
   campus.setFootprints(buildingsFc);
 
   map.addSource('campus-boundary', { type: 'geojson', data: boundaryFc });
@@ -189,6 +208,20 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
 
   // LOD 2: mô hình toàn khuôn viên
   map.addLayer(campus.layer);
+
+  // Sàn nền tòa đang xem trong nhà: mô hình không có mặt đất bên dưới vỏ tòa đã ẩn
+  map.addLayer({
+    id: 'indoor-base',
+    type: 'fill-extrusion',
+    source: 'buildings',
+    filter: ['==', ['get', 'building_code'], ''],
+    layout: { visibility: 'none' },
+    paint: {
+      'fill-extrusion-color': '#d6d9dd',
+      'fill-extrusion-base': 0,
+      'fill-extrusion-height': GROUND_Z,
+    },
+  });
 
   map.addLayer({
     id: 'radius-circle',
@@ -253,30 +286,7 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
     },
   });
 
-  const amenitiesVis = document.getElementById('toggle-amenities').checked ? 'visible' : 'none';
-  map.addLayer({
-    id: 'amenities-layer',
-    type: 'circle',
-    source: 'amenities',
-    layout: { visibility: amenitiesVis },
-    paint: {
-      'circle-color': [
-        'match',
-        ['get', 'category'],
-        'Canteen', AMENITY_COLORS.Canteen,
-        'ATM', AMENITY_COLORS.ATM,
-        'Water', AMENITY_COLORS.Water,
-        'Parking', AMENITY_COLORS.Parking,
-        'Medical', AMENITY_COLORS.Medical,
-        'FireSafety', AMENITY_COLORS.FireSafety,
-        '#10B981',
-      ],
-      'circle-radius': 7,
-      'circle-stroke-width': 1.5,
-      'circle-stroke-color': '#ffffff',
-      'circle-pitch-alignment': 'map',
-    },
-  });
+  addAmenityLayer();
 
   map.on('mouseenter', 'rooms-3d-layer', () => {
     if (!state.isPickingLocation) map.getCanvas().style.cursor = 'pointer';
@@ -321,6 +331,7 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
       updateProximity();
       return;
     }
+    if (map.queryRenderedFeatures(e.point, { layers: ['amenities-layer'] }).length) return;
     if (state.currentLod === 3 && map.queryRenderedFeatures(e.point, { layers: ['rooms-3d-layer'] }).length) return;
     const code = campus.pick(e.point);
     const idx = code ? state.buildingsList.findIndex((b) => b.properties.building_code === code) : -1;
@@ -358,6 +369,3 @@ document.getElementById('toggle-route').addEventListener('change', (e) => {
   setLayerVisibility('route-3d', e.target.checked);
 });
 
-document.getElementById('toggle-amenities').addEventListener('change', (e) => {
-  setLayerVisibility('amenities-layer', e.target.checked);
-});

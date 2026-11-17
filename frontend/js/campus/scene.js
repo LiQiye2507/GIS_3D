@@ -57,6 +57,15 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   let introMs = 0;
   let onFrame = null;
 
+  // Khối ẩn suy ra từ footprint CSDL (nới 6%) cho tòa chưa có khối chỉnh tay trong HIDE_BOXES
+  function footprintBox(code) {
+    const fp = footprintRings.find((r) => r.code === code);
+    if (!fp) return null;
+    const [x0, z0, x1, z1] = fp.box;
+    // đáy khối cao hơn mặt đất 3% chiều cao để giữ lại nền sân
+    return { center: [(x0 + x1) / 2, fp.h * 0.55, (z0 + z1) / 2], size: [(x1 - x0) * 1.06, fp.h * 1.04, (z1 - z0) * 1.06], rotY: 0 };
+  }
+
   function patchMaterial(mat, grade) {
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uHide = hideUniforms.uHide;
@@ -444,7 +453,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       map.triggerRepaint();
     },
     setHidden(code) {
-      const box = code && HIDE_BOXES[code];
+      const box = code && (HIDE_BOXES[code] || footprintBox(code));
       hideUniforms.uHide.value = box ? 1 : 0;
       if (box) {
         hideUniforms.uHideInv.value.compose(
@@ -482,6 +491,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
           const zs = ring.map((p) => p[1]);
           footprintRings.push({
             code: f.properties.building_code,
+            h,
             ring,
             box: [Math.min(...xs), Math.min(...zs), Math.max(...xs), Math.max(...zs)],
           });

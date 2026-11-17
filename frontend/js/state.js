@@ -6,6 +6,8 @@ export const state = {
   campusLoadFailed: false,
   currentLighting: 'day',
   roomsByCode: new Map(),
+  roomFeatures: [],
+  indoorCode: 'A',
   selectedRoom: null,
   activePopup: null,
   isPickingLocation: false,

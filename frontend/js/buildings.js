@@ -5,7 +5,8 @@ import { bpCloseEl, bpDescEl, bpFloorPillsEl, bpFloorsEl, bpIndexEl, bpIndoorBox
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
 import { focusCamera, overviewCamera, setOrbit, startSpin } from './camera.js';
-import { applyLod, setFloor } from './layers.js';
+import { applyLod, setFloor, setIndoorBuilding } from './layers.js';
+import { openAmenityPopup } from './amenities.js';
 
 let allAmenitiesList = [];
 const buildingMarkerEl = document.createElement('div');
@@ -145,8 +146,9 @@ export function selectBuildingByIndex(idx) {
     `Chiều cao mô hình: ${p.height_m != null ? `${p.height_m} m` : '—'}`,
     `Quy mô kết cấu: ${floors} tầng`,
   ];
-  if (p.building_code === 'A') {
-    specs.push(`Dữ liệu nội thất LOD 3: ${state.roomsByCode.size || 65} phòng học & chức năng`);
+  const roomCount = state.roomFeatures.filter((f) => f.properties.building_code === p.building_code).length;
+  if (roomCount) {
+    specs.push(`Dữ liệu nội thất LOD 3: ${roomCount} phòng học & chức năng`);
     bpIndoorBoxEl.classList.remove('hidden');
     bpFloorPillsEl.innerHTML = '';
     for (let f = floors; f >= 1; f -= 1) {
@@ -156,6 +158,7 @@ export function selectBuildingByIndex(idx) {
       pill.textContent = `T${f}`;
       pill.addEventListener('click', () => {
         closeBuildingPanel();
+        setIndoorBuilding(p.building_code);
         setFloor(f);
       });
       bpFloorPillsEl.appendChild(pill);
@@ -203,15 +206,13 @@ function getAmenitiesForBuilding(feat) {
   if (!allAmenitiesList.length || !feat || !feat.properties) return [];
   const p = feat.properties;
   const code = String(p.building_code || '').toUpperCase();
-  const bId = p.id != null ? Number(p.id) : null;
   const center = getFeatureCenter(feat);
   const cosLat = Math.cos((center[1] * Math.PI) / 180);
 
   return allAmenitiesList.filter((am) => {
     const ap = am.properties || {};
-    if (bId != null && ap.building_id != null) {
-      return Number(ap.building_id) === bId;
-    }
+    if (ap.room_code) return false;
+    if (ap.building_code) return ap.building_code === p.building_code;
     const name = String(ap.name || '').toUpperCase();
     if (code && name.includes(`TÒA ${code}`)) return true;
     const coords = am.geometry && am.geometry.coordinates;
@@ -303,17 +304,7 @@ export function filterBuildingsList(query = '') {
           const coords = am.geometry && am.geometry.coordinates;
           if (coords) {
             map.flyTo({ center: [coords[0], coords[1]], zoom: 19, pitch: 58, duration: 1200 });
-            if (state.activePopup) state.activePopup.remove();
-            state.activePopup = new maplibregl.Popup()
-              .setLngLat([coords[0], coords[1]])
-              .setHTML(`
-                <div class="popup-content">
-                  <h4>${escapeHtml(ap.name)}</h4>
-                  <p><strong>Loại:</strong> ${escapeHtml(ap.category || 'Tiện ích')}</p>
-                  <p><strong>Giờ mở cửa:</strong> ${escapeHtml(ap.open_hours || 'Chưa có dữ liệu')}</p>
-                </div>
-              `)
-              .addTo(map);
+            openAmenityPopup(ap, [coords[0], coords[1]]);
           }
         });
         amWrap.appendChild(amBtn);
@@ -350,7 +341,9 @@ bpNextEl.addEventListener('click', () => {
   if (state.buildingsList.length) selectBuildingByIndex(state.selectedBuildingIndex + 1);
 });
 bpViewIndoorEl.addEventListener('click', () => {
+  const code = selectedCode();
   closeBuildingPanel();
+  if (code) setIndoorBuilding(code);
   applyLod(3);
 });
 

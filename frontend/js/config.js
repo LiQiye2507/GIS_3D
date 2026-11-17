@@ -43,6 +43,20 @@ export const AMENITY_COLORS = {
   Parking: '#64748B',
   Medical: '#EF4444',
   FireSafety: '#DC2626',
+  WC: '#0EA5E9',
+  Library: '#8B5CF6',
+};
+
+// Danh mục tiện ích: nhãn tiếng Việt, ký hiệu trên bản đồ, bật mặc định hay không
+export const AMENITY_TYPES = {
+  Canteen: { label: 'Căn tin', icon: '🍴', on: true },
+  ATM: { label: 'ATM', icon: '🏧', on: true },
+  Water: { label: 'Nước uống', icon: '💧', on: true },
+  Parking: { label: 'Bãi xe', icon: '🅿️', on: true },
+  Medical: { label: 'Y tế', icon: '✚', on: true },
+  FireSafety: { label: 'PCCC', icon: '🧯', on: true },
+  WC: { label: 'Nhà vệ sinh', icon: '🚻', on: false },
+  Library: { label: 'Thư viện', icon: '📚', on: false },
 };
 
 export const LIGHTING_MODES = ['day', 'sunset', 'night'];
