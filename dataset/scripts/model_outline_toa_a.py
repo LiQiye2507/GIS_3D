@@ -7,7 +7,7 @@ Mô hình đã được nắn theo ảnh vệ tinh (frontend/campus-scene.js, GE
 - all     : toàn bộ Tòa A (tầng 1-2)
 Khối chính còn được khớp một hình vuông xoay (tâm, góc, nửa cạnh) để đặt sơ đồ phòng khảo sát.
 
-Cần Node.js. Kết quả: dataset/processed/toa_A_model_outline.geojson
+Cần Node.js. Kết quả: dataset/interim/toa_A_model_outline.geojson
 """
 import json
 import math
@@ -107,7 +107,7 @@ def main():
                           "fit_half_x_m": round(float(hu), 2), "fit_half_y_m": round(float(hv), 2)})
         feats.append({"type": "Feature", "properties": props,
                       "geometry": {"type": "Polygon", "coordinates": [to_lnglat(outline(xs, m))]}})
-    out = os.path.join(ROOT, "dataset", "processed", "toa_A_model_outline.geojson")
+    out = os.path.join(ROOT, "dataset", "interim", "toa_A_model_outline.geojson")
     with open(out, "w", encoding="utf-8") as f:
         json.dump({"type": "FeatureCollection", "features": feats}, f, ensure_ascii=False, indent=1)
     print("Da ghi", out, "| fit:", feats[0]["properties"])

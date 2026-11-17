@@ -2,13 +2,12 @@
 """Chuẩn hóa danh sách phòng học & sơ đồ tầng từ bộ dữ liệu thô UIT.
 
 Đọc:
-- dataset/03_floorplans/rooms_by_floor.csv
-- dataset/03_floorplans/floorplan_toa_C_layout.csv
+- dataset/raw/school_docs/rooms_by_floor.csv
+- dataset/raw/school_docs/floorplan_toa_C_layout.csv
 
 Xuất:
-- dataset/processed/rooms_normalized.csv (đủ room_type, base_height, extrude_height, capacity)
-- dataset/processed/toa_C_indoor_grid.csv (kết hợp vị trí lưới với thuộc tính phòng cho Tòa C)
-- dataset/processed/data_quality_report.md (báo cáo kiểm tra tự động các điểm cần xác minh)
+- dataset/interim/toa_C_indoor_grid.csv (kết hợp vị trí lưới với thuộc tính phòng cho Tòa C)
+- in ra màn hình các điểm cần xác minh thực địa
 """
 import csv
 import os
@@ -55,8 +54,8 @@ def write_csv(path: str, rows: list[dict], fieldnames: list[str]) -> None:
 
 
 def main() -> None:
-    rooms_raw = read_csv(os.path.join(BASE_DIR, "03_floorplans", "rooms_by_floor.csv"))
-    c_layout_raw = read_csv(os.path.join(BASE_DIR, "03_floorplans", "floorplan_toa_C_layout.csv"))
+    rooms_raw = read_csv(os.path.join(BASE_DIR, "raw", "school_docs", "rooms_by_floor.csv"))
+    c_layout_raw = read_csv(os.path.join(BASE_DIR, "raw", "school_docs", "floorplan_toa_C_layout.csv"))
 
     # Tra cứu nhanh thông tin chi tiết từ rooms_by_floor theo (building_id, room_code)
     room_meta = {}
@@ -167,12 +166,7 @@ def main() -> None:
             "special_label": special,
         })
 
-    out_dir = os.path.join(BASE_DIR, "processed")
-    write_csv(
-        os.path.join(out_dir, "rooms_normalized.csv"),
-        normalized_rows,
-        list(normalized_rows[0].keys()),
-    )
+    out_dir = os.path.join(BASE_DIR, "interim")
     write_csv(
         os.path.join(out_dir, "toa_C_indoor_grid.csv"),
         c_grid_rows,
@@ -196,8 +190,7 @@ def main() -> None:
         "- Tòa E (`E4.1`): danh sách ghi Phòng thí nghiệm, sheet ẩn ghi Phòng học 54 chỗ.",
         "- Tòa E (`E11.5`): có trên sơ đồ, không có trong danh sách phòng.",
     ]
-    with open(os.path.join(out_dir, "data_quality_report.md"), "w", encoding="utf-8") as f:
-        f.write("\n".join(report_lines) + "\n")
+    print("\n".join(report_lines))  # các điểm cần xác minh thực địa
     print(f"Da xuat: {out_dir}")
 
 

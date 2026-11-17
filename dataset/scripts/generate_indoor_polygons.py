@@ -9,7 +9,6 @@ Hỗ trợ bất kỳ tòa nhà hình chữ nhật / dải dài nào (như Tòa 
 4. Chiếu ngược lại WGS84 (EPSG:4326) và xuất ra:
    - rooms_3d.geojson (từng phòng kèm base_height, extrude_height, room_type, capacity)
    - floors_3d.geojson (mặt sàn từng tầng)
-   - indoor_paths_3d.geojson (hành lang + cầu thang nối các tầng)
 """
 import argparse
 import csv
@@ -89,11 +88,6 @@ def uv_rect_to_lonlat_ring(
     return [to_lonlat(u * c - v * s, u * s + v * c, lon0, lat0) for u, v in corners_uv]
 
 
-def uv_point_to_lonlat(u: float, v: float, lon0: float, lat0: float, angle: float) -> list[float]:
-    c, s = math.cos(angle), math.sin(angle)
-    return to_lonlat(u * c - v * s, u * s + v * c, lon0, lat0)
-
-
 def find_building_feature(geojson_path: str, building_code: str, osm_id: int | None) -> dict:
     with open(geojson_path, "r", encoding="utf-8") as f:
         fc = json.load(f)
@@ -153,7 +147,6 @@ def generate_for_grid(
 
     room_features = []
     floor_features = []
-    path_features = []
 
     for fl in floors:
         fl_rows = [r for r in rows if int(r["floor_number"]) == fl]
@@ -170,23 +163,6 @@ def generate_for_grid(
                 "ceiling_height": round(base_h + 3.8, 2),
             },
             "geometry": {"type": "Polygon", "coordinates": [ring]},
-        })
-
-        # Hành lang 3D dọc trục tòa nhà tại tầng này (cao độ mặt sàn + 0.2m)
-        corridor_v = cv
-        z_floor = round(base_h + 0.2, 2)
-        p_left = uv_point_to_lonlat(u_start + col_step * 0.5, corridor_v, lon0, lat0, angle)
-        p_right = uv_point_to_lonlat(u_start + usable_len - col_step * 0.5, corridor_v, lon0, lat0, angle)
-        path_features.append({
-            "type": "Feature",
-            "properties": {
-                "building_code": b_code,
-                "path_type": "Corridor",
-                "floor_from": fl,
-                "floor_to": fl,
-                "length_m": round(usable_len - col_step, 1),
-            },
-            "geometry": {"type": "LineString", "coordinates": [[p_left[0], p_left[1], z_floor], [p_right[0], p_right[1], z_floor]]},
         })
 
         for r in fl_rows:
@@ -222,29 +198,11 @@ def generate_for_grid(
                 "geometry": {"type": "Polygon", "coordinates": [poly_ring]},
             })
 
-            # Nối cầu thang giữa tầng này và tầng kế tiếp
-            if fl < max(floors) and r["element_type"].strip() == "Cầu thang":
-                uc = (u0 + u1) / 2.0
-                vc = (v0 + v1) / 2.0
-                pt = uv_point_to_lonlat(uc, vc, lon0, lat0, angle)
-                z_next = round(base_h + 3.8 + 0.2, 2)
-                path_features.append({
-                    "type": "Feature",
-                    "properties": {
-                        "building_code": b_code,
-                        "path_type": "Stairs",
-                        "floor_from": fl,
-                        "floor_to": fl + 1,
-                        "length_m": 5.0,
-                    },
-                    "geometry": {"type": "LineString", "coordinates": [[pt[0], pt[1], z_floor], [pt[0], pt[1], z_next]]},
-                })
 
     os.makedirs(out_dir, exist_ok=True)
     for name, feats in [
         (f"rooms_{b_code}_3d.geojson", room_features),
         (f"floors_{b_code}_3d.geojson", floor_features),
-        (f"indoor_paths_{b_code}_3d.geojson", path_features),
     ]:
         out_path = os.path.join(out_dir, name)
         with open(out_path, "w", encoding="utf-8") as f:
@@ -259,8 +217,8 @@ def main() -> None:
     ap.add_argument("--buildings-geojson", required=True, help="GeoJSON chua footprint toa nha")
     ap.add_argument("--building-code", default="C", help="Ma toa nha (mac dinh C)")
     ap.add_argument("--osm-id", type=int, default=None, help="osm_id cu the neu co")
-    ap.add_argument("--grid-csv", default=os.path.join(base, "processed", "toa_C_indoor_grid.csv"))
-    ap.add_argument("--out-dir", default=os.path.join(base, "processed"))
+    ap.add_argument("--grid-csv", default=os.path.join(base, "interim", "toa_C_indoor_grid.csv"))
+    ap.add_argument("--out-dir", default=os.path.join(base, "interim"))
     ap.add_argument("--flip-u", action="store_true", help="Dao chieu doc theo cot 1..N")
     ap.add_argument("--flip-v", action="store_true", help="Dao Hang tren <-> Hang duoi")
     args = ap.parse_args()

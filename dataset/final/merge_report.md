@@ -6,12 +6,12 @@ Sinh tự động bởi `dataset/scripts/merge_dataset.py`. Không sửa tay.
 
 | Lớp | Đầu vào | Đầu ra |
 |---|---|---|
-| buildings | 6 (processed/uit_buildings_draft.geojson) | 6 |
+| buildings | 6 (interim/uit_buildings_draft.geojson) | 6 |
 | floors | 3 C (floors_C_3d) + 3 A (sơ đồ khảo sát) | 6 |
 | rooms | 67 C (rooms_C_3d) + 56 A trong survey (+ hành lang/cầu thang/WC theo sơ đồ) | 145 |
-| amenities | 12 POI + 4 GCP (survey_poi_and_gcp_template.csv) | 6 |
-| paths | 33 (processed/uit_paths_osm_filtered.geojson) | 33 |
-| campus_boundary | 1 (processed/uit_campus_boundary.geojson) | 1 |
+| amenities | 12 POI + 4 GCP (survey_poi.csv) | 6 |
+| paths | 33 (interim/uit_paths_osm_filtered.geojson) | 33 |
+| campus_boundary | 1 (interim/uit_campus_boundary.geojson) | 1 |
 
 Phòng theo tầng: A1=40, A2=16, A3=22, C1=20, C2=23, C3=24
 

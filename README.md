@@ -24,7 +24,7 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 ## Cấu trúc thư mục
 ```text
 database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, checks.sql
-dataset/    dữ liệu thô (raster, OSM, mặt bằng tầng, POI, đường) + processed/ + scripts/
+dataset/    raw/ (dữ liệu gốc), interim/ (trung gian), final/ (bộ dữ liệu chuẩn), scripts/ (pipeline)
 backend/    FastAPI (main.py, db.py, tests/test_api.py)
 frontend/   index.html, style.css, app.js, campus-scene.js, models/campus.glb (mô hình toàn trường – Heli Ton, CC BY 4.0)
 docs/       SETUP.md (hướng dẫn cài đặt)
@@ -65,7 +65,7 @@ Yêu cầu: PostgreSQL 16 + PostGIS Bundle (có pgRouting) cài qua Stack Builde
 - **Giao diện (T07):** kiểm tra thủ công trên trình duyệt: chuyển đổi LOD 1 ↔ 2 ↔ 3, lọc tầng T1–T3, không lỗi Console.
 
 ## Dữ liệu
-- Bộ dữ liệu chuẩn duy nhất: `dataset/processed/final/` (sinh bằng `dataset/scripts/merge_dataset.py`, xem README trong thư mục đó).
+- Bộ dữ liệu chuẩn duy nhất: `dataset/final/` (sinh bằng `dataset/scripts/merge_dataset.py`, xem README trong thư mục đó).
 - Footprint tòa nhà và lối đi lấy từ OpenStreetMap.
 - Phòng Tòa A tầng 1–3 lấy theo ảnh sơ đồ và danh sách phòng khảo sát thực địa. Thư viện là cánh phía Bắc, chỉ có tầng 1–2. Tầng 3 có hội trường tròn ở giữa.
 - Vị trí phòng được đặt theo khung khối nhà của mô hình 3D, nên chỉ gần đúng (chưa đo đạc).

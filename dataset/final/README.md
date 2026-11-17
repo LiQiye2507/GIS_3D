@@ -1,6 +1,6 @@
-# Bộ dữ liệu chuẩn UIT (`dataset/processed/final/`)
+# Bộ dữ liệu chuẩn UIT (`dataset/final/`)
 
-Đây là nguồn dữ liệu duy nhất cho CSDL và frontend. Mọi file ở đây do `dataset/scripts/merge_dataset.py` sinh ra, **không sửa tay**. Muốn đổi dữ liệu thì sửa nguồn (`dataset/field_survey/`, `dataset/processed/*` cấp dưới) rồi chạy lại script.
+Đây là nguồn dữ liệu duy nhất cho CSDL và frontend. Mọi file ở đây do `dataset/scripts/merge_dataset.py` sinh ra, **không sửa tay**. Muốn đổi dữ liệu thì sửa nguồn trong `dataset/raw/` rồi chạy lại pipeline (`dataset/README.md`).
 
 - **Hệ tọa độ:** EPSG:4326 (WGS84), thứ tự `[lng, lat]`.
 - **Đơn vị:** mét.
@@ -26,17 +26,17 @@ Mọi đối tượng có thêm 3 trường:
 ## Thứ tự ưu tiên nguồn
 
 1. **Hình học:** khảo sát thực địa > OSM > bản nháp provisional.
-2. **Số tầng:** `field_survey/building_floors_confirmed.csv` > `field_survey/survey_buildings_template.csv` > `02_buildings/buildings_attributes.csv` > OSM.
-3. **Phòng:** `field_survey/survey_floorplans_template.csv` > tên đọc từ ảnh danh sách phòng (`field_survey/raw/`).
+2. **Số tầng:** `raw/field_survey/building_floors_confirmed.csv` > `raw/field_survey/survey_buildings.csv` > `raw/school_docs/buildings_attributes.csv` > OSM.
+3. **Phòng:** `raw/field_survey/survey_floorplans.csv` > tên đọc từ ảnh danh sách phòng (`raw/field_survey/photos/`).
 
 Thiếu dữ liệu thì để `null` và ghi vào `merge_report.md`.
 
 ## Tòa A (LOD 3)
 
-- **Nguồn bố cục phòng:** lấy từ ảnh sơ đồ Tầng 1–3 trong `field_survey/raw/`. Kết quả số hóa nằm ở `field_survey/toa_A_layout_digitized.csv`, đơn vị mét, Bắc lên trên, gốc tọa độ là tâm khối chính.
+- **Nguồn bố cục phòng:** lấy từ ảnh sơ đồ Tầng 1–3 trong `raw/field_survey/photos/`. Kết quả số hóa nằm ở `raw/field_survey/toa_A_layout_digitized.csv`, đơn vị mét, Bắc lên trên, gốc tọa độ là tâm khối chính.
   - Ảnh Tầng 1 được xoay 90° theo chiều kim đồng hồ để khớp Tầng 2–3 (A.101 nằm dưới A.201, các khối cầu thang trùng nhau).
 - **Đặt lên bản đồ:** khung khối chính và cánh Thư viện lấy từ đường viền mái của mô hình `frontend/models/campus.glb`, mô hình này đã nắn theo ảnh vệ tinh.
-  - Đường viền do `dataset/scripts/model_outline_toa_a.py` sinh ra (cần Node.js), lưu ở `processed/toa_A_model_outline.geojson`.
+  - Đường viền do `dataset/scripts/model_outline_toa_a.py` sinh ra (cần Node.js), lưu ở `interim/toa_A_model_outline.geojson`.
   - Vị trí từng phòng là **gần đúng**, dù thứ tự và mã phòng đúng theo sơ đồ.
 
 ## Chạy lại toàn bộ
@@ -44,7 +44,7 @@ Thiếu dữ liệu thì để `null` và ghi vào `merge_report.md`.
 ```powershell
 python dataset\scripts\model_outline_toa_a.py      # chỉ khi mô hình campus.glb thay đổi
 python dataset\scripts\merge_dataset.py
-$F = "dataset\processed\final"
+$F = "dataset\final"
 python dataset\scripts\build_postgis_seed.py --buildings $F\buildings.geojson --floors $F\floors.geojson --rooms $F\rooms.geojson --amenities $F\amenities.geojson --outdoor-paths $F\paths.geojson --exclude-building A --out-sql database\02_seed_uit_data.sql
 python dataset\scripts\build_postgis_seed.py --floors $F\floors.geojson --rooms $F\rooms.geojson --only-building A --out-sql database\03_toa_a_indoor.sql
 ```

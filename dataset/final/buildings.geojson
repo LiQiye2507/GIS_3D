@@ -18,7 +18,7 @@
     "base_elevation": 0.0,
     "description": "Đã có trên OSM; cần kiểm chứng số tầng Tòa A",
     "osm_id": 259211695,
-    "floors_source": "field_survey/building_floors_confirmed.csv",
+    "floors_source": "raw/field_survey/building_floors_confirmed.csv",
     "source": "osm",
     "source_ref": "OSM way 259211695",
     "verified": true
@@ -185,7 +185,7 @@
     "base_elevation": 0.0,
     "description": "Khớp 9 tầng giữa OSM và sơ đồ UIT",
     "osm_id": 327427158,
-    "floors_source": "field_survey/survey_buildings_template.csv",
+    "floors_source": "raw/field_survey/survey_buildings.csv",
     "source": "osm",
     "source_ref": "OSM way 327427158",
     "verified": false
@@ -320,7 +320,7 @@
     "base_elevation": 0.0,
     "description": "OSM ghi 12 tầng; tính cả tầng G là 13 mức sàn",
     "osm_id": 693343289,
-    "floors_source": "field_survey/building_floors_confirmed.csv",
+    "floors_source": "raw/field_survey/building_floors_confirmed.csv",
     "source": "osm",
     "source_ref": "OSM way 693343289",
     "verified": true
@@ -435,7 +435,7 @@
     "base_elevation": 0.0,
     "description": "Cần khảo sát thực tế số tầng Tòa D (tạm để 1)",
     "osm_id": 693343290,
-    "floors_source": "field_survey/building_floors_confirmed.csv",
+    "floors_source": "raw/field_survey/building_floors_confirmed.csv",
     "source": "osm",
     "source_ref": "OSM way 693343290",
     "verified": true
@@ -609,9 +609,9 @@
     "base_elevation": 0.0,
     "description": "Footprint tam dung theo 3 diem entrance OSM; can nan lai tren anh ve tinh QGIS.",
     "osm_id": null,
-    "floors_source": "field_survey/survey_buildings_template.csv",
+    "floors_source": "raw/field_survey/survey_buildings.csv",
     "source": "provisional",
-    "source_ref": "processed/uit_buildings_draft.geojson",
+    "source_ref": "interim/uit_buildings_draft.geojson",
     "verified": false
    },
    "geometry": {

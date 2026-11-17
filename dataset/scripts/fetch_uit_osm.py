@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 """Thu thập dữ liệu không gian OpenStreetMap quanh khuôn viên UIT (Overpass API).
 
-Lấy đồng thời 4 nhóm lớp Vector chuẩn EPSG:4326:
+Lấy đồng thời 4 nhóm lớp Vector chuẩn EPSG:4326, ghi vào dataset/raw/osm/:
 1. Ranh giới khuôn viên (campus_boundary_osm.geojson)
-2. Footprint tòa nhà - bao gồm cả way và relation multipolygon (buildings_osm.geojson, buildings_osm.csv)
-3. Mạng lưới đường đi & lối đi bộ (paths_osm.geojson, paths_osm.csv)
-4. Tiện ích POI, cổng, sân thể thao (poi_osm.geojson, poi_osm.csv)
+2. Footprint tòa nhà - bao gồm cả way và relation multipolygon (buildings_osm.geojson)
+3. Mạng lưới đường đi & lối đi bộ (paths_osm.geojson)
+4. Tiện ích POI, cổng, sân thể thao (poi_osm.geojson)
 
 Dữ liệu (c) OpenStreetMap contributors (ODbL).
 """
 import argparse
-import csv
 import json
 import math
 import os
@@ -145,18 +144,6 @@ def element_to_polygon_coords(el: dict) -> tuple[list[list[list[float]]], list[t
     return [], []
 
 
-def write_csv(path: str, rows: list[dict]) -> None:
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    if not rows:
-        print(f"Khong co du lieu de ghi: {path}")
-        return
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        w.writerows(rows)
-    print(f"Da ghi {len(rows)} dong -> {path}")
-
-
 def write_geojson(path: str, features: list[dict]) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     fc = {
@@ -197,7 +184,7 @@ def fetch_buildings(lat: float, lon: float, radius: int, out_dir: str) -> None:
         f'relation["building"](around:{radius},{lat},{lon}););'
         "out tags geom;"
     )
-    rows, feats = [], []
+    feats = []
     for el in run_query(q):
         coords, pts = element_to_polygon_coords(el)
         if not coords or not pts:
@@ -206,19 +193,6 @@ def fetch_buildings(lat: float, lon: float, radius: int, out_dir: str) -> None:
         clat, clon = bbox_center(pts)
         area = round(area_m2(pts), 1)
         dist = round(haversine_m(lat, lon, clat, clon), 1)
-        rows.append({
-            "osm_type": el["type"],
-            "osm_id": el["id"],
-            "name": tags.get("name", ""),
-            "short_name": tags.get("short_name", tags.get("ref", "")),
-            "building": tags.get("building", ""),
-            "building_levels": tags.get("building:levels", ""),
-            "height_m": tags.get("height", ""),
-            "lat_center": round(clat, 7),
-            "lon_center": round(clon, 7),
-            "area_m2": area,
-            "dist_from_center_m": dist,
-        })
         feats.append({
             "type": "Feature",
             "properties": dict(
@@ -232,8 +206,6 @@ def fetch_buildings(lat: float, lon: float, radius: int, out_dir: str) -> None:
             ),
             "geometry": {"type": "Polygon", "coordinates": coords},
         })
-    rows.sort(key=lambda r: r["dist_from_center_m"])
-    write_csv(os.path.join(out_dir, "buildings_osm.csv"), rows)
     write_geojson(os.path.join(out_dir, "buildings_osm.geojson"), feats)
 
 
@@ -244,7 +216,7 @@ def fetch_paths(bbox: tuple[float, float, float, float], out_dir: str) -> None:
         'way["highway"];'
         "out tags geom;"
     )
-    rows, feats = [], []
+    feats = []
     for el in run_query(q):
         geom = el.get("geometry", [])
         if len(geom) < 2:
@@ -252,21 +224,11 @@ def fetch_paths(bbox: tuple[float, float, float, float], out_dir: str) -> None:
         tags = el.get("tags", {})
         coords = [[p["lon"], p["lat"]] for p in geom]
         length = round(linestring_length_m(coords), 1)
-        rows.append({
-            "osm_id": el["id"],
-            "highway": tags.get("highway", ""),
-            "name": tags.get("name", ""),
-            "foot": tags.get("foot", ""),
-            "surface": tags.get("surface", ""),
-            "length_m": length,
-            "node_count": len(coords),
-        })
         feats.append({
             "type": "Feature",
             "properties": dict(tags, osm_id=el["id"], length_m=length),
             "geometry": {"type": "LineString", "coordinates": coords},
         })
-    write_csv(os.path.join(out_dir, "paths_osm.csv"), rows)
     write_geojson(os.path.join(out_dir, "paths_osm.geojson"), feats)
 
 
@@ -284,7 +246,7 @@ def fetch_pois(bbox: tuple[float, float, float, float], lat: float, lon: float, 
         ");"
         "out tags geom;"
     )
-    rows, feats = [], []
+    feats = []
     seen = set()
     for el in run_query(q):
         key = (el["type"], el["id"])
@@ -306,23 +268,11 @@ def fetch_pois(bbox: tuple[float, float, float, float], lat: float, lon: float, 
             or ("entrance" if "entrance" in tags else "")
         )
         dist = round(haversine_m(lat, lon, clat, clon), 1)
-        rows.append({
-            "osm_type": el["type"],
-            "osm_id": el["id"],
-            "category": category,
-            "name": tags.get("name", ""),
-            "operator": tags.get("operator", ""),
-            "lat": round(clat, 7),
-            "lon": round(clon, 7),
-            "dist_from_center_m": dist,
-        })
         feats.append({
             "type": "Feature",
             "properties": dict(tags, osm_type=el["type"], osm_id=el["id"], category=category, dist_from_center_m=dist),
             "geometry": {"type": "Point", "coordinates": [round(clon, 7), round(clat, 7)]},
         })
-    rows.sort(key=lambda r: r["dist_from_center_m"])
-    write_csv(os.path.join(out_dir, "poi_osm.csv"), rows)
     write_geojson(os.path.join(out_dir, "poi_osm.geojson"), feats)
 
 
@@ -337,11 +287,12 @@ def main() -> None:
 
     # Bbox rộng hơn ranh giới UIT ~100m mỗi phía
     bbox = (10.8675, 106.8008, 10.8725, 106.8060)
+    out_dir = os.path.join(args.base, "raw", "osm")
     if not args.only_poi_paths:
-        fetch_campus_boundary(args.lat, args.lon, max(args.radius, 600), os.path.join(args.base, "02_buildings", "osm_raw"))
-        fetch_buildings(args.lat, args.lon, args.radius, os.path.join(args.base, "02_buildings", "osm_raw"))
-    fetch_pois(bbox, args.lat, args.lon, os.path.join(args.base, "04_poi", "osm_raw"))
-    fetch_paths(bbox, os.path.join(args.base, "05_paths", "osm_raw"))
+        fetch_campus_boundary(args.lat, args.lon, max(args.radius, 600), out_dir)
+        fetch_buildings(args.lat, args.lon, args.radius, out_dir)
+    fetch_pois(bbox, args.lat, args.lon, out_dir)
+    fetch_paths(bbox, out_dir)
 
 
 if __name__ == "__main__":

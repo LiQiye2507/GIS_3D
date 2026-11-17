@@ -34,12 +34,12 @@ def save_fc(path: str, features: list[dict]) -> None:
 
 
 def main() -> None:
-    osm_b_dir = os.path.join(BASE_DIR, "02_buildings", "osm_raw")
+    osm_b_dir = os.path.join(BASE_DIR, "raw", "osm")
     c_fc = json.load(open(os.path.join(osm_b_dir, "campus_boundary_osm.geojson"), encoding="utf-8"))
     uit = [f for f in c_fc["features"] if f["properties"].get("osm_id") == UIT_CAMPUS_OSM_ID][0]
     poly = uit["geometry"]["coordinates"][0]
     poly_buf = expand_ring(poly, 0.00018)
-    out_dir = os.path.join(BASE_DIR, "processed")
+    out_dir = os.path.join(BASE_DIR, "interim")
 
     # 1. Campus boundary
     save_fc(os.path.join(out_dir, "uit_campus_boundary.geojson"), [uit])
@@ -49,19 +49,8 @@ def main() -> None:
     b_in = [f for f in b_fc["features"] if point_in_ring(f["properties"]["lon_center"], f["properties"]["lat_center"], poly)]
     save_fc(os.path.join(out_dir, "uit_buildings_osm_filtered.geojson"), b_in)
 
-    # 3. POIs inside or on UIT boundary
-    poi_path = os.path.join(BASE_DIR, "04_poi", "osm_raw", "poi_osm.geojson")
-    p_in = []
-    if os.path.exists(poi_path):
-        p_fc = json.load(open(poi_path, encoding="utf-8"))
-        for f in p_fc["features"]:
-            lon, lat = f["geometry"]["coordinates"]
-            if point_in_ring(lon, lat, poly_buf):
-                p_in.append(f)
-        save_fc(os.path.join(out_dir, "uit_poi_osm_filtered.geojson"), p_in)
-
-    # 4. Paths intersecting UIT (loại trunk/motorway ngoài xa lộ)
-    paths_path = os.path.join(BASE_DIR, "05_paths", "osm_raw", "paths_osm.geojson")
+    # 3. Paths intersecting UIT (loại trunk/motorway ngoài xa lộ)
+    paths_path = os.path.join(osm_b_dir, "paths_osm.geojson")
     w_in = []
     if os.path.exists(paths_path):
         w_fc = json.load(open(paths_path, encoding="utf-8"))
@@ -75,7 +64,7 @@ def main() -> None:
                 w_in.append(f)
         save_fc(os.path.join(out_dir, "uit_paths_osm_filtered.geojson"), w_in)
 
-    print(f"Filtered UIT OSM -> buildings={len(b_in)}, pois={len(p_in)}, paths={len(w_in)}")
+    print(f"Filtered UIT OSM -> buildings={len(b_in)}, paths={len(w_in)}")
 
 
 if __name__ == "__main__":

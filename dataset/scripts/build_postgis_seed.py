@@ -48,8 +48,8 @@ def main() -> None:
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     ap = argparse.ArgumentParser(description="Build PostGIS SQL seed from verified GeoJSON/CSV")
     ap.add_argument("--buildings", default="", help="GeoJSON toa nha da gan building_code & total_floors")
-    ap.add_argument("--rooms", default=os.path.join(base, "processed", "rooms_C_3d.geojson"))
-    ap.add_argument("--floors", default=os.path.join(base, "processed", "floors_C_3d.geojson"))
+    ap.add_argument("--rooms", default=os.path.join(base, "interim", "rooms_C_3d.geojson"))
+    ap.add_argument("--floors", default=os.path.join(base, "interim", "floors_C_3d.geojson"))
     ap.add_argument("--outdoor-paths", default="", help="GeoJSON loi di bo ngoai troi (optional)")
     ap.add_argument("--amenities", default="", help="GeoJSON tien ich (final/amenities.geojson)")
     ap.add_argument("--only-building", default="", help="Chi xuat floors/rooms cua toa nay (kem lenh xoa du lieu cu)")
@@ -59,7 +59,7 @@ def main() -> None:
 
     lines = [
         "-- File SQL duoc sinh tu dong tu dataset UIT da chuan hoa (EPSG:4326)",
-        "-- Nguon: dataset/processed/final/ (dataset/scripts/merge_dataset.py). Khong sua tay.",
+        "-- Nguon: dataset/final/ (dataset/scripts/merge_dataset.py). Khong sua tay.",
         "",
     ]
 

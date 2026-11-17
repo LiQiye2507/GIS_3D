@@ -1,52 +1,61 @@
-# Bộ dữ liệu thô khuôn viên UIT (ĐHQG-HCM)
+# Dữ liệu khuôn viên UIT (`dataset/`)
 
-Lập ngày 13/11/2026 từ: file Excel thống kê phòng học, sơ đồ tổng mặt bằng và 6 ảnh chụp trên cao do bạn cung cấp, cùng một số trang web của trường.
+Dữ liệu chia theo 3 mức: thô (`raw/`), trung gian (`interim/`) và chuẩn (`final/`). Ứng dụng chỉ dùng `final/`, thông qua các file seed trong `database/`.
 
-## Cấu trúc
+```text
+dataset/
+├── raw/                    DỮ LIỆU GỐC – chỉ đọc, không sửa
+│   ├── osm/                OpenStreetMap: buildings_osm, campus_boundary_osm, poi_osm, paths_osm (.geojson)
+│   ├── school_docs/        Tài liệu trường: UIT_bo_du_lieu_tho.xlsx và các bảng tách ra
+│   │                       (buildings_attributes.csv, rooms_by_floor.csv, floorplan_toa_C_layout.csv)
+│   ├── images/             Sơ đồ tổng mặt bằng, sơ đồ tầng Tòa C, 6 ảnh chụp trên cao (anh_tren_cao/)
+│   └── field_survey/       Khảo sát thực địa
+│       ├── survey_buildings.csv, survey_floorplans.csv, survey_poi.csv
+│       ├── building_floors_confirmed.csv   số tầng đã xác nhận
+│       ├── toa_A_layout_digitized.csv      sơ đồ phòng Tòa A tầng 1–3 số hóa từ ảnh (mét, Bắc lên trên)
+│       ├── photos/                         ảnh chụp sơ đồ, danh sách phòng, vị trí tiện ích
+│       └── FIELD_SURVEY_GUIDE.md
+├── interim/                Kết quả trung gian do script sinh (có thể xóa và chạy lại)
+├── final/                  BỘ DỮ LIỆU CHUẨN – xem final/README.md
+└── scripts/                Pipeline xử lý
+```
 
-| Đường dẫn | Nội dung |
-|---|---|
-| `UIT_bo_du_lieu_tho.xlsx` | Bản tổng hợp: thuộc tính tòa nhà, phòng theo tầng, sơ đồ tầng tòa C, POI, các chỗ không khớp của dữ liệu |
-| `01_raster/so_do_tong_mat_bang_UIT.png` | Sơ đồ tổng mặt bằng (minh họa, không tỷ lệ, không tọa độ) |
-| `01_raster/anh_tren_cao/anh_1..6.png` | Ảnh chụp xiên từ trên cao (không phải ảnh vệ tinh hay trực giao) |
-| `02_buildings/buildings_attributes.csv` | Thuộc tính tòa A, B, C, D, E, Thư viện, Nhà PVSV |
-| `03_floorplans/rooms_by_floor.csv` | Danh sách phòng theo tòa và tầng (179 dòng) |
-| `03_floorplans/floorplan_toa_C_layout.csv` và `Toa_C_so_do_cac_tang.png` | Bố cục mặt bằng 3 tầng tòa C |
-| `04_poi/poi_coordinates.csv` | POI có vị trí tương đối trên sơ đồ, cột lat/lon để trống |
-| `scripts/` | `fetch_uit_osm.py` (tòa nhà, POI, lối đi từ OpenStreetMap), `merge_dataset.py` (gộp thành `processed/final/`) |
+## Pipeline
 
-CSV dùng UTF-8; mở bằng Excel qua Data > From Text/CSV, chọn UTF-8.
-
-## Kết quả chính
-
-Số tầng và chiều cao tương đối (theo số mức sàn, tòa E = 1,00):
-
-| Tòa | Số tầng | Chiều cao tương đối | Căn cứ |
+| Bước | Script | Đọc | Ghi |
 |---|---|---|---|
-| E | Tầng G và Tầng 1-12 (13 mức sàn) | 1,00 | Danh sách phòng tòa E trong file Excel |
-| B | 9 | 0,69 | Sơ đồ khu B (Tầng 1-9) |
-| C | 3 | 0,23 | Sơ đồ khu C (Tầng 1-3) |
-| A | Tối thiểu 3 | 0,23 | Mã phòng A2xx, A3xx; chưa có sơ đồ khu A |
-| Thư viện | 2 (trệt và 1 lầu) | 0,15 | Trang thuvien.uit.edu.vn |
-| D | Chưa có dữ liệu | | Chỉ có vị trí trên sơ đồ |
+| 1 | `fetch_uit_osm.py` (cần mạng) | Overpass API | `raw/osm/` |
+| 2 | `filter_uit_osm.py` | `raw/osm/` | `interim/uit_campus_boundary`, `uit_buildings_osm_filtered`, `uit_paths_osm_filtered` |
+| 3 | `prepare_draft_buildings.py` | `interim/uit_buildings_osm_filtered` | `interim/uit_buildings_draft` (gán mã tòa, thêm footprint tạm Tòa C) |
+| 4 | `normalize_uit_rooms.py` | `raw/school_docs/` | `interim/toa_C_indoor_grid.csv` |
+| 5 | `generate_indoor_polygons.py` | `interim/uit_buildings_draft`, `toa_C_indoor_grid.csv` | `interim/rooms_C_3d`, `floors_C_3d` |
+| 6 | `model_outline_toa_a.py` (cần Node.js) | `frontend/models/campus.glb` | `interim/toa_A_model_outline` |
+| 7 | `merge_dataset.py` | `raw/field_survey/`, `raw/school_docs/`, `interim/` | `final/` (và chép ranh giới sang `frontend/data/`) |
+| 8 | `build_postgis_seed.py` | `final/` | `database/02_seed_uit_data.sql`, `database/03_toa_a_indoor.sql` |
 
-Các số này lấy từ tài liệu của trường, chưa kiểm chứng thực địa. Ảnh chụp trên cao khớp về thứ tự cao thấp (tháp E cao nhất, khối cong B cao, khối dài 3 tầng nhiều khả năng là C), nhưng tôi không đếm tầng từ ảnh.
+Chạy lại từ bước 2 (từ thư mục gốc dự án):
 
-Sơ đồ tầng: chọn tòa C (3 tầng, có đủ bố cục phòng, cầu thang, WC, kho). Tòa B có danh sách phòng 9 tầng; tòa E có chức năng theo từng tầng (Tầng G đến 12), đều nằm trong `rooms_by_floor.csv`.
+```powershell
+python dataset\scripts\filter_uit_osm.py
+python dataset\scripts\prepare_draft_buildings.py
+python dataset\scripts\normalize_uit_rooms.py
+python dataset\scripts\generate_indoor_polygons.py --buildings-geojson dataset\interim\uit_buildings_draft.geojson
+python dataset\scripts\model_outline_toa_a.py      # chỉ khi campus.glb thay đổi
+python dataset\scripts\merge_dataset.py
+```
 
-POI: có căng tin (Nhà PVSV), bãi đỗ xe, Cổng 1, Cổng 2, sân thể thao với tọa độ pixel trên sơ đồ (`map_x_px`, `map_y_px`, ảnh 1534 x 1536, gốc trên-trái). Đây là vị trí tương đối, không phải lat/lon.
+Bước 8 và cách nạp CSDL: xem `final/README.md` và `docs/SETUP.md`.
+
+CSV dùng mã UTF-8. Khi mở bằng Excel, vào Data > From Text/CSV và chọn UTF-8.
 
 ## Còn thiếu
 
-- Ảnh vệ tinh hoặc ảnh trực giao có tọa độ. Ảnh nền: dùng Esri World Imagery trong QGIS (xem điều khoản và ghi nguồn), hoặc Sentinel-2 cho nền tổng quan.
-- Tọa độ lat/lon của mọi POI. Đo bằng app GPS ngoài trời 30-60 giây, ghi sai số vào `gnss_accuracy_m`. ATM và cây nước uống chưa có dữ liệu nào trong các nguồn.
-- Số tầng tòa D; kiểm tra số tầng tòa A và Thư viện (nguồn ghi thư viện thuộc Khu A, chưa rõ 2 tầng là của riêng thư viện hay cả khối).
-- Sơ đồ tầng tòa E (hiện chỉ có danh sách chức năng) và tòa A.
-- Sơ đồ tổng mặt bằng không có tỷ lệ: muốn dùng trong GIS cần georeference bằng ít nhất 4 điểm đo thực địa.
+- Footprint thật của Tòa C. Hiện footprint dựng tạm từ 3 điểm cửa OSM; cần số hóa lại trên ảnh vệ tinh.
+- Tọa độ của bãi xe vòng số 8 (P004) và phòng y tế (P012).
+- Ảnh vệ tinh có tọa độ. Ảnh trong `raw/images/` chỉ là sơ đồ minh họa không tỷ lệ và ảnh chụp xiên, nên không dùng làm nền GIS được.
 
 ## Lưu ý về nguồn
 
-- 6 ảnh trên cao là ảnh chụp xiên, nên không dùng làm raster nền GIS được. Ảnh 2-6 có watermark "Kỳ Yêu Sài Gòn Photography"; quyền sử dụng chưa rõ, hãy xin phép trước khi công bố.
-- Dữ liệu trong file Excel có vài chỗ không khớp (tổng chỗ ngồi 7.033 so với 7.083 cộng theo dòng, tổng số phòng 94/95, hai sheet ẩn có số liệu khác). Chi tiết trong sheet `Luu_y_du_lieu`.
-- Diện tích trường khác nhau giữa các nguồn (12,3 ha; 133.900 m2 theo quy hoạch 1/500; gần 14 ha), nên nêu rõ nguồn khi trích.
 - OpenStreetMap: © OpenStreetMap contributors (ODbL).
+- Ảnh `raw/images/anh_tren_cao/anh_2..6` có watermark "Kỳ Yêu Sài Gòn Photography". Quyền sử dụng chưa rõ, cần xin phép trước khi công bố.
+- File Excel có vài chỗ số liệu không khớp. Chi tiết xem sheet `Luu_y_du_lieu`.

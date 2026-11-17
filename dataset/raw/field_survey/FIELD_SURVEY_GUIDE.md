@@ -18,16 +18,16 @@ Mục tiêu: Thu thập & kiểm chứng đúng các phần còn thiếu/chưa c
 
 ## 1. Dụng cụ cần chuẩn bị trên điện thoại
 - App đo GPS hiển thị kinh độ/vĩ độ thập phân (`WGS84 / EPSG:4326`) và sai số mét: khuyến nghị **GPS Test**, **SW Maps**, hoặc **QField** (Android) / **GPS Coordinates** (iOS).
-- 3 bảng mẫu trong `dataset/field_survey/`:
-  1. `survey_buildings_template.csv`
-  2. `survey_floorplans_template.csv`
-  3. `survey_poi_and_gcp_template.csv`
+- 3 bảng trong `dataset/raw/field_survey/`:
+  1. `survey_buildings.csv`
+  2. `survey_floorplans.csv`
+  3. `survey_poi.csv`
 
 > **Mẹo đo GPS chính xác:** Đứng nơi thoáng (tránh sát vách kính Tòa E hoặc dưới mái tôn), chờ **30–60 giây** cho sai số (`Accuracy`) xuống `< 5m` rồi ghi lại `lat`, `lon` và `gnss_accuracy_m`.
 
 ---
 
-## 2. Checklist kiểm tra từng tòa nhà (`survey_buildings_template.csv`)
+## 2. Checklist kiểm tra từng tòa nhà (`survey_buildings.csv`)
 
 1. **Tòa A & Thư viện:**
    - Đếm tổng số tầng thực tế của các khối thuộc Tòa A (và kiểm tra Thư viện 2 tầng chiếm cánh nào của Tòa A).
@@ -52,13 +52,13 @@ Mục tiêu: Thu thập & kiểm chứng đúng các phần còn thiếu/chưa c
 
 ---
 
-## 3. Cách thu thập nhanh sơ đồ phòng học các tòa (`survey_floorplans_template.csv`)
+## 3. Cách thu thập nhanh sơ đồ phòng học các tòa (`survey_floorplans.csv`)
 - **Cách nhanh và chính xác nhất:** Vào sảnh thang máy / cầu thang mỗi tầng chụp rõ **bảng Sơ đồ thoát hiểm (PCCC)** dán trên tường (hoặc chụp bảng danh sách phòng ở sảnh).
-- Sau khi bạn gửi bộ ảnh sơ đồ + số tầng về, tôi sẽ nhập chuẩn hóa vào `survey_floorplans_template.csv` và chạy script tự động sinh hình học 3D cho từng tòa.
+- Ảnh lưu vào `photos/`, danh sách phòng nhập vào `survey_floorplans.csv`, rồi chạy lại pipeline (`dataset/README.md`).
 
 ---
 
-## 4. Điểm khống chế (GCP) & Tiện ích cần chấm GPS (`survey_poi_and_gcp_template.csv`)
+## 4. Điểm khống chế (GCP) & Tiện ích cần chấm GPS (`survey_poi.csv`)
 1. **Kiểm chứng điểm đã có từ OSM:**
    - Cổng A / Cổng 1 (`10.870437, 106.802055`) và Cổng B / Cổng 2 (`10.868997, 106.803924`).
    - Bãi xe máy phía Bắc Tòa A (`10.871356, 106.802923`) — kiểm tra xem còn bãi xe nào gần Cổng 1 hoặc vòng số 8 không.

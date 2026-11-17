@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Gộp mọi nguồn dữ liệu UIT thành một bộ chuẩn duy nhất: dataset/processed/final/.
+"""Gộp mọi nguồn dữ liệu UIT thành một bộ chuẩn duy nhất: dataset/final/.
 
 Chỉ đọc dữ liệu gốc, chạy lại bao nhiêu lần cũng cho cùng kết quả.
 Thứ tự ưu tiên nguồn (docs/data-audit.md):
   - Hình học: khảo sát thực địa > OSM > bản nháp provisional
   - Số tầng: xác nhận khảo sát > tài liệu trường > OSM
-  - Danh sách/tên phòng: khảo sát (survey_floorplans_template.csv) > tên đọc từ ảnh sơ đồ
+  - Danh sách/tên phòng: khảo sát (survey_floorplans.csv) > tên đọc từ ảnh sơ đồ
 Thiếu dữ liệu thì để null và ghi vào merge_report.md, không tự điền.
 
 Chạy: python dataset/scripts/merge_dataset.py
-Cần trước đó: python dataset/scripts/model_outline_toa_a.py (đã sinh sẵn processed/toa_A_model_outline.geojson)
+Cần trước đó: python dataset/scripts/model_outline_toa_a.py (đã sinh sẵn interim/toa_A_model_outline.geojson)
 """
 import csv
 import json
@@ -20,7 +20,7 @@ from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DS = os.path.join(ROOT, "dataset")
-OUT = os.path.join(DS, "processed", "final")
+OUT = os.path.join(DS, "final")
 FLOOR_H, ROOM_H, CORRIDOR_H = 3.8, 3.5, 0.2
 PLAN_HALF = 25.4  # nửa cạnh khối chính trong toa_A_layout_digitized.csv (mét)
 UIT_BBOX = (106.800, 10.866, 106.808, 10.874)
@@ -74,18 +74,18 @@ def src(source, ref, verified=False):
 
 # ---------- Tòa nhà ----------
 def build_buildings():
-    draft = read_geojson(p("processed", "uit_buildings_draft.geojson"))
-    confirmed = {r["building_id"]: r for r in read_csv(p("field_survey", "building_floors_confirmed.csv"))}
-    survey = {r["building_id"]: r for r in read_csv(p("field_survey", "survey_buildings_template.csv"))}
-    docs = {r["building_id"]: r for r in read_csv(p("02_buildings", "buildings_attributes.csv"))}
+    draft = read_geojson(p("interim", "uit_buildings_draft.geojson"))
+    confirmed = {r["building_id"]: r for r in read_csv(p("raw", "field_survey", "building_floors_confirmed.csv"))}
+    survey = {r["building_id"]: r for r in read_csv(p("raw", "field_survey", "survey_buildings.csv"))}
+    docs = {r["building_id"]: r for r in read_csv(p("raw", "school_docs", "buildings_attributes.csv"))}
     out = []
     for f in draft:
         q = f["properties"]
         code = q["building_code"]
         candidates = [
-            (num(confirmed.get(code, {}).get("total_floors"), int), "field_survey/building_floors_confirmed.csv"),
-            (num(survey.get(code, {}).get("verified_total_floors"), int), "field_survey/survey_buildings_template.csv"),
-            (num(docs.get(code, {}).get("levels_total"), int), "02_buildings/buildings_attributes.csv"),
+            (num(confirmed.get(code, {}).get("total_floors"), int), "raw/field_survey/building_floors_confirmed.csv"),
+            (num(survey.get(code, {}).get("verified_total_floors"), int), "raw/field_survey/survey_buildings.csv"),
+            (num(docs.get(code, {}).get("levels_total"), int), "raw/school_docs/buildings_attributes.csv"),
             (num(survey.get(code, {}).get("osm_levels"), int), f"OSM way {q.get('osm_id')} building:levels"),
         ]
         floors, floors_src = next(((v, s) for v, s in candidates if v), (None, None))
@@ -103,7 +103,7 @@ def build_buildings():
             "description": q.get("notes"),
             "osm_id": q.get("osm_id"),
             "floors_source": floors_src,
-            **src(geom_src, f"OSM way {q['osm_id']}" if q.get("osm_id") else "processed/uit_buildings_draft.geojson",
+            **src(geom_src, f"OSM way {q['osm_id']}" if q.get("osm_id") else "interim/uit_buildings_draft.geojson",
                   verified=code in confirmed),
         }, f["geometry"]))
     return out
@@ -111,7 +111,7 @@ def build_buildings():
 
 # ---------- Tòa A: đặt sơ đồ khảo sát vào khung khối chính lấy từ mô hình ----------
 def toa_a_frame():
-    outline = {f["properties"]["part"]: f for f in read_geojson(p("processed", "toa_A_model_outline.geojson"))}
+    outline = {f["properties"]["part"]: f for f in read_geojson(p("interim", "toa_A_model_outline.geojson"))}
     m = outline["main"]["properties"]
     (clng, clat), t = m["fit_center"], math.radians(m["fit_angle_deg"])
     sx, sy = m["fit_half_x_m"] / PLAN_HALF, m["fit_half_y_m"] / PLAN_HALF
@@ -139,12 +139,12 @@ def build_floors_and_rooms_a(outline, to_lnglat):
         floors.append(feature({
             "id": f"A-{n}", "building_code": "A", "floor_number": n,
             "base_height": round((n - 1) * FLOOR_H, 2), "ceiling_height": round((n - 1) * FLOOR_H + ROOM_H, 2),
-            **src("campus.glb outline", f"processed/toa_A_model_outline.geojson part={part}"),
+            **src("campus.glb outline", f"interim/toa_A_model_outline.geojson part={part}"),
         }, outline[part]["geometry"]))
 
-    survey = [r for r in read_csv(p("field_survey", "survey_floorplans_template.csv")) if r["building_id"] == "A"]
+    survey = [r for r in read_csv(p("raw", "field_survey", "survey_floorplans.csv")) if r["building_id"] == "A"]
     by_code = {r["room_code"]: r for r in survey}
-    layout = read_csv(p("field_survey", "toa_A_layout_digitized.csv"))
+    layout = read_csv(p("raw", "field_survey", "toa_A_layout_digitized.csv"))
     rooms, used = [], set()
     for r in layout:
         s = by_code.get(r["room_code"]) or by_code.get(r["survey_code"])
@@ -159,13 +159,13 @@ def build_floors_and_rooms_a(outline, to_lnglat):
         rooms.append(room_feature("A", int(r["floor_number"]), r["room_code"], name, rtype,
                                   num(s and s["capacity"], int), None,
                                   {"type": "Polygon", "coordinates": parse_rings(r["plan_xy"], to_lnglat)},
-                                  src("field_survey floorplan (số hóa gần đúng)", f"field_survey/raw/{r['notes'].split(';')[0]}")))
+                                  src("field_survey floorplan (số hóa gần đúng)", f"raw/field_survey/photos/{r['notes'].split(';')[0]}")))
     for code, n in (("A.TV", 1), ("A.TV2", 2)):
         s = by_code[code]
         used.add(code)
         rooms.append(room_feature("A", n, code, s["room_name"], s["room_type"], num(s["capacity"], int), None,
                                   outline["library"]["geometry"],
-                                  src("campus.glb outline", "processed/toa_A_model_outline.geojson part=library")))
+                                  src("campus.glb outline", "interim/toa_A_model_outline.geojson part=library")))
     for code in sorted(set(by_code) - used):
         issues.append(("rooms", code, "có trong survey nhưng chưa có vị trí trên sơ đồ -> bỏ qua"))
     return floors, rooms
@@ -189,23 +189,23 @@ def build_c():
         "floor_number": f["properties"]["floor_number"],
         "base_height": round((f["properties"]["floor_number"] - 1) * FLOOR_H, 2),
         "ceiling_height": round((f["properties"]["floor_number"] - 1) * FLOOR_H + ROOM_H, 2),
-        **src("generated", "processed/floors_C_3d.geojson"),
-    }, f["geometry"]) for f in read_geojson(p("processed", "floors_C_3d.geojson"))]
+        **src("generated", "interim/floors_C_3d.geojson"),
+    }, f["geometry"]) for f in read_geojson(p("interim", "floors_C_3d.geojson"))]
     rooms = []
-    for f in read_geojson(p("processed", "rooms_C_3d.geojson")):
+    for f in read_geojson(p("interim", "rooms_C_3d.geojson")):
         q = f["properties"]
         if q.get("element_type") == "Kho" and q["room_type"] == "WC":
             issues.append(("rooms", q["room_code"], "Kho đang gán room_type 'WC' (enum không có loại Kho)"))
         rooms.append(room_feature("C", q["floor_number"], q["room_code"], q["room_name"], q["room_type"],
                                   q.get("capacity") or None, q.get("special_label"), f["geometry"],
-                                  src("generated", "processed/rooms_C_3d.geojson (lưới floorplan_toa_C_layout.csv, footprint C tạm)")))
+                                  src("generated", "interim/rooms_C_3d.geojson (lưới floorplan_toa_C_layout.csv, footprint C tạm)")))
     return floors, rooms
 
 
 # ---------- Tiện ích ----------
 def build_amenities():
     out = []
-    for r in read_csv(p("field_survey", "survey_poi_and_gcp_template.csv")):
+    for r in read_csv(p("raw", "field_survey", "survey_poi.csv")):
         rid = r["id"]
         if r["record_type"] != "POI":
             continue
@@ -232,7 +232,7 @@ def build_amenities():
 # ---------- Lối đi & ranh giới ----------
 def build_paths():
     out = []
-    for f in read_geojson(p("processed", "uit_paths_osm_filtered.geojson")):
+    for f in read_geojson(p("interim", "uit_paths_osm_filtered.geojson")):
         q = f["properties"]
         coords = [[x, y, 0.0] for x, y, *_ in f["geometry"]["coordinates"]]
         out.append(feature({
@@ -244,7 +244,7 @@ def build_paths():
 
 
 def build_boundary():
-    f = read_geojson(p("processed", "uit_campus_boundary.geojson"))[0]
+    f = read_geojson(p("interim", "uit_campus_boundary.geojson"))[0]
     q = f["properties"]
     return [feature({"id": "UIT", "name": q["name"], "osm_id": q["osm_id"], **src("osm", f"OSM way {q['osm_id']}")},
                     f["geometry"])]
@@ -317,18 +317,18 @@ def main():
         "paths": build_paths(),
         "campus_boundary": build_boundary(),
     }
-    n_geo = lambda *f: len(read_geojson(p("processed", *f)))
-    survey_a = sum(r["building_id"] == "A" for r in read_csv(p("field_survey", "survey_floorplans_template.csv")))
-    pois = read_csv(p("field_survey", "survey_poi_and_gcp_template.csv"))
+    n_geo = lambda *f: len(read_geojson(p("interim", *f)))
+    survey_a = sum(r["building_id"] == "A" for r in read_csv(p("raw", "field_survey", "survey_floorplans.csv")))
+    pois = read_csv(p("raw", "field_survey", "survey_poi.csv"))
     before = {
-        "buildings": f"{n_geo('uit_buildings_draft.geojson')} (processed/uit_buildings_draft.geojson)",
+        "buildings": f"{n_geo('uit_buildings_draft.geojson')} (interim/uit_buildings_draft.geojson)",
         "floors": f"{n_geo('floors_C_3d.geojson')} C (floors_C_3d) + 3 A (sơ đồ khảo sát)",
         "rooms": f"{n_geo('rooms_C_3d.geojson')} C (rooms_C_3d) + {survey_a} A trong survey "
                  f"(+ hành lang/cầu thang/WC theo sơ đồ)",
         "amenities": f"{sum(r['record_type'] == 'POI' for r in pois)} POI + "
-                     f"{sum(r['record_type'] == 'GCP' for r in pois)} GCP (survey_poi_and_gcp_template.csv)",
-        "paths": f"{n_geo('uit_paths_osm_filtered.geojson')} (processed/uit_paths_osm_filtered.geojson)",
-        "campus_boundary": f"{n_geo('uit_campus_boundary.geojson')} (processed/uit_campus_boundary.geojson)",
+                     f"{sum(r['record_type'] == 'GCP' for r in pois)} GCP (survey_poi.csv)",
+        "paths": f"{n_geo('uit_paths_osm_filtered.geojson')} (interim/uit_paths_osm_filtered.geojson)",
+        "campus_boundary": f"{n_geo('uit_campus_boundary.geojson')} (interim/uit_campus_boundary.geojson)",
     }
     report = ["# Báo cáo gộp dữ liệu", "", "Sinh tự động bởi `dataset/scripts/merge_dataset.py`. Không sửa tay.", "",
               "## Số lượng", "", "| Lớp | Đầu vào | Đầu ra |", "|---|---|---|"]

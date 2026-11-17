@@ -60,7 +60,7 @@ def make_provisional_c_polygon() -> dict:
 
 
 def main() -> None:
-    proc = os.path.join(BASE_DIR, "processed")
+    proc = os.path.join(BASE_DIR, "interim")
     b_fc = json.load(open(os.path.join(proc, "uit_buildings_osm_filtered.geojson"), encoding="utf-8"))
 
     out_feats = []

@@ -2,6 +2,8 @@
 
 Ngày khảo sát: 17/11/2026 · Nhánh: `data-consolidation` · Không sửa file nào trong quá trình khảo sát.
 
+> Đường dẫn trong báo cáo này là cấu trúc cũ. Sau đó `dataset/` được tổ chức lại thành `raw/` (01–05, field_survey, Excel), `interim/` (processed) và `final/`. Xem `dataset/README.md`.
+
 ## 1. Danh mục file dữ liệu
 
 CRS: tất cả GeoJSON đều là WGS84 (CRS84/EPSG:4326, thứ tự lng, lat). Không thấy hệ VN-2000 hoặc tọa độ bị đảo.
@@ -113,7 +115,7 @@ Kiểm tra: không có hình học lỗi (`ST_IsValid`), không trùng `room_cod
 
 ## 6. Quyết định đã duyệt (17/11/2026)
 
-- Schema chuẩn, thứ tự ưu tiên nguồn và vị trí thư mục: xem `dataset/processed/final/README.md`.
+- Schema chuẩn, thứ tự ưu tiên nguồn và vị trí thư mục: xem `dataset/final/README.md`.
 - Tòa E 13 tầng (tính tầng G). Tòa D 1 tầng.
 - Thư viện là cánh phía Bắc của Tòa A, chỉ có tầng 1–2; tầng 3 Tòa A có hội trường tròn ở giữa, các phòng A.301–A.325 (số lẻ) bao quanh.
 - Phòng Tòa A dựng lại theo ảnh sơ đồ khảo sát (`field_survey/toa_A_layout_digitized.csv`).
