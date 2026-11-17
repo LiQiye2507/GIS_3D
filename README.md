@@ -25,7 +25,11 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 ```text
 database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, checks.sql
 dataset/    bộ dữ liệu chuẩn GeoJSON: buildings, floors, rooms, amenities, paths, campus_boundary
-backend/    FastAPI (main.py, db.py, tests/test_api.py)
+backend/    FastAPI, chia theo lớp:
+            main.py (tạo app, CORS, gắn router) · routes/api.py (URL -> controller)
+            controllers/ (nhận request, kiểm tra tham số) · services/ (truy vấn PostGIS, pgRouting)
+            models/enums.py (giá trị loại phòng/tiện ích) · config/settings.py (.env)
+            utils/ (db, geojson, text) · middlewares/errors.py (lỗi CSDL) · tests/test_api.py
 frontend/   index.html, style.css, models/campus.glb (mô hình toàn trường – Heli Ton, CC BY 4.0)
             js/ (ES module): main.js (điểm vào), config, state, dom, utils, map, intro, camera,
                 layers (LOD, tầng, ánh sáng), buildings, rooms, amenities, route
