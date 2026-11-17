@@ -232,6 +232,8 @@ export function addAmenityLayer() {
 
 // Toàn bộ tiện ích của khuôn viên (nạp lúc khởi động) – hiển thị khi chưa chọn vị trí
 export function setAllAmenities(fc) {
+  // khoảng cách ở đây tính từ tâm khuôn viên cố định, vô nghĩa với người dùng: chỉ hiện khi đã chọn vị trí
+  fc.features.forEach((f) => { delete f.properties.distance_m; });
   allAmenities = fc;
   if (!state.userPos) {
     shownAmenities = fc;
