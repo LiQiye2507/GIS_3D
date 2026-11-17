@@ -7,8 +7,8 @@ Sinh tự động bởi `dataset/scripts/merge_dataset.py`. Không sửa tay.
 | Lớp | Đầu vào | Đầu ra |
 |---|---|---|
 | buildings | 6 (processed/uit_buildings_draft.geojson) | 6 |
-| floors | 3 C (floors_C_3d) + 3 A (sinh trong 03_toa_a_indoor.sql) | 6 |
-| rooms | 67 C (rooms_C_3d) + 59 A trong survey (65 phần tử sinh trong 03_toa_a_indoor.sql) | 145 |
+| floors | 3 C (floors_C_3d) + 3 A (sơ đồ khảo sát) | 6 |
+| rooms | 67 C (rooms_C_3d) + 56 A trong survey (+ hành lang/cầu thang/WC theo sơ đồ) | 145 |
 | amenities | 12 POI + 4 GCP (survey_poi_and_gcp_template.csv) | 6 |
 | paths | 33 (processed/uit_paths_osm_filtered.geojson) | 33 |
 | campus_boundary | 1 (processed/uit_campus_boundary.geojson) | 1 |

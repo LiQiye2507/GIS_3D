@@ -317,13 +317,18 @@ def main():
         "paths": build_paths(),
         "campus_boundary": build_boundary(),
     }
+    n_geo = lambda *f: len(read_geojson(p("processed", *f)))
+    survey_a = sum(r["building_id"] == "A" for r in read_csv(p("field_survey", "survey_floorplans_template.csv")))
+    pois = read_csv(p("field_survey", "survey_poi_and_gcp_template.csv"))
     before = {
-        "buildings": "6 (processed/uit_buildings_draft.geojson)",
-        "floors": "3 C (floors_C_3d) + 3 A (sinh trong 03_toa_a_indoor.sql)",
-        "rooms": "67 C (rooms_C_3d) + 59 A trong survey (65 phần tử sinh trong 03_toa_a_indoor.sql)",
-        "amenities": "12 POI + 4 GCP (survey_poi_and_gcp_template.csv)",
-        "paths": "33 (processed/uit_paths_osm_filtered.geojson)",
-        "campus_boundary": "1 (processed/uit_campus_boundary.geojson)",
+        "buildings": f"{n_geo('uit_buildings_draft.geojson')} (processed/uit_buildings_draft.geojson)",
+        "floors": f"{n_geo('floors_C_3d.geojson')} C (floors_C_3d) + 3 A (sơ đồ khảo sát)",
+        "rooms": f"{n_geo('rooms_C_3d.geojson')} C (rooms_C_3d) + {survey_a} A trong survey "
+                 f"(+ hành lang/cầu thang/WC theo sơ đồ)",
+        "amenities": f"{sum(r['record_type'] == 'POI' for r in pois)} POI + "
+                     f"{sum(r['record_type'] == 'GCP' for r in pois)} GCP (survey_poi_and_gcp_template.csv)",
+        "paths": f"{n_geo('uit_paths_osm_filtered.geojson')} (processed/uit_paths_osm_filtered.geojson)",
+        "campus_boundary": f"{n_geo('uit_campus_boundary.geojson')} (processed/uit_campus_boundary.geojson)",
     }
     report = ["# Báo cáo gộp dữ liệu", "", "Sinh tự động bởi `dataset/scripts/merge_dataset.py`. Không sửa tay.", "",
               "## Số lượng", "", "| Lớp | Đầu vào | Đầu ra |", "|---|---|---|"]
