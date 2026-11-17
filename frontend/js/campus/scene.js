@@ -27,6 +27,8 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   const ambient = new THREE.HemisphereLight('#c9dcec', '#2f363d', 0.08);
   const clipUniform = { value: 1e6 };
   const buildingRoots = {};
+  let hiddenCode = null; // nhớ tòa đang ẩn để áp lại khi model nạp xong (mở bằng ?room=)
+  const applyHidden = () => Object.entries(buildingRoots).forEach(([c, node]) => { node.visible = c !== hiddenCode; });
   const tuned = [];
   const pickMeshes = [];
   const mvp = new THREE.Matrix4();
@@ -322,6 +324,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
           const node = root.getObjectByName(name);
           if (node) buildingRoots[code] = node;
         });
+        applyHidden();
         root.updateMatrixWorld(true);
         computeAnchors();
         const box = new THREE.Box3().setFromObject(root);
@@ -461,7 +464,8 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     },
     // Ẩn vỏ một tòa (xem trong nhà); null = hiện tất cả
     setHidden(code) {
-      Object.entries(buildingRoots).forEach(([c, node]) => { node.visible = c !== code; });
+      hiddenCode = code;
+      applyHidden();
       if (renderer) renderer.shadowMap.needsUpdate = true;
       map.triggerRepaint();
     },
