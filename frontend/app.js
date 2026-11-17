@@ -823,7 +823,7 @@ function filterBuildingsList(query = '') {
                 <div class="popup-content">
                   <h4>${escapeHtml(ap.name)}</h4>
                   <p><strong>Loại:</strong> ${escapeHtml(ap.category || 'Tiện ích')}</p>
-                  <p><strong>Giờ mở cửa:</strong> ${escapeHtml(ap.open_hours || 'Cả ngày')}</p>
+                  <p><strong>Giờ mở cửa:</strong> ${escapeHtml(ap.open_hours || 'Chưa có dữ liệu')}</p>
                 </div>
               `)
               .addTo(map);
