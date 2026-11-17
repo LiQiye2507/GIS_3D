@@ -29,6 +29,7 @@ al = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(al)
 
 OUT = al.ROOT / 'dataset' / 'sports_fields.geojson'
+SQL = al.ROOT / 'database' / '05_sports_fields.sql'
 _NCOMP = {'SCALAR': 1, 'VEC2': 2, 'VEC3': 3, 'VEC4': 4}
 
 
@@ -99,6 +100,19 @@ def court_polygons(tris, cols):
                   key=lambda p: (-round(p.centroid.y), p.centroid.x))
 
 
+def sports_sql(feats) -> str:
+    lines = ['-- Sân thể thao, sinh từ dataset/sports_fields.geojson bằng Models_3D/scripts/06_extract_sports_fields.py',
+             '-- Chạy sau 01_schema.sql. Loại sân chưa xác định (NULL) – TODO: kiểm chứng thực địa', '']
+    for f in feats:
+        p = f['properties']
+        name = p['name'].replace("'", "''")
+        lines.append(
+            'INSERT INTO sports_fields (field_code, name, sport_type, area_m2, open_hours, verified, geom) VALUES '
+            f"('{p['id']}', '{name}', NULL, {p['area_m2']}, NULL, FALSE, "
+            f"ST_GeomFromText('{al._wkt_polygon(f['geometry']['coordinates'])}', 4326));")
+    return '\n'.join(lines) + '\n'
+
+
 def main():
     t = json.loads(al.REPORT.read_text(encoding='utf-8'))['T']
     T = (t['scale'], t['theta_rad'], t['tx'], t['ty'])
@@ -122,6 +136,7 @@ def main():
         assert g.is_valid and g.exterior.is_ccw, f['properties']['id']
         assert not any(g.intersects(b) for b in buildings), f['properties']['id']
     OUT.write_bytes(al.dump_fc(fc))
+    SQL.write_text(sports_sql(feats), encoding='utf-8')
     for f in feats:
         print(f['properties']['id'], f['properties']['area_m2'], 'm2', shape(f['geometry']).centroid.coords[0])
 
