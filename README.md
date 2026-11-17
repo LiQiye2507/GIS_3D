@@ -24,7 +24,8 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 ## Cấu trúc thư mục
 ```text
 database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, checks.sql
-dataset/    bộ dữ liệu chuẩn GeoJSON: buildings, floors, rooms, amenities, paths, campus_boundary
+dataset/    bộ dữ liệu chuẩn GeoJSON: buildings, floors, rooms, amenities, paths, campus_boundary;
+            sports_fields (sân thể thao tách từ model, chưa nạp CSDL)
 backend/    FastAPI, chia theo lớp:
             main.py (tạo app, CORS, gắn router) · routes/api.py (URL -> controller)
             controllers/ (nhận request, kiểm tra tham số) · services/ (truy vấn PostGIS, pgRouting)
@@ -37,7 +38,8 @@ frontend/   index.html, style.css, models/uit_campus.glb (mô hình toàn trư�
                 nearest, route, share, geolocate, query, measure
             js/campus/: scene.js (lớp Three.js nạp uit_campus.glb), geo.js (nắn tọa độ), palette.js (ánh sáng)
 Models_3D/scripts/  dựng model tách tòa (01–03, chạy trong Blender), 04_align_gis_to_model.py (nắn
-            dataset/ và database/ theo model), 05_export_web_glb.py (xuất bản nén cho frontend).
+            dataset/ và database/ theo model), 05_export_web_glb.py (xuất bản nén cho frontend),
+            06_extract_sports_fields.py (tách sân thể thao).
             File model nguồn (.blend, .glb) không đưa lên repo.
 docs/       features.md (danh sách chức năng, cách dùng, giới hạn)
 ```

@@ -19,6 +19,8 @@ Web GIS 3D phục vụ **số hóa dữ liệu khuôn viên** và các chức n�
 
 **Nguồn hình học:** mô hình 3D toàn trường (`frontend/models/uit_campus.glb`) là chuẩn vị trí. Footprint các tòa được lấy từ mô hình và quy đổi sang WGS84 bằng một phép đồng dạng (tỉ lệ 0,969, xoay 0,63°, fit với footprint OSM của 5 tòa). Phòng, sàn và tiện ích của mỗi tòa được dời và xoay theo tòa đó, còn lối đi, cổng và ranh giới được dời theo các tòa lân cận. Cách tính nằm trong `Models_3D/scripts/04_align_gis_to_model.py`.
 
+**Sân thể thao:** 9 sân tách từ mặt sân của mô hình 3D, lưu ở `dataset/sports_fields.geojson` (`Models_3D/scripts/06_extract_sports_fields.py`). Lớp này mới ở dạng GeoJSON, chưa nạp vào CSDL và chưa hiển thị trên bản đồ; loại sân (`sport_type`) để trống, mọi sân đánh dấu `provisional`.
+
 Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí.
 
 Độ cao 3D: mỗi tầng cao 3.8 m. `base_height = (tầng − 1) × 3.8`, `extrude_height = base_height + 3.5` (hành lang chỉ dày 0.2 m).
@@ -80,6 +82,7 @@ Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Vi
 | Một số phòng Tòa C bị phân loại sai | Kho (`C*-STORE*`) và hồ nước (`C1-POOL1`) đang mang `room_type = 'WC'` | Cần nhóm khảo sát xác nhận lại loại phòng |
 | Dữ liệu chưa được kiểm chứng thực địa | Phần lớn đối tượng có `verified = false` (lấy từ OSM, sơ đồ PCCC); hình học đã nắn theo mô hình 3D, mô hình lệch OSM 8–20 m ở một số tòa | Cần đối chiếu thực địa trước khi dùng chính thức |
 | Phòng Tòa C chưa khớp hẳn vỏ tòa | Lưới phòng Tòa C là bản tạm, không có sân trong như mô hình | Khoảng 5% diện tích phòng (WC, cầu thang ở hai đầu) nhô ra ngoài vỏ vài mét; cần số hóa lại theo sơ đồ thật |
+| Sân thể thao chưa xác định | Mô hình không ghi loại sân; 3 sân phía đông bắc (SF01–SF03) nằm ngoài ranh giới khuôn viên lấy từ OSM | Cần khảo sát loại sân và đối chiếu ranh giới trước khi nạp vào CSDL |
 | Tiện ích còn ít | Mới có 6 điểm và chưa có Y tế/PCCC | Lớp và chú giải đã hỗ trợ đủ 8 danh mục, chỉ cần bổ sung dữ liệu |
 
 ## 5. Thư viện bên ngoài (nạp từ CDN, có ghi rõ phiên bản)
