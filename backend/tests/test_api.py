@@ -4,7 +4,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from db import fetch_all  # noqa: E402
+from utils.db import fetch_all  # noqa: E402
 from main import app  # noqa: E402
 
 client = TestClient(app)
@@ -47,7 +47,7 @@ def test_search_room_a305_within_building_a():
     res = client.get("/api/search", params={"q": "A305"})
     assert res.status_code == 200
     items = res.json()
-    match = next((r for r in items if r["room_code"] == "A.305"), None)
+    match = next((r for r in items if r["room_code"] == "A305"), None)
     assert match is not None
     assert match["floor_number"] == 3
     check = fetch_all(
@@ -87,12 +87,12 @@ def test_search_sql_injection_safe():
 def test_route_gate_a_to_a305():
     res = client.get(
         "/api/route",
-        params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "A.305"},
+        params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "A305"},
     )
     assert res.status_code == 200
     body = res.json()
     assert body["type"] == "FeatureCollection"
-    assert body["room_code"] == "A.305"
+    assert body["room_code"] == "A305"
     assert body["floors"] == [1, 2, 3]
     assert body["total_length_m"] > 0
     features = body["features"]
@@ -111,6 +111,34 @@ def test_route_unknown_room_and_missing_param():
 
     res_422 = client.get(
         "/api/route",
-        params={"start_lng": 106.8020546, "end_room_code": "A.305"},
+        params={"start_lng": 106.8020546, "end_room_code": "A305"},
     )
     assert res_422.status_code == 422
+
+
+def test_nearby_includes_wc_rooms():
+    res = client.get("/api/amenities/nearby", params={"lat": 10.8701, "lng": 106.8030, "radius": 300, "category": "WC"})
+    assert res.status_code == 200
+    feats = res.json()["features"]
+    assert len(feats) >= 1
+    assert all(f["properties"]["category"] == "WC" and f["properties"]["room_code"] for f in feats)
+    keys = [(f["properties"]["distance_m"], f["properties"]["floor_number"]) for f in feats]
+    assert keys == sorted(keys)
+
+
+def test_route_reaches_room_flag():
+    a = client.get("/api/route", params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "A305"}).json()
+    assert a["reaches_room"] is True
+    # Tòa C chưa có đồ thị trong nhà: tuyến dừng ở lối vào, không được lên tầng của Tòa A
+    c = client.get("/api/route", params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "C312"}).json()
+    assert c["reaches_room"] is False
+    assert c["floors"] == [1]
+
+
+def test_db_unavailable_returns_503(monkeypatch):
+    import utils.db
+
+    monkeypatch.setattr(utils.db, "DATABASE_URL", "postgresql://nobody@127.0.0.1:1/none?connect_timeout=1")
+    res = client.get("/api/buildings")
+    assert res.status_code == 503
+    assert res.json()["detail"] == "Không kết nối được cơ sở dữ liệu"

@@ -1,9 +1,0 @@
-﻿poi_id,category,name,map_x_px,map_y_px,lat,lon,gnss_accuracy_m,floor,source,status,notes
-P001,CANTEEN,Nhà PVSV - Căng tin,275,238,,,,,Sơ đồ tổng mặt bằng do bạn cung cấp,Có vị trí tương đối trên sơ đồ; chưa có lat/lon,Sơ đồ ghi 'Nhà PVSV' kèm nhãn 'Căng tin' ở góc trên-trái sơ đồ; chưa rõ số tầng
-P002,PARKING,"Bãi đỗ xe (phía dưới sơ đồ, gần Cổng 1)",372,1435,,,,,Sơ đồ tổng mặt bằng do bạn cung cấp,Có vị trí tương đối trên sơ đồ; chưa có lat/lon,
-P003,PARKING,Bãi để xe ô tô - tầng G tòa E,,,,,,G,Sheet 'Sơ Đồ Khu E' (danh sách phòng tòa E),Chỉ biết tòa và tầng,Nằm trong tòa E; chưa rõ cửa vào và số chỗ
-P004,PARKING,Bãi đỗ xe vòng số 8 (bên hông thư viện tòa A),,,,,,,https://www.uit.edu.vn/bai-viet/chinh-thuc-mo-dang-ky-company-tour-2025-vng-corporation,Chưa đối chiếu với P002,Có thể trùng P002 hoặc là bãi khác; cần xác nhận thực địa
-P005,CANTEEN,Phòng ăn Giảng viên - Viên chức & NLĐ (E7.1),,,,,,7,Sheet 'Sơ Đồ Khu E',Chỉ biết tòa và tầng,"Phòng ăn nội bộ cho GV, viên chức, người lao động; khác căng tin sinh viên"
-P006,GATE,Cổng 1,1010,1450,,,,,Sơ đồ tổng mặt bằng do bạn cung cấp,Có vị trí tương đối trên sơ đồ; chưa có lat/lon,Cổng ở phía dưới sơ đồ; đường đi bộ tới khu vực thi bắt đầu từ đây
-P007,GATE,Cổng 2,828,122,,,,,Sơ đồ tổng mặt bằng do bạn cung cấp,Có vị trí tương đối trên sơ đồ; chưa có lat/lon,"Phía trên sơ đồ, gần tòa D"
-P008,SPORT,Sân thể thao,988,318,,,,,Sơ đồ tổng mặt bằng do bạn cung cấp,Có vị trí tương đối trên sơ đồ; chưa có lat/lon,

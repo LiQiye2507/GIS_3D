@@ -77,7 +77,7 @@
         </p>
       </div>
 
-      <div id="hud-top-right" class="hud__tools on-stage" aria-label="Điều khiển hiển thị 3D">
+      <div class="hud__tools on-stage" aria-label="Điều khiển hiển thị 3D">
         <div class="daynight" aria-label="Thời điểm trong ngày">
           <div class="daynight__meta">
             <span class="eyebrow daynight__label">ÁNH SÁNG</span>
@@ -195,6 +195,18 @@
       </div>
     </header>
 
+    <aside id="lod1-dock" class="lod3-dock hidden" aria-label="Chú giải chức năng tòa nhà (LOD 1)">
+      <div class="lod3-legend">
+        <div class="eyebrow lod3-legend-title">CHỨC NĂNG TÒA NHÀ</div>
+        <ul class="legend" aria-label="Chú giải màu tòa nhà">
+          <li><span class="swatch" style="background:#93C5FD"></span>Giảng đường / học tập</li>
+          <li><span class="swatch" style="background:#FDBA74"></span>Căn tin / ăn uống</li>
+          <li><span class="swatch" style="background:#CBD5E1"></span>Dịch vụ / khác</li>
+          <li><span class="swatch" style="background:#EAB308"></span>Đang chọn</li>
+        </ul>
+      </div>
+    </aside>
+
     <aside id="lod3-dock" class="lod3-dock hidden" aria-label="Điều khiển tầng và chú giải LOD 3">
       <nav id="floor-switcher" aria-label="Chọn tầng Tòa A"></nav>
       <div id="lod3-legend" class="lod3-legend">
@@ -206,6 +218,7 @@
           <li><span class="swatch" style="background:#10B981"></span>Văn phòng</li>
           <li><span class="swatch" style="background:#CBD5E1"></span>Hành lang</li>
           <li><span class="swatch" style="background:#64748B"></span>Cầu thang / WC</li>
+          <li><span class="swatch" style="background:#F43F5E"></span>Kết quả truy vấn</li>
           <li><span class="swatch" style="background:#EAB308"></span>Đang chọn</li>
         </ul>
       </div>
@@ -233,7 +246,7 @@
           type="search"
           id="search-input"
           class="explorer__search-input"
-          placeholder="Tìm tòa nhà, phòng học (vd: A305)"
+          placeholder="Tìm phòng, tòa nhà, tiện ích (vd: A305, thu vien)"
           autocomplete="off"
         />
       </label>
@@ -259,10 +272,13 @@
             Chỉ đường đến phòng này
           </button>
           <p id="route-summary" class="route-summary hidden" aria-live="polite"></p>
+          <button type="button" id="btn-share-room" class="btn full-width">Chia sẻ phòng này · mã QR</button>
         </section>
 
         <section class="explorer__tools" aria-label="Vị trí giả lập và tiện ích lân cận">
           <h3 class="eyebrow explorer__tools-heading">ĐỊNH VỊ &amp; TIỆN ÍCH</h3>
+          <button type="button" id="btn-geolocate" class="btn full-width">Vị trí của tôi (GPS)</button>
+          <p class="tools-note">GPS chỉ chính xác ngoài trời. Trong nhà hãy chọn điểm xuất phát trên bản đồ.</p>
           <button type="button" id="btn-pick-location" class="btn full-width" aria-pressed="false">
             Click chọn vị trí giả lập
           </button>
@@ -284,12 +300,42 @@
               <input type="checkbox" id="toggle-route" checked />
               <span class="eyebrow">Đường đi</span>
             </label>
-            <label class="toggle-item">
-              <input type="checkbox" id="toggle-amenities" checked />
-              <span class="eyebrow">Tiện ích</span>
-            </label>
           </div>
+          <div id="amenity-filters" class="amenity-filters" role="group" aria-label="Lọc tiện ích theo loại (chú giải)"></div>
           <ul id="amenities-list" class="explorer__amenities" aria-label="Danh sách tiện ích gần đây"></ul>
+          <div class="tool-row" role="group" aria-label="Tìm tiện ích gần nhất">
+            <button type="button" class="btn" data-nearest="WC">WC gần nhất</button>
+            <button type="button" class="btn" data-nearest="Canteen">Căn tin gần nhất</button>
+            <button type="button" class="btn" data-nearest="ATM">ATM gần nhất</button>
+          </div>
+        </section>
+
+        <section class="explorer__tools" aria-label="Truy vấn phòng theo thuộc tính">
+          <h3 class="eyebrow explorer__tools-heading">TRUY VẤN PHÒNG</h3>
+          <form id="query-form" class="query-form">
+            <label>Tòa<select id="q-building"><option value="A">Tòa A</option><option value="C">Tòa C</option></select></label>
+            <label>Tầng<select id="q-floor"><option value="">Tất cả</option></select></label>
+            <label>Loại phòng<select id="q-type"><option value="">Tất cả</option></select></label>
+            <label>Sức chứa ≥<input type="number" id="q-capacity" min="0" max="1000" step="5" placeholder="vd: 40" /></label>
+            <button type="submit" class="btn btn-primary full-width">Lọc phòng</button>
+          </form>
+          <p id="query-summary" class="tools-note" aria-live="polite"></p>
+          <ul id="query-results" class="explorer__search-results" aria-label="Kết quả truy vấn phòng"></ul>
+        </section>
+
+        <section class="explorer__tools" aria-label="Công cụ mặt cắt và đo đạc">
+          <h3 class="eyebrow explorer__tools-heading">MẶT CẮT &amp; ĐO ĐẠC</h3>
+          <label class="clip-row">
+            <span class="eyebrow">Mặt cắt ngang</span>
+            <input type="range" id="clip-slider" min="0" max="50" step="1" value="50" aria-describedby="clip-value" />
+            <strong id="clip-value">Tắt</strong>
+          </label>
+          <div class="tool-row" role="group" aria-label="Công cụ đo">
+            <button type="button" class="btn" data-measure="distance" aria-pressed="false">Đo khoảng cách</button>
+            <button type="button" class="btn" data-measure="area" aria-pressed="false">Đo diện tích</button>
+            <button type="button" class="btn" data-measure="height" aria-pressed="false">Đo chiều cao</button>
+          </div>
+          <p id="measure-result" class="tools-note" aria-live="polite">Chọn công cụ rồi nhấp lên bản đồ.</p>
         </section>
       </div>
     </aside>
@@ -404,6 +450,8 @@
             <div id="bp-floor-pills" class="sheet__floor-pills" aria-label="Chọn nhanh tầng Tòa A"></div>
           </div>
         </div>
+
+        <button type="button" id="bp-share" class="sheet__indoor-btn sheet__share-btn">CHIA SẺ · MÃ QR</button>
       </div>
 
       <nav class="sheet__nav" aria-label="Điều hướng công trình">
@@ -423,33 +471,32 @@
       <span>Đang tải dữ liệu...</span>
     </div>
 
+    <div id="share-popover" class="share-popover hidden" role="dialog" aria-label="Chia sẻ liên kết">
+      <div class="share-popover__head">
+        <strong id="share-title">Chia sẻ</strong>
+        <button type="button" id="share-close" class="explorer__close" aria-label="Đóng chia sẻ">✕</button>
+      </div>
+      <div id="share-qr" class="share-popover__qr"></div>
+      <input type="text" id="share-url" class="share-popover__url" readonly aria-label="Liên kết chia sẻ" />
+      <button type="button" id="share-copy" class="btn btn-primary full-width">Sao chép liên kết</button>
+    </div>
+
     <div id="toast" class="toast hidden" role="alert" aria-live="assertive"></div>
   </main>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
   <script type="importmap">
     {
       "imports": {
         "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+        "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/",
+        "fuse.js": "https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs",
+        "@turf/area": "https://cdn.jsdelivr.net/npm/@turf/area@7.1.0/+esm",
+        "@turf/length": "https://cdn.jsdelivr.net/npm/@turf/length@7.1.0/+esm"
       }
     }
   </script>
-  <script type="module">
-    // Three.js bản module; gắn vào window để campus-scene.js và app.js (script thường) dùng chung
-    import * as THREE_NS from 'three';
-    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-    import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-    window.THREE = { ...THREE_NS, GLTFLoader, DRACOLoader };
-    for (const src of ['campus-scene.js', 'app.js']) {
-      await new Promise((resolve, reject) => {
-        const el = document.createElement('script');
-        el.src = src;
-        el.onload = resolve;
-        el.onerror = reject;
-        document.body.appendChild(el);
-      });
-    }
-  </script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
