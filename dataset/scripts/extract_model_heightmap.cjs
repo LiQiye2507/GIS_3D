@@ -2,7 +2,11 @@
 // Dùng: node extract_model_heightmap.cjs <campus.glb> <draco_decoder.js> <out.json> <lng> <lat> <bán_kính_m>
 const fs = require('fs');
 const [glbPath, dracoJs, out, lon0, lat0, half] = process.argv.slice(2);
-const GEO = { lng: 106.8037076, lat: 10.8704966, scale: 24.865, rotDeg: 4.535 };
+// Dùng đúng tham số nắn mô hình của frontend để viền Tòa A khớp với cảnh 3D
+const sceneSrc = fs.readFileSync(require('path').join(require('path').dirname(glbPath), '..', 'campus-scene.js'), 'utf8');
+const geoMatch = sceneSrc.match(/const GEO = (\{[^}]*\});/);
+if (!geoMatch) throw new Error('Không tìm thấy GEO trong frontend/campus-scene.js');
+const GEO = Function(`return ${geoMatch[1]}`)();
 const D = Math.PI / 180, rot = GEO.rotDeg * D, ML = 110574, MG = 111320 * Math.cos(GEO.lat * D);
 const buf = fs.readFileSync(glbPath);
 const jsonLen = buf.readUInt32LE(12);
