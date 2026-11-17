@@ -13,7 +13,7 @@ Lập ngày 13/11/2026 từ: file Excel thống kê phòng học, sơ đồ tổ
 | `03_floorplans/rooms_by_floor.csv` | Danh sách phòng theo tòa và tầng (179 dòng) |
 | `03_floorplans/floorplan_toa_C_layout.csv` và `Toa_C_so_do_cac_tang.png` | Bố cục mặt bằng 3 tầng tòa C |
 | `04_poi/poi_coordinates.csv` | POI có vị trí tương đối trên sơ đồ, cột lat/lon để trống |
-| `scripts/` | `fetch_osm.py` (tòa nhà và POI từ OpenStreetMap), `fetch_dem.sh` (DEM Copernicus 30 m) |
+| `scripts/` | `fetch_uit_osm.py` (tòa nhà, POI, lối đi từ OpenStreetMap), `merge_dataset.py` (gộp thành `processed/final/`) |
 
 CSV dùng UTF-8; mở bằng Excel qua Data > From Text/CSV, chọn UTF-8.
 
@@ -38,7 +38,7 @@ POI: có căng tin (Nhà PVSV), bãi đỗ xe, Cổng 1, Cổng 2, sân thể th
 
 ## Còn thiếu
 
-- Ảnh vệ tinh hoặc ảnh trực giao có tọa độ và DEM. Chạy `scripts/fetch_dem.sh` (cần API key OpenTopography). Ảnh nền: dùng Esri World Imagery trong QGIS (xem điều khoản và ghi nguồn), hoặc Sentinel-2 cho nền tổng quan. DEM 30 m quá thô cho khuôn viên khoảng 13 ha.
+- Ảnh vệ tinh hoặc ảnh trực giao có tọa độ. Ảnh nền: dùng Esri World Imagery trong QGIS (xem điều khoản và ghi nguồn), hoặc Sentinel-2 cho nền tổng quan.
 - Tọa độ lat/lon của mọi POI. Đo bằng app GPS ngoài trời 30-60 giây, ghi sai số vào `gnss_accuracy_m`. ATM và cây nước uống chưa có dữ liệu nào trong các nguồn.
 - Số tầng tòa D; kiểm tra số tầng tòa A và Thư viện (nguồn ghi thư viện thuộc Khu A, chưa rõ 2 tầng là của riêng thư viện hay cả khối).
 - Sơ đồ tầng tòa E (hiện chỉ có danh sách chức năng) và tòa A.
@@ -49,4 +49,4 @@ POI: có căng tin (Nhà PVSV), bãi đỗ xe, Cổng 1, Cổng 2, sân thể th
 - 6 ảnh trên cao là ảnh chụp xiên, nên không dùng làm raster nền GIS được. Ảnh 2-6 có watermark "Kỳ Yêu Sài Gòn Photography"; quyền sử dụng chưa rõ, hãy xin phép trước khi công bố.
 - Dữ liệu trong file Excel có vài chỗ không khớp (tổng chỗ ngồi 7.033 so với 7.083 cộng theo dòng, tổng số phòng 94/95, hai sheet ẩn có số liệu khác). Chi tiết trong sheet `Luu_y_du_lieu`.
 - Diện tích trường khác nhau giữa các nguồn (12,3 ha; 133.900 m2 theo quy hoạch 1/500; gần 14 ha), nên nêu rõ nguồn khi trích.
-- OpenStreetMap: © OpenStreetMap contributors (ODbL). Copernicus DEM: ghi nguồn theo giấy phép ESA/Copernicus.
+- OpenStreetMap: © OpenStreetMap contributors (ODbL).

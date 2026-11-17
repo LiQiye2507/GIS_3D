@@ -1,6 +1,6 @@
 # Hướng dẫn Khảo sát Thực địa UIT (Cầm tay khi ra trường)
 
-Mục tiêu: Thu thập & kiểm chứng đúng các phần còn thiếu/chưa chắc chắn sau khi đã đối chiếu với dữ liệu OpenStreetMap (`dataset/processed/osm_uit_preview.png`).
+Mục tiêu: Thu thập & kiểm chứng đúng các phần còn thiếu/chưa chắc chắn sau khi đã đối chiếu với dữ liệu OpenStreetMap.
 
 ---
 
@@ -12,7 +12,7 @@ Mục tiêu: Thu thập & kiểm chứng đúng các phần còn thiếu/chưa c
    - `way 490935521` (OSM ghi 2 tầng, phía Đông-Nam, giữa Căn tin và Cổng B).
    - `way 490935520` (ngay sát Cổng B).
    - `way 1459032884` (khối nhỏ 56 m² sát cánh Tây Tòa A).
-5. **Hướng bản đồ:** Sơ đồ minh họa `so_do_tong_mat_bang_UIT.png` bị xoay/đảo vị trí tương đối so với thực tế Bắc-Nam; khi làm GIS sẽ bám theo tọa độ thật (`osm_uit_preview.png`).
+5. **Hướng bản đồ:** Sơ đồ minh họa `so_do_tong_mat_bang_UIT.png` bị xoay/đảo vị trí tương đối so với thực tế Bắc-Nam; khi làm GIS sẽ bám theo tọa độ thật (OSM).
 
 ---
 

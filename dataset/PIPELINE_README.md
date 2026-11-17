@@ -6,7 +6,6 @@ Thư mục này chứa cả dữ liệu thô ban đầu lẫn các lớp dữ li
 1. `02_buildings/osm_raw/`, `04_poi/osm_raw/`, `05_paths/osm_raw/`: Dữ liệu OpenStreetMap quanh khu vực ĐHQG (kéo qua `scripts/fetch_uit_osm.py`).
 2. `processed/`:
    - `uit_campus_boundary.geojson`, `uit_buildings_osm_filtered.geojson`, `uit_poi_osm_filtered.geojson`, `uit_paths_osm_filtered.geojson`: Các lớp OSM đã lọc đúng trong ranh giới UIT (`scripts/filter_uit_osm.py`).
-   - `osm_uit_preview.png`: Ảnh trực quan đối chiếu ranh giới, tòa nhà, lối đi và các điểm cửa OSM của UIT.
    - `rooms_normalized.csv`, `toa_C_indoor_grid.csv`, `data_quality_report.md`: Kết quả chuẩn hóa 171 phòng học + 67 khối lưới Tòa C (`scripts/normalize_uit_rooms.py`).
    - `uit_buildings_draft.geojson`, `rooms_C_3d.geojson`, `floors_C_3d.geojson`, `indoor_paths_C_3d.geojson`: Bản nháp thử nghiệm pipeline (Tòa C đang dựng tạm từ 3 điểm cửa OSM, chờ số liệu thực địa để chốt chính xác).
 3. `field_survey/`:

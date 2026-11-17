@@ -6,6 +6,7 @@
 # Python
 __pycache__/
 *.pyc
+.pytest_cache/
 venv/
 .venv/
 
@@ -13,7 +14,9 @@ venv/
 *.dump
 *.backup
 
-# OS / editor
+# OS / editor / log
+*.log
+*.tmp
 Thumbs.db
 .DS_Store
 .vscode/
