@@ -114,3 +114,22 @@ def test_route_unknown_room_and_missing_param():
         params={"start_lng": 106.8020546, "end_room_code": "A305"},
     )
     assert res_422.status_code == 422
+
+
+def test_nearby_includes_wc_rooms():
+    res = client.get("/api/amenities/nearby", params={"lat": 10.8701, "lng": 106.8030, "radius": 300, "category": "WC"})
+    assert res.status_code == 200
+    feats = res.json()["features"]
+    assert len(feats) >= 1
+    assert all(f["properties"]["category"] == "WC" and f["properties"]["room_code"] for f in feats)
+    distances = [f["properties"]["distance_m"] for f in feats]
+    assert distances == sorted(distances)
+
+
+def test_route_reaches_room_flag():
+    a = client.get("/api/route", params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "A305"}).json()
+    assert a["reaches_room"] is True
+    # Tòa C chưa có đồ thị trong nhà: tuyến dừng ở lối vào, không được lên tầng của Tòa A
+    c = client.get("/api/route", params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "C312"}).json()
+    assert c["reaches_room"] is False
+    assert c["floors"] == [1]

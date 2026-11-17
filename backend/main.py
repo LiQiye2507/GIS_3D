@@ -101,20 +101,33 @@ def amenities_nearby(
     lat: float = Query(..., ge=-90, le=90),
     lng: float = Query(..., ge=-180, le=180),
     radius: float = Query(..., ge=50, le=500),
-    category: Literal["Canteen", "ATM", "Water", "Parking", "Medical", "FireSafety"] | None = None,
+    category: Literal["Canteen", "ATM", "Water", "Parking", "Medical", "FireSafety", "WC", "Library"] | None = None,
 ):
+    # WC và Thư viện được lưu là phòng (rooms.room_type) nên lấy tâm phòng làm điểm tiện ích
     sql = """
-        SELECT a.name, a.category, a.building_id, a.floor_number, a.elevation_z,
-               a.open_hours, a.status,
-               round(ST_Distance(a.geom::geography, p.pt::geography)::numeric, 1)::double precision AS distance_m,
-               ST_AsGeoJSON(a.geom)::json AS geometry
-        FROM amenities a
+        WITH items AS (
+            SELECT a.name, a.category, b.building_code, a.floor_number, a.elevation_z,
+                   a.open_hours, a.status, NULL::text AS room_code, a.geom
+            FROM amenities a
+            LEFT JOIN buildings b ON b.id = a.building_id
+            UNION ALL
+            SELECT r.room_name, r.room_type, b.building_code, r.floor_number, r.base_height,
+                   NULL, NULL, r.room_code, ST_Centroid(r.geom)
+            FROM rooms r
+            JOIN buildings b ON b.id = r.building_id
+            WHERE r.room_type IN ('WC', 'Library')
+        )
+        SELECT i.name, i.category, i.building_code, i.floor_number, i.elevation_z,
+               i.open_hours, i.status, i.room_code,
+               round(ST_Distance(i.geom::geography, p.pt::geography)::numeric, 1)::double precision AS distance_m,
+               ST_AsGeoJSON(i.geom)::json AS geometry
+        FROM items i
         CROSS JOIN (SELECT ST_SetSRID(ST_MakePoint(%s, %s), 4326) AS pt) p
-        WHERE ST_DWithin(a.geom::geography, p.pt::geography, %s)
+        WHERE ST_DWithin(i.geom::geography, p.pt::geography, %s)
     """
     params: list = [lng, lat, radius]
     if category is not None:
-        sql += " AND a.category = %s"
+        sql += " AND i.category = %s"
         params.append(category)
     sql += " ORDER BY distance_m"
     return to_fc(fetch_all(sql, tuple(params)))
@@ -151,14 +164,19 @@ def route_to_room(
             LIMIT 1
         ),
         end_v AS (
-            SELECT n.node_id
+            -- Ưu tiên đỉnh cùng tầng trong bán kính 40 m quanh phòng; tòa chưa có đồ thị trong nhà
+            -- (vd. Tòa C) thì dừng ở đỉnh tầng 1 gần nhất (lối vào)
+            SELECT n.node_id,
+                   (n.floor_num = r.floor_number
+                    AND ST_DWithin(n.pt::geography, ST_Centroid(r.geom)::geography, 40)) AS exact
             FROM nodes n
             JOIN rooms r ON r.room_code = %s
-            WHERE n.floor_num = r.floor_number
-            ORDER BY ST_Distance(n.pt::geography, ST_Centroid(r.geom)::geography)
+            WHERE n.floor_num = r.floor_number OR n.floor_num = 1
+            ORDER BY exact DESC, n.floor_num = 1 DESC,
+                     ST_Distance(n.pt::geography, ST_Centroid(r.geom)::geography)
             LIMIT 1
         )
-        SELECT d.seq, cp.path_type, cp.floor_from, cp.floor_to, cp.length_m,
+        SELECT d.seq, cp.path_type, cp.floor_from, cp.floor_to, cp.length_m, ev.exact,
                ST_AsGeoJSON(cp.geom)::json AS geometry
         FROM start_v sv, end_v ev,
              pgr_dijkstra(
@@ -176,7 +194,11 @@ def route_to_room(
     if not rows:
         raise HTTPException(status_code=404, detail="Không tìm thấy đường đi")
 
+    reaches_room = bool(rows[0]["exact"])
+    for r in rows:
+        del r["exact"]
     fc = to_fc(rows)
+    fc["reaches_room"] = reaches_room
     fc["total_length_m"] = round(sum(r["length_m"] for r in rows), 1)
     fc["floors"] = sorted({fl for r in rows for fl in (r["floor_from"], r["floor_to"])})
     fc["room_code"] = room[0]["room_code"]
