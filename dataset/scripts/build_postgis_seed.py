@@ -50,7 +50,6 @@ def main() -> None:
     ap.add_argument("--buildings", default="", help="GeoJSON toa nha da gan building_code & total_floors")
     ap.add_argument("--rooms", default=os.path.join(base, "processed", "rooms_C_3d.geojson"))
     ap.add_argument("--floors", default=os.path.join(base, "processed", "floors_C_3d.geojson"))
-    ap.add_argument("--indoor-paths", default=os.path.join(base, "processed", "indoor_paths_C_3d.geojson"))
     ap.add_argument("--outdoor-paths", default="", help="GeoJSON loi di bo ngoai troi (optional)")
     ap.add_argument("--amenities", default="", help="GeoJSON tien ich (final/amenities.geojson)")
     ap.add_argument("--only-building", default="", help="Chi xuat floors/rooms cua toa nay (kem lenh xoa du lieu cu)")
@@ -154,8 +153,8 @@ def main() -> None:
 
     # 5. Campus Paths
     outdoor_feats = [(feat, 0.0) for feat in load_geojson(args.outdoor_paths)]
-    indoor_feats = [(feat, 0.2) for feat in load_geojson(args.indoor_paths)]
-    path_feats = outdoor_feats + indoor_feats
+    # hành lang/cầu thang trong nhà do database/04_campus_graph.sql sinh, không nạp ở đây
+    path_feats = outdoor_feats
     if path_feats:
         lines.append("-- 5. Campus Paths (3D Walkways / Corridors / Stairs)")
         for feat, def_z in path_feats:
