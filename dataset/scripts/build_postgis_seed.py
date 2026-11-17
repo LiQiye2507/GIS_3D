@@ -89,17 +89,9 @@ def main() -> None:
             total_floors = "NULL" if total_floors is None else int(total_floors)
             base_elev = float(p.get("base_elevation") or 0.0)
             height_m = "NULL" if p.get("height_m") is None else float(p["height_m"])
-            if code == "A":
-                glb_url = p.get("glb_model_url") or "/models/building_a.glb"
-                outer = feat["geometry"]["coordinates"][0]
-                anchor_lng = min(pt[0] for pt in outer)
-                anchor_lat = min(pt[1] for pt in outer)
-                model_rotation = 0
-            else:
-                glb_url = None
-                anchor_lng = "NULL"
-                anchor_lat = "NULL"
-                model_rotation = "NULL"
+            # Toàn trường dùng chung mô hình frontend/models/campus.glb nên không gắn glb riêng cho từng tòa
+            glb_url = p.get("glb_model_url")
+            anchor_lng = anchor_lat = model_rotation = "NULL"
             desc = p.get("description") or p.get("notes") or ""
             wkt = ring_to_wkt_polygon(feat["geometry"]["coordinates"])
             lines.append(

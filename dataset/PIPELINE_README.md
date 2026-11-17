@@ -8,7 +8,7 @@ Thư mục này chứa cả dữ liệu thô ban đầu lẫn các lớp dữ li
    - `uit_campus_boundary.geojson`, `uit_buildings_osm_filtered.geojson`, `uit_poi_osm_filtered.geojson`, `uit_paths_osm_filtered.geojson`: Các lớp OSM đã lọc đúng trong ranh giới UIT (`scripts/filter_uit_osm.py`).
    - `osm_uit_preview.png`: Ảnh trực quan đối chiếu ranh giới, tòa nhà, lối đi và các điểm cửa OSM của UIT.
    - `rooms_normalized.csv`, `toa_C_indoor_grid.csv`, `data_quality_report.md`: Kết quả chuẩn hóa 171 phòng học + 67 khối lưới Tòa C (`scripts/normalize_uit_rooms.py`).
-   - `uit_buildings_draft.geojson`, `rooms_C_3d.geojson`, `floors_C_3d.geojson`, `indoor_paths_C_3d.geojson`, `seed_uit_draft_preview.sql`: Bản nháp thử nghiệm pipeline (Tòa C đang dựng tạm từ 3 điểm cửa OSM, chờ số liệu thực địa để chốt chính xác).
+   - `uit_buildings_draft.geojson`, `rooms_C_3d.geojson`, `floors_C_3d.geojson`, `indoor_paths_C_3d.geojson`: Bản nháp thử nghiệm pipeline (Tòa C đang dựng tạm từ 3 điểm cửa OSM, chờ số liệu thực địa để chốt chính xác).
 3. `field_survey/`:
    - `FIELD_SURVEY_GUIDE.md`: Hướng dẫn kiểm chứng & thu thập thực địa tại UIT.
    - `survey_buildings_template.csv`: Bảng kiểm chứng số tầng, chiều cao và 3 khối OSM chưa rõ tên.

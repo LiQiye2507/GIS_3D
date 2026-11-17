@@ -21,7 +21,7 @@ def test_buildings_collection():
         None,
     )
     assert toa_a is not None
-    assert toa_a["properties"]["anchor_lng"] is not None
+    assert toa_a["properties"]["total_floors"] == 3
 
 
 def test_rooms_floor_3_heights():
