@@ -1,5 +1,5 @@
 // Góc nhìn camera: tổng quan, chọn tòa nhà, tự xoay
-import { BASE_PADDING, DEFAULT_PITCH, OVERVIEW_ZOOM, SHEET_PADDING, SPIN_OVERVIEW, SPIN_SELECTED, prefersReducedMotion } from './config.js';
+import { BASE_PADDING, DEFAULT_PITCH, OVERVIEW_ZOOM, SHEET_PADDING, SPIN_DEG_PER_SEC, prefersReducedMotion } from './config.js';
 import { state } from './state.js';
 import { getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
@@ -22,8 +22,8 @@ export function overviewCamera() {
   };
 }
 
-export function startSpin(degPerSec) {
-  spinRate = degPerSec;
+export function startSpin() {
+  spinRate = SPIN_DEG_PER_SEC;
   spinLast = performance.now();
   if (spinRafId || prefersReducedMotion) return;
   const tick = (now) => {
@@ -32,7 +32,8 @@ export function startSpin(degPerSec) {
       return;
     }
     if (!map.isMoving()) {
-      map.setBearing(map.getBearing() + (spinRate * Math.min(now - spinLast, 100)) / 1000);
+      // bearing giảm = cảnh quay cùng chiều kim đồng hồ
+      map.setBearing(map.getBearing() - (spinRate * Math.min(now - spinLast, 100)) / 1000);
     }
     spinLast = now;
     spinRafId = requestAnimationFrame(tick);
@@ -96,7 +97,7 @@ map.on('movestart', (e) => {
 map.on('moveend', (e) => {
   if (!e.originalEvent) return;
   clearTimeout(idleTimer);
-  idleTimer = setTimeout(() => startSpin(state.selectedBuildingIndex >= 0 ? SPIN_SELECTED : SPIN_OVERVIEW), 6000);
+  idleTimer = setTimeout(() => startSpin(), 6000);
 });
 
 // Camera bàn xoay: kéo chuột trái = xoay ngang 360° + nghiêng 0–85° quanh tâm màn hình, kéo chuột phải = di chuyển.
@@ -157,7 +158,7 @@ document.getElementById('btn-reset-view').addEventListener('click', () => {
     return;
   }
   map.easeTo({ ...overviewCamera(), duration: 1600 });
-  map.once('moveend', () => startSpin(SPIN_OVERVIEW));
+  map.once('moveend', () => startSpin());
 });
 
 document.getElementById('btn-fullscreen').addEventListener('click', () => {

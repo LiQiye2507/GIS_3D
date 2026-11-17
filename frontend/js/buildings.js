@@ -1,5 +1,5 @@
 // Danh sách tòa nhà, bảng chi tiết, nhãn trên nóc
-import { LIGHTING_CONFIG, SPIN_OVERVIEW, SPIN_SELECTED } from './config.js';
+import { LIGHTING_CONFIG } from './config.js';
 import { state } from './state.js';
 import { bpCloseEl, bpDescEl, bpFloorPillsEl, bpFloorsEl, bpIndexEl, bpIndoorBoxEl, bpNameEl, bpNextEl, bpNextNameEl, bpPrevEl, bpPrevNameEl, bpSpecsEl, bpViewIndoorEl, btnPlacesCloseEl, btnPlacesToggleEl, btnResetViewEl, buildingPanelEl, buildingsListEl, colophonEl, hudBottomLeftEl, hudTopLeftEl, placesCountEl, placesPanelEl, placesSummaryEl, placesTitleEl, searchInputEl, searchResultsEl, tourCardEl, tourWrapEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
@@ -131,7 +131,7 @@ export function closeBuildingPanel() {
   updateBuildingWallColors();
   updateBuildingMarker();
   map.easeTo({ ...overviewCamera(), duration: 1600 });
-  map.once('moveend', () => startSpin(SPIN_OVERVIEW));
+  map.once('moveend', () => startSpin());
 }
 
 export function selectBuildingByIndex(idx) {
@@ -208,7 +208,7 @@ export function selectBuildingByIndex(idx) {
   stopSpin();
   map.easeTo({ ...focusCamera(feat), duration: 1700 });
   map.once('moveend', () => {
-    if (state.selectedBuildingIndex === normIdx) startSpin(SPIN_SELECTED);
+    if (state.selectedBuildingIndex === normIdx) startSpin();
   });
 }
 

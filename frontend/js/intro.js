@@ -1,5 +1,5 @@
 // Màn hình mở đầu và thanh tiến độ tải
-import { SPIN_OVERVIEW, prefersReducedMotion } from './config.js';
+import { prefersReducedMotion } from './config.js';
 import { btnSkipIntroEl, introCounterEl, introEl, introFillEl } from './dom.js';
 import { campus, map } from './map.js';
 import { overviewCamera, startSpin } from './camera.js';
@@ -28,7 +28,7 @@ export function closeIntro(immediate = false) {
   map.jumpTo({ ...target, zoom: target.zoom - 0.55, pitch: 18, bearing: target.bearing - 52 });
   campus.playIntro(3000);
   map.easeTo({ ...target, duration: 3000, easing: (t) => 1 - Math.pow(1 - t, 3) });
-  map.once('moveend', () => startSpin(SPIN_OVERVIEW));
+  map.once('moveend', () => startSpin());
 }
 
 function tickIntro() {
