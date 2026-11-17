@@ -99,6 +99,57 @@ map.on('moveend', (e) => {
   idleTimer = setTimeout(() => startSpin(state.selectedBuildingIndex >= 0 ? SPIN_SELECTED : SPIN_OVERVIEW), 6000);
 });
 
+// Camera bàn xoay: kéo chuột trái = xoay ngang 360° + nghiêng 0–85° quanh tâm màn hình, kéo chuột phải = di chuyển.
+// Chặn mousedown trên canvas trước khi tới MapLibre (vốn kéo trái = di chuyển, kéo phải = xoay); cảm ứng giữ mặc định.
+const ORBIT_DEG_PER_PX = 0.4;
+const TILT_DEG_PER_PX = 0.3;
+const CLICK_TOLERANCE_PX = 3;
+let drag = null;
+let swallowClick = false;
+const mapEl = map.getContainer();
+const canvasEl = map.getCanvas();
+
+mapEl.addEventListener('mousedown', (e) => {
+  swallowClick = false;
+  if (e.target !== canvasEl || (e.button !== 0 && e.button !== 2)) return;
+  e.stopPropagation();
+  drag = { pan: e.button === 2, x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY, moved: false };
+}, true);
+
+window.addEventListener('mousemove', (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  const dy = e.clientY - drag.y;
+  drag.x = e.clientX;
+  drag.y = e.clientY;
+  if (!drag.moved) {
+    if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < CLICK_TOLERANCE_PX) return;
+    drag.moved = true;
+    canvasEl.style.cursor = 'grabbing';
+  }
+  if (drag.pan) map.panBy([-dx, -dy], { duration: 0 }, { originalEvent: e });
+  else map.jumpTo({ bearing: map.getBearing() - dx * ORBIT_DEG_PER_PX, pitch: map.getPitch() - dy * TILT_DEG_PER_PX }, { originalEvent: e });
+});
+
+window.addEventListener('mouseup', () => {
+  if (!drag) return;
+  if (drag.moved) {
+    swallowClick = true; // kéo xong thì không tính là nhấp chọn tòa
+    canvasEl.style.cursor = '';
+  }
+  drag = null;
+});
+
+mapEl.addEventListener('click', (e) => {
+  if (!swallowClick) return;
+  swallowClick = false;
+  e.stopPropagation();
+}, true);
+
+mapEl.addEventListener('contextmenu', (e) => {
+  if (e.target === canvasEl) e.preventDefault();
+});
+
 document.getElementById('btn-reset-view').addEventListener('click', () => {
   stopSpin();
   if (state.selectedBuildingIndex >= 0) {
