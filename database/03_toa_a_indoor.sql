@@ -1,265 +1,101 @@
--- Nguồn dữ liệu: footprint Tòa A (OSM) và danh sách phòng Tòa A (dataset/field_survey/survey_floorplans_template.csv)
--- TODO: kiểm chứng thực địa (vị trí phòng giả lập theo dải quanh chu vi)
+-- File SQL duoc sinh tu dong tu dataset UIT da chuan hoa (EPSG:4326)
+-- Nguon: dataset/processed/final/ (dataset/scripts/merge_dataset.py). Khong sua tay.
 
 DELETE FROM rooms WHERE building_id = (SELECT id FROM buildings WHERE building_code = 'A');
 DELETE FROM floors WHERE building_id = (SELECT id FROM buildings WHERE building_code = 'A');
 
--- 1. Chèn 3 mặt sàn tầng 1-3 Tòa A (cao độ trần: base_height + 3.5 m)
-WITH bld AS (
-    SELECT id AS building_id, ST_Transform(geom, 32648) AS fp
-    FROM buildings
-    WHERE building_code = 'A'
-),
-outer_floor AS (
-    SELECT
-        b.building_id,
-        ST_Force2D(ST_Transform(o.geom, 4326)) AS geom
-    FROM bld b
-    CROSS JOIN LATERAL (
-        SELECT d.geom
-        FROM ST_Dump(ST_CollectionExtract(ST_MakeValid(ST_Buffer(b.fp, -0.5)), 3)) AS d
-        ORDER BY ST_Area(d.geom) DESC
-        LIMIT 1
-    ) o
-)
-INSERT INTO floors (building_id, floor_number, base_height, ceiling_height, geom)
-SELECT
-    f.building_id,
-    gs AS floor_number,
-    (gs - 1) * 3.8 AS base_height,
-    (gs - 1) * 3.8 + 3.5 AS ceiling_height,
-    f.geom
-FROM outer_floor f
-CROSS JOIN generate_series(1, 3) AS gs;
+-- 2. Floors
+INSERT INTO floors (building_id, floor_number, base_height, ceiling_height, geom) VALUES ((SELECT id FROM buildings WHERE building_code = 'A'), 1, 0.0, 3.5, ST_GeomFromText('POLYGON((106.80280192 10.86998368, 106.80287053 10.8699882, 106.80290254 10.87001986, 106.80294828 10.87002438, 106.80305805 10.8700289, 106.80308549 10.87000629, 106.80315867 10.87001081, 106.80321584 10.8700809, 106.80321126 10.87014873, 106.80317925 10.87017586, 106.8031701 10.87028439, 106.8031701 10.87033413, 106.80319297 10.87035673, 106.80318839 10.87042908, 106.80308777 10.870515, 106.80312208 10.87056248, 106.80315867 10.87056248, 106.80320212 10.87061448, 106.80319754 10.87066422, 106.80317467 10.87069587, 106.8031701 10.87077727, 106.80320669 10.87082701, 106.80314037 10.87088353, 106.80310378 10.87091066, 106.80306262 10.87086544, 106.802962 10.87086092, 106.80294828 10.87087449, 106.80290712 10.87087449, 106.8028934 10.87086997, 106.80285452 10.87082249, 106.80285909 10.87077275, 106.80287739 10.87075466, 106.80288196 10.87073205, 106.80288654 10.8706597, 106.80284537 10.87060996, 106.80291398 10.87055117, 106.80283851 10.870463, 106.80276533 10.870463, 106.80270359 10.87039291, 106.80270816 10.87032508, 106.80274018 10.87029795, 106.80274475 10.8702663, 106.8027539 10.87014421, 106.80272646 10.87011255, 106.80273103 10.87004473, 106.80280192 10.86998368))', 4326));
+INSERT INTO floors (building_id, floor_number, base_height, ceiling_height, geom) VALUES ((SELECT id FROM buildings WHERE building_code = 'A'), 2, 3.8, 7.3, ST_GeomFromText('POLYGON((106.80280192 10.86998368, 106.80287053 10.8699882, 106.80290254 10.87001986, 106.80294828 10.87002438, 106.80305805 10.8700289, 106.80308549 10.87000629, 106.80315867 10.87001081, 106.80321584 10.8700809, 106.80321126 10.87014873, 106.80317925 10.87017586, 106.8031701 10.87028439, 106.8031701 10.87033413, 106.80319297 10.87035673, 106.80318839 10.87042908, 106.80308777 10.870515, 106.80312208 10.87056248, 106.80315867 10.87056248, 106.80320212 10.87061448, 106.80319754 10.87066422, 106.80317467 10.87069587, 106.8031701 10.87077727, 106.80320669 10.87082701, 106.80314037 10.87088353, 106.80310378 10.87091066, 106.80306262 10.87086544, 106.802962 10.87086092, 106.80294828 10.87087449, 106.80290712 10.87087449, 106.8028934 10.87086997, 106.80285452 10.87082249, 106.80285909 10.87077275, 106.80287739 10.87075466, 106.80288196 10.87073205, 106.80288654 10.8706597, 106.80284537 10.87060996, 106.80291398 10.87055117, 106.80283851 10.870463, 106.80276533 10.870463, 106.80270359 10.87039291, 106.80270816 10.87032508, 106.80274018 10.87029795, 106.80274475 10.8702663, 106.8027539 10.87014421, 106.80272646 10.87011255, 106.80273103 10.87004473, 106.80280192 10.86998368))', 4326));
+INSERT INTO floors (building_id, floor_number, base_height, ceiling_height, geom) VALUES ((SELECT id FROM buildings WHERE building_code = 'A'), 3, 7.6, 11.1, ST_GeomFromText('POLYGON((106.80280192 10.86998368, 106.80287053 10.8699882, 106.80290254 10.87001986, 106.80294828 10.87002438, 106.80305805 10.8700289, 106.80308549 10.87000629, 106.80315867 10.87001081, 106.80321126 10.87007186, 106.80321126 10.87014873, 106.80317925 10.87017586, 106.8031701 10.87028439, 106.8031701 10.87033413, 106.80319297 10.87035673, 106.80318839 10.87042908, 106.80311293 10.87049465, 106.80308549 10.87049465, 106.80307634 10.87049465, 106.8030306 10.87044039, 106.80301231 10.87043587, 106.80285681 10.87042682, 106.8028408 10.87044265, 106.80284995 10.87045622, 106.80283394 10.87046752, 106.80276533 10.870463, 106.80270359 10.87039291, 106.80270816 10.87032508, 106.80274018 10.87029795, 106.80274475 10.8702663, 106.8027539 10.87014421, 106.80272646 10.87011255, 106.80273103 10.87004473, 106.80280192 10.86998368))', 4326));
 
--- 2. Chèn các phòng, hành lang, cầu thang và khối giữa Tòa A tầng 1-3
-WITH bld AS (
-    SELECT id AS building_id, ST_Transform(geom, 32648) AS fp
-    FROM buildings
-    WHERE building_code = 'A'
-),
-zones AS (
-    SELECT
-        b.building_id,
-        ST_X(ST_Centroid(b.fp)) AS cx,
-        ST_Y(ST_Centroid(b.fp)) AS cy,
-        ST_Difference(o.geom, ST_Buffer(b.fp, -8.0)) AS room_band,
-        c.geom AS corridor_poly,
-        ctr.geom AS center_poly
-    FROM bld b
-    CROSS JOIN LATERAL (
-        SELECT d.geom
-        FROM ST_Dump(ST_CollectionExtract(ST_MakeValid(ST_Buffer(b.fp, -0.5)), 3)) AS d
-        ORDER BY ST_Area(d.geom) DESC
-        LIMIT 1
-    ) o
-    CROSS JOIN LATERAL (
-        SELECT d.geom
-        FROM ST_Dump(ST_CollectionExtract(ST_MakeValid(ST_Difference(ST_Buffer(b.fp, -8.0), ST_Buffer(b.fp, -10.5))), 3)) AS d
-        ORDER BY ST_Area(d.geom) DESC
-        LIMIT 1
-    ) c
-    CROSS JOIN LATERAL (
-        SELECT d.geom
-        FROM ST_Dump(ST_CollectionExtract(ST_MakeValid(ST_Buffer(b.fp, -10.5)), 3)) AS d
-        ORDER BY ST_Area(d.geom) DESC
-        LIMIT 1
-    ) ctr
-),
-survey_rooms AS (
-    SELECT
-        ROW_NUMBER() OVER () AS seq,
-        v.room_code,
-        COALESCE(NULLIF(v.room_name, ''), 'Phòng ' || v.room_code) AS room_name,
-        v.room_type,
-        v.floor_number,
-        v.capacity
-    FROM (VALUES
-        -- Tầng 1
-        ('A.101', 'Phòng Công tác sinh viên', 'Office', 1, NULL::int),
-        ('A.102', 'Phòng Đào tạo Đại học chính quy', 'Office', 1, NULL::int),
-        ('A.103', 'Phòng Y tế', 'Office', 1, NULL::int),
-        ('A.104', 'Phòng Đào tạo Đại học từ xa', 'Office', 1, NULL::int),
-        ('A.105', 'Phòng Tổ chức - Hành chính', 'Office', 1, NULL::int),
-        ('A.106', 'Phòng học chương trình tiên tiến', 'Theory', 1, NULL::int),
-        ('A.107', 'Phòng Tổ chức - Hành chính', 'Office', 1, NULL::int),
-        ('A.108', 'Phòng Quản trị thiết bị', 'Office', 1, NULL::int),
-        ('A.109', 'Phòng Phó hiệu trưởng', 'Office', 1, NULL::int),
-        ('A.110', 'Phòng Thí nghiệm Hệ thống thông tin', 'Lab', 1, NULL::int),
-        ('A.111', 'Phòng Kế hoạch - Tài chính', 'Office', 1, NULL::int),
-        ('A.112', 'Phòng họp', 'Office', 1, NULL::int),
-        ('A.113', 'Phòng Kế hoạch - Tài chính', 'Office', 1, NULL::int),
-        ('A.114', 'Phòng họp', 'Office', 1, NULL::int),
-        ('A.115', 'Phòng Hiệu trưởng', 'Office', 1, NULL::int),
-        ('A.116', 'Phòng Thí nghiệm truyền thông Đa phương tiện', 'Lab', 1, NULL::int),
-        ('A.117', 'Phòng Phó hiệu trưởng', 'Office', 1, NULL::int),
-        ('A.118', 'Phòng Thanh tra - Pháp chế - Đảm bảo chất lượng', 'Office', 1, NULL::int),
-        ('A.119', 'Phòng Phó hiệu trưởng', 'Office', 1, NULL::int),
-        ('A.120', 'Phòng máy Chương trình tiên tiến', 'Lab', 1, NULL::int),
-        ('A.121', NULL, 'Office', 1, NULL::int),
-        ('A.123', NULL, 'Office', 1, NULL::int),
-        ('A.125', NULL, 'Office', 1, NULL::int),
-        ('A.127', NULL, 'Office', 1, NULL::int),
-        ('A.181', NULL, 'Office', 1, NULL::int),
-        ('A.182', NULL, 'Office', 1, NULL::int),
-        ('A.183', NULL, 'Office', 1, NULL::int),
-        ('A.184', NULL, 'Office', 1, NULL::int),
-        ('A.1A2', NULL, 'Office', 1, NULL::int),
-        ('A.1A4', NULL, 'Office', 1, NULL::int),
-        ('A.1A6', NULL, 'Office', 1, NULL::int),
-        ('A.1A8', NULL, 'Office', 1, NULL::int),
-        ('A.TV', 'Thư viện UIT', 'Library', 1, NULL::int),
-        -- Tầng 2
-        ('A.201', 'Phòng trưởng phòng Công tác sinh viên', 'Office', 2, NULL::int),
-        ('A.203', 'Phòng trưởng phòng Dữ liệu & CNTT', 'Office', 2, NULL::int),
-        ('A.205', 'Phòng thực hành Vật lý', 'Lab', 2, NULL::int),
-        ('A.207', 'Phòng Dữ liệu & CNTT', 'Office', 2, NULL::int),
-        ('A.209', 'Trung tâm Công nghệ Đào tạo trực tuyến', 'Office', 2, NULL::int),
-        ('A.211', 'Văn phòng Công đoàn', 'Office', 2, NULL::int),
-        ('A.213', 'Phòng thực hành khoa Kỹ thuật máy tính', 'Lab', 2, NULL::int),
-        ('A.215', 'Phòng Dữ liệu & CNTT', 'Office', 2, NULL::int),
-        ('A.TV2', 'Thư viện UIT', 'Library', 2, NULL::int),
-        -- Tầng 3
-        ('A.301', 'Phòng học A.301', 'Theory', 3, 30),
-        ('A.303', 'Phòng học A.303', 'Theory', 3, NULL::int),
-        ('A.305', 'Phòng học A.305', 'Theory', 3, 30),
-        ('A.307', 'Phòng học A.307', 'Theory', 3, 30),
-        ('A.309', 'Phòng học A.309', 'Theory', 3, 30),
-        ('A.311', 'Phòng học A.311', 'Theory', 3, 25),
-        ('A.313', 'Phòng học A.313', 'Theory', 3, NULL::int),
-        ('A.315', 'Phòng học A.315', 'Theory', 3, 50),
-        ('A.317', 'Phòng học A.317', 'Theory', 3, NULL::int),
-        ('A.319', 'Phòng học A.319', 'Theory', 3, NULL::int),
-        ('A.321', 'Phòng học A.321', 'Theory', 3, NULL::int),
-        ('A.323', 'Phòng học A.323', 'Theory', 3, 30),
-        ('A.325', 'Phòng học A.325', 'Theory', 3, 48),
-        ('A.HT', 'Hội trường Tòa A', 'Theory', 3, 300)
-    ) AS v(room_code, room_name, room_type, floor_number, capacity)
-),
-perim_indexed AS (
-    SELECT
-        room_code,
-        room_name,
-        room_type,
-        floor_number,
-        capacity,
-        ROW_NUMBER() OVER (PARTITION BY floor_number ORDER BY seq) AS idx,
-        COUNT(*) OVER (PARTITION BY floor_number) AS n,
-        CEIL(COUNT(*) OVER (PARTITION BY floor_number) / 2.0)::int AS half
-    FROM survey_rooms
-    WHERE room_code NOT IN ('A.TV', 'A.TV2', 'A.HT')
-),
-sector_specs AS (
-    SELECT
-        room_code,
-        room_name,
-        room_type,
-        floor_number,
-        capacity,
-        CASE
-            WHEN idx <= half THEN 8.0 + (180.0 - 8.0) * (idx - 1) / half
-            ELSE 188.0 + (360.0 - 188.0) * (idx - half - 1) / (n - half)
-        END AS a1,
-        CASE
-            WHEN idx <= half THEN 8.0 + (180.0 - 8.0) * idx / half
-            ELSE 188.0 + (360.0 - 188.0) * (idx - half) / (n - half)
-        END AS a2
-    FROM perim_indexed
-    UNION ALL
-    SELECT
-        'A.CT1-' || f,
-        'Cầu thang 1 tầng ' || f,
-        'Stairs',
-        f,
-        NULL::int,
-        0.0,
-        8.0
-    FROM generate_series(1, 3) AS f
-    UNION ALL
-    SELECT
-        'A.CT2-' || f,
-        'Cầu thang 2 tầng ' || f,
-        'Stairs',
-        f,
-        NULL::int,
-        180.0,
-        188.0
-    FROM generate_series(1, 3) AS f
-),
-sector_rooms AS (
-    SELECT
-        s.room_code,
-        s.room_name,
-        s.room_type,
-        z.building_id,
-        s.floor_number,
-        s.capacity,
-        (s.floor_number - 1) * 3.8 AS base_height,
-        (s.floor_number - 1) * 3.8 + 3.5 AS extrude_height,
-        ST_Force2D(ST_Transform(clipped.geom, 4326)) AS geom
-    FROM sector_specs s
-    CROSS JOIN zones z
-    CROSS JOIN LATERAL (
-        SELECT ST_SetSRID(
-            ST_MakePolygon(
-                ST_MakeLine(
-                    ARRAY[ST_MakePoint(z.cx, z.cy)]
-                    || ARRAY(
-                        SELECT ST_MakePoint(
-                            z.cx + 200.0 * sin(radians(s.a1 + (s.a2 - s.a1) * g / k.steps)),
-                            z.cy + 200.0 * cos(radians(s.a1 + (s.a2 - s.a1) * g / k.steps))
-                        )
-                        FROM LATERAL (SELECT GREATEST(4, CEIL((s.a2 - s.a1) / 2.0)::int) AS steps) k
-                        CROSS JOIN generate_series(0, k.steps) AS g
-                    )
-                    || ARRAY[ST_MakePoint(z.cx, z.cy)]
-                )
-            ),
-            32648
-        ) AS sector_geom
-    ) sec
-    CROSS JOIN LATERAL (
-        SELECT d.geom
-        FROM ST_Dump(ST_CollectionExtract(ST_MakeValid(ST_Intersection(z.room_band, sec.sector_geom)), 3)) AS d
-        ORDER BY ST_Area(d.geom) DESC
-        LIMIT 1
-    ) clipped
-),
-center_rooms AS (
-    SELECT
-        sr.room_code,
-        sr.room_name,
-        sr.room_type,
-        z.building_id,
-        sr.floor_number,
-        sr.capacity,
-        (sr.floor_number - 1) * 3.8 AS base_height,
-        (sr.floor_number - 1) * 3.8 + 3.5 AS extrude_height,
-        ST_Force2D(ST_Transform(z.center_poly, 4326)) AS geom
-    FROM survey_rooms sr
-    CROSS JOIN zones z
-    WHERE sr.room_code IN ('A.TV', 'A.TV2', 'A.HT')
-),
-corridor_rooms AS (
-    SELECT
-        'A.HL' || f AS room_code,
-        'Hành lang tầng ' || f AS room_name,
-        'Corridor' AS room_type,
-        z.building_id,
-        f AS floor_number,
-        NULL::int AS capacity,
-        (f - 1) * 3.8 AS base_height,
-        (f - 1) * 3.8 + 0.2 AS extrude_height,
-        ST_Force2D(ST_Transform(z.corridor_poly, 4326)) AS geom
-    FROM generate_series(1, 3) AS f
-    CROSS JOIN zones z
-)
-INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, geom)
-SELECT room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, geom
-FROM (
-    SELECT * FROM sector_rooms
-    UNION ALL
-    SELECT * FROM center_rooms
-    UNION ALL
-    SELECT * FROM corridor_rooms
-) all_rooms;
+-- 3. Rooms (LOD 3 Indoor)
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.HL1', 'Hành lang tầng 1', 'Corridor', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 0.2, NULL, ST_GeomFromText('POLYGON((106.80282153 10.87047253, 106.80306019 10.8704911, 106.80319314 10.87037746, 106.80321215 10.87013867, 106.80309881 10.87000587, 106.80286015 10.8699873, 106.8027272 10.87010094, 106.80270819 10.87033973, 106.80282153 10.87047253))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.103', 'Phòng Y tế', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80296711 10.87048386, 106.80297251 10.87041604, 106.80306558 10.87042328, 106.80306019 10.8704911, 106.80296711 10.87048386))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.WC-N-1', 'Nhà vệ sinh Bắc - tầng 1', 'WC', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80290506 10.87047903, 106.80291046 10.87041121, 106.80297251 10.87041604, 106.80296711 10.87048386, 106.80290506 10.87047903))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-N-1', 'Cầu thang Bắc - tầng 1', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80286926 10.87047625, 106.80287466 10.87040843, 106.80291046 10.87041121, 106.80290506 10.87047903, 106.80286926 10.87047625))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.101', 'Phòng Công tác sinh viên', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80282153 10.87047253, 106.80282693 10.87040471, 106.80287466 10.87040843, 106.80286926 10.87047625, 106.80282153 10.87047253))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.105', 'Phòng Tổ chức - Hành chính', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80312536 10.87037219, 106.80312814 10.87033733, 106.80319592 10.8703426, 106.80319314 10.87037746, 106.80312536 10.87037219))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.107', 'Phòng Tổ chức - Hành chính', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80312814 10.87033733, 106.80313068 10.87030533, 106.80319846 10.8703106, 106.80319592 10.8703426, 106.80312814 10.87033733))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.109', 'Phòng Phó hiệu trưởng', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80313068 10.87030533, 106.80313348 10.87027027, 106.80320125 10.87027555, 106.80319846 10.8703106, 106.80313068 10.87030533))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-E-1', 'Cầu thang Đông - tầng 1', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80313348 10.87027027, 106.80313509 10.87024993, 106.80320287 10.8702552, 106.80320125 10.87027555, 106.80313348 10.87027027))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.111', 'Phòng Kế hoạch - Tài chính', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80313509 10.87024993, 106.80313764 10.87021793, 106.80320542 10.8702232, 106.80320287 10.8702552, 106.80313509 10.87024993))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.113', 'Phòng Kế hoạch - Tài chính', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80313764 10.87021793, 106.80313996 10.8701888, 106.80320774 10.87019407, 106.80320542 10.8702232, 106.80313764 10.87021793))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.115', 'Phòng Hiệu trưởng', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80297886 10.87006477, 106.80298426 10.86999696, 106.80309881 10.87000587, 106.80309341 10.87007369, 106.80297886 10.87006477))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.WC-S-1', 'Nhà vệ sinh Nam - tầng 1', 'WC', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80293829 10.87006162, 106.80294368 10.8699938, 106.80298426 10.86999696, 106.80297886 10.87006477, 106.80293829 10.87006162))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-S-1', 'Cầu thang Nam - tầng 1', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80290726 10.8700592, 106.80291266 10.86999138, 106.80294368 10.8699938, 106.80293829 10.87006162, 106.80290726 10.8700592))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.117', 'Phòng Phó hiệu trưởng', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80285476 10.87005512, 106.80286015 10.8699873, 106.80291266 10.86999138, 106.80290726 10.8700592, 106.80285476 10.87005512))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.127', 'Phòng Đào tạo SĐH - KHCN & QHĐN', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80270819 10.87033973, 106.80271123 10.87030152, 106.80277901 10.8703068, 106.80277597 10.870345, 106.80270819 10.87033973))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.125', 'Phòng Đào tạo SĐH - KHCN & QHĐN', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80271123 10.87030152, 106.80271389 10.87026809, 106.80278167 10.87027337, 106.80277901 10.8703068, 106.80271123 10.87030152))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-W-1', 'Cầu thang Tây - tầng 1', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80271389 10.87026809, 106.80271636 10.87023705, 106.80278414 10.87024232, 106.80278167 10.87027337, 106.80271389 10.87026809))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.123', 'Phòng họp', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80271636 10.87023705, 106.80271998 10.87019168, 106.80278775 10.87019695, 106.80278414 10.87024232, 106.80271636 10.87023705))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.121', 'Phòng Thanh tra - Pháp chế - Đảm bảo chất lượng', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80271998 10.87019168, 106.80272302 10.87015347, 106.8027908 10.87015874, 106.80278775 10.87019695, 106.80271998 10.87019168))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.119', 'Phòng Phó hiệu trưởng', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80272302 10.87015347, 106.8027272 10.87010094, 106.80279498 10.87010621, 106.8027908 10.87015874, 106.80272302 10.87015347))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.104', 'Phòng Đào tạo Đại học từ xa', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.8029921 10.87038104, 106.80299476 10.87034761, 106.80309023 10.87035504, 106.80308757 10.87038847, 106.8029921 10.87038104))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.106', 'Phòng học chương trình tiên tiến', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80299476 10.87034761, 106.80300161 10.87026165, 106.80309707 10.87026907, 106.80309023 10.87035504, 106.80299476 10.87034761))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1B1', 'Phòng Đào tạo Đại học', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.8029709 10.87034576, 106.80297432 10.87030277, 106.80299819 10.87030463, 106.80299476 10.87034761, 106.8029709 10.87034576))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1B3', 'Phòng Đào tạo Đại học - VP Chương trình tiên tiến', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80297432 10.87030277, 106.80297774 10.87025979, 106.80300161 10.87026165, 106.80299819 10.87030463, 106.80297432 10.87030277))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1A8', 'Phòng giáo sư', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80304045 10.87022622, 106.80304254 10.87019996, 106.80307242 10.87020228, 106.80307033 10.87022855, 106.80304045 10.87022622))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1A6', 'Phòng giáo sư', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80298078 10.87022158, 106.80298287 10.87019531, 106.80304254 10.87019996, 106.80304045 10.87022622, 106.80298078 10.87022158))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.108', 'Phòng Quản trị thiết bị', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80300674 10.87019717, 106.80301178 10.87013384, 106.80310724 10.87014127, 106.8031022 10.8702046, 106.80300674 10.87019717))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.110', 'Phòng Thí nghiệm Hệ thống thông tin', 'Lab', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80305951 10.87013756, 106.80306188 10.87010776, 106.80310962 10.87011147, 106.80310724 10.87014127, 106.80305951 10.87013756))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.112', 'Phòng họp', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80298792 10.87013199, 106.80299029 10.87010218, 106.80306188 10.87010776, 106.80305951 10.87013756, 106.80298792 10.87013199))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1B2', 'Phòng Trưởng phòng Đào tạo Đại học', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80290885 10.87034093, 106.80291227 10.87029794, 106.80293614 10.8702998, 106.80293271 10.87034278, 106.80290885 10.87034093))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1B4', 'Phòng giáo sư', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80291227 10.87029794, 106.80291569 10.87025496, 106.80293956 10.87025682, 106.80293614 10.8702998, 106.80291227 10.87029794))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.102', 'Phòng Đào tạo Đại học chính quy', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80281072 10.87036693, 106.80281339 10.8703335, 106.80290885 10.87034093, 106.80290619 10.87037436, 106.80281072 10.87036693))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.120', 'Phòng máy Chương trình tiên tiến', 'Lab', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80281339 10.8703335, 106.80282023 10.87024753, 106.80291569 10.87025496, 106.80290885 10.87034093, 106.80281339 10.8703335))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1A4', 'Phòng giáo sư', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80288293 10.87021397, 106.80288502 10.8701877, 106.80292082 10.87019049, 106.80291873 10.87021675, 106.80288293 10.87021397))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.1A2', 'Phòng trưởng phòng SĐH - KHCN & QHĐN', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80284714 10.87021118, 106.80284923 10.87018492, 106.80288502 10.8701877, 106.80288293 10.87021397, 106.80284714 10.87021118))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.114', 'Phòng họp', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80287309 10.87018677, 106.80288051 10.87009364, 106.8029521 10.87009921, 106.80294469 10.87019234, 106.80287309 10.87018677))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.116', 'Phòng Thí nghiệm truyền thông Đa phương tiện', 'Lab', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80282992 10.87012575, 106.80283277 10.87008993, 106.80288051 10.87009364, 106.80287765 10.87012946, 106.80282992 10.87012575))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.118', 'Phòng Thanh tra - Pháp chế - Đảm bảo chất lượng', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80282536 10.87018306, 106.80282992 10.87012575, 106.80287765 10.87012946, 106.80287309 10.87018677, 106.80282536 10.87018306))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.HL2', 'Hành lang tầng 2', 'Corridor', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 4.0, NULL, ST_GeomFromText('POLYGON((106.80282153 10.87047253, 106.80306019 10.8704911, 106.80319314 10.87037746, 106.80321215 10.87013867, 106.80309881 10.87000587, 106.80286015 10.8699873, 106.8027272 10.87010094, 106.80270819 10.87033973, 106.80282153 10.87047253))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.201', 'Phòng trưởng phòng Công tác sinh viên', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80282693 10.87040471, 106.80287466 10.87040843, 106.80286926 10.87047625, 106.80282153 10.87047253, 106.80282693 10.87040471))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-N-2', 'Cầu thang Bắc - tầng 2', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80287466 10.87040843, 106.80291046 10.87041121, 106.80290506 10.87047903, 106.80286926 10.87047625, 106.80287466 10.87040843))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.WC-N-2', 'Nhà vệ sinh Bắc - tầng 2', 'WC', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80291046 10.87041121, 106.80297489 10.87041623, 106.8029695 10.87048404, 106.80290506 10.87047903, 106.80291046 10.87041121))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.203', 'Phòng trưởng phòng Dữ liệu & CNTT', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80297489 10.87041623, 106.80306558 10.87042328, 106.80306019 10.8704911, 106.8029695 10.87048404, 106.80297489 10.87041623))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.205', 'Phòng thực hành Vật lý', 'Lab', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80313335 10.8702719, 106.80320112 10.87027717, 106.80319314 10.87037746, 106.80312536 10.87037219, 106.80313335 10.8702719))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-E-2', 'Cầu thang Đông - tầng 2', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80313639 10.87023369, 106.80320417 10.87023896, 106.80320112 10.87027717, 106.80313335 10.8702719, 106.80313639 10.87023369))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.207', 'Phòng Dữ liệu & CNTT', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80314437 10.8701334, 106.80321215 10.87013867, 106.80320417 10.87023896, 106.80313639 10.87023369, 106.80314437 10.8701334))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.211', 'Văn phòng Công đoàn', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80286015 10.8699873, 106.80290073 10.86999046, 106.80289533 10.87005827, 106.80285476 10.87005512, 106.80286015 10.8699873))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-S-2', 'Cầu thang Nam - tầng 2', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80290073 10.86999046, 106.80293891 10.86999343, 106.80293351 10.87006124, 106.80289533 10.87005827, 106.80290073 10.86999046))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.WC-S-2', 'Nhà vệ sinh Nam - tầng 2', 'WC', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80293891 10.86999343, 106.80300335 10.86999844, 106.80299795 10.87006626, 106.80293351 10.87006124, 106.80293891 10.86999343))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.209', 'Trung tâm Công nghệ Đào tạo trực tuyến', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80300335 10.86999844, 106.80309881 10.87000587, 106.80309341 10.87007369, 106.80299795 10.87006626, 106.80300335 10.86999844))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.215', 'Phòng Dữ liệu & CNTT', 'Office', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80271617 10.87023944, 106.80278395 10.87024471, 106.80277597 10.870345, 106.80270819 10.87033973, 106.80271617 10.87023944))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-W-2', 'Cầu thang Tây - tầng 2', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80271922 10.87020123, 106.80278699 10.8702065, 106.80278395 10.87024471, 106.80271617 10.87023944, 106.80271922 10.87020123))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.213', 'Phòng thực hành khoa Kỹ thuật máy tính', 'Lab', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.8027272 10.87010094, 106.80279498 10.87010621, 106.80278699 10.8702065, 106.80271922 10.87020123, 106.8027272 10.87010094))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.HL3', 'Hành lang tầng 3', 'Corridor', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 7.8, NULL, ST_GeomFromText('POLYGON((106.80282153 10.87047253, 106.80306019 10.8704911, 106.80319314 10.87037746, 106.80321215 10.87013867, 106.80309881 10.87000587, 106.80286015 10.8699873, 106.8027272 10.87010094, 106.80270819 10.87033973, 106.80282153 10.87047253), (106.80306518 10.87024737, 106.80306322 10.87026106, 106.80305948 10.87027432, 106.80305396 10.87028696, 106.80304696 10.87029881, 106.80303841 10.87030968, 106.80302852 10.87031929, 106.80301749 10.87032756, 106.80300543 10.87033431, 106.80299263 10.87033937, 106.80297929 10.87034285, 106.80296562 10.87034448, 106.80295181 10.87034427, 106.80293813 10.87034234, 106.80292488 10.87033862, 106.80291226 10.87033312, 106.80290042 10.87032614, 106.80288957 10.87031761, 106.80287998 10.87030773, 106.80287174 10.87029671, 106.80286501 10.87028466, 106.80285998 10.87027187, 106.80285653 10.87025853, 106.80285493 10.87024485, 106.80285516 10.87023103, 106.80285712 10.87021734, 106.80286086 10.87020408, 106.80286638 10.87019144, 106.80287338 10.87017959, 106.80288193 10.87016872, 106.80289182 10.87015911, 106.80290285 10.87015084, 106.80291491 10.87014409, 106.80292771 10.87013903, 106.80294105 10.87013555, 106.80295472 10.87013392, 106.80296853 10.87013413, 106.80298221 10.87013606, 106.80299546 10.87013978, 106.80300808 10.87014528, 106.80301992 10.87015226, 106.80303077 10.87016079, 106.80304036 10.87017067, 106.8030486 10.87018169, 106.80305533 10.87019374, 106.80306036 10.87020653, 106.80306381 10.87021987, 106.80306541 10.87023355, 106.80306518 10.87024737))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.HT', 'Hội trường Tòa A', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 300, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80306518 10.87024737, 106.80306322 10.87026106, 106.80305948 10.87027432, 106.80305396 10.87028696, 106.80304696 10.87029881, 106.80303841 10.87030968, 106.80302852 10.87031929, 106.80301749 10.87032756, 106.80300543 10.87033431, 106.80299263 10.87033937, 106.80297929 10.87034285, 106.80296562 10.87034448, 106.80295181 10.87034427, 106.80293813 10.87034234, 106.80292488 10.87033862, 106.80291226 10.87033312, 106.80290042 10.87032614, 106.80288957 10.87031761, 106.80287998 10.87030773, 106.80287174 10.87029671, 106.80286501 10.87028466, 106.80285998 10.87027187, 106.80285653 10.87025853, 106.80285493 10.87024485, 106.80285516 10.87023103, 106.80285712 10.87021734, 106.80286086 10.87020408, 106.80286638 10.87019144, 106.80287338 10.87017959, 106.80288193 10.87016872, 106.80289182 10.87015911, 106.80290285 10.87015084, 106.80291491 10.87014409, 106.80292771 10.87013903, 106.80294105 10.87013555, 106.80295472 10.87013392, 106.80296853 10.87013413, 106.80298221 10.87013606, 106.80299546 10.87013978, 106.80300808 10.87014528, 106.80301992 10.87015226, 106.80303077 10.87016079, 106.80304036 10.87017067, 106.8030486 10.87018169, 106.80305533 10.87019374, 106.80306036 10.87020653, 106.80306381 10.87021987, 106.80306541 10.87023355, 106.80306518 10.87024737))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.301', 'Phòng học A.301', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 30, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80282693 10.87040471, 106.80287705 10.87040861, 106.80287165 10.87047643, 106.80282153 10.87047253, 106.80282693 10.87040471))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-N-3', 'Cầu thang Bắc - tầng 3', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80287705 10.87040861, 106.80290807 10.87041103, 106.80290267 10.87047884, 106.80287165 10.87047643, 106.80287705 10.87040861))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.WC-N-3', 'Nhà vệ sinh Bắc - tầng 3', 'WC', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80290807 10.87041103, 106.8029391 10.87041344, 106.8029337 10.87048126, 106.80290267 10.87047884, 106.80290807 10.87041103))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.303', 'Phòng học A.303', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.8029391 10.87041344, 106.80299876 10.87041808, 106.80299336 10.8704859, 106.8029337 10.87048126, 106.8029391 10.87041344))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.305', 'Phòng học A.305', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 30, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80299876 10.87041808, 106.80306558 10.87042328, 106.80306019 10.8704911, 106.80299336 10.8704859, 106.80299876 10.87041808))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.309', 'Phòng học A.309', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 30, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80313335 10.8702719, 106.80320112 10.87027717, 106.80319314 10.87037746, 106.80312536 10.87037219, 106.80313335 10.8702719))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-E-3', 'Cầu thang Đông - tầng 3', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80313639 10.87023369, 106.80320417 10.87023896, 106.80320112 10.87027717, 106.80313335 10.8702719, 106.80313639 10.87023369))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.311', 'Phòng học A.311', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 25, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80314437 10.8701334, 106.80321215 10.87013867, 106.80320417 10.87023896, 106.80313639 10.87023369, 106.80314437 10.8701334))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.319', 'Phòng học A.319', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80286015 10.8699873, 106.80292221 10.86999213, 106.80291681 10.87005994, 106.80285476 10.87005512, 106.80286015 10.8699873))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-S-3', 'Cầu thang Nam - tầng 3', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80292221 10.86999213, 106.80295323 10.86999454, 106.80294783 10.87006236, 106.80291681 10.87005994, 106.80292221 10.86999213))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.WC-S-3', 'Nhà vệ sinh Nam - tầng 3', 'WC', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80295323 10.86999454, 106.80298187 10.86999677, 106.80297647 10.87006459, 106.80294783 10.87006236, 106.80295323 10.86999454))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.317', 'Phòng học A.317', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80298187 10.86999677, 106.80303199 10.87000067, 106.80302659 10.87006849, 106.80297647 10.87006459, 106.80298187 10.86999677))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.315', 'Phòng học A.315', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 50, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80303199 10.87000067, 106.80309881 10.87000587, 106.80309341 10.87007369, 106.80302659 10.87006849, 106.80303199 10.87000067))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.325', 'Phòng học A.325', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 48, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80271617 10.87023944, 106.80278395 10.87024471, 106.80277597 10.870345, 106.80270819 10.87033973, 106.80271617 10.87023944))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.CT-W-3', 'Cầu thang Tây - tầng 3', 'Stairs', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80271922 10.87020123, 106.80278699 10.8702065, 106.80278395 10.87024471, 106.80271617 10.87023944, 106.80271922 10.87020123))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.323', 'Phòng học A.323', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 30, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.8027272 10.87010094, 106.80279498 10.87010621, 106.80278699 10.8702065, 106.80271922 10.87020123, 106.8027272 10.87010094))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.307', 'Phòng học A.307', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, 30, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80311453 10.87036462, 106.80305981 10.8704114, 106.80309398 10.87045144, 106.80314871 10.87040467, 106.80311453 10.87036462))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.313', 'Phòng học A.313', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80308583 10.87008453, 106.80313248 10.8701392, 106.80317257 10.87010493, 106.80312592 10.87005027, 106.80308583 10.87008453))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.321', 'Phòng học A.321', 'Theory', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80280581 10.87011378, 106.80286053 10.870067, 106.80282636 10.87002696, 106.80277163 10.87007373, 106.80280581 10.87011378))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.WC-NW-3', 'Nhà vệ sinh Tây Bắc - tầng 3', 'WC', (SELECT id FROM buildings WHERE building_code = 'A'), 3, NULL, 7.6, 11.1, NULL, ST_GeomFromText('POLYGON((106.80283451 10.87039387, 106.80278786 10.8703392, 106.80274777 10.87037347, 106.80279442 10.87042813, 106.80283451 10.87039387))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.TV', 'Thư viện UIT', 'Library', (SELECT id FROM buildings WHERE building_code = 'A'), 1, NULL, 0.0, 3.5, NULL, ST_GeomFromText('POLYGON((106.80291169 10.87055344, 106.80311293 10.87055344, 106.80312208 10.87056248, 106.80315867 10.87056248, 106.80320212 10.87061448, 106.80319754 10.87066422, 106.80317467 10.87069587, 106.8031701 10.87077727, 106.80320669 10.87082701, 106.8031175 10.87090162, 106.80310378 10.87091066, 106.80306262 10.87086544, 106.802962 10.87086092, 106.80294828 10.87087449, 106.80290712 10.87087449, 106.8028934 10.87086997, 106.80285452 10.87082249, 106.80285909 10.87077275, 106.80287739 10.87075466, 106.80288196 10.87073205, 106.80288654 10.8706597, 106.80284537 10.87060996, 106.80291169 10.87055344))', 4326));
+INSERT INTO rooms (room_code, room_name, room_type, building_id, floor_number, capacity, base_height, extrude_height, equipment_info, geom) VALUES ('A.TV2', 'Thư viện UIT', 'Library', (SELECT id FROM buildings WHERE building_code = 'A'), 2, NULL, 3.8, 7.3, NULL, ST_GeomFromText('POLYGON((106.80291169 10.87055344, 106.80311293 10.87055344, 106.80312208 10.87056248, 106.80315867 10.87056248, 106.80320212 10.87061448, 106.80319754 10.87066422, 106.80317467 10.87069587, 106.8031701 10.87077727, 106.80320669 10.87082701, 106.8031175 10.87090162, 106.80310378 10.87091066, 106.80306262 10.87086544, 106.802962 10.87086092, 106.80294828 10.87087449, 106.80290712 10.87087449, 106.8028934 10.87086997, 106.80285452 10.87082249, 106.80285909 10.87077275, 106.80287739 10.87075466, 106.80288196 10.87073205, 106.80288654 10.8706597, 106.80284537 10.87060996, 106.80291169 10.87055344))', 4326));
+
+-- 5. Campus Paths (3D Walkways / Corridors / Stairs)
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Corridor', 1, 1, 102.8, ST_GeomFromText('LINESTRING Z (106.8028073 10.8696833 0.2, 106.803743 10.8695958 0.2)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Stairs', 1, 2, 5.0, ST_GeomFromText('LINESTRING Z (106.8028907 10.8697324 0.2, 106.8028907 10.8697324 4.0)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Stairs', 1, 2, 5.0, ST_GeomFromText('LINESTRING Z (106.8035145 10.869674 0.2, 106.8035145 10.869674 4.0)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Stairs', 1, 2, 5.0, ST_GeomFromText('LINESTRING Z (106.8037484 10.8696522 0.2, 106.8037484 10.8696522 4.0)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Corridor', 2, 2, 102.8, ST_GeomFromText('LINESTRING Z (106.8028073 10.8696833 4.0, 106.803743 10.8695958 4.0)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Stairs', 2, 3, 5.0, ST_GeomFromText('LINESTRING Z (106.8028907 10.8697324 4.0, 106.8028907 10.8697324 7.8)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Stairs', 2, 3, 5.0, ST_GeomFromText('LINESTRING Z (106.8035145 10.869674 4.0, 106.8035145 10.869674 7.8)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Stairs', 2, 3, 5.0, ST_GeomFromText('LINESTRING Z (106.8037484 10.8696522 4.0, 106.8037484 10.8696522 7.8)', 4326));
+INSERT INTO campus_paths (path_type, floor_from, floor_to, length_m, geom) VALUES ('Corridor', 3, 3, 102.8, ST_GeomFromText('LINESTRING Z (106.8028073 10.8696833 7.8, 106.803743 10.8695958 7.8)', 4326));

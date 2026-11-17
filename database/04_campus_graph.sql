@@ -28,10 +28,12 @@ SELECT
 FROM tmp_noded_walkways;
 
 -- 2. Hành lang tầng 1-3 và cầu thang Tòa A
+-- Vòng hành lang lấy theo sàn hành lang tầng 1 (A.HL1) của khối chính, không theo footprint OSM
 WITH bld AS (
-    SELECT id AS building_id, ST_Transform(geom, 32648) AS fp
-    FROM buildings
-    WHERE building_code = 'A'
+    SELECT b.id AS building_id, ST_Transform(ST_MakePolygon(ST_ExteriorRing(r.geom)), 32648) AS fp
+    FROM buildings b
+    JOIN rooms r ON r.building_id = b.id AND r.room_code = 'A.HL1'
+    WHERE b.building_code = 'A'
 ),
 core_ring AS (
     SELECT
@@ -87,6 +89,9 @@ all_breaks AS (
     SELECT f, frac FROM room_breaks
     UNION
     SELECT f, frac FROM gate_break
+    UNION
+    -- đầu trên của mỗi vế thang phải là một nút trên hành lang tầng trên
+    SELECT f + 1, frac FROM room_breaks WHERE room_type = 'Stairs' AND f IN (1, 2)
     UNION
     SELECT f, v AS frac FROM generate_series(1, 3) AS f CROSS JOIN (VALUES (0.0), (1.0)) AS b(v)
 ),
