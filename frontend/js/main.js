@@ -9,9 +9,11 @@ import { addGateMarkers, applyLod, initLayers, renderFloorSwitcher, setIndoorBui
 import { closeBuildingPanel, renderBuildingsList, setPlacesPanelOpen } from './buildings.js';
 import { setAllAmenities, updateRadiusVisual } from './amenities.js';
 import { buildSearchIndex } from './search.js';
+import { applyDeepLink } from './share.js';
 import './camera.js';
 import './rooms.js';
 import './route.js';
+import './geolocate.js';
 
 campusHandlers.onReady = () => {
   state.campusCenter = campus.modelToLngLat(campus.center.x, campus.center.z);
@@ -90,6 +92,7 @@ map.on('load', async () => {
     setLighting(state.currentLighting);
     applyLod(state.campusLoadFailed ? 1 : 2);
     setIndoorBuilding('A');
+    applyDeepLink();
   } catch (err) {
     console.error(err);
     markIntroStep('glb');

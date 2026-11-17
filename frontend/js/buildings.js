@@ -56,14 +56,26 @@ function selectedCode() {
   return feat && feat.properties ? feat.properties.building_code : null;
 }
 
+// Tô màu khối LOD 1 theo chức năng tòa (chú giải #lod1-legend); tòa đang chọn tô vàng
+export const BUILDING_FUNCTION_COLORS = {
+  academic: '#93C5FD',
+  amenity: '#C4B5FD',
+  dining: '#FDBA74',
+  facility: '#CBD5E1',
+};
+
 export function updateBuildingWallColors() {
   if (!map.getLayer('buildings-lod1')) return;
   const cfg = LIGHTING_CONFIG[state.currentLighting];
   const code = selectedCode();
+  const pairs = state.buildingsList.flatMap((b) => {
+    const c = b.properties.building_code;
+    return [c, c === code ? '#EAB308' : BUILDING_FUNCTION_COLORS[getBuildingMetaType(b.properties)]];
+  });
   map.setPaintProperty(
     'buildings-lod1',
     'fill-extrusion-color',
-    code ? ['match', ['get', 'building_code'], code, '#5B8DB8', cfg.blockColor] : cfg.blockColor
+    pairs.length ? ['match', ['get', 'building_code'], ...pairs, cfg.blockColor] : cfg.blockColor
   );
 }
 
@@ -96,9 +108,9 @@ function getBuildingShortLabel(props) {
 function getBuildingMetaType(props) {
   const code = String((props && props.building_code) || '').toUpperCase();
   const name = String((props && props.name) || '').toLowerCase();
-  if (name.includes('thư viện') || name.includes('library')) return 'amenity';
   if (name.includes('căn tin') || name.includes('canteen')) return 'dining';
   if (['A', 'B', 'C', 'D', 'E'].includes(code)) return 'academic';
+  if (name.includes('thư viện') || name.includes('library')) return 'amenity';
   return 'facility';
 }
 

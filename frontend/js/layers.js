@@ -6,9 +6,8 @@ import { showToast } from './utils.js';
 import { campus, map } from './map.js';
 import { closeBuildingPanel, selectBuildingByIndex, updateBuildingMarker, updateBuildingWallColors } from './buildings.js';
 import { selectRoom } from './rooms.js';
-import { addAmenityLayer, setPickingMode, updateProximity } from './amenities.js';
+import { addAmenityLayer, setPickingMode, setUserPos } from './amenities.js';
 
-let userMarker = null;
 let isSatellite = false;
 let currentFloor = null;
 function setLayerVisibility(id, visible) {
@@ -116,6 +115,8 @@ export function applyLod(lod) {
   campus.setHidden(showIndoor ? state.indoorCode : null);
   applyRoomFilter();
   lod3DockEl.classList.toggle('hidden', !showIndoor);
+  document.getElementById('lod1-dock').classList.toggle('hidden', lod !== 1);
+  updateBuildingWallColors();
   updateLodButtons();
   updateBuildingMarker();
 }
@@ -319,16 +320,8 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
 
   map.on('click', (e) => {
     if (state.isPickingLocation) {
-      state.userPos = [e.lngLat.lng, e.lngLat.lat];
-      if (userMarker) {
-        userMarker.setLngLat(state.userPos);
-      } else {
-        userMarker = new maplibregl.Marker({ color: '#EF4444' })
-          .setLngLat(state.userPos)
-          .addTo(map);
-      }
       setPickingMode(false);
-      updateProximity();
+      setUserPos([e.lngLat.lng, e.lngLat.lat]);
       return;
     }
     if (map.queryRenderedFeatures(e.point, { layers: ['amenities-layer'] }).length) return;

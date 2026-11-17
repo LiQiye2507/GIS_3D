@@ -69,7 +69,10 @@ document.getElementById('btn-route').addEventListener('click', async () => {
     // Đĩa bán kính (cao 1.2–1.35 m) che mất tuyến đi bộ sát mặt đất
     map.setLayoutProperty('radius-circle', 'visibility', 'none');
 
-    routeSummaryEl.textContent = `Quãng đường: ${routeFc.total_length_m} m · Qua tầng ${routeFc.floors.join(' → ')}`;
+    // Đi bộ 1.2 m/s, cộng 15 giây cho mỗi tầng phải leo
+    const minutes = Math.max(1, Math.ceil((routeFc.total_length_m / 1.2 + 15 * (routeFc.floors.length - 1)) / 60));
+    routeSummaryEl.textContent = `Quãng đường: ${routeFc.total_length_m} m · khoảng ${minutes} phút đi bộ · Qua tầng ${routeFc.floors.join(' → ')}`
+      + (routeFc.reaches_room ? '' : ` · Tòa ${state.selectedRoom.building_code} chưa có dữ liệu đường đi trong nhà, tuyến dừng ở lối vào`);
     routeSummaryEl.classList.remove('hidden');
 
     setFloor(null);

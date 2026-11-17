@@ -10,7 +10,7 @@ let introCurrent = 0;
 let introClosed = false;
 let introRafId = null;
 
-function closeIntro(immediate = false) {
+export function closeIntro(immediate = false) {
   if (introClosed) return;
   introClosed = true;
   if (introRafId) cancelAnimationFrame(introRafId);

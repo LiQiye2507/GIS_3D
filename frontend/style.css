@@ -2471,9 +2471,13 @@ body.is-sheet-open .lod3-dock {
     width: calc(100vw - 32px);
   }
 
+  /* Bottom sheet: chừa nửa trên cho bản đồ để thấy đối tượng vừa định vị */
   .explorer__drawer {
+    top: auto;
+    height: 55vh;
+    border-radius: 14px 14px 0 0;
     width: 100vw;
-    padding: 96px 16px 20px;
+    padding: 14px 16px 16px;
     -webkit-mask-image: none;
     mask-image: none;
     background: rgba(7, 10, 14, 0.94);
@@ -2494,4 +2498,94 @@ body.is-sheet-open .lod3-dock {
   body.is-sheet-open .lod3-dock {
     right: 16px;
   }
+
+  /* Điện thoại: dồn thanh công cụ lên trên, bỏ phần phụ để bản đồ không bị che */
+  .hud {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .hud__actions {
+    flex-wrap: wrap;
+  }
+
+  .explorer__heading {
+    font-size: 20px;
+  }
+
+  .hud__subtitle,
+  .hints,
+  .lod3-legend {
+    display: none;
+  }
+
+  .hud__tools button,
+  .floor-text-btn,
+  .explorer__close,
+  .btn {
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  .amenity-chip {
+    min-height: 40px;
+  }
+}
+
+/* Chia sẻ liên kết + mã QR */
+.sheet__share-btn {
+  margin-top: 14px;
+}
+
+#btn-share-room {
+  margin-top: 8px;
+}
+
+.share-popover {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 60;
+  width: min(300px, calc(100vw - 32px));
+  transform: translate(-50%, -50%);
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: rgba(12, 16, 22, 0.96);
+  color: var(--paper);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.share-popover__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.share-popover__qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.share-popover__url {
+  width: 100%;
+  margin: 12px 0 8px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--paper-70);
+  font-size: 12px;
+}
+
+.tools-note {
+  margin: 6px 0 8px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--paper-44);
 }

@@ -195,6 +195,18 @@
       </div>
     </header>
 
+    <aside id="lod1-dock" class="lod3-dock hidden" aria-label="Chú giải chức năng tòa nhà (LOD 1)">
+      <div class="lod3-legend">
+        <div class="eyebrow lod3-legend-title">CHỨC NĂNG TÒA NHÀ</div>
+        <ul class="legend" aria-label="Chú giải màu tòa nhà">
+          <li><span class="swatch" style="background:#93C5FD"></span>Giảng đường / học tập</li>
+          <li><span class="swatch" style="background:#FDBA74"></span>Căn tin / ăn uống</li>
+          <li><span class="swatch" style="background:#CBD5E1"></span>Dịch vụ / khác</li>
+          <li><span class="swatch" style="background:#EAB308"></span>Đang chọn</li>
+        </ul>
+      </div>
+    </aside>
+
     <aside id="lod3-dock" class="lod3-dock hidden" aria-label="Điều khiển tầng và chú giải LOD 3">
       <nav id="floor-switcher" aria-label="Chọn tầng Tòa A"></nav>
       <div id="lod3-legend" class="lod3-legend">
@@ -259,10 +271,13 @@
             Chỉ đường đến phòng này
           </button>
           <p id="route-summary" class="route-summary hidden" aria-live="polite"></p>
+          <button type="button" id="btn-share-room" class="btn full-width">Chia sẻ phòng này · mã QR</button>
         </section>
 
         <section class="explorer__tools" aria-label="Vị trí giả lập và tiện ích lân cận">
           <h3 class="eyebrow explorer__tools-heading">ĐỊNH VỊ &amp; TIỆN ÍCH</h3>
+          <button type="button" id="btn-geolocate" class="btn full-width">Vị trí của tôi (GPS)</button>
+          <p class="tools-note">GPS chỉ chính xác ngoài trời. Trong nhà hãy chọn điểm xuất phát trên bản đồ.</p>
           <button type="button" id="btn-pick-location" class="btn full-width" aria-pressed="false">
             Click chọn vị trí giả lập
           </button>
@@ -401,6 +416,8 @@
             <div id="bp-floor-pills" class="sheet__floor-pills" aria-label="Chọn nhanh tầng Tòa A"></div>
           </div>
         </div>
+
+        <button type="button" id="bp-share" class="sheet__indoor-btn sheet__share-btn">CHIA SẺ · MÃ QR</button>
       </div>
 
       <nav class="sheet__nav" aria-label="Điều hướng công trình">
@@ -420,10 +437,21 @@
       <span>Đang tải dữ liệu...</span>
     </div>
 
+    <div id="share-popover" class="share-popover hidden" role="dialog" aria-label="Chia sẻ liên kết">
+      <div class="share-popover__head">
+        <strong id="share-title">Chia sẻ</strong>
+        <button type="button" id="share-close" class="explorer__close" aria-label="Đóng chia sẻ">✕</button>
+      </div>
+      <div id="share-qr" class="share-popover__qr"></div>
+      <input type="text" id="share-url" class="share-popover__url" readonly aria-label="Liên kết chia sẻ" />
+      <button type="button" id="share-copy" class="btn btn-primary full-width">Sao chép liên kết</button>
+    </div>
+
     <div id="toast" class="toast hidden" role="alert" aria-live="assertive"></div>
   </main>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
   <script type="importmap">
     {
       "imports": {

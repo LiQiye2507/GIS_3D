@@ -60,7 +60,9 @@ export function selectRoom(roomData, lngLat, shouldFly = false) {
   if (lngLat) {
     if (shouldFly) {
       setOrbit(false);
-      map.flyTo({ center: lngLat, zoom: 19.5, pitch: 60 });
+      // Điện thoại: danh sách là bottom sheet 55vh nên đẩy phòng lên nửa trên màn hình
+      const mobile = window.matchMedia('(max-width: 720px)').matches;
+      map.flyTo({ center: lngLat, zoom: 19.5, pitch: 60, ...(mobile && { padding: { top: 40, bottom: innerHeight * 0.55, left: 0, right: 0 } }) });
     }
     openRoomPopup(lngLat, merged);
   }

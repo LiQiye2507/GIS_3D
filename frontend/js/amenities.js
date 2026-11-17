@@ -11,7 +11,7 @@ const enabled = new Set(Object.keys(AMENITY_TYPES).filter((k) => AMENITY_TYPES[k
 let allAmenities = { type: 'FeatureCollection', features: [] };
 let shownAmenities = allAmenities;
 
-function buildCirclePolygon(centerLng, centerLat, radiusM, steps = 64) {
+export function buildCirclePolygon(centerLng, centerLat, radiusM, steps = 64) {
   // shortcut: xấp xỉ phẳng 111320 m/độ, sai số nhỏ trong phạm vi <= 300 m quanh UIT
   const latRad = (centerLat * Math.PI) / 180;
   const dLat = radiusM / 111320;
@@ -214,6 +214,15 @@ export async function updateProximity() {
   } catch (err) {
     console.error(err);
   }
+}
+
+let userMarker = null;
+// Đặt vị trí người dùng (chọn trên bản đồ hoặc GPS) rồi tìm tiện ích trong bán kính
+export function setUserPos(lngLat) {
+  state.userPos = lngLat;
+  if (userMarker) userMarker.setLngLat(lngLat);
+  else userMarker = new maplibregl.Marker({ color: '#EF4444' }).setLngLat(lngLat).addTo(map);
+  updateProximity();
 }
 
 export function setPickingMode(active) {
