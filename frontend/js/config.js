@@ -46,6 +46,7 @@ export const AMENITY_COLORS = {
   FireSafety: '#DC2626',
   WC: '#0EA5E9',
   Library: '#8B5CF6',
+  Hall: '#DB2777',
 };
 
 // Danh mục tiện ích: nhãn tiếng Việt, ký hiệu trên bản đồ, bật mặc định hay không
@@ -58,6 +59,7 @@ export const AMENITY_TYPES = {
   FireSafety: { label: 'PCCC', icon: '🧯', on: true },
   WC: { label: 'Nhà vệ sinh', icon: '🚻', on: false },
   Library: { label: 'Thư viện', icon: '📚', on: false },
+  Hall: { label: 'Hội trường', icon: '🎤', on: true },
 };
 
 export const LIGHTING_MODES = ['day', 'sunset', 'night'];

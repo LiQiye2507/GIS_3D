@@ -3,7 +3,7 @@ import { AMENITY_COLORS, AMENITY_TYPES } from './config.js';
 import { state } from './state.js';
 import { amenitiesListEl, btnPickLocationEl, radiusFillEl, radiusSliderEl, radiusThumbEl, radiusValueEl } from './dom.js';
 import { api, escapeHtml } from './utils.js';
-import { campus, map } from './map.js';
+import { campus, liftPopup, map } from './map.js';
 import { selectRoom } from './rooms.js';
 
 const filtersEl = document.getElementById('amenity-filters');
@@ -62,7 +62,6 @@ const RAISED_MIN_Z = 3;
 const isRaised = (p) => Number(p.elevation_z) > RAISED_MIN_Z;
 const iconUrls = {};
 let raised = [];
-let raisedPopup = null;
 
 function syncRaised(fc) {
   raised.forEach((r) => r.el.remove());
@@ -90,13 +89,6 @@ function placeRaised() {
     el.hidden = !pos;
     if (pos) el.style.transform = `translate3d(${pos.x.toFixed(1)}px, ${pos.y.toFixed(1)}px, 0) translate(-50%, -50%)`;
   });
-  // popup neo ở mặt đất, đẩy lên đúng chỗ biểu tượng
-  if (raisedPopup && raisedPopup === state.activePopup) {
-    const { coords, z } = raisedPopup.raised;
-    const top = campus.project(coords, z);
-    const ground = campus.project(coords, 0);
-    if (top && ground) raisedPopup.setOffset([top.x - ground.x, top.y - ground.y - 16]);
-  }
 }
 
 const typeLabel = (cat) => (AMENITY_TYPES[cat] ? AMENITY_TYPES[cat].label : cat || 'Tiện ích');
@@ -127,11 +119,7 @@ export function openAmenityPopup(p, lngLat) {
     `)
     .addTo(map);
   state.activePopup.on('close', () => { state.activePopup = null; });
-  raisedPopup = isRaised(p) ? state.activePopup : null;
-  if (raisedPopup) {
-    raisedPopup.raised = { coords: lngLat, z: Number(p.elevation_z) };
-    placeRaised();
-  }
+  liftPopup(state.activePopup, lngLat, isRaised(p) ? Number(p.elevation_z) : 0);
 }
 
 export function focusAmenity(f) {
