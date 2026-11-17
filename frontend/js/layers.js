@@ -47,8 +47,7 @@ export function setLighting(mode) {
 export function addGateMarkers() {
   const gates = [
     { coords: GATE_A, label: 'CỔNG A - HÀN THUYÊN' },
-    { coords: GATE_B, label: 'CỔNG B - XA LỘ HÀ NỘI' },
-  ];
+    { coords: GATE_B, label: 'CỔNG B - XA LỘ HÀ NỘI' },  ];
   gates.forEach(({ coords, label }) => {
     const el = document.createElement('div');
     el.className = 'gate-marker';
@@ -217,6 +216,19 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
     type: 'fill-extrusion',
     source: 'buildings',
     filter: ['==', ['get', 'building_code'], ''],
+    layout: { visibility: 'none' },
+    paint: {
+      'fill-extrusion-color': '#d6d9dd',
+      'fill-extrusion-base': 0,
+      'fill-extrusion-height': GROUND_Z,
+    },
+  });
+
+  // Sàn nền mọi tòa khi bật mặt cắt ngang (measure.js): sàn tầng trệt bị cắt sẽ lộ khoảng trống bên dưới
+  map.addLayer({
+    id: 'clip-base',
+    type: 'fill-extrusion',
+    source: 'buildings',
     layout: { visibility: 'none' },
     paint: {
       'fill-extrusion-color': '#d6d9dd',

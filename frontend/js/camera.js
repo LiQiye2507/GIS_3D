@@ -1,7 +1,6 @@
 // Góc nhìn camera: tổng quan, chọn tòa nhà, tự xoay
-import { BASE_PADDING, DEFAULT_PITCH, OVERVIEW_ZOOM, SHEET_PADDING, SPIN_ORBIT, SPIN_OVERVIEW, SPIN_SELECTED, prefersReducedMotion } from './config.js';
+import { BASE_PADDING, DEFAULT_PITCH, OVERVIEW_ZOOM, SHEET_PADDING, SPIN_DEG_PER_SEC, prefersReducedMotion } from './config.js';
 import { state } from './state.js';
-import { btnOrbitEl } from './dom.js';
 import { getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
 import { closeBuildingPanel } from './buildings.js';
@@ -23,8 +22,8 @@ export function overviewCamera() {
   };
 }
 
-export function startSpin(degPerSec) {
-  spinRate = degPerSec;
+export function startSpin() {
+  spinRate = SPIN_DEG_PER_SEC;
   spinLast = performance.now();
   if (spinRafId || prefersReducedMotion) return;
   const tick = (now) => {
@@ -32,8 +31,9 @@ export function startSpin(degPerSec) {
       spinRafId = null;
       return;
     }
-    if (!map.isMoving() || state.isOrbiting) {
-      map.setBearing(map.getBearing() + (spinRate * Math.min(now - spinLast, 100)) / 1000);
+    if (!map.isMoving()) {
+      // bearing giảm = cảnh quay cùng chiều kim đồng hồ
+      map.setBearing(map.getBearing() - (spinRate * Math.min(now - spinLast, 100)) / 1000);
     }
     spinLast = now;
     spinRafId = requestAnimationFrame(tick);
@@ -41,16 +41,9 @@ export function startSpin(degPerSec) {
   spinRafId = requestAnimationFrame(tick);
 }
 
-function stopSpin() {
+export function stopSpin() {
   spinRate = 0;
   clearTimeout(idleTimer);
-}
-
-export function setOrbit(active) {
-  state.isOrbiting = Boolean(active);
-  btnOrbitEl.setAttribute('aria-checked', String(state.isOrbiting));
-  if (state.isOrbiting) startSpin(SPIN_ORBIT);
-  else stopSpin();
 }
 
 // Góc nhìn khi chọn tòa nhà: camera nằm phía ngoài (hướng tâm khuôn viên -> tòa nhà, lệch 22°),
@@ -96,29 +89,76 @@ export function focusCamera(feat) {
   return { center, zoom: Math.min(19.6, zoom), pitch: 67, bearing, padding: SHEET_PADDING };
 }
 
-btnOrbitEl.addEventListener('click', () => {
-  setOrbit(!state.isOrbiting);
-});
-
 // Người dùng thao tác thì dừng tự xoay, rảnh 6 giây thì xoay chậm trở lại
 map.on('movestart', (e) => {
   if (!e.originalEvent) return;
-  setOrbit(false);
+  stopSpin();
 });
 map.on('moveend', (e) => {
   if (!e.originalEvent) return;
   clearTimeout(idleTimer);
-  idleTimer = setTimeout(() => startSpin(state.selectedBuildingIndex >= 0 ? SPIN_SELECTED : SPIN_OVERVIEW), 6000);
+  idleTimer = setTimeout(() => startSpin(), 6000);
+});
+
+// Camera bàn xoay: kéo chuột trái = xoay ngang 360° + nghiêng 0–85° quanh tâm màn hình, kéo chuột phải = di chuyển.
+// Chặn mousedown trên canvas trước khi tới MapLibre (vốn kéo trái = di chuyển, kéo phải = xoay); cảm ứng giữ mặc định.
+const ORBIT_DEG_PER_PX = 0.4;
+const TILT_DEG_PER_PX = 0.3;
+const CLICK_TOLERANCE_PX = 3;
+let drag = null;
+let swallowClick = false;
+const mapEl = map.getContainer();
+const canvasEl = map.getCanvas();
+
+mapEl.addEventListener('mousedown', (e) => {
+  swallowClick = false;
+  if (e.target !== canvasEl || (e.button !== 0 && e.button !== 2)) return;
+  e.stopPropagation();
+  drag = { pan: e.button === 2, x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY, moved: false };
+}, true);
+
+window.addEventListener('mousemove', (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  const dy = e.clientY - drag.y;
+  drag.x = e.clientX;
+  drag.y = e.clientY;
+  if (!drag.moved) {
+    if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < CLICK_TOLERANCE_PX) return;
+    drag.moved = true;
+    canvasEl.style.cursor = 'grabbing';
+  }
+  if (drag.pan) map.panBy([-dx, -dy], { duration: 0 }, { originalEvent: e });
+  else map.jumpTo({ bearing: map.getBearing() - dx * ORBIT_DEG_PER_PX, pitch: map.getPitch() - dy * TILT_DEG_PER_PX }, { originalEvent: e });
+});
+
+window.addEventListener('mouseup', () => {
+  if (!drag) return;
+  if (drag.moved) {
+    swallowClick = true; // kéo xong thì không tính là nhấp chọn tòa
+    canvasEl.style.cursor = '';
+  }
+  drag = null;
+});
+
+mapEl.addEventListener('click', (e) => {
+  if (!swallowClick) return;
+  swallowClick = false;
+  e.stopPropagation();
+}, true);
+
+mapEl.addEventListener('contextmenu', (e) => {
+  if (e.target === canvasEl) e.preventDefault();
 });
 
 document.getElementById('btn-reset-view').addEventListener('click', () => {
-  setOrbit(false);
+  stopSpin();
   if (state.selectedBuildingIndex >= 0) {
     closeBuildingPanel();
     return;
   }
   map.easeTo({ ...overviewCamera(), duration: 1600 });
-  map.once('moveend', () => startSpin(SPIN_OVERVIEW));
+  map.once('moveend', () => startSpin());
 });
 
 document.getElementById('btn-fullscreen').addEventListener('click', () => {

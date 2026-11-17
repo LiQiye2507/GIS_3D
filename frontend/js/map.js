@@ -10,7 +10,7 @@ export const map = new maplibregl.Map({
   bearing: 70,
   attributionControl: false,
   antialias: true,
-  maxPitch: 74,
+  maxPitch: 85, // giới hạn của MapLibre 4
   style: {
     version: 8,
     sources: {

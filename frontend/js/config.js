@@ -8,15 +8,12 @@ export const DEFAULT_PITCH = 53;
 export const OVERVIEW_ZOOM = 17.62;
 export const BASE_PADDING = { top: 60, bottom: 110, left: 0, right: 0 };
 export const SHEET_PADDING = { top: 60, bottom: 40, left: 0, right: 420 };
-// Tốc độ tự xoay (độ/giây): tổng quan, đang chọn tòa nhà, nút 360°
-export const SPIN_OVERVIEW = 0.46;
-export const SPIN_SELECTED = 3.15;
-export const SPIN_ORBIT = 6;
+// Tự xoay khi rảnh: độ/giây (6 = 1 vòng mỗi phút), cảnh quay cùng chiều kim đồng hồ trên màn hình
+export const SPIN_DEG_PER_SEC = 6;
 
 // Cổng A/B đã nắn theo model 3D (Models_3D/scripts/04_align_gis_to_model.py)
 export const GATE_A = [106.802094, 10.8704303];
 export const GATE_B = [106.8038368, 10.8689126];
-
 export const ROOM_COLORS = {
   Theory: '#3B82F6',
   Lab: '#F97316',

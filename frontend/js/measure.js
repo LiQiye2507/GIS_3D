@@ -20,6 +20,7 @@ clipSliderEl.addEventListener('input', () => {
   const h = Number(clipSliderEl.value);
   const off = h >= Number(clipSliderEl.max);
   campus.setClip(off ? null : h);
+  map.setLayoutProperty('clip-base', 'visibility', off ? 'none' : 'visible');
   clipValueEl.textContent = off ? 'Tắt' : `Cắt ở độ cao ${h} m`;
 });
 

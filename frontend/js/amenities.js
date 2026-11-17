@@ -3,7 +3,7 @@ import { AMENITY_COLORS, AMENITY_TYPES } from './config.js';
 import { state } from './state.js';
 import { amenitiesListEl, btnPickLocationEl, radiusFillEl, radiusSliderEl, radiusThumbEl, radiusValueEl } from './dom.js';
 import { api, escapeHtml } from './utils.js';
-import { map } from './map.js';
+import { campus, map } from './map.js';
 import { selectRoom } from './rooms.js';
 
 const filtersEl = document.getElementById('amenity-filters');
@@ -53,7 +53,50 @@ function makeIcon(color, glyph) {
   g.textBaseline = 'middle';
   g.fillStyle = '#ffffff';
   g.fillText(glyph, s / 2, s / 2 + 2);
-  return g.getImageData(0, 0, s, s);
+  return canvas;
+}
+
+// Tiện ích trên tầng cao (vd. phòng ăn tầng 7 Tòa E): lớp symbol chỉ vẽ sát đất,
+// nên dùng phần tử HTML đặt theo độ cao thật, cập nhật mỗi khung hình
+const RAISED_MIN_Z = 3;
+const isRaised = (p) => Number(p.elevation_z) > RAISED_MIN_Z;
+const iconUrls = {};
+let raised = [];
+let raisedPopup = null;
+
+function syncRaised(fc) {
+  raised.forEach((r) => r.el.remove());
+  raised = fc.features.filter((f) => isRaised(f.properties)).map((f) => {
+    const p = f.properties;
+    const el = document.createElement('img');
+    el.className = 'amenity-raised';
+    el.src = iconUrls[p.category] || '';
+    el.alt = p.name;
+    el.title = p.name;
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (state.isPickingLocation || state.measureMode) return;
+      openAmenityPopup(p, f.geometry.coordinates);
+    });
+    map.getContainer().appendChild(el);
+    return { el, f };
+  });
+  placeRaised();
+}
+
+function placeRaised() {
+  raised.forEach(({ el, f }) => {
+    const pos = enabled.has(f.properties.category) && campus.project(f.geometry.coordinates, Number(f.properties.elevation_z));
+    el.hidden = !pos;
+    if (pos) el.style.transform = `translate3d(${pos.x.toFixed(1)}px, ${pos.y.toFixed(1)}px, 0) translate(-50%, -50%)`;
+  });
+  // popup neo ở mặt đất, đẩy lên đúng chỗ biểu tượng
+  if (raisedPopup && raisedPopup === state.activePopup) {
+    const { coords, z } = raisedPopup.raised;
+    const top = campus.project(coords, z);
+    const ground = campus.project(coords, 0);
+    if (top && ground) raisedPopup.setOffset([top.x - ground.x, top.y - ground.y - 16]);
+  }
 }
 
 const typeLabel = (cat) => (AMENITY_TYPES[cat] ? AMENITY_TYPES[cat].label : cat || 'Tiện ích');
@@ -84,6 +127,11 @@ export function openAmenityPopup(p, lngLat) {
     `)
     .addTo(map);
   state.activePopup.on('close', () => { state.activePopup = null; });
+  raisedPopup = isRaised(p) ? state.activePopup : null;
+  if (raisedPopup) {
+    raisedPopup.raised = { coords: lngLat, z: Number(p.elevation_z) };
+    placeRaised();
+  }
 }
 
 export function focusAmenity(f) {
@@ -120,8 +168,11 @@ function renderAmenitiesList() {
 
 function applyAmenityFilter() {
   if (map.getLayer('amenities-layer')) {
-    map.setFilter('amenities-layer', ['in', ['get', 'category'], ['literal', [...enabled]]]);
+    map.setFilter('amenities-layer', ['all',
+      ['in', ['get', 'category'], ['literal', [...enabled]]],
+      ['<=', ['to-number', ['get', 'elevation_z'], 0], RAISED_MIN_Z]]);
   }
+  placeRaised();
   renderAmenitiesList();
 }
 
@@ -150,8 +201,11 @@ function renderAmenityFilters() {
 
 export function addAmenityLayer() {
   Object.entries(AMENITY_TYPES).forEach(([cat, t]) => {
-    if (!map.hasImage(cat)) map.addImage(cat, makeIcon(AMENITY_COLORS[cat], t.icon), { pixelRatio: 2 });
+    const c = makeIcon(AMENITY_COLORS[cat], t.icon);
+    iconUrls[cat] = c.toDataURL();
+    if (!map.hasImage(cat)) map.addImage(cat, c.getContext('2d').getImageData(0, 0, c.width, c.height), { pixelRatio: 2 });
   });
+  map.on('render', placeRaised);
   map.addLayer({
     id: 'amenities-layer',
     type: 'symbol',
@@ -178,10 +232,13 @@ export function addAmenityLayer() {
 
 // Toàn bộ tiện ích của khuôn viên (nạp lúc khởi động) – hiển thị khi chưa chọn vị trí
 export function setAllAmenities(fc) {
+  // khoảng cách ở đây tính từ tâm khuôn viên cố định, vô nghĩa với người dùng: chỉ hiện khi đã chọn vị trí
+  fc.features.forEach((f) => { delete f.properties.distance_m; });
   allAmenities = fc;
   if (!state.userPos) {
     shownAmenities = fc;
     if (map.getSource('amenities')) map.getSource('amenities').setData(fc);
+    syncRaised(fc);
   }
   renderAmenityFilters();
 }
@@ -210,6 +267,7 @@ export async function updateProximity() {
     if (map.getSource('amenities')) {
       map.getSource('amenities').setData(fc);
     }
+    syncRaised(fc);
     renderAmenitiesList();
   } catch (err) {
     console.error(err);

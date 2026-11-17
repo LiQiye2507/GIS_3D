@@ -1,10 +1,10 @@
 // Danh sách tòa nhà, bảng chi tiết, nhãn trên nóc
-import { LIGHTING_CONFIG, SPIN_OVERVIEW, SPIN_SELECTED } from './config.js';
+import { LIGHTING_CONFIG } from './config.js';
 import { state } from './state.js';
-import { bpCloseEl, bpDescEl, bpFloorPillsEl, bpFloorsEl, bpIndexEl, bpIndoorBoxEl, bpNameEl, bpNextEl, bpNextNameEl, bpPrevEl, bpPrevNameEl, bpSpecsEl, bpViewIndoorEl, btnPlacesCloseEl, btnPlacesToggleEl, btnResetViewEl, buildingPanelEl, buildingsListEl, colophonEl, hudBottomCenterEl, hudBottomLeftEl, hudTopLeftEl, placesCountEl, placesPanelEl, placesSummaryEl, placesTitleEl, searchInputEl, searchResultsEl, tourCardEl, tourWrapEl } from './dom.js';
+import { bpCloseEl, bpDescEl, bpFloorPillsEl, bpFloorsEl, bpIndexEl, bpIndoorBoxEl, bpNameEl, bpNextEl, bpNextNameEl, bpPrevEl, bpPrevNameEl, bpSpecsEl, bpViewIndoorEl, btnPlacesCloseEl, btnPlacesToggleEl, btnResetViewEl, buildingPanelEl, buildingsListEl, colophonEl, hudBottomLeftEl, hudTopLeftEl, placesCountEl, placesPanelEl, placesSummaryEl, placesTitleEl, searchInputEl, searchResultsEl, tourCardEl, tourWrapEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
-import { focusCamera, overviewCamera, setOrbit, startSpin } from './camera.js';
+import { focusCamera, overviewCamera, startSpin, stopSpin } from './camera.js';
 import { applyLod, setFloor, setIndoorBuilding } from './layers.js';
 import { openAmenityPopup } from './amenities.js';
 
@@ -120,7 +120,6 @@ export function closeBuildingPanel() {
   buildingPanelEl.classList.add('hidden');
   document.body.classList.remove('is-sheet-open');
   tourWrapEl.classList.remove('hidden');
-  hudBottomCenterEl.classList.remove('hidden');
   if (colophonEl) colophonEl.classList.remove('is-hidden');
   btnResetViewEl.setAttribute('data-label', 'Đặt lại góc nhìn');
   btnResetViewEl.setAttribute('aria-label', 'Đặt lại góc nhìn');
@@ -132,7 +131,7 @@ export function closeBuildingPanel() {
   updateBuildingWallColors();
   updateBuildingMarker();
   map.easeTo({ ...overviewCamera(), duration: 1600 });
-  if (!state.isOrbiting) map.once('moveend', () => startSpin(SPIN_OVERVIEW));
+  map.once('moveend', () => startSpin());
 }
 
 export function selectBuildingByIndex(idx) {
@@ -194,7 +193,6 @@ export function selectBuildingByIndex(idx) {
   buildingPanelEl.classList.remove('hidden');
   document.body.classList.add('is-sheet-open');
   tourWrapEl.classList.add('hidden');
-  hudBottomCenterEl.classList.add('hidden');
   if (colophonEl) colophonEl.classList.add('is-hidden');
   btnResetViewEl.setAttribute('data-label', 'Về chế độ tổng quan');
   btnResetViewEl.setAttribute('aria-label', 'Về chế độ tổng quan');
@@ -207,10 +205,10 @@ export function selectBuildingByIndex(idx) {
   placesSummaryEl.textContent = `${floors} TẦNG · ĐANG CHỌN`;
 
   updateBuildingWallColors();
-  setOrbit(false);
+  stopSpin();
   map.easeTo({ ...focusCamera(feat), duration: 1700 });
   map.once('moveend', () => {
-    if (state.selectedBuildingIndex === normIdx) startSpin(SPIN_SELECTED);
+    if (state.selectedBuildingIndex === normIdx) startSpin();
   });
 }
 

@@ -138,6 +138,14 @@ def test_nearby_includes_wc_rooms():
     assert keys == sorted(keys)
 
 
+def test_nearby_medical_is_room_a103():
+    res = client.get("/api/amenities/nearby", params={"lat": 10.8701, "lng": 106.8030, "radius": 300, "category": "Medical"})
+    assert res.status_code == 200
+    feats = res.json()["features"]
+    assert [f["properties"]["room_code"] for f in feats] == ["A103"]
+    assert feats[0]["properties"]["floor_number"] == 1
+
+
 def test_route_reaches_room_flag():
     a = client.get("/api/route", params={"start_lng": 106.8020546, "start_lat": 10.8704376, "end_room_code": "A305"}).json()
     assert a["reaches_room"] is True

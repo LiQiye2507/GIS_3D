@@ -5,7 +5,7 @@ import { routeSummaryEl } from './dom.js';
 import { api, showToast } from './utils.js';
 import { map } from './map.js';
 import { setFloor } from './layers.js';
-import { setOrbit } from './camera.js';
+import { stopSpin } from './camera.js';
 
 export function buildRoute3dPolygons(routeFc) {
   const features = [];
@@ -60,7 +60,7 @@ let playToken = 0;
 // Xem toàn tuyến, rồi lần lượt bật từng tầng tuyến đi qua (mỗi tầng 2.5 s), dừng ở tầng của phòng đích
 async function playRouteByFloor(routeFc) {
   const token = ++playToken;
-  setOrbit(false);
+  stopSpin();
   setFloor(null);
   fitSegments(routeFc.features);
   if (routeFc.floors.length < 2) return;
