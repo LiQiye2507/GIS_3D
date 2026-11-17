@@ -1,0 +1,70 @@
+{
+ "type": "FeatureCollection",
+ "name": "campus_boundary",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "UIT",
+    "name": "Trường Đại học Công nghệ Thông tin",
+    "osm_id": 1303838982,
+    "source": "osm",
+    "source_ref": "OSM way 1303838982",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8016693,
+       10.8701079
+      ],
+      [
+       106.8026322,
+       10.8688555
+      ],
+      [
+       106.8029416,
+       10.8681458
+      ],
+      [
+       106.8039263,
+       10.8688472
+      ],
+      [
+       106.8045606,
+       10.8695156
+      ],
+      [
+       106.8051924,
+       10.8701937
+      ],
+      [
+       106.8029489,
+       10.8718309
+      ],
+      [
+       106.8027563,
+       10.8714107
+      ],
+      [
+       106.8023241,
+       10.8708307
+      ],
+      [
+       106.8016693,
+       10.8701079
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

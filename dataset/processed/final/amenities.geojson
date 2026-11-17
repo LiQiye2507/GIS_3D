@@ -1,0 +1,150 @@
+{
+ "type": "FeatureCollection",
+ "name": "amenities",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P001",
+    "name": "Căn tin UIT (Nhà PVSV)",
+    "category": "Canteen",
+    "building_code": "NHA_PVSV",
+    "floor_number": 1,
+    "elevation_z": 1.0,
+    "open_hours": null,
+    "source": "field_survey",
+    "source_ref": "OSM way 722732584",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.8045342,
+     10.8698872,
+     1.0
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P002",
+    "name": "Bãi giữ xe máy UIT (Phía Bắc Tòa A)",
+    "category": "Parking",
+    "building_code": null,
+    "floor_number": 1,
+    "elevation_z": 1.0,
+    "open_hours": null,
+    "source": "field_survey",
+    "source_ref": "OSM way 493448423",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.8029231,
+     10.8713564,
+     1.0
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P003",
+    "name": "Bãi để xe ô tô - tầng G tòa E",
+    "category": "Parking",
+    "building_code": "E",
+    "floor_number": 0,
+    "elevation_z": 1.0,
+    "open_hours": null,
+    "source": "field_survey",
+    "source_ref": "OSM entrance 13381089608",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.8025288,
+     10.8698027,
+     1.0
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P005",
+    "name": "Phòng ăn GV - VC & NLĐ (E7.1)",
+    "category": "Canteen",
+    "building_code": "E",
+    "floor_number": 7,
+    "elevation_z": 27.6,
+    "open_hours": null,
+    "source": "field_survey",
+    "source_ref": "OSM way 693343289",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.802602,
+     10.8697521,
+     27.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P010",
+    "name": "Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)",
+    "category": "ATM",
+    "building_code": null,
+    "floor_number": 1,
+    "elevation_z": 1.0,
+    "open_hours": "24/7",
+    "source": "field_survey",
+    "source_ref": "Ước lượng từ OSM gate 11303698309 + mô tả người dùng",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.80197,
+     10.87035,
+     1.0
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P011",
+    "name": "Máy bán nước tự động Tầng 1 Tòa A",
+    "category": "Water",
+    "building_code": "A",
+    "floor_number": 1,
+    "elevation_z": 1.0,
+    "open_hours": "24/7",
+    "source": "field_survey",
+    "source_ref": "Sơ đồ Tầng 1 Tòa A & OSM way 259211695",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.803035,
+     10.870535,
+     1.0
+    ]
+   }
+  }
+ ]
+}
