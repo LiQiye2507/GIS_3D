@@ -326,6 +326,14 @@ CAFE_VOI = {
     'source_ref': 'Models_3D/uit_campus_full.glb (Root_Cafe_Voi)', 'verified': False,
 }
 
+# Cổng 2 vào bãi xe: không có trong dữ liệu gốc; tọa độ = tâm mái che giữa Tòa B và Nhà PVSV trong model, đã quy đổi bằng T
+GATE_2_PARKING = {
+    'id': 'P012', 'name': 'Cổng 2 - Lối vào bãi xe', 'category': 'Parking', 'building_code': None,
+    'floor_number': 1, 'elevation_z': 1.0, 'open_hours': None, 'source': 'model',
+    'source_ref': 'Models_3D/uit_campus_full.glb (mái che giữa Tòa B và Nhà PVSV)', 'verified': False,
+}
+GATE_2_LNGLAT = (106.8042039, 10.8703884)
+
 
 def dump_fc(fc) -> bytes:
     """Cùng định dạng file gốc (ogr2ogr): thụt 1 dấu cách, CRLF, không xuống dòng cuối."""
@@ -376,6 +384,9 @@ def write_all(r) -> None:
         if name == 'buildings':
             fc['features'].append({'type': 'Feature', 'properties': dict(CAFE_VOI),
                                    'geometry': {'type': 'Polygon', 'coordinates': new_geom['CAFE_VOI']}})
+        if name == 'amenities':
+            fc['features'].append({'type': 'Feature', 'properties': dict(GATE_2_PARKING), 'geometry': {
+                'type': 'Point', 'coordinates': [*GATE_2_LNGLAT, GATE_2_PARKING['elevation_z']]}})
         (ROOT / 'dataset' / f'{name}.geojson').write_bytes(dump_fc(fc))
 
     gate_a, gate_b = move(*GATE_A), move(*GATE_B)
@@ -402,6 +413,13 @@ def write_all(r) -> None:
                     f"('{c['building_code']}', '{c['name']}', {c['total_floors']}, {c['base_elevation']}, {c['height_m']}, "
                     f"NULL, NULL, NULL, NULL, '{c['description']}', "
                     f"ST_GeomFromText('{_wkt_polygon(new_geom['CAFE_VOI'])}', 4326));" + ('\r' if line.endswith('\r') else ''))
+        if fname == '02_seed_uit_data.sql':  # thêm Cổng 2 sau dòng tiện ích cuối cùng
+            i = max(k for k, l in enumerate(out) if l.startswith('INSERT INTO amenities'))
+            g, (lng, lat) = GATE_2_PARKING, GATE_2_LNGLAT
+            out.insert(i + 1,
+                'INSERT INTO amenities (name, category, building_id, floor_number, elevation_z, open_hours, geom) VALUES '
+                f"('{g['name']}', '{g['category']}', NULL, {g['floor_number']}, {g['elevation_z']}, NULL, "
+                f"ST_GeomFromText('POINT Z ({lng!r} {lat!r} {g['elevation_z']})', 4326));" + ('\r' if out[i].endswith('\r') else ''))
         (ROOT / 'database' / fname).write_bytes('\n'.join(out).encode('utf-8'))
 
     rep = json.loads(REPORT.read_text(encoding='utf-8')) if REPORT.exists() else {}
@@ -445,8 +463,9 @@ def verify_outputs() -> None:
             g_js = shapely.force_2d(shape(feat['geometry']))
             assert g_sql.equals_exact(g_js, 1e-7), (table, line[:80])
             n += 1
-    assert len(sql['rooms']) == 145 and n == 7 + 145 + 6 + 6 + 33, n
+    assert len(sql['rooms']) == 145 and n == 7 + 145 + 6 + 7 + 33, n
     assert any("VALUES ('CAFE_VOI'" in l for l in sql['buildings']), 'thiếu Cafe Voi'
+    assert any(GATE_2_PARKING['name'] in l for l in sql['amenities']), 'thiếu Cổng 2'
     print(f'SQL==GeoJSON OK ({n} đối tượng)')
 
 

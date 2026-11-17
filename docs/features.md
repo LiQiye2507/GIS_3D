@@ -14,7 +14,7 @@ Web GIS 3D phục vụ **số hóa dữ liệu khuôn viên** và các chức n�
 | Tòa nhà | `buildings` | 6 | `building_code` (A, B, C, D, E, NHA_PVSV) |
 | Tầng | `floors` | 6 (Tòa A, C) | `building_id` + `floor_number` |
 | Phòng | `rooms` | 145 (Tòa A: 78, Tòa C: 67) | `room_code` (vd. `A305`, `C312`) |
-| Tiện ích | `amenities` | 6 (căn tin, ATM, nước uống, bãi xe) | `id` |
+| Tiện ích | `amenities` | 7 (căn tin, ATM, nước uống, bãi xe) | `id` |
 | Sân thể thao | `sports_fields` | 9 (tách từ mô hình 3D) | `field_code` (SF01–SF09) |
 | Mạng lưới đường đi | `campus_paths` | 145 cạnh (đường ngoài trời 62, hành lang 75, cầu thang 8) | `id`, `source_node`, `target_node` |
 
@@ -86,7 +86,7 @@ Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Vi
 | Dữ liệu chưa được kiểm chứng thực địa | Phần lớn đối tượng có `verified = false` (lấy từ OSM, sơ đồ PCCC); hình học đã nắn theo mô hình 3D, mô hình lệch OSM 8–20 m ở một số tòa | Cần đối chiếu thực địa trước khi dùng chính thức |
 | Phòng Tòa C chưa khớp hẳn vỏ tòa | Lưới phòng Tòa C là bản tạm, không có sân trong như mô hình | Khoảng 5% diện tích phòng (WC, cầu thang ở hai đầu) nhô ra ngoài vỏ vài mét; cần số hóa lại theo sơ đồ thật |
 | Sân thể thao chưa xác định | Mô hình không ghi loại sân; 3 sân phía đông bắc (SF01–SF03) nằm ngoài ranh giới khuôn viên lấy từ OSM | Thẻ thông tin ghi "Chưa xác định"; cần khảo sát loại sân và đối chiếu ranh giới |
-| Tiện ích còn ít | Mới có 6 điểm, Y tế chỉ có phòng A103 và chưa có PCCC | Lớp và chú giải đã hỗ trợ đủ 8 danh mục, chỉ cần bổ sung dữ liệu |
+| Tiện ích còn ít | Mới có 7 điểm, Y tế chỉ có phòng A103 và chưa có PCCC | Lớp và chú giải đã hỗ trợ đủ 8 danh mục, chỉ cần bổ sung dữ liệu |
 
 ## 5. Thư viện bên ngoài (nạp từ CDN, có ghi rõ phiên bản)
 

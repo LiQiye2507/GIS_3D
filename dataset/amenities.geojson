@@ -145,6 +145,29 @@
      1.0
     ]
    }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "P012",
+    "name": "Cổng 2 - Lối vào bãi xe",
+    "category": "Parking",
+    "building_code": null,
+    "floor_number": 1,
+    "elevation_z": 1.0,
+    "open_hours": null,
+    "source": "model",
+    "source_ref": "Models_3D/uit_campus_full.glb (mái che giữa Tòa B và Nhà PVSV)",
+    "verified": false
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     106.8042039,
+     10.8703884,
+     1.0
+    ]
+   }
   }
  ]
 }

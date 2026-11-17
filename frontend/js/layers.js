@@ -1,5 +1,5 @@
 // Các lớp bản đồ, LOD, lọc tầng, ánh sáng
-import { EMPTY_FC, GATE_2, GATE_A, GATE_B, GROUND_Z, LIGHTING_CONFIG, LIGHTING_MODES, ROOM_COLORS } from './config.js';
+import { EMPTY_FC, GATE_A, GATE_B, GROUND_Z, LIGHTING_CONFIG, LIGHTING_MODES, ROOM_COLORS } from './config.js';
 import { state } from './state.js';
 import { btnSatelliteEl, floorSwitcherEl, lightingIconMoonEl, lightingIconSunEl, lightingIconSunsetEl, lightingKnobEl, lightingSliderEl, lightingValueEl, lod3DockEl } from './dom.js';
 import { showToast } from './utils.js';
@@ -47,9 +47,7 @@ export function setLighting(mode) {
 export function addGateMarkers() {
   const gates = [
     { coords: GATE_A, label: 'CỔNG A - HÀN THUYÊN' },
-    { coords: GATE_B, label: 'CỔNG B - XA LỘ HÀ NỘI' },
-    { coords: GATE_2, label: 'CỔNG 2 - LỐI VÀO BÃI XE' },
-  ];
+    { coords: GATE_B, label: 'CỔNG B - XA LỘ HÀ NỘI' },  ];
   gates.forEach(({ coords, label }) => {
     const el = document.createElement('div');
     el.className = 'gate-marker';
