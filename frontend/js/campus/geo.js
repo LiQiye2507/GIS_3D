@@ -1,9 +1,10 @@
-// Kinh/vĩ độ <-> hệ tọa độ mô hình campus.glb
+// Kinh/vĩ độ <-> hệ tọa độ mô hình uit_campus.glb
 
 export const DEG = Math.PI / 180;
 
-// Gốc (0,0,0) của mô hình, tỉ lệ (mét / đơn vị mô hình) và góc xoay ngược chiều kim đồng hồ so với hướng Đông
-export const GEO = { lng: 106.8037076, lat: 10.8704966, scale: 24.865, rotDeg: 4.535 };
+// Gốc (0,0,0) của mô hình, tỉ lệ ngang (mét / đơn vị mô hình) và góc xoay ngược chiều kim đồng hồ so với hướng Đông.
+// Lấy từ Models_3D/align_report.json (geo_js), cùng phép quy đổi đã dùng để nắn dataset/. Độ cao mô hình tính bằng mét.
+export const GEO = { lng: 106.8038136, lat: 10.8705244, scale: 0.96886, rotDeg: 0.627 };
 const M_PER_DEG_LAT = 110574;
 const M_PER_DEG_LNG = 111320 * Math.cos(GEO.lat * DEG);
 

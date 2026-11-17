@@ -1,7 +1,7 @@
 /*
  * Lớp 3D toàn khuôn viên (MapLibre custom layer + Three.js).
- * Mô hình "University of Information Technology - UIT" của Heli Ton (CC BY 4.0).
- * Mô hình được nắn về WGS84 bằng phép biến đổi đồng dạng (7 điểm đối chiếu với ảnh vệ tinh Esri, ưu tiên Tòa A).
+ * Mô hình "University of Information Technology - UIT" của Heli Ton (CC BY 4.0), tách theo tòa (node Root_*)
+ * bằng Models_3D/scripts. Nắn về WGS84 bằng phép đồng dạng ngang trong geo.js; độ cao mô hình tính bằng mét.
  */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -9,12 +9,13 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GEO, hull, lngLatToModel, modelBearing, modelToLngLat, pointInRing, rot } from './geo.js';
 import { MODE_SECONDS, MODE_T, NIGHT_ALBEDO, NIGHT_EMISSIVE, PALETTE, dir, lerpN, roleOf, smooth, tri, triColor } from './palette.js';
 
-const MODEL_URL = 'models/campus.glb';
+const MODEL_URL = 'models/uit_campus.glb';
 const DRACO_PATH = 'https://unpkg.com/three@0.165.0/examples/jsm/libs/draco/gltf/';
 
-// Khối bao Tòa A trong hệ mô hình: ẩn đi ở LOD 3 để thấy phòng bên trong
-const HIDE_BOXES = {
-  A: { center: [-3.1535, 0.268, -0.0206], size: [4.5, 0.47, 2.55], rotY: 1.36 },
+// Node gốc của từng tòa trong mô hình -> building_code
+const ROOT_NODES = {
+  A: 'Root_Toa_A', B: 'Root_Toa_B', C: 'Root_Toa_C', D: 'Root_Toa_D', E: 'Root_Toa_E',
+  NHA_PVSV: 'Root_Nha_PVSV', CAFE_VOI: 'Root_Cafe_Voi',
 };
 
 export function create(map, { onReady, onError, onProgress } = {}) {
@@ -24,7 +25,8 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   const rim = new THREE.DirectionalLight('#c9dcec', 0.35);
   const fill = new THREE.DirectionalLight('#8ea6be', 0.15);
   const ambient = new THREE.HemisphereLight('#c9dcec', '#2f363d', 0.08);
-  const hideUniforms = { uHide: { value: 0 }, uHideInv: { value: new THREE.Matrix4() }, uClipY: { value: 1e6 } };
+  const clipUniform = { value: 1e6 };
+  const buildingRoots = {};
   const tuned = [];
   const pickMeshes = [];
   const mvp = new THREE.Matrix4();
@@ -34,10 +36,12 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   const raycaster = new THREE.Raycaster();
 
   const origin = maplibregl.MercatorCoordinate.fromLngLat([GEO.lng, GEO.lat], 0);
-  const ms = origin.meterInMercatorCoordinateUnits() * GEO.scale;
+  const mv = origin.meterInMercatorCoordinateUnits();
+  const ms = mv * GEO.scale;
+  // Ngang: GEO.scale mét/đơn vị; đứng (trục z sau khi xoay): 1 mét/đơn vị
   const modelMatrix = new THREE.Matrix4()
     .makeTranslation(origin.x, origin.y, origin.z)
-    .scale(new THREE.Vector3(ms, -ms, ms))
+    .scale(new THREE.Vector3(ms, -ms, mv))
     .multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2))
     .multiply(new THREE.Matrix4().makeRotationY(rot));
 
@@ -57,32 +61,17 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   let introMs = 0;
   let onFrame = null;
 
-  // Khối ẩn suy ra từ footprint CSDL (nới 6%) cho tòa chưa có khối chỉnh tay trong HIDE_BOXES
-  function footprintBox(code) {
-    const fp = footprintRings.find((r) => r.code === code);
-    if (!fp) return null;
-    const [x0, z0, x1, z1] = fp.box;
-    // đáy khối cao hơn mặt đất 3% chiều cao để giữ lại nền sân
-    return { center: [(x0 + x1) / 2, fp.h * 0.55, (z0 + z1) / 2], size: [(x1 - x0) * 1.06, fp.h * 1.04, (z1 - z0) * 1.06], rotY: 0 };
-  }
-
   function patchMaterial(mat, grade) {
     mat.onBeforeCompile = (shader) => {
-      shader.uniforms.uHide = hideUniforms.uHide;
-      shader.uniforms.uHideInv = hideUniforms.uHideInv;
-      shader.uniforms.uClipY = hideUniforms.uClipY;
+      shader.uniforms.uClipY = clipUniform;
       shader.vertexShader = 'varying vec3 vCampusPos;\n' + shader.vertexShader.replace(
         '#include <project_vertex>',
         '#include <project_vertex>\n vCampusPos = (modelMatrix * vec4(transformed, 1.0)).xyz;'
       );
-      let frag = 'uniform float uHide;\nuniform mat4 uHideInv;\nuniform float uClipY;\nvarying vec3 vCampusPos;\n' + shader.fragmentShader.replace(
+      let frag = 'uniform float uClipY;\nvarying vec3 vCampusPos;\n' + shader.fragmentShader.replace(
         'void main() {',
         `void main() {
-          if (vCampusPos.y > uClipY) discard;
-          if (uHide > 0.5) {
-            vec3 q = (uHideInv * vec4(vCampusPos, 1.0)).xyz;
-            if (all(lessThan(abs(q), vec3(0.5)))) discard;
-          }`
+          if (vCampusPos.y > uClipY) discard;`
       );
       if (grade) {
         frag = frag.replace(
@@ -100,7 +89,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   function tuneMaterials(root) {
     const seen = new Set();
     const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
-    // Vật liệu bóng đổ cũng bỏ phần bị ẩn, để Tòa A ẩn ở LOD 3 không còn đổ bóng
+    // Vật liệu bóng đổ cũng bỏ phần bị cắt ngang
     const depthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
     patchMaterial(depthMat, null);
     root.traverse((o) => {
@@ -268,7 +257,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       const step = Math.max(1, Math.floor(pos.count / 20000));
       for (let i = 0; i < pos.count; i += step) {
         v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld);
-        if (v.y < 0.08) continue;
+        if (v.y < 1.0) continue;
         footprintRings.forEach(({ code, ring, box }) => {
           if (v.x < box[0] || v.x > box[2] || v.z < box[1] || v.z > box[3] || !pointInRing(v.x, v.z, ring)) return;
           const a = acc[code] || (acc[code] = { minX: Infinity, maxX: -Infinity, minZ: Infinity, maxZ: -Infinity, top: 0 });
@@ -283,7 +272,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     Object.entries(acc).forEach(([code, a]) => {
       const x = (a.minX + a.maxX) / 2;
       const z = (a.minZ + a.maxZ) / 2;
-      anchors[code] = { lngLat: modelToLngLat(x, z), topM: a.top * GEO.scale, x, z };
+      anchors[code] = { lngLat: modelToLngLat(x, z), topM: a.top, x, z };
     });
   }
 
@@ -329,6 +318,10 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         const root = gltf.scene;
         modelRoot = root;
         scene.add(root);
+        Object.entries(ROOT_NODES).forEach(([code, name]) => {
+          const node = root.getObjectByName(name);
+          if (node) buildingRoots[code] = node;
+        });
         root.updateMatrixWorld(true);
         computeAnchors();
         const box = new THREE.Box3().setFromObject(root);
@@ -379,6 +372,18 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       // Cảnh tĩnh: chỉ vẽ lại bản đồ bóng khi mặt trời đổi hướng
       renderer.shadowMap.autoUpdate = false;
       loadModel();
+    },
+    onRemove() {
+      ready = false;
+      scene.traverse((o) => {
+        if (o.geometry) o.geometry.dispose();
+        (Array.isArray(o.material) ? o.material : o.material ? [o.material] : []).forEach((mat) => {
+          Object.values(mat).forEach((v) => { if (v && v.isTexture) v.dispose(); });
+          mat.dispose();
+        });
+      });
+      if (scene.environment) scene.environment.dispose();
+      if (renderer) renderer.dispose();
     },
     render(gl, matrix) {
       if (!ready) return;
@@ -454,22 +459,15 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       introMs = ms;
       map.triggerRepaint();
     },
+    // Ẩn vỏ một tòa (xem trong nhà); null = hiện tất cả
     setHidden(code) {
-      const box = code && (HIDE_BOXES[code] || footprintBox(code));
-      hideUniforms.uHide.value = box ? 1 : 0;
-      if (box) {
-        hideUniforms.uHideInv.value.compose(
-          new THREE.Vector3(...box.center),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), box.rotY),
-          new THREE.Vector3(...box.size)
-        ).invert();
-      }
+      Object.entries(buildingRoots).forEach(([c, node]) => { node.visible = c !== code; });
       if (renderer) renderer.shadowMap.needsUpdate = true;
       map.triggerRepaint();
     },
     // Mặt cắt ngang: bỏ phần mô hình cao hơn heightM mét (null = tắt)
     setClip(heightM) {
-      hideUniforms.uClipY.value = heightM == null ? 1e6 : heightM / GEO.scale;
+      clipUniform.value = heightM == null ? 1e6 : heightM;
       if (renderer) renderer.shadowMap.needsUpdate = true;
       map.triggerRepaint();
     },
@@ -481,7 +479,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       (buildingsFc.features || []).forEach((f) => {
         const g = f.geometry;
         const polys = g.type === 'Polygon' ? [g.coordinates] : g.type === 'MultiPolygon' ? g.coordinates : [];
-        const h = (Number(f.properties.height_m) || 10) / GEO.scale;
+        const h = Number(f.properties.height_m) || 10;
         polys.forEach((poly) => {
           const shape = new THREE.Shape(poly[0].map(([lng, lat]) => {
             const p = lngLatToModel(lng, lat);
@@ -499,7 +497,6 @@ export function create(map, { onReady, onError, onProgress } = {}) {
           const zs = ring.map((p) => p[1]);
           footprintRings.push({
             code: f.properties.building_code,
-            h,
             ring,
             box: [Math.min(...xs), Math.min(...zs), Math.max(...xs), Math.max(...zs)],
           });
@@ -526,7 +523,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     // Vị trí màn hình của điểm (lng, lat) ở độ cao altM mét
     project(lngLat, altM = 0) {
       const p = lngLatToModel(lngLat[0], lngLat[1]);
-      return toScreen(tmpV.set(p.x, altM / GEO.scale, p.z));
+      return toScreen(tmpV.set(p.x, altM, p.z));
     },
   };
 }

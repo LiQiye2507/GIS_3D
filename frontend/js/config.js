@@ -1,9 +1,9 @@
 // Hằng số dùng chung: API, màu, cấu hình ánh sáng, ranh giới khuôn viên
 
 export const API = 'http://localhost:8000';
-// Mặt đất của mô hình campus.glb nằm ở độ cao ~0 m; sàn tầng 1 Tòa A cao hơn một chút
+// Mặt đất của mô hình uit_campus.glb nằm ở độ cao ~0 m; sàn tầng 1 Tòa A cao hơn một chút
 export const GROUND_Z = 0.3;
-export const DEFAULT_CENTER = [106.80333, 10.87002];
+export const DEFAULT_CENTER = [106.80332, 10.87000];
 export const DEFAULT_PITCH = 53;
 export const OVERVIEW_ZOOM = 17.62;
 export const BASE_PADDING = { top: 60, bottom: 110, left: 0, right: 0 };
@@ -13,8 +13,9 @@ export const SPIN_OVERVIEW = 0.46;
 export const SPIN_SELECTED = 3.15;
 export const SPIN_ORBIT = 6;
 
-export const GATE_A = [106.8020546, 10.8704376];
-export const GATE_B = [106.8039237, 10.8689966];
+// Cổng A/B đã nắn theo model 3D (Models_3D/scripts/04_align_gis_to_model.py)
+export const GATE_A = [106.802094, 10.8704303];
+export const GATE_B = [106.8038368, 10.8689126];
 
 export const ROOM_COLORS = {
   Theory: '#3B82F6',
@@ -85,7 +86,7 @@ export const LIGHTING_CONFIG = {
 };
 
 export const EMPTY_FC = { type: 'FeatureCollection', features: [] };
-// Ranh giới khuôn viên (LOD 1), chép từ dataset/campus_boundary.geojson (OSM way 1303838982).
+// Ranh giới khuôn viên (LOD 1), chép từ dataset/campus_boundary.geojson (OSM way 1303838982, đã nắn theo model 3D).
 export const CAMPUS_BOUNDARY_FC = {
   type: 'FeatureCollection',
   features: [{
@@ -94,10 +95,10 @@ export const CAMPUS_BOUNDARY_FC = {
     geometry: {
       type: 'Polygon',
       coordinates: [[
-        [106.8016693, 10.8701079], [106.8026322, 10.8688555], [106.8029416, 10.8681458],
-        [106.8039263, 10.8688472], [106.8045606, 10.8695156], [106.8051924, 10.8701937],
-        [106.8029489, 10.8718309], [106.8027563, 10.8714107], [106.8023241, 10.8708307],
-        [106.8016693, 10.8701079],
+        [106.8017033, 10.8700843], [106.80262, 10.8687865], [106.8029181, 10.8681058],
+        [106.8038343, 10.8687727], [106.8045198, 10.8695617], [106.805163, 10.8702182],
+        [106.8029612, 10.8718369], [106.8027836, 10.8714322], [106.8023565, 10.8708412],
+        [106.8017033, 10.8700843],
       ]],
     },
   }],

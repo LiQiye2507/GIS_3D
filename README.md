@@ -30,12 +30,16 @@ backend/    FastAPI, chia theo lớp:
             controllers/ (nhận request, kiểm tra tham số) · services/ (truy vấn PostGIS, pgRouting)
             models/enums.py (giá trị loại phòng/tiện ích) · config/settings.py (.env)
             utils/ (db, geojson, text) · middlewares/errors.py (lỗi CSDL) · tests/test_api.py
-frontend/   index.html, style.css, models/campus.glb (mô hình toàn trường – Heli Ton, CC BY 4.0)
+frontend/   index.html, style.css, models/uit_campus.glb (mô hình toàn trường tách theo tòa, nén Draco –
+            dựng từ mô hình của Heli Ton, CC BY 4.0)
             js/ (ES module, mỗi chức năng một file): main.js (điểm vào), config, state, dom, utils, map,
                 intro, camera, layers (LOD, tầng, ánh sáng), buildings, rooms, search, amenities,
                 nearest, route, share, geolocate, query, measure
+            js/campus/: scene.js (lớp Three.js nạp uit_campus.glb), geo.js (nắn tọa độ), palette.js (ánh sáng)
+Models_3D/scripts/  dựng model tách tòa (01–03, chạy trong Blender), 04_align_gis_to_model.py (nắn
+            dataset/ và database/ theo model), 05_export_web_glb.py (xuất bản nén cho frontend).
+            File model nguồn (.blend, .glb) không đưa lên repo.
 docs/       features.md (danh sách chức năng, cách dùng, giới hạn)
-            js/campus/: scene.js (lớp Three.js nạp campus.glb), geo.js (nắn tọa độ), palette.js (ánh sáng)
 ```
 
 ## Cài đặt & chạy (Windows, không Docker)
