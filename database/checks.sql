@@ -12,7 +12,7 @@ SELECT 'b_invalid_rooms', count(*) FROM rooms WHERE NOT ST_IsValid(geom);
 SELECT 'b_invalid_amenities', count(*) FROM amenities WHERE NOT ST_IsValid(geom);
 SELECT 'b_invalid_campus_paths', count(*) FROM campus_paths WHERE NOT ST_IsValid(geom);
 
--- (c) Tuyến pgr_dijkstra từ đỉnh gần Cổng A nhất đến đỉnh tầng 3 gần tâm A.305 nhất
+-- (c) Tuyến pgr_dijkstra từ đỉnh gần Cổng A nhất đến đỉnh tầng 3 gần tâm A305 nhất
 WITH nodes AS (
     SELECT source_node AS node_id, floor_from AS floor_num, ST_StartPoint(geom) AS pt FROM campus_paths
     UNION
@@ -27,7 +27,7 @@ start_v AS (
 end_v AS (
     SELECT n.node_id
     FROM nodes n
-    JOIN rooms r ON r.room_code = 'A.305'
+    JOIN rooms r ON r.room_code = 'A305'
     WHERE n.floor_num = 3
     ORDER BY ST_Distance(n.pt::geography, ST_Centroid(r.geom)::geography)
     LIMIT 1

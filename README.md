@@ -123,7 +123,7 @@ Backend phải bật CORS cho `http://localhost:5500`.
 
 ## Kiểm thử
 - **API (T01–T05):** `backend\.venv\Scripts\python -m pytest backend/tests -q`
-- **CSDL & pgRouting (T06):** `psql -U postgres -d uit_campus -tA -f database\checks.sql` (kiểm tra `ST_IsValid` và tuyến Cổng A → A.305)
+- **CSDL & pgRouting (T06):** `psql -U postgres -d uit_campus -tA -f database\checks.sql` (kiểm tra `ST_IsValid` và tuyến Cổng A → A305)
 - **Giao diện (T07):** kiểm tra thủ công trên trình duyệt: chuyển đổi LOD 1 ↔ 2 ↔ 3, lọc tầng T1–T3, không lỗi Console.
 
 ## Dữ liệu

@@ -71,7 +71,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.103",
+    "room_code": "A103",
     "room_name": "Phòng Y tế",
     "room_type": "Office",
     "building_code": "A",
@@ -203,7 +203,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.101",
+    "room_code": "A101",
     "room_name": "Phòng Công tác sinh viên",
     "room_type": "Office",
     "building_code": "A",
@@ -247,7 +247,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.105",
+    "room_code": "A105",
     "room_name": "Phòng Tổ chức - Hành chính",
     "room_type": "Office",
     "building_code": "A",
@@ -291,7 +291,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.107",
+    "room_code": "A107",
     "room_name": "Phòng Tổ chức - Hành chính",
     "room_type": "Office",
     "building_code": "A",
@@ -335,7 +335,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.109",
+    "room_code": "A109",
     "room_name": "Phòng Phó hiệu trưởng",
     "room_type": "Office",
     "building_code": "A",
@@ -423,7 +423,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.111",
+    "room_code": "A111",
     "room_name": "Phòng Kế hoạch - Tài chính",
     "room_type": "Office",
     "building_code": "A",
@@ -467,7 +467,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.113",
+    "room_code": "A113",
     "room_name": "Phòng Kế hoạch - Tài chính",
     "room_type": "Office",
     "building_code": "A",
@@ -511,7 +511,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.115",
+    "room_code": "A115",
     "room_name": "Phòng Hiệu trưởng",
     "room_type": "Office",
     "building_code": "A",
@@ -643,7 +643,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.117",
+    "room_code": "A117",
     "room_name": "Phòng Phó hiệu trưởng",
     "room_type": "Office",
     "building_code": "A",
@@ -687,7 +687,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.127",
+    "room_code": "A127",
     "room_name": "Phòng Đào tạo SĐH - KHCN & QHĐN",
     "room_type": "Office",
     "building_code": "A",
@@ -731,7 +731,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.125",
+    "room_code": "A125",
     "room_name": "Phòng Đào tạo SĐH - KHCN & QHĐN",
     "room_type": "Office",
     "building_code": "A",
@@ -819,7 +819,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.123",
+    "room_code": "A123",
     "room_name": "Phòng họp",
     "room_type": "Office",
     "building_code": "A",
@@ -863,7 +863,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.121",
+    "room_code": "A121",
     "room_name": "Phòng Thanh tra - Pháp chế - Đảm bảo chất lượng",
     "room_type": "Office",
     "building_code": "A",
@@ -907,7 +907,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.119",
+    "room_code": "A119",
     "room_name": "Phòng Phó hiệu trưởng",
     "room_type": "Office",
     "building_code": "A",
@@ -951,7 +951,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.104",
+    "room_code": "A104",
     "room_name": "Phòng Đào tạo Đại học từ xa",
     "room_type": "Office",
     "building_code": "A",
@@ -995,7 +995,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.106",
+    "room_code": "A106",
     "room_name": "Phòng học chương trình tiên tiến",
     "room_type": "Theory",
     "building_code": "A",
@@ -1215,7 +1215,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.108",
+    "room_code": "A108",
     "room_name": "Phòng Quản trị thiết bị",
     "room_type": "Office",
     "building_code": "A",
@@ -1259,7 +1259,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.110",
+    "room_code": "A110",
     "room_name": "Phòng Thí nghiệm Hệ thống thông tin",
     "room_type": "Lab",
     "building_code": "A",
@@ -1303,7 +1303,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.112",
+    "room_code": "A112",
     "room_name": "Phòng họp",
     "room_type": "Office",
     "building_code": "A",
@@ -1435,7 +1435,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.102",
+    "room_code": "A102",
     "room_name": "Phòng Đào tạo Đại học chính quy",
     "room_type": "Office",
     "building_code": "A",
@@ -1479,7 +1479,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.120",
+    "room_code": "A120",
     "room_name": "Phòng máy Chương trình tiên tiến",
     "room_type": "Lab",
     "building_code": "A",
@@ -1611,7 +1611,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.114",
+    "room_code": "A114",
     "room_name": "Phòng họp",
     "room_type": "Office",
     "building_code": "A",
@@ -1655,7 +1655,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.116",
+    "room_code": "A116",
     "room_name": "Phòng Thí nghiệm truyền thông Đa phương tiện",
     "room_type": "Lab",
     "building_code": "A",
@@ -1699,7 +1699,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.118",
+    "room_code": "A118",
     "room_name": "Phòng Thanh tra - Pháp chế - Đảm bảo chất lượng",
     "room_type": "Office",
     "building_code": "A",
@@ -1803,7 +1803,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.201",
+    "room_code": "A201",
     "room_name": "Phòng trưởng phòng Công tác sinh viên",
     "room_type": "Office",
     "building_code": "A",
@@ -1935,7 +1935,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.203",
+    "room_code": "A203",
     "room_name": "Phòng trưởng phòng Dữ liệu & CNTT",
     "room_type": "Office",
     "building_code": "A",
@@ -1979,7 +1979,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.205",
+    "room_code": "A205",
     "room_name": "Phòng thực hành Vật lý",
     "room_type": "Lab",
     "building_code": "A",
@@ -2067,7 +2067,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.207",
+    "room_code": "A207",
     "room_name": "Phòng Dữ liệu & CNTT",
     "room_type": "Office",
     "building_code": "A",
@@ -2111,7 +2111,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.211",
+    "room_code": "A211",
     "room_name": "Văn phòng Công đoàn",
     "room_type": "Office",
     "building_code": "A",
@@ -2243,7 +2243,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.209",
+    "room_code": "A209",
     "room_name": "Trung tâm Công nghệ Đào tạo trực tuyến",
     "room_type": "Office",
     "building_code": "A",
@@ -2287,7 +2287,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.215",
+    "room_code": "A215",
     "room_name": "Phòng Dữ liệu & CNTT",
     "room_type": "Office",
     "building_code": "A",
@@ -2375,7 +2375,7 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.213",
+    "room_code": "A213",
     "room_name": "Phòng thực hành khoa Kỹ thuật máy tính",
     "room_type": "Lab",
     "building_code": "A",
@@ -2897,8 +2897,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.301",
-    "room_name": "Phòng học A.301",
+    "room_code": "A301",
+    "room_name": "Phòng học A301",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3029,8 +3029,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.303",
-    "room_name": "Phòng học A.303",
+    "room_code": "A303",
+    "room_name": "Phòng học A303",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3073,8 +3073,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.305",
-    "room_name": "Phòng học A.305",
+    "room_code": "A305",
+    "room_name": "Phòng học A305",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3117,8 +3117,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.309",
-    "room_name": "Phòng học A.309",
+    "room_code": "A309",
+    "room_name": "Phòng học A309",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3205,8 +3205,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.311",
-    "room_name": "Phòng học A.311",
+    "room_code": "A311",
+    "room_name": "Phòng học A311",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3249,8 +3249,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.319",
-    "room_name": "Phòng học A.319",
+    "room_code": "A319",
+    "room_name": "Phòng học A319",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3381,8 +3381,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.317",
-    "room_name": "Phòng học A.317",
+    "room_code": "A317",
+    "room_name": "Phòng học A317",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3425,8 +3425,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.315",
-    "room_name": "Phòng học A.315",
+    "room_code": "A315",
+    "room_name": "Phòng học A315",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3469,8 +3469,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.325",
-    "room_name": "Phòng học A.325",
+    "room_code": "A325",
+    "room_name": "Phòng học A325",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3557,8 +3557,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.323",
-    "room_name": "Phòng học A.323",
+    "room_code": "A323",
+    "room_name": "Phòng học A323",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3601,8 +3601,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.307",
-    "room_name": "Phòng học A.307",
+    "room_code": "A307",
+    "room_name": "Phòng học A307",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3645,8 +3645,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.313",
-    "room_name": "Phòng học A.313",
+    "room_code": "A313",
+    "room_name": "Phòng học A313",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -3689,8 +3689,8 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.321",
-    "room_name": "Phòng học A.321",
+    "room_code": "A321",
+    "room_name": "Phòng học A321",
     "room_type": "Theory",
     "building_code": "A",
     "floor_number": 3,
@@ -4055,7 +4055,7 @@
    "properties": {
     "room_code": "C1-STAIR1",
     "room_name": "Cầu Thang Tầng 1",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 1,
     "capacity": null,
@@ -4363,7 +4363,7 @@
    "properties": {
     "room_code": "C1-STAIR2",
     "room_name": "Cầu Thang Tầng 1",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 1,
     "capacity": null,
@@ -4495,7 +4495,7 @@
    "properties": {
     "room_code": "C1-STAIR3",
     "room_name": "Cầu Thang Tầng 1",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 1,
     "capacity": null,
@@ -4935,7 +4935,7 @@
    "properties": {
     "room_code": "C2-STAIR1",
     "room_name": "Cầu Thang Tầng 2",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 2,
     "capacity": null,
@@ -5243,7 +5243,7 @@
    "properties": {
     "room_code": "C2-STAIR2",
     "room_name": "Cầu Thang Tầng 2",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 2,
     "capacity": null,
@@ -5375,7 +5375,7 @@
    "properties": {
     "room_code": "C2-STAIR3",
     "room_name": "Cầu Thang Tầng 2",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 2,
     "capacity": null,
@@ -5947,7 +5947,7 @@
    "properties": {
     "room_code": "C3-STAIR1",
     "room_name": "Cầu Thang Tầng 3",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 3,
     "capacity": null,
@@ -6299,7 +6299,7 @@
    "properties": {
     "room_code": "C3-STAIR2",
     "room_name": "Cầu Thang Tầng 3",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 3,
     "capacity": null,
@@ -6431,7 +6431,7 @@
    "properties": {
     "room_code": "C3-STAIR3",
     "room_name": "Cầu Thang Tầng 3",
-    "room_type": "WC",
+    "room_type": "Stairs",
     "building_code": "C",
     "floor_number": 3,
     "capacity": null,

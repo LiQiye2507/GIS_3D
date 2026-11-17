@@ -47,7 +47,7 @@ def test_search_room_a305_within_building_a():
     res = client.get("/api/search", params={"q": "A305"})
     assert res.status_code == 200
     items = res.json()
-    match = next((r for r in items if r["room_code"] == "A.305"), None)
+    match = next((r for r in items if r["room_code"] == "A305"), None)
     assert match is not None
     assert match["floor_number"] == 3
     check = fetch_all(
@@ -92,7 +92,7 @@ def test_route_gate_a_to_a305():
     assert res.status_code == 200
     body = res.json()
     assert body["type"] == "FeatureCollection"
-    assert body["room_code"] == "A.305"
+    assert body["room_code"] == "A305"
     assert body["floors"] == [1, 2, 3]
     assert body["total_length_m"] > 0
     features = body["features"]
@@ -111,6 +111,6 @@ def test_route_unknown_room_and_missing_param():
 
     res_422 = client.get(
         "/api/route",
-        params={"start_lng": 106.8020546, "end_room_code": "A.305"},
+        params={"start_lng": 106.8020546, "end_room_code": "A305"},
     )
     assert res_422.status_code == 422
