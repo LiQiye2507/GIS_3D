@@ -23,6 +23,7 @@ from pathlib import Path
 
 import numpy as np
 import shapely
+import shapely.affinity
 from shapely.geometry import Polygon, mapping, shape
 from shapely.geometry.polygon import orient
 
@@ -40,6 +41,9 @@ NODE_CODE = {
 }
 CTRL = ['A', 'B', 'D', 'E', 'NHA_PVSV']  # có footprint OSM; C là bản nháp nên không dùng để fit
 IDW_FADE_M = 80.0
+# Dời footprint (mét Đông, mét Bắc) sau phép T cho khớp mái thật trên ảnh vệ tinh Esri;
+# trùng NODE_SHIFT_M trong frontend/js/campus/scene.js (model dời node tương ứng khi nạp)
+SHIFT_M = {'D': (9.4, 12.3), 'CAFE_VOI': (18.75, 13.8)}
 
 # ---------- đọc GLB ----------
 _CT = {5121: np.uint8, 5123: np.uint16, 5125: np.uint32, 5126: np.float32}
@@ -223,6 +227,8 @@ def build() -> dict:
     T, mean_iou = fit_T(fps, old)
     new = {k: apply_T(T, fps[k]) for k in old}
     new['CAFE_VOI'] = apply_T(T, fps['CAFE_VOI'])  # tòa mới, chỉ có trong model
+    for k, (e, n) in SHIFT_M.items():
+        new[k] = shapely.affinity.translate(new[k], e, n)
     # khớp theo vành ngoài: sân trong của model (Tòa C) không có trong lưới phòng cũ
     R = {k: fit_rigid(old[k], Polygon(new[k].exterior)) for k in old}
     shift = {k: np.subtract(rigid(old[k].centroid, R[k]).coords[0], old[k].centroid.coords[0]) for k in old}
@@ -239,7 +245,7 @@ def build() -> dict:
         return x + sum(w[k] * shift[k][0] for k in w) / tot, y + sum(w[k] * shift[k][1] for k in w) / tot
 
     return {'T': T, 'mean_iou': mean_iou, 'fps': fps, 'old': old, 'new_buildings': new, 'R': R, 'displace': displace,
-            'cafe_voi': apply_T(T, fps['CAFE_VOI'])}
+            'cafe_voi': new['CAFE_VOI']}
 
 
 def write_report(r) -> None:
@@ -340,7 +346,7 @@ CAFE_VOI_CANTEEN = {
     'source_ref': 'Models_3D/uit_campus_full.glb (Root_Cafe_Voi)', 'verified': False,
 }
 # Tiện ích thêm mới (không có trong dữ liệu gốc): (thuộc tính, (lng, lat))
-EXTRA_AMENITIES = [(GATE_2_PARKING, GATE_2_LNGLAT), (CAFE_VOI_CANTEEN, (106.8039055, 10.8693549))]
+EXTRA_AMENITIES = [(GATE_2_PARKING, GATE_2_LNGLAT), (CAFE_VOI_CANTEEN, (106.804077, 10.8694797))]
 # Tiện ích đặt lại theo model thay vì nội suy: ATM ra mặt đường trước chòi bảo vệ Cổng A,
 # bãi xe máy phía Bắc Tòa A vào mái nhà xe (cách mép mái 3 m),
 # phòng ăn E7.1 vào tâm phòng E7.01 của LOD 3 Tòa E (tầng 7, floor_number 8 vì có tầng G), cao = sàn 26.6 m + 1 m.

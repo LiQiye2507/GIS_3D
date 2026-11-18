@@ -17,6 +17,9 @@ const ROOT_NODES = {
   A: 'Root_Toa_A', B: 'Root_Toa_B', C: 'Root_Toa_C', D: 'Root_Toa_D', E: 'Root_Toa_E',
   NHA_PVSV: 'Root_Nha_PVSV', CAFE_VOI: 'Root_Cafe_Voi',
 };
+// Dời tòa (mét Đông, mét Bắc) cho khớp ảnh vệ tinh: mô hình gốc đặt D và Cafe Voi lệch so với mái thật.
+// Footprint trong CSDL đã dời cùng giá trị (Models_3D/scripts/04_align_gis_to_model.py, SHIFT_M).
+const NODE_SHIFT_M = { D: [9.4, 12.3], CAFE_VOI: [18.75, 13.8] };
 
 export function create(map, { onReady, onError, onProgress } = {}) {
   const scene = new THREE.Scene();
@@ -307,7 +310,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         const x = (a.x + b.x + c.x) / 3;
         const y = (a.y + b.y + c.y) / 3;
         const z = (a.z + b.z + c.z) / 3;
-        const hit = y > 0.5 && footprintRings.find(({ code, ring, box }) => buildingRoots[code]
+        const hit = y > 0.5 && footprintRings.find(({ code, ring, box }) => buildingRoots[code] && !NODE_SHIFT_M[code]
           && x >= box[0] && x <= box[2] && z >= box[1] && z <= box[3] && pointInRing(x, z, ring));
         (hit ? (moved[hit.code] = moved[hit.code] || []) : keep).push(idx[t], idx[t + 1], idx[t + 2]);
       }
@@ -401,6 +404,12 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         Object.entries(ROOT_NODES).forEach(([code, name]) => {
           const node = root.getObjectByName(name);
           if (node) buildingRoots[code] = node;
+          const shift = NODE_SHIFT_M[code];
+          if (node && shift) {
+            const [e, n] = shift;
+            node.position.x += (e * Math.cos(rot) + n * Math.sin(rot)) / GEO.scale;
+            node.position.z += (e * Math.sin(rot) - n * Math.cos(rot)) / GEO.scale;
+          }
         });
         applyHidden();
         root.updateMatrixWorld(true);
