@@ -221,5 +221,10 @@ Backend phải bật CORS cho `http://localhost:5500`.
 | Sân thể thao chưa xác định | Mô hình không ghi loại sân; 3 sân phía đông bắc (SF01–SF03) nằm ngoài ranh giới khuôn viên lấy từ OSM | Thẻ thông tin ghi "Chưa xác định"; cần khảo sát loại sân và đối chiếu ranh giới |
 | Tiện ích còn ít | Mới có 8 điểm, Y tế chỉ có phòng A103 và chưa có PCCC | Lớp và chú giải đã hỗ trợ đủ 9 danh mục, chỉ cần bổ sung dữ liệu |
 
+## Nguồn tham khảo
+- **Mô hình 3D khuôn viên:** "University of Information Technology - UIT" của Heli Ton, giấy phép CC BY 4.0 (tách theo tòa, nén Draco trong `frontend/models/uit_campus.glb`).
+- **cs.uitmap.site:** mô hình tham chiếu `NewMap.glb` và khung định hướng các tòa (`uit-building-hitboxes/v1`) dùng khi dựng model trong `Models_3D/scripts/02_build_uit_models.py`; giao diện (hiệu ứng làm mờ khi mở Credits, ngăn kéo bên trái) và ánh sáng cảnh có tham khảo phong cách của trang này.
+- **OpenStreetMap:** footprint tòa nhà, lối đi và ranh giới khuôn viên ban đầu.
+
 ## Thông tin
 Đồ án môn **IE402 – Hệ thống thông tin địa lý 3D**, Trường ĐH Công nghệ Thông tin – ĐHQG-HCM.
