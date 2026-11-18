@@ -42,7 +42,7 @@ Models_3D/scripts/  dựng model tách tòa (01–03, chạy trong Blender), 04_
             dataset/ và database/ theo model), 05_export_web_glb.py (xuất bản nén cho frontend),
             06_extract_sports_fields.py (tách sân thể thao, sinh
             dataset/sports_fields.geojson và database/05_sports_fields.sql),
-            07_import_lod3_b_e.py (nạp nội thất LOD 3 Tòa B, E vào dataset/ và database/06).
+            07_import_lod3.py (nạp nội thất LOD 3 Tòa A, B, E vào dataset/ và database/03, 06).
             File model nguồn (.blend, .glb) không đưa lên repo.
 docs/       features.md (danh sách chức năng, cách dùng, giới hạn)
 ```

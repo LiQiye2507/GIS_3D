@@ -343,12 +343,12 @@ CAFE_VOI_CANTEEN = {
 EXTRA_AMENITIES = [(GATE_2_PARKING, GATE_2_LNGLAT), (CAFE_VOI_CANTEEN, (106.8039055, 10.8693549))]
 # Tiện ích đặt lại theo model thay vì nội suy: ATM ra mặt đường trước chòi bảo vệ Cổng A,
 # bãi xe máy phía Bắc Tòa A vào mái nhà xe (cách mép mái 3 m),
-# phòng ăn E7.1 vào tâm phòng E7.1 của LOD 3 Tòa E (tầng 7, floor_number 8 vì có tầng G), cao = sàn 26.6 m + 1 m.
+# phòng ăn E7.1 vào tâm phòng E7.01 của LOD 3 Tòa E (tầng 7, floor_number 8 vì có tầng G), cao = sàn 26.6 m + 1 m.
 # Giá trị (lng, lat) hoặc (lng, lat, z)
 AMENITY_LNGLAT = {
     'Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)': (106.8018981, 10.8706263),
     'Bãi giữ xe máy UIT (Phía Bắc Tòa A)': (106.8028612, 10.8714743),
-    'Phòng ăn GV - VC & NLĐ (E7.1)': (106.8028998, 10.8697979, 27.6),
+    'Phòng ăn GV - VC & NLĐ (E7.1)': (106.8028959, 10.8697993, 27.6),
     # máy bán nước tầng 1 Tòa A: góc hành lang cạnh thư viện (vị trí người dùng chỉ trên sơ đồ)
     'Máy bán nước tự động Tầng 1 Tòa A': (106.80297, 10.8706288),
 }
@@ -497,7 +497,7 @@ def verify_outputs() -> None:
             g_js = shapely.force_2d(shape(feat['geometry']))
             assert g_sql.equals_exact(g_js, 1e-7), (table, line[:80])
             n += 1
-    assert len(sql['rooms']) == 145 and n == 7 + 145 + 6 + 8 + 33, n
+    assert len(sql['rooms']) == 165 and n == 7 + 165 + 6 + 8 + 33, n
     assert any("VALUES ('CAFE_VOI'" in l for l in sql['buildings']), 'thiếu Cafe Voi'
     for g, _ in EXTRA_AMENITIES:
         assert any(g['name'] in l for l in sql['amenities']), f"thiếu {g['name']}"

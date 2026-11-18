@@ -84,7 +84,7 @@
     "name": "Phòng ăn GV - VC & NLĐ (E7.1)",
     "category": "Canteen",
     "building_code": "E",
-    "floor_number": 7,
+    "floor_number": 8,
     "elevation_z": 27.6,
     "open_hours": null,
     "source": "field_survey",
@@ -94,8 +94,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     106.8028998,
-     10.8697979,
+     106.8028959,
+     10.8697993,
      27.6
     ]
    }
