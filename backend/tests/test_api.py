@@ -203,3 +203,10 @@ def test_pool_recovers_after_db_restart():
         killer.close()
     assert len(pids) == 4
     assert client.get("/api/buildings").status_code == 200
+
+
+def test_large_response_is_gzipped():
+    res = client.get("/api/rooms", params={"building_code": "E"}, headers={"Accept-Encoding": "gzip"})
+    assert res.status_code == 200
+    assert res.headers["content-encoding"] == "gzip"
+    assert res.json()["type"] == "FeatureCollection"
