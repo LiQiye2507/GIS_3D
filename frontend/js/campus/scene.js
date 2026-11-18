@@ -20,6 +20,14 @@ const ROOT_NODES = {
 // Dời tòa (mét Đông, mét Bắc) cho khớp ảnh vệ tinh: mô hình gốc đặt D và Cafe Voi lệch so với mái thật.
 // Footprint trong CSDL đã dời cùng giá trị (Models_3D/scripts/04_align_gis_to_model.py, SHIFT_M).
 const NODE_SHIFT_M = { D: [9.4, 12.3], CAFE_VOI: [18.75, 13.8] };
+// Nhà xe phía Bắc Tòa A (mái dài + mái nhỏ) nằm trong lưới nền nên bị ẩn cùng nền ở chế độ vệ tinh.
+// Khung mái trong hệ mô hình (x, z), nới 0.6 m; tam giác có tâm trong khung được tách ra node riêng.
+const PARKING_RINGS = [
+  [[-138.2, -91.7], [-128.6, -82.1], [-54.3, -156.5], [-63.8, -166.2]],
+  [[-53.9, -177.1], [-64.8, -166.4], [-50.5, -152.2], [-39.6, -162.9]],
+];
+// Ở chế độ vệ tinh dời nhà xe (mét Đông, mét Bắc) cho khớp mái xanh thật trên ảnh Esri World Imagery.
+const PARKING_SAT_SHIFT_M = [-11.5, -47];
 
 export function create(map, { onReady, onError, onProgress } = {}) {
   const scene = new THREE.Scene();
@@ -60,9 +68,14 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   // và đế dày ~17 m nằm dưới mặt bản đồ, nên ẩn đi để ảnh vệ tinh làm mặt đất.
   let satellite = false;
   const plinth = [];
+  let parkingNode = null;
   const applySatellite = () => {
     if (modelRoot) modelRoot.children.forEach((o) => { if (!o.name.startsWith('Root_')) o.visible = !satellite; });
     plinth.forEach((o) => { o.visible = !satellite; });
+    if (parkingNode) {
+      const [e, n] = satellite ? PARKING_SAT_SHIFT_M : [0, 0];
+      parkingNode.position.set((e * Math.cos(rot) + n * Math.sin(rot)) / GEO.scale, 0, (e * Math.sin(rot) - n * Math.cos(rot)) / GEO.scale);
+    }
   };
   let envDone = false;
   let center = new THREE.Vector3();
@@ -329,6 +342,43 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     });
   }
 
+  // Tách mái, cột của nhà xe (tâm tam giác trong PARKING_RINGS, cao hơn mặt đường) khỏi lưới nền
+  // vào node Root_Nha_Xe: chế độ vệ tinh giữ mọi node Root_* nên nhà xe vẫn hiện. Chạy một lần khi nạp model.
+  function splitParking(root) {
+    parkingNode = new THREE.Group();
+    parkingNode.name = 'Root_Nha_Xe';
+    const meshes = [];
+    root.traverse((o) => { if (o.isMesh && o.geometry.index && !isBuildingPart(o)) meshes.push(o); });
+    root.add(parkingNode);
+    const v = new THREE.Vector3();
+    meshes.forEach((o) => {
+      const pos = o.geometry.getAttribute('position');
+      const idx = o.geometry.index.array;
+      const keep = [];
+      const moved = [];
+      for (let t = 0; t < idx.length; t += 3) {
+        let x = 0;
+        let y = 0;
+        let z = 0;
+        for (let k = 0; k < 3; k += 1) {
+          v.fromBufferAttribute(pos, idx[t + k]).applyMatrix4(o.matrixWorld);
+          x += v.x / 3;
+          y += v.y / 3;
+          z += v.z / 3;
+        }
+        const hit = y > 0.3 && PARKING_RINGS.some((ring) => pointInRing(x, z, ring));
+        (hit ? moved : keep).push(idx[t], idx[t + 1], idx[t + 2]);
+      }
+      if (!moved.length) return;
+      const geo = o.geometry.clone();
+      geo.setIndex(moved);
+      const part = new THREE.Mesh(geo, o.material);
+      o.add(part);
+      parkingNode.attach(part); // giữ nguyên vị trí thế giới
+      o.geometry.setIndex(keep);
+    });
+  }
+
   // Tâm và đỉnh mái thật của từng tòa trong mô hình: lấy các đỉnh lưới cao hơn mặt đất nằm trong footprint CSDL
   function computeAnchors() {
     if (!modelRoot || !footprintRings.length) return;
@@ -413,6 +463,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         });
         applyHidden();
         root.updateMatrixWorld(true);
+        splitParking(root);
         adoptStrays();
         computeAnchors();
         const box = new THREE.Box3().setFromObject(root);

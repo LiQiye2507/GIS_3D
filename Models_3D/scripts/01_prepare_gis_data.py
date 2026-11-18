@@ -4,7 +4,6 @@ Reads all GeoJSON layers from dataset/, validates geometries, transforms from
 EPSG:4326 to EPSG:32648 (UTM Zone 48N, meters), computes scene-local and
 building-SW-anchor-local coordinates, writes:
   - Models_3D/gis_processed_metrics.json
-  - Models_3D/update_buildings_glb.sql
   - Models_3D/gis_2d_preview.png
 """
 from __future__ import annotations
@@ -126,11 +125,6 @@ def main() -> None:
     }
 
     buildings_data = []
-    sql_lines = [
-        "-- Cập nhật đường dẫn model GLB và điểm neo (góc Tây-Nam) cho bảng buildings",
-        "-- Khớp với schema trong database/01_schema.sql (model_rotation = 0.0 vì mesh GLB đã theo hướng Bắc chuẩn UTM)",
-        "",
-    ]
 
     for _, row in buildings_utm.iterrows():
         code = str(row["building_code"])
@@ -175,12 +169,6 @@ def main() -> None:
                 "local_exterior": local_ext,
                 "local_holes": local_holes,
             }
-        )
-
-        sql_lines.append(
-            f"UPDATE buildings SET glb_model_url = '{glb_rel}', "
-            f"anchor_lng = {anchor_lng:.8f}, anchor_lat = {anchor_lat:.8f}, "
-            f"model_rotation = 0.0 WHERE building_code = '{code}';"
         )
 
     building_anchor_lookup = {b["building_code"]: b["anchor_utm"] for b in buildings_data}
@@ -311,8 +299,6 @@ def main() -> None:
     metrics_path = OUT_DIR / "gis_processed_metrics.json"
     metrics_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
 
-    sql_path = OUT_DIR / "update_buildings_glb.sql"
-    sql_path.write_text("\n".join(sql_lines) + "\n", encoding="utf-8")
 
     # Render a 2D GIS verification plot
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -353,7 +339,6 @@ def main() -> None:
             {
                 "status": "ok",
                 "metrics_file": str(metrics_path),
-                "sql_file": str(sql_path),
                 "preview_png": str(preview_path),
                 "buildings": [
                     {

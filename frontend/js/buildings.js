@@ -57,7 +57,7 @@ function selectedCode() {
 }
 
 // Tô màu khối LOD 1 theo chức năng tòa (chú giải #lod1-legend); tòa đang chọn tô vàng
-export const BUILDING_FUNCTION_COLORS = {
+const BUILDING_FUNCTION_COLORS = {
   academic: '#93C5FD',
   amenity: '#C4B5FD',
   dining: '#FDBA74',

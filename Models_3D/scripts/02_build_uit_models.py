@@ -22,7 +22,7 @@ SCENE_SCALE = 28.0  # 1.7642 * 28.0 = 49.4m height for Toa E (real-world meter s
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 MODELS_DIR = SCRIPTS_DIR.parent
-REF_GLB = SCRIPTS_DIR / "reference_newmap.glb"
+REF_GLB = MODELS_DIR / "reference_newmap.glb"
 METRICS_PATH = MODELS_DIR / "gis_processed_metrics.json"
 
 # Exact oriented hitboxes from https://cs.uitmap.site/ (uit-building-hitboxes/v1),

@@ -8,7 +8,7 @@ Model được coi là chuẩn vị trí. Các bước:
   3. Mỗi tòa k: phép cứng R_k (xoay + dịch, không tỉ lệ) đưa polygon cũ về footprint mới; phòng, sàn,
      tiện ích của tòa đi theo R_k. Điểm ngoài tòa (lối đi, cổng, ranh giới) dịch theo nội suy IDW.
 
-Đầu vào luôn là các file *.backup.* nên chạy lại cho kết quả như nhau.
+Đầu vào luôn là dữ liệu gốc chưa nắn trong dataset/raw/, database/raw/ nên chạy lại cho kết quả như nhau.
   --check : tự kiểm tra, in bảng sai số, ghi Models_3D/align_report.json
   --plot  : vẽ Models_3D/align_preview.png
 """
@@ -218,7 +218,7 @@ def fit_rigid(old: Polygon, new: Polygon):
 
 # ---------- dựng kết quả ----------
 def load_fc(name):
-    return json.loads((ROOT / 'dataset' / f'{name}.backup.geojson').read_text(encoding='utf-8'))
+    return json.loads((ROOT / 'dataset' / 'raw' / f'{name}.geojson').read_text(encoding='utf-8'))
 
 
 def build() -> dict:
@@ -422,7 +422,7 @@ def write_all(r) -> None:
 
     gate_a, gate_b = move(*GATE_A), move(*GATE_B)
     for fname in SQL_FILES:
-        src = (ROOT / 'database' / fname.replace('.sql', '.backup.sql')).read_text(encoding='utf-8')
+        src = (ROOT / 'database' / 'raw' / fname).read_text(encoding='utf-8')
         out = []
         for line in src.split('\n'):
             m = INSERT_RE.match(line)
@@ -471,7 +471,7 @@ def write_all(r) -> None:
 def verify_outputs() -> None:
     """Định dạng ghi giữ nguyên byte; mọi hình học trong SQL trùng GeoJSON (sai số < 1e-7 độ)."""
     for name in GEOJSON_FILES:
-        src = (ROOT / 'dataset' / f'{name}.backup.geojson').read_bytes()
+        src = (ROOT / 'dataset' / 'raw' / f'{name}.geojson').read_bytes()
         assert dump_fc(json.loads(src.decode('utf-8'))) == src, f'{name}: định dạng ghi khác bản gốc'
     sql = {}
     for f in SQL_FILES:

@@ -15,6 +15,10 @@ venv/
 *.backup
 *.backup.*
 
+# Dữ liệu gốc chưa nắn (đầu vào Models_3D/scripts/04)
+dataset/raw/
+database/raw/
+
 # Model nguồn (file lớn) – chỉ giữ script
 Models_3D/*
 !Models_3D/scripts/

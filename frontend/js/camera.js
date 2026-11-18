@@ -100,8 +100,10 @@ map.on('moveend', (e) => {
   idleTimer = setTimeout(() => startSpin(), 6000);
 });
 
-// Camera bàn xoay: kéo chuột trái = xoay ngang 360° + nghiêng 0–85° quanh tâm màn hình, kéo chuột phải = di chuyển.
-// Chặn mousedown trên canvas trước khi tới MapLibre (vốn kéo trái = di chuyển, kéo phải = xoay); cảm ứng giữ mặc định.
+// Camera bàn xoay: kéo chuột trái = xoay ngang 360° + nghiêng 0–85° quanh tâm màn hình,
+// kéo chuột phải hoặc Shift + chuột trái = di chuyển (dời luôn tâm xoay theo tâm màn hình mới).
+// Chặn mousedown trên canvas trước khi tới MapLibre (vốn kéo trái = di chuyển, kéo phải = xoay, Shift + kéo = phóng
+// theo khung); cảm ứng giữ mặc định của MapLibre (kéo 1 hoặc 2 ngón = di chuyển).
 const ORBIT_DEG_PER_PX = 0.4;
 const TILT_DEG_PER_PX = 0.3;
 const CLICK_TOLERANCE_PX = 3;
@@ -114,7 +116,7 @@ mapEl.addEventListener('mousedown', (e) => {
   swallowClick = false;
   if (e.target !== canvasEl || (e.button !== 0 && e.button !== 2)) return;
   e.stopPropagation();
-  drag = { pan: e.button === 2, x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY, moved: false };
+  drag = { pan: e.button === 2 || e.shiftKey, x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY, moved: false };
 }, true);
 
 window.addEventListener('mousemove', (e) => {

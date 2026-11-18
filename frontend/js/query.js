@@ -27,7 +27,7 @@ export function renderFloorOptions() {
 buildingEl.addEventListener('change', renderFloorOptions);
 
 // Trả về { matches, missingCapacity }: phòng thỏa điều kiện và số phòng bị loại vì chưa có sức chứa
-export function queryRooms({ building, floor, type, minCapacity }) {
+function queryRooms({ building, floor, type, minCapacity }) {
   let missingCapacity = 0;
   const matches = state.roomFeatures.filter(({ properties: p }) => {
     if (p.room_type === 'Corridor' || p.building_code !== building) return false;

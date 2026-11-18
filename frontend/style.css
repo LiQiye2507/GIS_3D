@@ -345,7 +345,7 @@ body.light-night #map {
   --bg-glow: rgba(26, 36, 52, 0.6);
 }
 
-/* Làm mờ sân khấu 3D & HUD khi mở Credits (giống cs.uitmap.site) */
+/* Làm mờ sân khấu 3D & HUD khi mở Credits (tham khảo cs.uitmap.site) */
 body.is-credits-open .canvas-stage,
 body.is-credits-open .hud,
 body.is-credits-open .explorer,
@@ -938,7 +938,7 @@ body.is-sheet-open .gate-marker {
   transform: translate(2px, -2px);
 }
 
-/* Open Left Drawer (soft-edged fade matching cs.uitmap.site) */
+/* Open Left Drawer (soft-edged fade, tham khảo cs.uitmap.site) */
 .explorer__drawer {
   position: fixed;
   left: 0;
