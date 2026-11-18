@@ -1,5 +1,5 @@
 // Phòng: popup, thẻ thông tin, chọn phòng
-import { ROOM_LABELS } from './config.js';
+import { ROOM_LABELS, floorName, floorNo } from './config.js';
 import { state } from './state.js';
 import { roomCardEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
@@ -15,7 +15,7 @@ function buildRoomPopupHtml(props) {
     <div class="popup-content">
       <h4>${escapeHtml(props.room_code)} — ${escapeHtml(props.room_name)}</h4>
       <p><strong>Loại:</strong> ${escapeHtml(typeLabel)}</p>
-      <p><strong>Tầng:</strong> ${escapeHtml(props.floor_number)}</p>
+      <p><strong>Tầng:</strong> ${escapeHtml(floorNo(props.building_code, props.floor_number))}</p>
       <p><strong>Sức chứa:</strong> ${escapeHtml(capacity)}</p>
     </div>
   `;
@@ -25,7 +25,7 @@ function renderRoomCard(room) {
   document.getElementById('room-card-title').textContent = room.room_name || room.room_code;
   document.getElementById('rc-code').textContent = room.room_code || '—';
   document.getElementById('rc-type').textContent = ROOM_LABELS[room.room_type] || room.room_type || 'Chưa rõ';
-  document.getElementById('rc-floor').textContent = `Tầng ${room.floor_number}`;
+  document.getElementById('rc-floor').textContent = floorName(room.building_code, room.floor_number);
   document.getElementById('rc-capacity').textContent = room.capacity != null ? `${room.capacity} chỗ` : 'Chưa cập nhật';
   document.getElementById('rc-equipment').textContent = room.equipment_info || 'Chưa cập nhật';
   roomCardEl.classList.remove('hidden');

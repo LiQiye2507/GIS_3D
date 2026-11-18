@@ -1,5 +1,5 @@
 // Tiện ích: lớp biểu tượng theo danh mục, bộ lọc kiêm chú giải, popup, vị trí giả lập và bán kính
-import { AMENITY_COLORS, AMENITY_TYPES } from './config.js';
+import { AMENITY_COLORS, AMENITY_TYPES, floorNo } from './config.js';
 import { state } from './state.js';
 import { amenitiesListEl, btnPickLocationEl, radiusFillEl, radiusSliderEl, radiusThumbEl, radiusValueEl } from './dom.js';
 import { api, escapeHtml } from './utils.js';
@@ -103,7 +103,7 @@ export function openAmenityPopup(p, lngLat) {
   const rows = [
     ['Loại', typeLabel(p.category)],
     ['Tòa', p.building_code || 'Ngoài trời'],
-    ['Tầng', p.floor_number],
+    ['Tầng', p.floor_number == null ? '—' : floorNo(p.building_code, p.floor_number)],
     ['Giờ mở cửa', p.open_hours || 'Chưa có dữ liệu'],
     ['Trạng thái', p.status || 'Chưa có dữ liệu'],
   ];

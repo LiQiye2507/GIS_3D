@@ -1,5 +1,5 @@
 // Các lớp bản đồ, LOD, lọc tầng, ánh sáng
-import { EMPTY_FC, GATE_A, GATE_B, GROUND_Z, LIGHTING_CONFIG, LIGHTING_MODES, ROOM_COLORS } from './config.js';
+import { EMPTY_FC, GATE_A, GATE_B, GROUND_Z, LIGHTING_CONFIG, LIGHTING_MODES, ROOM_COLORS, floorShort } from './config.js';
 import { state } from './state.js';
 import { btnSatelliteEl, floorSwitcherEl, lightingIconMoonEl, lightingIconSunEl, lightingIconSunsetEl, lightingKnobEl, lightingSliderEl, lightingValueEl, lod3DockEl } from './dom.js';
 import { showToast } from './utils.js';
@@ -152,7 +152,7 @@ export function renderFloorSwitcher(totalFloors) {
   floorSwitcherEl.innerHTML = '';
   const items = [];
   for (let f = totalFloors; f >= 1; f -= 1) {
-    items.push({ label: `T${f}`, value: f });
+    items.push({ label: floorShort(state.indoorCode, f), value: f });
   }
   items.push({ label: 'Tất cả', value: null });
   items.forEach((item) => {

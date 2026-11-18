@@ -1,5 +1,5 @@
 // Danh sách tòa nhà, bảng chi tiết, nhãn trên nóc
-import { LIGHTING_CONFIG } from './config.js';
+import { LIGHTING_CONFIG, floorShort } from './config.js';
 import { state } from './state.js';
 import { bpCloseEl, bpDescEl, bpFloorPillsEl, bpFloorsEl, bpIndexEl, bpIndoorBoxEl, bpNameEl, bpNextEl, bpNextNameEl, bpPrevEl, bpPrevNameEl, bpSpecsEl, bpViewIndoorEl, btnPlacesCloseEl, btnPlacesToggleEl, btnResetViewEl, buildingPanelEl, buildingsListEl, colophonEl, hudBottomLeftEl, hudTopLeftEl, placesCountEl, placesPanelEl, placesSummaryEl, placesTitleEl, searchInputEl, searchResultsEl, tourCardEl, tourWrapEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
@@ -166,7 +166,7 @@ export function selectBuildingByIndex(idx) {
       const pill = document.createElement('button');
       pill.type = 'button';
       pill.className = 'sheet__floor-pill';
-      pill.textContent = `T${f}`;
+      pill.textContent = floorShort(p.building_code, f);
       pill.addEventListener('click', () => {
         closeBuildingPanel();
         setIndoorBuilding(p.building_code);

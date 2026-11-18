@@ -1,6 +1,6 @@
 // Tìm kiếm: gợi ý khi gõ, không dấu, gõ sai nhẹ vẫn ra (Fuse.js), ưu tiên mã phòng khớp chính xác
 import Fuse from 'fuse.js';
-import { AMENITY_TYPES } from './config.js';
+import { AMENITY_TYPES, floorShort } from './config.js';
 import { state } from './state.js';
 import { searchInputEl, searchResultsEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
@@ -35,7 +35,7 @@ export function buildSearchIndex(amenitiesFc, sportsFc) {
         code: normalize(f.properties.room_code),
         name: normalize(f.properties.room_name),
         label: `${f.properties.room_code} – ${f.properties.room_name}`,
-        meta: `${f.properties.building_code} · T${f.properties.floor_number}`,
+        meta: `${f.properties.building_code} · ${floorShort(f.properties.building_code, f.properties.floor_number)}`,
         feature: f,
       })),
     ...state.buildingsList.map((f, idx) => ({
