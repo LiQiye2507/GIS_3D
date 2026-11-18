@@ -114,7 +114,7 @@ Models_3D/scripts/  dựng model tách tòa (01–03, chạy trong Blender), 04_
             dataset/sports_fields.geojson và database/05_sports_fields.sql),
             07_import_lod3.py (nạp nội thất LOD 3 Tòa A, B, E vào dataset/ và database/03, 06).
             File model nguồn (.blend, .glb) không đưa lên repo.
-docker-compose.yml  chạy CSDL + backend bằng Docker (backend/Dockerfile, backend/.dockerignore)
+docker-compose.yml  chạy CSDL + backend + frontend bằng Docker (backend/Dockerfile, backend/.dockerignore)
 ```
 
 ## Cài đặt & chạy (Windows, không Docker)
@@ -205,10 +205,11 @@ Backend phải bật CORS cho `http://localhost:5500`.
 
 ## Cách 2: Chạy bằng Docker (khuyên dùng)
 
-Chỉ cần cài Docker Desktop. Không cần cài PostgreSQL, PostGIS, pgRouting hay Python. Docker chạy hai thành phần:
+Chỉ cần cài Docker Desktop. Không cần cài PostgreSQL, PostGIS, pgRouting hay Python. Docker chạy ba thành phần:
 
 - `db`: PostgreSQL 16 + PostGIS 3.5 + pgRouting 4.0 (image `pgrouting/pgrouting:16-3.5-4.0.1`). Lần đầu khởi động, CSDL tự nạp `database/01_schema.sql` → `06_toa_b_e_indoor.sql` rồi chạy `checks.sql`.
 - `backend`: FastAPI, tự nối vào `db`.
+- `frontend`: nginx phục vụ thư mục `frontend/` ở cổng 5500 (khớp CORS của backend).
 
 ### 1. Cài Docker Desktop
 
@@ -233,10 +234,11 @@ cd GIS_3D
 docker compose up -d --build --wait
 ```
 
-Lần đầu phải tải image và nạp dữ liệu, nên mất vài phút. Khi lệnh chạy xong, cả `db` và `backend` đều ở trạng thái healthy.
+Lần đầu phải tải image và nạp dữ liệu, nên mất vài phút. Khi lệnh chạy xong, cả ba service đều đã chạy.
 
+- Website: http://localhost:5500
 - Tài liệu API: http://localhost:8000/docs
-- Frontend vẫn chạy như mục 4 ở trên: `cd frontend` → `python -m http.server 5500` → mở http://localhost:5500
+- Sửa file trong `frontend/` thì chỉ cần tải lại trang, không phải chạy lại Docker.
 
 Kiểm tra dữ liệu:
 
@@ -257,7 +259,7 @@ docker compose exec db psql -U postgres -d uit_campus -c "SELECT count(*) FROM r
 | Database | `uit_campus` |
 
 - Mật khẩu `postgres` chỉ dành cho môi trường dev trên máy cá nhân. Không dùng cho máy chủ thật.
-- Cổng `5433` (CSDL) và `8000` (backend) chỉ mở cho chính máy đang chạy (`127.0.0.1`). Muốn máy khác trong mạng LAN truy cập được thì bỏ `127.0.0.1:` trong mục `ports` của `docker-compose.yml`.
+- Cổng `5433` (CSDL), `8000` (backend) và `5500` (website) chỉ mở cho chính máy đang chạy (`127.0.0.1`). Muốn máy khác trong mạng LAN truy cập được thì bỏ `127.0.0.1:` trong mục `ports` của `docker-compose.yml`.
 - Muốn chạy backend trên Windows nhưng dùng CSDL trong Docker: chạy `docker compose up -d db`, rồi đặt trong `backend/.env`: `DATABASE_URL=postgresql://postgres:postgres@localhost:5433/uit_campus`. Biến `DATABASE_URL` của service `backend` trong compose đã ghi đè `.env`, nên không cần sửa `.env` khi chạy backend bằng Docker.
 
 ### 4. Dừng và reset dữ liệu
@@ -275,7 +277,7 @@ docker compose up -d --build --wait
 | `error during connect` / `Cannot connect to the Docker daemon` / `The system cannot find the file specified` | Docker Desktop chưa chạy. Mở Docker Desktop, đợi **Engine running** rồi chạy lại |
 | Docker Desktop báo `WSL not installed` hoặc kẹt ở "Engine starting" | Chưa cài WSL 2 (mục 1.1), hoặc chưa khởi động lại máy |
 | `docker` không được nhận là lệnh | Mở lại terminal hoặc VS Code sau khi cài Docker Desktop |
-| `Bind for 127.0.0.1:5433 failed: port is already allocated` (hoặc 8000) | Cổng đang bị chương trình khác dùng. Tắt chương trình đó, hoặc đổi cổng bên trái trong `ports`, ví dụ `"127.0.0.1:5434:5432"` |
+| `Bind for 127.0.0.1:5433 failed: port is already allocated` (hoặc 8000, 5500) | Cổng đang bị chương trình khác dùng (ví dụ đang chạy `python -m http.server 5500`). Tắt chương trình đó, hoặc đổi cổng bên trái trong `ports`, ví dụ `"127.0.0.1:5434:5432"`. Riêng cổng 5500 của frontend nên giữ nguyên, vì backend chỉ cho phép CORS từ cổng này |
 | Sửa file SQL nhưng dữ liệu trong Docker không đổi | Script init chỉ chạy khi volume còn trống. Chạy `docker compose down -v` rồi `docker compose up -d --build --wait` |
 | Backend báo lỗi 503 ngay sau khi khởi động | CSDL chưa sẵn sàng. Đợi vài giây, hoặc xem `docker compose logs db` |
 

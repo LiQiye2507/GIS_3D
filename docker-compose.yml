@@ -1,4 +1,4 @@
-# Chạy CSDL (PostgreSQL 16 + PostGIS + pgRouting) và backend bằng Docker.
+# Chạy CSDL (PostgreSQL 16 + PostGIS + pgRouting), backend và frontend bằng Docker.
 # Lần đầu khởi động, các file SQL được nạp theo thứ tự tên 01_ → 07_.
 # Mật khẩu "postgres" chỉ dùng cho môi trường dev trên máy cá nhân.
 services:
@@ -38,6 +38,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+  frontend:
+    # File tĩnh; cổng 5500 khớp CORS_ORIGINS của backend
+    image: nginx:1.27-alpine
+    ports:
+      - "127.0.0.1:5500:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
 
 volumes:
   pgdata:
