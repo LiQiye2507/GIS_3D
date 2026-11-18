@@ -241,7 +241,7 @@ export function updateRadiusVisual() {
   radiusThumbEl.style.left = `${pct}%`;
 }
 
-export async function updateProximity() {
+async function updateProximity() {
   if (!state.userPos) return;
   const radius = Number(radiusSliderEl.value);
   const [lng, lat] = state.userPos;

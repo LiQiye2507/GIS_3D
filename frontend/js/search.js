@@ -80,7 +80,7 @@ export function search(query, limit = 10) {
   return [...exact, ...fuzzy].slice(0, limit);
 }
 
-export function openResult(item) {
+function openResult(item) {
   if (item.kind === 'room') {
     selectRoom(item.feature.properties, getFeatureCenter(item.feature), true);
   } else if (item.kind === 'building') {
