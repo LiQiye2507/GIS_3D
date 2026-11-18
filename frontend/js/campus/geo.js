@@ -5,6 +5,15 @@ export const DEG = Math.PI / 180;
 // Gốc (0,0,0) của mô hình, tỉ lệ ngang (mét / đơn vị mô hình) và góc xoay ngược chiều kim đồng hồ so với hướng Đông.
 // Lấy từ Models_3D/align_report.json (geo_js), cùng phép quy đổi đã dùng để nắn dataset/. Độ cao mô hình tính bằng mét.
 export const GEO = { lng: 106.8038136, lat: 10.8705244, scale: 0.96886, rotDeg: 0.627 };
+// Mô hình cách điệu nên mỗi tòa lệch khỏi vị trí thật một kiểu. Độ dời từ mô hình gốc tới mái thật trên ảnh Esri World
+// Imagery: (mét Đông, mét Bắc, độ xoay theo chiều kim đồng hồ quanh SAT_PIVOT). Đo ở zoom 18.2, nhìn thẳng xuống;
+// Tòa A trong mô hình to hơn thực tế nên căn theo tâm hai mái vòm. CSDL lưu vị trí thật
+// (Models_3D/scripts/08_align_to_satellite.py, cùng số liệu); sơ đồ model dời ngược lại (frame.js).
+export const SAT_ALIGN = {
+  A: [-3.6, -8.6], B: [3.7, -3.1, -3], C: [4.7, 18.8], D: [9.4, 12.3], E: [3.9, 1.3],
+  NHA_PVSV: [2.6, -8.6], CAFE_VOI: [18.75, 13.8],
+};
+export const SAT_PIVOT = { B: [106.8037311, 10.8700535] }; // (lng, lat) trong hệ mô hình gốc
 const M_PER_DEG_LAT = 110574;
 const M_PER_DEG_LNG = 111320 * Math.cos(GEO.lat * DEG);
 

@@ -21,8 +21,9 @@ export const floorShort = (code, f) => (floorNo(code, f) === 'G' ? 'G' : `T${flo
 export const floorName = (code, f) => `Tầng ${floorNo(code, f)}`;
 
 // Cổng A/B đã nắn theo model 3D (Models_3D/scripts/04_align_gis_to_model.py)
-export const GATE_A = [106.802094, 10.8704303];
-export const GATE_B = [106.8038368, 10.8689126];
+// Hệ CSDL (vị trí thật theo ảnh vệ tinh, Models_3D/scripts/08_align_to_satellite.py); hiển thị qua frame.js
+export const GATE_A = [106.8020969, 10.8704188];
+export const GATE_B = [106.8038375, 10.8689147];
 export const ROOM_COLORS = {
   Theory: '#3B82F6',
   Lab: '#F97316',

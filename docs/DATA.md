@@ -24,6 +24,8 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 
 Mô hình 3D toàn trường (`frontend/models/uit_campus.glb`) là chuẩn vị trí. Footprint các tòa được lấy từ mô hình và quy đổi sang WGS84 bằng một phép đồng dạng (tỉ lệ 0,969, xoay 0,63°, fit với footprint OSM của 5 tòa). Phòng, sàn và tiện ích của mỗi tòa được dời và xoay theo tòa đó, còn lối đi, cổng và ranh giới được dời theo các tòa lân cận. Cách tính nằm trong `Models_3D/scripts/04_align_gis_to_model.py`. Footprint tòa nhà và lối đi ban đầu lấy từ OpenStreetMap.
 
+Mô hình là sa bàn cách điệu nên mỗi tòa lệch khỏi vị trí thật vài mét đến khoảng 19 m. Sau bước trên, toàn bộ dữ liệu được dời về vị trí mái nhà trên ảnh vệ tinh Esri World Imagery bằng `Models_3D/scripts/08_align_to_satellite.py`: mỗi tòa dịch (và xoay, với Tòa B) theo độ lệch đo trên ảnh, phòng, sàn, tiện ích đi theo tòa, lối đi, cổng và sân thể thao dời theo nội suy từ các tòa lân cận; ranh giới khuôn viên giữ nguyên. Vì vậy khoảng cách và đường đi tính trong CSDL theo vị trí thật. Khi xem ở sơ đồ model, frontend (`frontend/js/frame.js`) dời dữ liệu ngược lại cho khớp sa bàn; ở chế độ vệ tinh, các tòa trong mô hình được dời tới vị trí thật. Bảng độ lệch dùng chung: `SAT_ALIGN` trong `frontend/js/campus/geo.js` (trùng `SAT` trong script 08).
+
 ## Nội thất LOD 3
 
 ### Tòa A, B, E
@@ -59,4 +61,5 @@ Mỗi tầng cao 3.8 m. `base_height = (tầng − 1) × 3.8`, `extrude_height =
   - `05_export_web_glb.py`: xuất bản nén cho frontend.
   - `06_extract_sports_fields.py`: tách sân thể thao, sinh `dataset/sports_fields.geojson` và `database/05_sports_fields.sql`.
   - `07_import_lod3.py`: nạp nội thất LOD 3 Tòa A, B, E vào `dataset/` và `database/03`, `06`.
+  - `08_align_to_satellite.py`: dời `dataset/` và `database/` từ vị trí model về vị trí thật trên ảnh vệ tinh (chạy một lần, có đánh dấu để không dời hai lần). Dữ liệu hiện tại đã có chỉnh sửa tay sau các script 04, 06, 07, nên không chạy lại các script đó.
   - File model nguồn (`.blend`, `.glb`) không đưa lên repo.

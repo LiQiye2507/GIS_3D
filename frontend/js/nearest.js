@@ -3,6 +3,7 @@ import { AMENITY_TYPES, GATE_A } from './config.js';
 import { state } from './state.js';
 import { api, showToast } from './utils.js';
 import { focusAmenity } from './amenities.js';
+import { warpFc } from './frame.js';
 
 document.querySelectorAll('[data-nearest]').forEach((btn) => {
   btn.addEventListener('click', async () => {
@@ -11,7 +12,7 @@ document.querySelectorAll('[data-nearest]').forEach((btn) => {
     const [lng, lat] = state.userPos || GATE_A;
     const origin = state.userPos ? 'vị trí của bạn' : 'Cổng A (chưa chọn vị trí)';
     try {
-      const fc = await api(`/api/amenities/nearby?lat=${lat}&lng=${lng}&radius=500&category=${category}`);
+      const fc = warpFc(await api(`/api/amenities/nearby?lat=${lat}&lng=${lng}&radius=500&category=${category}`), 'nearest');
       const nearest = fc.features[0];
       if (!nearest) {
         showToast(`Không có ${label} trong bán kính 500 m quanh ${origin}`, true);

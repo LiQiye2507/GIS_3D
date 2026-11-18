@@ -4,6 +4,7 @@ import { showToast } from './utils.js';
 import { map } from './map.js';
 import { buildCirclePolygon, setUserPos } from './amenities.js';
 import { pointInRing } from './campus/geo.js';
+import { onFrameChange, toView } from './frame.js';
 
 const btnEl = document.getElementById('btn-geolocate');
 
@@ -13,8 +14,13 @@ const ERRORS = {
   3: 'Hết thời gian chờ định vị. Hãy thử lại hoặc dùng "Click chọn vị trí giả lập".',
 };
 
+let lastFix = null; // [lng, lat, sai số m] theo hệ CSDL (GPS là vị trí thật)
+onFrameChange(() => { if (lastFix) showAccuracy(...lastFix); });
+
 function showAccuracy(lng, lat, accuracyM) {
-  const data = buildCirclePolygon(lng, lat, accuracyM);
+  lastFix = [lng, lat, accuracyM];
+  const [x, y] = toView([lng, lat]);
+  const data = buildCirclePolygon(x, y, accuracyM);
   if (map.getSource('accuracy-circle')) {
     map.getSource('accuracy-circle').setData(data);
     return;
@@ -53,7 +59,7 @@ btnEl.addEventListener('click', () => {
       const accuracy = Math.max(5, Math.round(coords.accuracy));
       showAccuracy(pos[0], pos[1], accuracy);
       setUserPos(pos);
-      map.flyTo({ center: pos, zoom: Math.min(19, 18.6 - Math.log2(accuracy / 30)) });
+      map.flyTo({ center: toView(pos), zoom: Math.min(19, 18.6 - Math.log2(accuracy / 30)) });
       const inside = pointInRing(pos[0], pos[1], CAMPUS_BOUNDARY_FC.features[0].geometry.coordinates[0]);
       showToast(inside
         ? `Đã định vị, sai số khoảng ${accuracy} m`

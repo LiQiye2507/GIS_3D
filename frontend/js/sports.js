@@ -2,6 +2,7 @@
 import { state } from './state.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
+import { onFrameChange } from './frame.js';
 
 const COLOR = '#f59e0b';
 let hoveredId = null;
@@ -50,6 +51,7 @@ export function focusSportsField(f) {
 
 export function initSportsLayer(fc) {
   map.addSource('sports-fields', { type: 'geojson', data: fc, promoteId: 'field_code' });
+  onFrameChange(() => map.getSource('sports-fields').setData(fc));
   // vẽ sau model (lớp 2D không bị model che), dưới các lớp trong nhà / chỉ đường
   const state3 = (on, off) => ['case', ['boolean', ['feature-state', 'selected'], false], on,
     ['boolean', ['feature-state', 'hover'], false], on * 0.6, off];

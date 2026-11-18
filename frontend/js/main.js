@@ -9,6 +9,7 @@ import { addGateMarkers, applyLod, initLayers, renderFloorSwitcher, setIndoorBui
 import { closeBuildingPanel, renderBuildingsList, setPlacesPanelOpen } from './buildings.js';
 import { setAllAmenities, updateRadiusVisual } from './amenities.js';
 import { initSportsLayer } from './sports.js';
+import { setFrameFootprints, warpFc } from './frame.js';
 import { buildSearchIndex } from './search.js';
 import { applyDeepLink } from './share.js';
 import { renderFloorOptions } from './query.js';
@@ -82,6 +83,12 @@ map.on('load', async () => {
       api('/api/sports-fields').catch(() => EMPTY_FC),
     ]);
     const roomsFc = { type: 'FeatureCollection', features: roomsList.flatMap((fc) => fc.features) };
+    // CSDL lưu vị trí thật; sơ đồ model cần dời dữ liệu về vị trí mô hình (frame.js)
+    setFrameFootprints(buildingsFc);
+    warpFc(buildingsFc, 'buildings');
+    warpFc(roomsFc, 'rooms');
+    warpFc(amenitiesFc, 'amenities');
+    warpFc(sportsFc, 'sports');
     initLayers(buildingsFc, roomsFc, CAMPUS_BOUNDARY_FC);
     initSportsLayer(sportsFc);
     setAllAmenities(amenitiesFc);

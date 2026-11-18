@@ -5,6 +5,7 @@ import { amenitiesListEl, btnPickLocationEl, radiusFillEl, radiusSliderEl, radiu
 import { api, escapeHtml } from './utils.js';
 import { campus, liftPopup, map } from './map.js';
 import { selectRoom } from './rooms.js';
+import { onFrameChange, toView, warpFc } from './frame.js';
 
 const filtersEl = document.getElementById('amenity-filters');
 const enabled = new Set(Object.keys(AMENITY_TYPES).filter((k) => AMENITY_TYPES[k].on));
@@ -218,6 +219,11 @@ export function addAmenityLayer() {
   });
 }
 
+function showAmenitiesOnMap() {
+  if (map.getSource('amenities')) map.getSource('amenities').setData(shownAmenities);
+  syncRaised(shownAmenities);
+}
+
 // Toàn bộ tiện ích của khuôn viên (nạp lúc khởi động) – hiển thị khi chưa chọn vị trí
 export function setAllAmenities(fc) {
   // khoảng cách ở đây tính từ tâm khuôn viên cố định, vô nghĩa với người dùng: chỉ hiện khi đã chọn vị trí
@@ -225,8 +231,7 @@ export function setAllAmenities(fc) {
   allAmenities = fc;
   if (!state.userPos) {
     shownAmenities = fc;
-    if (map.getSource('amenities')) map.getSource('amenities').setData(fc);
-    syncRaised(fc);
+    showAmenitiesOnMap();
   }
   renderAmenityFilters();
 }
@@ -245,17 +250,12 @@ async function updateProximity() {
   if (!state.userPos) return;
   const radius = Number(radiusSliderEl.value);
   const [lng, lat] = state.userPos;
-  if (map.getSource('radius-circle')) {
-    map.getSource('radius-circle').setData(buildCirclePolygon(lng, lat, radius));
-    map.setLayoutProperty('radius-circle', 'visibility', 'visible');
-  }
+  drawUserPos();
+  if (map.getSource('radius-circle')) map.setLayoutProperty('radius-circle', 'visibility', 'visible');
   try {
     const fc = await api(`/api/amenities/nearby?lat=${lat}&lng=${lng}&radius=${radius}`);
-    shownAmenities = fc;
-    if (map.getSource('amenities')) {
-      map.getSource('amenities').setData(fc);
-    }
-    syncRaised(fc);
+    shownAmenities = warpFc(fc, 'amenities-near');
+    showAmenitiesOnMap();
     renderAmenitiesList();
   } catch (err) {
     console.error(err);
@@ -263,11 +263,22 @@ async function updateProximity() {
 }
 
 let userMarker = null;
-// Đặt vị trí người dùng (chọn trên bản đồ hoặc GPS) rồi tìm tiện ích trong bán kính
+// Vị trí người dùng (state.userPos, hệ CSDL) và vòng bán kính theo hệ đang hiển thị
+function drawUserPos() {
+  if (!state.userPos) return;
+  const p = toView(state.userPos);
+  if (userMarker) userMarker.setLngLat(p);
+  else userMarker = new maplibregl.Marker({ color: '#EF4444' }).setLngLat(p).addTo(map);
+  if (map.getSource('radius-circle')) map.getSource('radius-circle').setData(buildCirclePolygon(p[0], p[1], Number(radiusSliderEl.value)));
+}
+onFrameChange(() => {
+  showAmenitiesOnMap();
+  drawUserPos();
+});
+
+// Đặt vị trí người dùng (hệ CSDL: GPS, hoặc điểm chọn trên bản đồ đã đổi bằng toDb) rồi tìm tiện ích trong bán kính
 export function setUserPos(lngLat) {
   state.userPos = lngLat;
-  if (userMarker) userMarker.setLngLat(lngLat);
-  else userMarker = new maplibregl.Marker({ color: '#EF4444' }).setLngLat(lngLat).addTo(map);
   updateProximity();
 }
 

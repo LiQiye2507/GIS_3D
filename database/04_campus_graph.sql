@@ -50,8 +50,8 @@ core_ring AS (
 ),
 gate AS (
     SELECT
-        ST_SetSRID(ST_MakePoint(106.802094, 10.8704303), 4326) AS g_4326,
-        ST_Transform(ST_SetSRID(ST_MakePoint(106.802094, 10.8704303), 4326), 32648) AS g_m
+        ST_SetSRID(ST_MakePoint(106.8020969, 10.8704188), 4326) AS g_4326,
+        ST_Transform(ST_SetSRID(ST_MakePoint(106.8020969, 10.8704188), 4326), 32648) AS g_m
 ),
 room_breaks AS (
     -- Điểm ngắt từ mọi phòng không phải Corridor (gồm Stairs) trên từng tầng

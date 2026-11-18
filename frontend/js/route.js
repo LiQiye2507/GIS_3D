@@ -6,6 +6,7 @@ import { api, showToast } from './utils.js';
 import { map } from './map.js';
 import { setFloor } from './layers.js';
 import { stopSpin } from './camera.js';
+import { onFrameChange, warpFc } from './frame.js';
 
 export function buildRoute3dPolygons(routeFc) {
   const features = [];
@@ -57,6 +58,13 @@ function fitSegments(features) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let playToken = 0;
 
+function drawRoute(routeFc) {
+  if (map.getSource('route')) map.getSource('route').setData(routeFc);
+  if (map.getSource('route-3d')) map.getSource('route-3d').setData(buildRoute3dPolygons(routeFc));
+}
+let lastRoute = null;
+onFrameChange(() => { if (lastRoute) drawRoute(lastRoute); });
+
 // Xem toàn tuyến, rồi lần lượt bật từng tầng tuyến đi qua (mỗi tầng 2.5 s), dừng ở tầng của phòng đích
 async function playRouteByFloor(routeFc) {
   const token = ++playToken;
@@ -82,15 +90,11 @@ document.getElementById('btn-route').addEventListener('click', async () => {
     showToast('Chưa chọn vị trí giả lập, xuất phát từ Cổng A');
   }
   try {
-    const routeFc = await api(
+    const routeFc = warpFc(await api(
       `/api/route?start_lng=${start[0]}&start_lat=${start[1]}&end_room_code=${encodeURIComponent(state.selectedRoom.room_code)}`
-    );
-    if (map.getSource('route')) {
-      map.getSource('route').setData(routeFc);
-    }
-    if (map.getSource('route-3d')) {
-      map.getSource('route-3d').setData(buildRoute3dPolygons(routeFc));
-    }
+    ), 'route');
+    lastRoute = routeFc;
+    drawRoute(routeFc);
     // Đĩa bán kính (cao 1.2–1.35 m) che mất tuyến đi bộ sát mặt đất
     map.setLayoutProperty('radius-circle', 'visibility', 'none');
 

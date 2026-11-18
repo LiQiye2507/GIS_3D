@@ -86,11 +86,12 @@ GIS_3D/
 │   └── tests/ · Dockerfile   test_api.py · image cho service backend (kèm .dockerignore)
 ├── frontend/               index.html, style.css, models/uit_campus.glb (mô hình toàn trường tách theo tòa, nén Draco)
 │   └── js/                 ES module, mỗi chức năng một file: main (điểm vào), config, state, dom, utils, map, intro, camera,
-│                           layers (LOD, tầng, ánh sáng), buildings, rooms, search, amenities, nearest, route, share, geolocate, query, measure, sports
+│                           layers (LOD, tầng, ánh sáng), buildings, rooms, search, amenities, nearest, route, share, geolocate, query, measure, sports,
+│                           frame (đổi tọa độ CSDL ↔ sơ đồ model)
 │                           campus/: scene (lớp Three.js nạp uit_campus.glb), geo (nắn tọa độ), palette (ánh sáng)
 ├── database/               01_schema → 06_toa_b_e_indoor, checks.sql, load_all.sql (nạp tất cả bằng 1 lệnh)
 ├── dataset/                bộ dữ liệu chuẩn GeoJSON (tòa, tầng, phòng, tiện ích, lối đi, ranh giới, sân thể thao)
-├── Models_3D/scripts/      dựng model (Blender), nắn GIS theo model, xuất GLB web, tách sân, nạp LOD 3
+├── Models_3D/scripts/      dựng model (Blender), nắn GIS theo model, xuất GLB web, tách sân, nạp LOD 3, dời dữ liệu về vị trí vệ tinh
 ├── docs/                   tài liệu chi tiết
 └── docker-compose.yml      chạy CSDL + backend + frontend bằng Docker
 ```
@@ -135,7 +136,7 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 | Tòa B, C, E chưa có đường đi trong nhà | Đồ thị hành lang/cầu thang mới có cho Tòa A | Tuyến dừng ở lối vào gần nhất (`reaches_room = false`) và có ghi chú trên giao diện |
 | Lọc theo sức chứa chưa đầy đủ | 238/426 phòng (không tính hành lang) chưa có `capacity` | Phòng thiếu sức chứa bị loại khi lọc và được đếm trong dòng tổng kết |
 | Một số phòng Tòa C bị phân loại sai | Kho (`C*-STORE*`) và hồ nước (`C1-POOL1`) đang mang `room_type = 'WC'` | Cần nhóm khảo sát xác nhận lại loại phòng |
-| Dữ liệu chưa được kiểm chứng thực địa | Phần lớn đối tượng có `verified = false` (lấy từ OSM, sơ đồ PCCC); hình học đã nắn theo mô hình 3D, mô hình lệch OSM 8–20 m ở một số tòa | Cần đối chiếu thực địa trước khi dùng chính thức |
+| Dữ liệu chưa được kiểm chứng thực địa | Phần lớn đối tượng có `verified = false` (lấy từ OSM, sơ đồ PCCC); hình học đã dời về vị trí mái nhà trên ảnh vệ tinh (đo bằng mắt, sai số vài mét; Tòa A trong mô hình to hơn thực tế) | Cần đối chiếu thực địa trước khi dùng chính thức |
 | Phòng Tòa C chưa khớp hẳn vỏ tòa | Lưới phòng Tòa C là bản tạm, không có sân trong như mô hình | Khoảng 5% diện tích phòng (WC, cầu thang ở hai đầu) nhô ra ngoài vỏ vài mét; cần số hóa lại theo sơ đồ thật |
 | Sân thể thao chưa xác định | Mô hình không ghi loại sân; 3 sân phía đông bắc (SF01–SF03) nằm ngoài ranh giới khuôn viên lấy từ OSM | Thẻ thông tin ghi "Chưa xác định"; cần khảo sát loại sân và đối chiếu ranh giới |
 | Tiện ích còn ít | Mới có 8 điểm, Y tế chỉ có phòng A103 và chưa có PCCC | Lớp và chú giải đã hỗ trợ đủ 9 danh mục, chỉ cần bổ sung dữ liệu |

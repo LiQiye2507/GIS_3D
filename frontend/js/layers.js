@@ -7,6 +7,7 @@ import { campus, map } from './map.js';
 import { closeBuildingPanel, selectBuildingByIndex, updateBuildingMarker, updateBuildingWallColors } from './buildings.js';
 import { selectRoom } from './rooms.js';
 import { addAmenityLayer, setPickingMode, setUserPos } from './amenities.js';
+import { onFrameChange, setSatelliteFrame, toDb, toView } from './frame.js';
 
 let isSatellite = false;
 let currentFloor = null;
@@ -61,9 +62,8 @@ export function addGateMarkers() {
     el.appendChild(text);
     el.appendChild(stem);
     el.appendChild(dot);
-    new maplibregl.Marker({ element: el, anchor: 'bottom' })
-      .setLngLat(coords)
-      .addTo(map);
+    const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat(toView(coords)).addTo(map);
+    onFrameChange(() => marker.setLngLat(toView(coords)));
   });
 }
 
@@ -170,7 +170,11 @@ export function renderFloorSwitcher(totalFloors) {
 export function initLayers(buildingsFc, roomsFc, boundaryFc) {
   state.roomsByCode = new Map(roomsFc.features.map((f) => [f.properties.room_code, f.properties]));
   state.roomFeatures = roomsFc.features;
-  campus.setFootprints(buildingsFc);
+  campus.setFootprints(buildingsFc); // lúc khởi động luôn ở sơ đồ model -> footprint hệ mô hình gốc
+  onFrameChange(() => {
+    map.getSource('buildings').setData(buildingsFc);
+    map.getSource('rooms').setData(roomsFc);
+  });
 
   map.addSource('campus-boundary', { type: 'geojson', data: boundaryFc });
   map.addSource('buildings', { type: 'geojson', data: buildingsFc });
@@ -350,7 +354,7 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
     if (state.measureMode) return;
     if (state.isPickingLocation) {
       setPickingMode(false);
-      setUserPos([e.lngLat.lng, e.lngLat.lat]);
+      setUserPos(toDb([e.lngLat.lng, e.lngLat.lat]));
       return;
     }
     if (map.queryRenderedFeatures(e.point, { layers: ['amenities-layer'] }).length) return;
@@ -380,6 +384,8 @@ btnSatelliteEl.addEventListener('click', () => {
   btnSatelliteEl.classList.toggle('active', isSatellite);
   btnSatelliteEl.setAttribute('aria-pressed', String(isSatellite));
   setLayerVisibility('satellite-layer', isSatellite);
+  if (state.activePopup) state.activePopup.remove(); // popup đang neo theo vị trí cũ
+  setSatelliteFrame(isSatellite);
   campus.setSatellite(isSatellite);
 });
 

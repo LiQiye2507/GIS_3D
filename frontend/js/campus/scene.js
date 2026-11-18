@@ -6,7 +6,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import { GEO, hull, lngLatToModel, modelBearing, modelToLngLat, pointInRing, rot } from './geo.js';
+import { DEG, GEO, SAT_ALIGN, SAT_PIVOT, hull, lngLatToModel, modelBearing, modelToLngLat, pointInRing, rot } from './geo.js';
 import { MODE_SECONDS, MODE_T, NIGHT_ALBEDO, NIGHT_EMISSIVE, PALETTE, dir, lerpN, roleOf, smooth, tri, triColor } from './palette.js';
 
 const MODEL_URL = 'models/uit_campus.glb';
@@ -17,9 +17,11 @@ const ROOT_NODES = {
   A: 'Root_Toa_A', B: 'Root_Toa_B', C: 'Root_Toa_C', D: 'Root_Toa_D', E: 'Root_Toa_E',
   NHA_PVSV: 'Root_Nha_PVSV', CAFE_VOI: 'Root_Cafe_Voi',
 };
-// Dời tòa (mét Đông, mét Bắc) cho khớp ảnh vệ tinh: mô hình gốc đặt D và Cafe Voi lệch so với mái thật.
-// Footprint trong CSDL đã dời cùng giá trị (Models_3D/scripts/04_align_gis_to_model.py, SHIFT_M).
-const NODE_SHIFT_M = { D: [9.4, 12.3], CAFE_VOI: [18.75, 13.8] };
+// Sơ đồ model giữ vị trí gốc của mô hình; chế độ vệ tinh dời, xoay từng tòa theo SAT_ALIGN (geo.js).
+// Footprint nhận vào (setFootprints) luôn ở hệ mô hình gốc.
+const ZERO = [0, 0];
+// (mét Đông, mét Bắc) -> (x, z) trong hệ mô hình
+const metersToModel = ([e, n]) => [(e * Math.cos(rot) + n * Math.sin(rot)) / GEO.scale, (e * Math.sin(rot) - n * Math.cos(rot)) / GEO.scale];
 // Nhà xe phía Bắc Tòa A (mái dài + mái nhỏ) nằm trong lưới nền nên bị ẩn cùng nền ở chế độ vệ tinh.
 // Khung mái trong hệ mô hình (x, z), nới 0.6 m; tam giác có tâm trong khung được tách ra node riêng.
 const PARKING_RINGS = [
@@ -69,13 +71,47 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   let satellite = false;
   const plinth = [];
   let parkingNode = null;
+  const base = {}; // vị trí, hướng gốc của node Root_* trong mô hình
+  const yAxis = new THREE.Vector3(0, 1, 0);
+  // Góc xoay (rad, quanh trục y của mô hình) của tòa ở chế độ hiện tại; độ trong SAT_ALIGN theo chiều kim đồng hồ
+  const turnOf = (code) => (satellite && SAT_ALIGN[code] ? -(SAT_ALIGN[code][2] || 0) * DEG : 0);
+  // Điểm (x, z) của mô hình gốc -> vị trí hiển thị: xoay quanh SAT_PIVOT rồi dời (chỉ ở chế độ vệ tinh)
+  const toShown = (code, x, z) => {
+    const s = satellite && SAT_ALIGN[code];
+    if (!s) return [x, z];
+    const [dx, dz] = metersToModel(s);
+    const t = turnOf(code);
+    const c = SAT_PIVOT[code] ? lngLatToModel(...SAT_PIVOT[code]) : { x, z };
+    const rx = x - c.x;
+    const rz = z - c.z;
+    return [c.x + rx * Math.cos(t) + rz * Math.sin(t) + dx, c.z - rx * Math.sin(t) + rz * Math.cos(t) + dz];
+  };
+  // atModel = true: đặt tòa ở vị trí mô hình gốc (để dò mái, tách lưới nền); false: theo chế độ hiện tại
+  const placeNodes = (atModel) => {
+    Object.entries(base).forEach(([code, b]) => {
+      const node = buildingRoots[code];
+      const [x, z] = atModel ? [b.pos.x, b.pos.z] : toShown(code, b.pos.x, b.pos.z);
+      node.position.set(x, b.pos.y, z);
+      node.quaternion.setFromAxisAngle(yAxis, atModel ? 0 : turnOf(code)).multiply(b.quat);
+    });
+    if (modelRoot) modelRoot.updateMatrixWorld(true);
+  };
   const applySatellite = () => {
     if (modelRoot) modelRoot.children.forEach((o) => { if (!o.name.startsWith('Root_')) o.visible = !satellite; });
     plinth.forEach((o) => { o.visible = !satellite; });
     if (parkingNode) {
-      const [e, n] = satellite ? PARKING_SAT_SHIFT_M : [0, 0];
-      parkingNode.position.set((e * Math.cos(rot) + n * Math.sin(rot)) / GEO.scale, 0, (e * Math.sin(rot) - n * Math.cos(rot)) / GEO.scale);
+      const [dx, dz] = metersToModel(satellite ? PARKING_SAT_SHIFT_M : ZERO);
+      parkingNode.position.set(dx, 0, dz);
     }
+    placeNodes(false);
+    // khối chọn dựng ở hệ mô hình gốc: v -> toShown(v) = xoay(v) + ảnh của gốc tọa độ
+    pickMeshes.forEach((m) => {
+      const { code } = m.userData;
+      const [x, z] = toShown(code, 0, 0);
+      m.position.set(x, 0, z);
+      m.quaternion.setFromAxisAngle(yAxis, turnOf(code));
+      m.updateMatrixWorld();
+    });
   };
   let envDone = false;
   let center = new THREE.Vector3();
@@ -323,7 +359,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         const x = (a.x + b.x + c.x) / 3;
         const y = (a.y + b.y + c.y) / 3;
         const z = (a.z + b.z + c.z) / 3;
-        const hit = y > 0.5 && footprintRings.find(({ code, ring, box }) => buildingRoots[code] && !NODE_SHIFT_M[code]
+        const hit = y > 0.5 && footprintRings.find(({ code, ring, box }) => buildingRoots[code]
           && x >= box[0] && x <= box[2] && z >= box[1] && z <= box[3] && pointInRing(x, z, ring));
         (hit ? (moved[hit.code] = moved[hit.code] || []) : keep).push(idx[t], idx[t + 1], idx[t + 2]);
       }
@@ -453,16 +489,12 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         scene.add(root);
         Object.entries(ROOT_NODES).forEach(([code, name]) => {
           const node = root.getObjectByName(name);
-          if (node) buildingRoots[code] = node;
-          const shift = NODE_SHIFT_M[code];
-          if (node && shift) {
-            const [e, n] = shift;
-            node.position.x += (e * Math.cos(rot) + n * Math.sin(rot)) / GEO.scale;
-            node.position.z += (e * Math.sin(rot) - n * Math.cos(rot)) / GEO.scale;
-          }
+          if (!node) return;
+          buildingRoots[code] = node;
+          base[code] = { pos: node.position.clone(), quat: node.quaternion.clone() };
         });
         applyHidden();
-        root.updateMatrixWorld(true);
+        placeNodes(true);
         splitParking(root);
         adoptStrays();
         computeAnchors();
@@ -652,12 +684,15 @@ export function create(map, { onReady, onError, onProgress } = {}) {
           });
         });
       });
+      placeNodes(true);
       adoptStrays();
       computeAnchors();
+      applySatellite();
     },
-    // Tâm & độ cao mái (m) của tòa nhà trong mô hình; null nếu chưa dò được
+    // Tâm & độ cao mái (m) của tòa nhà theo vị trí đang hiển thị; null nếu chưa dò được
     anchor(code) {
-      return anchors[code] || null;
+      const a = anchors[code];
+      return a ? { lngLat: modelToLngLat(...toShown(code, a.x, a.z)), topM: a.topM } : null;
     },
     // Trả về mã tòa nhà dưới điểm ảnh (px theo CSS) hoặc null
     pick(point) {
