@@ -176,9 +176,30 @@ def test_route_reaches_room_flag():
 
 
 def test_db_unavailable_returns_503(monkeypatch):
+    import config.settings
     import utils.db
 
-    monkeypatch.setattr(utils.db, "DATABASE_URL", "postgresql://nobody@127.0.0.1:1/none?connect_timeout=1")
+    monkeypatch.setattr(config.settings, "DATABASE_URL", "postgresql://nobody@127.0.0.1:1/none?connect_timeout=1")
+    monkeypatch.setattr(utils.db, "_pool", None)
     res = client.get("/api/buildings")
     assert res.status_code == 503
     assert res.json()["detail"] == "Không kết nối được cơ sở dữ liệu"
+
+
+def test_pool_recovers_after_db_restart():
+    import psycopg2
+    import utils.db
+    from config.settings import DATABASE_URL
+
+    fetch_all("SELECT 1")
+    idle = list(utils.db._pool._pool)
+    pids = [conn.get_backend_pid() for conn in idle]
+    # CSDL khởi động lại = mọi kết nối rảnh trong pool bị ngắt
+    killer = psycopg2.connect(DATABASE_URL)
+    try:
+        with killer, killer.cursor() as cur:
+            cur.execute("SELECT pg_terminate_backend(pid) FROM unnest(%s) AS pid", (pids,))
+    finally:
+        killer.close()
+    assert len(pids) == 4
+    assert client.get("/api/buildings").status_code == 200
