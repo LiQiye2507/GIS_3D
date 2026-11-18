@@ -23,7 +23,7 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 
 ## Cấu trúc thư mục
 ```text
-database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, 05_sports_fields.sql, 06_toa_b_e_indoor.sql, checks.sql
+database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, 05_sports_fields.sql, 06_toa_b_e_indoor.sql, checks.sql, load_all.sql (nạp tất cả bằng 1 lệnh)
 dataset/    bộ dữ liệu chuẩn GeoJSON: buildings, floors, rooms, amenities, paths, campus_boundary;
             sports_fields (sân thể thao tách từ model, nạp bằng database/05_sports_fields.sql);
             rooms_b_e, floors_b_e (nội thất LOD 3 Tòa B, E, nạp bằng database/06_toa_b_e_indoor.sql)
@@ -79,13 +79,7 @@ $env:PGPASSWORD = "<mật_khẩu_postgres>"
 
 psql -U postgres -c "CREATE DATABASE uit_campus;"
 psql -U postgres -d uit_campus -c "CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS pgrouting;"
-psql -U postgres -d uit_campus -f database\01_schema.sql
-psql -U postgres -d uit_campus -f database\02_seed_uit_data.sql
-psql -U postgres -d uit_campus -f database\03_toa_a_indoor.sql
-psql -U postgres -d uit_campus -f database\04_campus_graph.sql
-psql -U postgres -d uit_campus -f database\05_sports_fields.sql
-psql -U postgres -d uit_campus -f database\06_toa_b_e_indoor.sql
-psql -U postgres -d uit_campus -tA -f database\checks.sql
+psql -U postgres -d uit_campus -f database\load_all.sql
 ```
 
 Kiểm chứng:
@@ -97,7 +91,7 @@ psql -U postgres -d uit_campus -c "SELECT 'buildings', count(*) FROM buildings U
 
 `02_seed_uit_data.sql` và `03_toa_a_indoor.sql` chứa bộ dữ liệu chuẩn trong `dataset/` (GeoJSON, EPSG:4326).
 
-Muốn nạp lại từ đầu thì chạy lại `01_schema.sql` (file này tự `DROP` bảng cũ) rồi chạy lần lượt `02_seed_uit_data.sql`, `03_toa_a_indoor.sql`, `04_campus_graph.sql`, `05_sports_fields.sql`, `06_toa_b_e_indoor.sql` (đúng thứ tự). `checks.sql` in kết quả kiểm tra: các dòng `invalid` phải bằng 0, có tuyến `c_route_gate_to_A305`.
+`load_all.sql` nạp lần lượt `01_schema.sql` → `06_toa_b_e_indoor.sql` rồi chạy `checks.sql`, dừng ngay khi một file lỗi. `01_schema.sql` tự `DROP` bảng cũ, nên muốn nạp lại từ đầu chỉ cần chạy lại lệnh trên. `checks.sql` in kết quả kiểm tra: các dòng `invalid` phải bằng 0, có tuyến `c_route_gate_to_A305`.
 
 ### 3. Chạy Backend (FastAPI)
 
