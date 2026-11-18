@@ -53,6 +53,14 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   let footprintRings = [];
   const anchors = {};
   let ready = false;
+  // Chế độ vệ tinh: chỉ giữ các tòa (Root_*). Nền sa bàn cách điệu rộng hơn khuôn viên thật
+  // và đế dày ~17 m nằm dưới mặt bản đồ, nên ẩn đi để ảnh vệ tinh làm mặt đất.
+  let satellite = false;
+  const plinth = [];
+  const applySatellite = () => {
+    if (modelRoot) modelRoot.children.forEach((o) => { if (!o.name.startsWith('Root_')) o.visible = !satellite; });
+    plinth.forEach((o) => { o.visible = !satellite; });
+  };
   let envDone = false;
   let center = new THREE.Vector3();
   let radius = 1;
@@ -209,6 +217,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       new THREE.LineBasicMaterial({ color: '#4f545a' })
     );
     scene.add(sides, edge);
+    plinth.push(sides, edge);
   }
 
   function buildLights(box) {
@@ -404,6 +413,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
         tuneMaterials(root);
         buildPlinth(root, box, size);
         buildLights(box);
+        applySatellite();
         applyMode(modeT);
         ready = true;
         map.triggerRepaint();
@@ -530,6 +540,12 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     playIntro(ms) {
       introStart = performance.now();
       introMs = ms;
+      map.triggerRepaint();
+    },
+    setSatellite(on) {
+      satellite = on;
+      applySatellite();
+      if (renderer) renderer.shadowMap.needsUpdate = true;
       map.triggerRepaint();
     },
     // Ẩn vỏ một tòa (xem trong nhà); null = hiện tất cả

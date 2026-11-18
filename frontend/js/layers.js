@@ -380,6 +380,7 @@ btnSatelliteEl.addEventListener('click', () => {
   btnSatelliteEl.classList.toggle('active', isSatellite);
   btnSatelliteEl.setAttribute('aria-pressed', String(isSatellite));
   setLayerVisibility('satellite-layer', isSatellite);
+  campus.setSatellite(isSatellite);
 });
 
 lightingSliderEl.addEventListener('input', () => {
