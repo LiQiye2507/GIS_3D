@@ -61,7 +61,7 @@
     "name": "Bãi để xe ô tô - tầng G tòa E",
     "category": "Parking",
     "building_code": "E",
-    "floor_number": 0,
+    "floor_number": 1,
     "elevation_z": 1.0,
     "open_hours": null,
     "source": "field_survey",
