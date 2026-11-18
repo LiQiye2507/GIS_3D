@@ -4,13 +4,24 @@ Hệ thống WebGIS 3D phục vụ **số hóa dữ liệu khuôn viên** và c�
 
 **Toàn khuôn viên:** LOD 1 – LOD 2 (ranh giới, khối nhà, mô hình `.glb`). **Trong nhà (LOD 3):** bóc tách từng tầng cho **Tòa A, B, C, E**; Tòa A có thêm đồ thị dẫn đường trong nhà.
 
-![Demo](docs/images/demo.png)
+![Toàn cảnh khuôn viên (LOD 2)](docs/images/demo.jpg)
+
+| Thông tin tòa nhà | Trong nhà Tòa A (LOD 3) | Ban đêm + chỉ đường đến A305 |
+|---|---|---|
+| ![Thông tin tòa nhà](docs/images/building-info.jpg) | ![Trong nhà Tòa A](docs/images/indoor-lod3.jpg) | ![Ban đêm và chỉ đường](docs/images/night-route.jpg) |
 
 ## Mục lục
 [Chạy nhanh (Docker)](#chạy-nhanh-docker) · [Chức năng](#chức-năng) · [Công nghệ](#công-nghệ) · [Cấu trúc thư mục](#cấu-trúc-thư-mục) · [API backend](#api-backend) · [Dữ liệu](#dữ-liệu) · [Kiểm thử](#kiểm-thử) · [Giới hạn và hướng xử lý](#giới-hạn-và-hướng-xử-lý) · [Tài liệu chi tiết](#tài-liệu-chi-tiết) · [Thành viên](#thành-viên) · [Nguồn tham khảo và giấy phép](#nguồn-tham-khảo-và-giấy-phép)
 
 ## Chạy nhanh (Docker)
-Cần cài Docker Desktop (đang chạy):
+**Máy chưa có Docker?** Cài một lần trên Windows 10/11:
+1. Mở PowerShell bằng **Run as administrator**, chạy `wsl --install --no-distribution`, rồi **khởi động lại máy** (báo lỗi virtualization → vào BIOS/UEFI bật Intel VT-x hoặc AMD-V/SVM).
+2. Tải và cài [Docker Desktop](https://www.docker.com/products/docker-desktop/) (hoặc `winget install -e --id Docker.DockerDesktop`), có thể phải khởi động lại máy lần nữa.
+3. Mở **Docker Desktop**, đợi hiện **Engine running** (không cần đăng nhập). Kiểm tra: `docker run --rm hello-world`.
+
+macOS/Linux: cài [Docker Desktop](https://docs.docker.com/desktop/) hoặc Docker Engine + plugin Compose.
+
+Khi Docker Desktop đang chạy:
 ```powershell
 git clone https://github.com/LiQiye2507/GIS_3D.git
 cd GIS_3D
