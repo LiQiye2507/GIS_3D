@@ -153,12 +153,11 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 
 | MSSV | Họ tên | Vai trò |
 |---|---|---|
-| 23520002 | Đặng Công An | <vai trò> |
-| 23520086 | Bạch Hồ Bắc | <vai trò> |
-| 23520165 | Lưu Thanh Cảnh | <vai trò> |
+| 23520002 | Đặng Công An | Leader |
+| 23520086 | Bạch Hồ Bắc | Member |
+| 23520165 | Lưu Thanh Cảnh | Member |
 
-**Giảng viên hướng dẫn:** NCS. ThS. Trần Phương Duy\
-**Học kỳ:** <HK…, năm học …>
+**Giảng viên hướng dẫn:** NCS. ThS. Trần Phương Duy
 
 ## Nguồn tham khảo và giấy phép
 - **Mô hình 3D khuôn viên:** "University of Information Technology - UIT" của Heli Ton, giấy phép CC BY 4.0 (tách theo tòa, nén Draco trong `frontend/models/uit_campus.glb`).
