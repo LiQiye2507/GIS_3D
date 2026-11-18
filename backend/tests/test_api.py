@@ -49,6 +49,19 @@ def test_rooms_floor_3_heights():
             assert props["extrude_height"] == 11.1
 
 
+def test_rooms_toa_e_top_floor_heights():
+    # LOD 3 Tòa E (13 tầng, database/06_toa_b_e_indoor.sql): tầng 13 cao (13 - 1) * 3.8 = 45.6 m
+    res = client.get("/api/rooms", params={"building_code": "E", "floor_number": 13})
+    assert res.status_code == 200
+    feats = res.json()["features"]
+    assert len(feats) >= 1
+    for feat in feats:
+        props = feat["properties"]
+        assert props["base_height"] == 45.6
+        if props["room_type"] != "Corridor":
+            assert props["extrude_height"] == 49.1
+
+
 def test_rooms_unknown_building_returns_404():
     res = client.get("/api/rooms", params={"building_code": "ZZZ"})
     assert res.status_code == 404
@@ -136,6 +149,13 @@ def test_nearby_includes_wc_rooms():
     assert all(f["properties"]["category"] == "WC" and f["properties"]["room_code"] for f in feats)
     keys = [(f["properties"]["distance_m"], f["properties"]["floor_number"]) for f in feats]
     assert keys == sorted(keys)
+
+
+def test_nearby_halls_are_rooms():
+    res = client.get("/api/amenities/nearby", params={"lat": 10.8700, "lng": 106.8030, "radius": 500, "category": "Hall"})
+    assert res.status_code == 200
+    codes = sorted(f["properties"]["room_code"] for f in res.json()["features"])
+    assert codes == ["A.HT", "HTE"]
 
 
 def test_nearby_medical_is_room_a103():

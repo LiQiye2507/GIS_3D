@@ -17,184 +17,116 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 0.2,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8028925,
-       10.8705608
-      ],
-      [
-       106.8031307,
-       10.8705842
-      ],
-      [
-       106.803266,
-       10.8704732
-      ],
-      [
-       106.8032899,
-       10.8702349
-      ],
-      [
-       106.8031793,
-       10.8700998
-      ],
-      [
-       106.8029411,
-       10.8700764
-      ],
-      [
-       106.8028058,
-       10.8701874
-      ],
-      [
-       106.8027819,
-       10.8704257
-      ],
-      [
-       106.8028925,
-       10.8705608
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A103",
-    "room_name": "Phòng Y tế",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
     "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8030378,
-       10.870575
+       106.8032304,
+       10.8701762
       ],
       [
-       106.8030446,
-       10.8705073
+       106.8031991,
+       10.8702065
       ],
       [
-       106.8031375,
-       10.8705165
+       106.803197,
+       10.8703905
       ],
       [
-       106.8031307,
-       10.8705842
+       106.8032277,
+       10.8704215
       ],
       [
-       106.8030378,
-       10.870575
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.WC-N-1",
-    "room_name": "Nhà vệ sinh Bắc - tầng 1",
-    "room_type": "WC",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029759,
-       10.870569
+       106.803227,
+       10.8704828
       ],
       [
-       106.8029827,
-       10.8705013
+       106.8031501,
+       10.8705573
       ],
       [
-       106.8030446,
-       10.8705073
+       106.8031162,
+       10.8705569
       ],
       [
-       106.8030378,
-       10.870575
+       106.8030716,
+       10.8705118
       ],
       [
-       106.8029759,
-       10.870569
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-N-1",
-    "room_name": "Cầu thang Bắc - tầng 1",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029401,
-       10.8705655
+       106.8028855,
+       10.8705098
       ],
       [
-       106.8029469,
-       10.8704978
+       106.8028541,
+       10.8705402
       ],
       [
-       106.8029827,
-       10.8705013
+       106.8027921,
+       10.8705395
       ],
       [
-       106.8029759,
-       10.870569
+       106.8027308,
+       10.8704775
       ],
       [
-       106.8029401,
-       10.8705655
+       106.8027314,
+       10.8704161
+      ],
+      [
+       106.8027628,
+       10.8703858
+      ],
+      [
+       106.8027648,
+       10.8702018
+      ],
+      [
+       106.8027341,
+       10.8701708
+      ],
+      [
+       106.8027348,
+       10.8701095
+      ],
+      [
+       106.8027975,
+       10.8700488
+      ],
+      [
+       106.8028596,
+       10.8700495
+      ],
+      [
+       106.8028902,
+       10.8700805
+      ],
+      [
+       106.8030764,
+       10.8700825
+      ],
+      [
+       106.8031077,
+       10.8700522
+      ],
+      [
+       106.8031697,
+       10.8700528
+      ],
+      [
+       106.8032311,
+       10.8701148
+      ],
+      [
+       106.8032304,
+       10.8701762
       ]
      ]
     ]
@@ -209,36 +141,236 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8028925,
-       10.8705608
+       106.8031501,
+       10.8705573
       ],
       [
-       106.8028993,
-       10.8704931
+       106.8031162,
+       10.8705569
       ],
       [
-       106.8029469,
-       10.8704978
+       106.8030716,
+       10.8705118
       ],
       [
-       106.8029401,
-       10.8705655
+       106.8030982,
+       10.8704861
       ],
       [
-       106.8028925,
-       10.8705608
+       106.8031596,
+       10.8705481
+      ],
+      [
+       106.8031501,
+       10.8705573
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-NE-1",
+    "room_name": "Cầu thang Đông Bắc - tầng 1",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031773,
+       10.8705309
+      ],
+      [
+       106.8031596,
+       10.8705481
+      ],
+      [
+       106.8031075,
+       10.8704955
+      ],
+      [
+       106.8031252,
+       10.8704783
+      ],
+      [
+       106.8031773,
+       10.8705309
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.WC-NE-1",
+    "room_name": "Nhà vệ sinh Đông Bắc - tầng 1",
+    "room_type": "WC",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8032197,
+       10.8704899
+      ],
+      [
+       106.8031773,
+       10.8705309
+      ],
+      [
+       106.8031159,
+       10.8704689
+      ],
+      [
+       106.8031292,
+       10.8704561
+      ],
+      [
+       106.8031494,
+       10.8704764
+      ],
+      [
+       106.8031665,
+       10.8704599
+      ],
+      [
+       106.8031464,
+       10.8704395
+      ],
+      [
+       106.8031584,
+       10.8704279
+      ],
+      [
+       106.8032197,
+       10.8704899
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A103",
+    "room_name": "Phòng Y tế",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.803227,
+       10.8704828
+      ],
+      [
+       106.8032197,
+       10.8704899
+      ],
+      [
+       106.8031816,
+       10.8704514
+      ],
+      [
+       106.8032203,
+       10.870414
+      ],
+      [
+       106.8032277,
+       10.8704215
+      ],
+      [
+       106.803227,
+       10.8704828
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TM-NE-1",
+    "room_name": "Thang máy Đông Bắc - tầng 1",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": "2 thang máy",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8032203,
+       10.870414
+      ],
+      [
+       106.8031816,
+       10.8704514
+      ],
+      [
+       106.8031584,
+       10.8704279
+      ],
+      [
+       106.803197,
+       10.8703905
+      ],
+      [
+       106.8032203,
+       10.870414
       ]
      ]
     ]
@@ -253,36 +385,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8031983,
-       10.8704666
+       106.8032304,
+       10.8701762
       ],
       [
-       106.8032018,
-       10.8704318
+       106.8031991,
+       10.8702065
       ],
       [
-       106.8032695,
-       10.8704384
+       106.8031749,
+       10.8701821
       ],
       [
-       106.803266,
-       10.8704732
+       106.803231,
+       10.8701278
       ],
       [
-       106.8031983,
-       10.8704666
+       106.8032304,
+       10.8701762
       ]
      ]
     ]
@@ -297,36 +429,40 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8032018,
-       10.8704318
+       106.803231,
+       10.8701278
       ],
       [
-       106.803205,
-       10.8703998
+       106.8031749,
+       10.8701821
       ],
       [
-       106.8032727,
-       10.8704065
+       106.8031575,
+       10.8701645
       ],
       [
-       106.8032695,
-       10.8704384
+       106.8032203,
+       10.8701039
       ],
       [
-       106.8032018,
-       10.8704318
+       106.8032311,
+       10.8701148
+      ],
+      [
+       106.803231,
+       10.8701278
       ]
      ]
     ]
@@ -341,36 +477,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.803205,
-       10.8703998
+       106.8032203,
+       10.8701039
       ],
       [
-       106.8032085,
-       10.8703648
+       106.8031575,
+       10.8701645
       ],
       [
-       106.8032762,
-       10.8703715
+       106.8031352,
+       10.870142
       ],
       [
-       106.8032727,
-       10.8704065
+       106.8031979,
+       10.8700813
       ],
       [
-       106.803205,
-       10.8703998
+       106.8032203,
+       10.8701039
       ]
      ]
     ]
@@ -379,42 +515,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.CT-E-1",
-    "room_name": "Cầu thang Đông - tầng 1",
+    "room_code": "A.CT-SE-1",
+    "room_name": "Cầu thang Đông Nam - tầng 1",
     "room_type": "Stairs",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8032085,
-       10.8703648
+       106.8031979,
+       10.8700813
       ],
       [
-       106.8032106,
-       10.8703445
+       106.8031431,
+       10.8701343
       ],
       [
-       106.8032782,
-       10.8703512
+       106.803127,
+       10.870118
       ],
       [
-       106.8032762,
-       10.8703715
+       106.8031818,
+       10.870065
       ],
       [
-       106.8032085,
-       10.8703648
+       106.8031979,
+       10.8700813
       ]
      ]
     ]
@@ -429,36 +565,40 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8032106,
-       10.8703445
+       106.8031818,
+       10.870065
       ],
       [
-       106.8032138,
-       10.8703126
+       106.8031191,
+       10.8701257
       ],
       [
-       106.8032814,
-       10.8703192
+       106.8030993,
+       10.8701057
       ],
       [
-       106.8032782,
-       10.8703512
+       106.8031541,
+       10.8700527
       ],
       [
-       106.8032106,
-       10.8703445
+       106.8031697,
+       10.8700528
+      ],
+      [
+       106.8031818,
+       10.870065
       ]
      ]
     ]
@@ -473,36 +613,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8032138,
-       10.8703126
+       106.8031541,
+       10.8700527
       ],
       [
-       106.8032167,
-       10.8702835
+       106.8030993,
+       10.8701057
       ],
       [
-       106.8032844,
-       10.8702902
+       106.8030764,
+       10.8700825
       ],
       [
-       106.8032814,
-       10.8703192
+       106.8031077,
+       10.8700522
       ],
       [
-       106.8032138,
-       10.8703126
+       106.8031541,
+       10.8700527
       ]
      ]
     ]
@@ -517,36 +657,40 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8030582,
-       10.8701563
+       106.8028902,
+       10.8700805
       ],
       [
-       106.803065,
-       10.8700886
+       106.8028497,
+       10.8701197
       ],
       [
-       106.8031793,
-       10.8700998
+       106.8027883,
+       10.8700577
       ],
       [
-       106.8031725,
-       10.8701675
+       106.8027975,
+       10.8700488
       ],
       [
-       106.8030582,
-       10.8701563
+       106.8028596,
+       10.8700495
+      ],
+      [
+       106.8028902,
+       10.8700805
       ]
      ]
     ]
@@ -555,42 +699,58 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.WC-S-1",
-    "room_name": "Nhà vệ sinh Nam - tầng 1",
+    "room_code": "A.WC-SW-1",
+    "room_name": "Nhà vệ sinh Tây Nam - tầng 1",
     "room_type": "WC",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8030177,
-       10.8701523
+       106.8028199,
+       10.8701485
       ],
       [
-       106.8030245,
-       10.8700846
+       106.8028073,
+       10.8701608
       ],
       [
-       106.803065,
-       10.8700886
+       106.8027459,
+       10.8700987
       ],
       [
-       106.8030582,
-       10.8701563
+       106.8027883,
+       10.8700577
       ],
       [
-       106.8030177,
-       10.8701523
+       106.8028497,
+       10.8701197
+      ],
+      [
+       106.802837,
+       10.8701319
+      ],
+      [
+       106.8028169,
+       10.8701116
+      ],
+      [
+       106.8027998,
+       10.8701281
+      ],
+      [
+       106.8028199,
+       10.8701485
       ]
      ]
     ]
@@ -599,42 +759,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.CT-S-1",
-    "room_name": "Cầu thang Nam - tầng 1",
+    "room_code": "A.CT-SW-1",
+    "room_name": "Cầu thang Tây Nam - tầng 1",
     "room_type": "Stairs",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029867,
-       10.8701493
+       106.802798,
+       10.8701514
       ],
       [
-       106.8029935,
-       10.8700816
+       106.8027809,
+       10.8701679
       ],
       [
-       106.8030245,
-       10.8700846
+       106.8027288,
+       10.8701153
       ],
       [
-       106.8030177,
-       10.8701523
+       106.8027459,
+       10.8700987
       ],
       [
-       106.8029867,
-       10.8701493
+       106.802798,
+       10.8701514
       ]
      ]
     ]
@@ -649,36 +809,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029343,
-       10.8701441
+       106.8027902,
+       10.8701773
       ],
       [
-       106.8029411,
-       10.8700764
+       106.8027648,
+       10.8702018
       ],
       [
-       106.8029935,
-       10.8700816
+       106.8027341,
+       10.8701708
       ],
       [
-       106.8029867,
-       10.8701493
+       106.8027347,
+       10.8701212
       ],
       [
-       106.8029343,
-       10.8701441
+       106.8027902,
+       10.8701773
       ]
      ]
     ]
@@ -693,36 +853,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8027819,
-       10.8704257
+       106.8028855,
+       10.8705098
       ],
       [
-       106.8027857,
-       10.8703876
+       106.8028541,
+       10.8705402
       ],
       [
-       106.8028534,
-       10.8703942
+       106.8028078,
+       10.8705396
       ],
       [
-       106.8028496,
-       10.8704324
+       106.8028626,
+       10.8704866
       ],
       [
-       106.8027819,
-       10.8704257
+       106.8028855,
+       10.8705098
       ]
      ]
     ]
@@ -737,36 +897,40 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8027857,
-       10.8703876
+       106.8028626,
+       10.8704866
       ],
       [
-       106.8027891,
-       10.8703542
+       106.8028078,
+       10.8705396
       ],
       [
-       106.8028567,
-       10.8703609
+       106.8027921,
+       10.8705395
       ],
       [
-       106.8028534,
-       10.8703942
+       106.80278,
+       10.8705273
       ],
       [
-       106.8027857,
-       10.8703876
+       106.8028427,
+       10.8704666
+      ],
+      [
+       106.8028626,
+       10.8704866
       ]
      ]
     ]
@@ -775,42 +939,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.CT-W-1",
-    "room_name": "Cầu thang Tây - tầng 1",
+    "room_code": "A.CT-NW-1",
+    "room_name": "Cầu thang Tây Bắc - tầng 1",
     "room_type": "Stairs",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8027891,
-       10.8703542
+       106.8028348,
+       10.8704743
       ],
       [
-       106.8027922,
-       10.8703232
+       106.80278,
+       10.8705273
       ],
       [
-       106.8028599,
-       10.8703299
+       106.8027639,
+       10.870511
       ],
       [
-       106.8028567,
-       10.8703609
+       106.8028187,
+       10.870458
       ],
       [
-       106.8027891,
-       10.8703542
+       106.8028348,
+       10.8704743
       ]
      ]
     ]
@@ -825,36 +989,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8027922,
-       10.8703232
+       106.8028266,
+       10.8704503
       ],
       [
-       106.8027967,
-       10.8702779
+       106.8027639,
+       10.870511
       ],
       [
-       106.8028644,
-       10.8702846
+       106.8027416,
+       10.8704884
       ],
       [
-       106.8028599,
-       10.8703299
+       106.8028043,
+       10.8704278
       ],
       [
-       106.8027922,
-       10.8703232
+       106.8028266,
+       10.8704503
       ]
      ]
     ]
@@ -869,36 +1033,40 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8027967,
-       10.8702779
+       106.8028043,
+       10.8704278
       ],
       [
-       106.8028006,
-       10.8702398
+       106.8027416,
+       10.8704884
       ],
       [
-       106.8028682,
-       10.8702464
+       106.8027308,
+       10.8704775
       ],
       [
-       106.8028644,
-       10.8702846
+       106.8027309,
+       10.8704645
       ],
       [
-       106.8027967,
-       10.8702779
+       106.802787,
+       10.8704102
+      ],
+      [
+       106.8028043,
+       10.8704278
       ]
      ]
     ]
@@ -913,36 +1081,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8028006,
-       10.8702398
+       106.802787,
+       10.8704102
       ],
       [
-       106.8028058,
-       10.8701874
+       106.8027309,
+       10.8704645
       ],
       [
-       106.8028735,
-       10.870194
+       106.8027314,
+       10.8704161
       ],
       [
-       106.8028682,
-       10.8702464
+       106.8027628,
+       10.8703858
       ],
       [
-       106.8028006,
-       10.8702398
+       106.802787,
+       10.8704102
       ]
      ]
     ]
@@ -957,80 +1125,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8030649,
-       10.8704727
+       106.803181,
+       10.8703417
       ],
       [
-       106.8030683,
-       10.8704394
+       106.8031132,
+       10.8704073
       ],
       [
-       106.8031636,
-       10.8704487
+       106.8030884,
+       10.8703822
       ],
       [
-       106.8031602,
-       10.8704821
+       106.8031562,
+       10.8703166
       ],
       [
-       106.8030649,
-       10.8704727
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A106",
-    "room_name": "Phòng học chương trình tiên tiến",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030683,
-       10.8704394
-      ],
-      [
-       106.8030769,
-       10.8703536
-      ],
-      [
-       106.8031722,
-       10.8703629
-      ],
-      [
-       106.8031636,
-       10.8704487
-      ],
-      [
-       106.8030683,
-       10.8704394
+       106.803181,
+       10.8703417
       ]
      ]
     ]
@@ -1045,36 +1169,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8030444,
-       10.870437
+       106.8031106,
+       10.8703608
       ],
       [
-       106.8030488,
-       10.8703941
+       106.8030884,
+       10.8703822
       ],
       [
-       106.8030726,
-       10.8703965
+       106.8030459,
+       10.8703393
       ],
       [
-       106.8030683,
-       10.8704394
+       106.8030681,
+       10.8703179
       ],
       [
-       106.8030444,
-       10.870437
+       106.8031106,
+       10.8703608
       ]
      ]
     ]
@@ -1089,36 +1213,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8030488,
-       10.8703941
+       106.8030681,
+       10.8703179
       ],
       [
-       106.8030531,
-       10.8703512
+       106.8030459,
+       10.8703393
       ],
       [
-       106.8030769,
-       10.8703536
+       106.8030035,
+       10.8702964
       ],
       [
-       106.8030726,
-       10.8703965
+       106.8030257,
+       10.8702749
       ],
       [
-       106.8030488,
-       10.8703941
+       106.8030681,
+       10.8703179
       ]
      ]
     ]
@@ -1127,306 +1251,46 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.1A8",
-    "room_name": "Phòng giáo sư",
-    "room_type": "Office",
+    "room_code": "A106",
+    "room_name": "Phòng học chương trình tiên tiến",
+    "room_type": "Theory",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8031164,
-       10.8703189
+       106.8031562,
+       10.8703166
       ],
       [
-       106.8031191,
-       10.8702927
+       106.8031106,
+       10.8703608
       ],
       [
-       106.8031489,
-       10.8702956
+       106.8030257,
+       10.8702749
       ],
       [
-       106.8031463,
-       10.8703219
+       106.8031156,
+       10.8701879
       ],
       [
-       106.8031164,
-       10.8703189
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.1A6",
-    "room_name": "Phòng giáo sư",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030569,
-       10.8703131
+       106.8031571,
+       10.8702299
       ],
       [
-       106.8030595,
-       10.8702869
-      ],
-      [
-       106.8031191,
-       10.8702927
-      ],
-      [
-       106.8031164,
-       10.8703189
-      ],
-      [
-       106.8030569,
-       10.8703131
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A108",
-    "room_name": "Phòng Quản trị thiết bị",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030833,
-       10.8702892
-      ],
-      [
-       106.8030897,
-       10.870226
-      ],
-      [
-       106.803185,
-       10.8702353
-      ],
-      [
-       106.8031786,
-       10.8702986
-      ],
-      [
-       106.8030833,
-       10.8702892
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A110",
-    "room_name": "Phòng Thí nghiệm Hệ thống thông tin",
-    "room_type": "Lab",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8031373,
-       10.8702307
-      ],
-      [
-       106.8031403,
-       10.8702009
-      ],
-      [
-       106.803188,
-       10.8702056
-      ],
-      [
-       106.803185,
-       10.8702353
-      ],
-      [
-       106.8031373,
-       10.8702307
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A112",
-    "room_name": "Phòng họp",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030659,
-       10.8702237
-      ],
-      [
-       106.8030688,
-       10.8701939
-      ],
-      [
-       106.8031403,
-       10.8702009
-      ],
-      [
-       106.8031373,
-       10.8702307
-      ],
-      [
-       106.8030659,
-       10.8702237
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.1B2",
-    "room_name": "Phòng Trưởng phòng Đào tạo Đại học",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029825,
-       10.870431
-      ],
-      [
-       106.8029868,
-       10.8703881
-      ],
-      [
-       106.8030106,
-       10.8703904
-      ],
-      [
-       106.8030063,
-       10.8704333
-      ],
-      [
-       106.8029825,
-       10.870431
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.1B4",
-    "room_name": "Phòng giáo sư",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029868,
-       10.8703881
-      ],
-      [
-       106.8029911,
-       10.8703452
-      ],
-      [
-       106.8030149,
-       10.8703475
-      ],
-      [
-       106.8030106,
-       10.8703904
-      ],
-      [
-       106.8029868,
-       10.8703881
+       106.8031562,
+       10.8703166
       ]
      ]
     ]
@@ -1441,36 +1305,124 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8028839,
-       10.870455
+       106.8030904,
+       10.8704293
       ],
       [
-       106.8028872,
-       10.8704216
+       106.8030226,
+       10.8704949
       ],
       [
-       106.8029825,
-       10.870431
+       106.8029978,
+       10.8704698
       ],
       [
-       106.8029792,
-       10.8704643
+       106.8030656,
+       10.8704043
       ],
       [
-       106.8028839,
-       10.870455
+       106.8030904,
+       10.8704293
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.1B2",
+    "room_name": "Phòng Trưởng phòng Đào tạo Đại học",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030656,
+       10.8704043
+      ],
+      [
+       106.8030434,
+       10.8704257
+      ],
+      [
+       106.803001,
+       10.8703828
+      ],
+      [
+       106.8030231,
+       10.8703614
+      ],
+      [
+       106.8030656,
+       10.8704043
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.1B4",
+    "room_name": "Phòng giáo sư",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030231,
+       10.8703614
+      ],
+      [
+       106.803001,
+       10.8703828
+      ],
+      [
+       106.8029585,
+       10.8703399
+      ],
+      [
+       106.8029807,
+       10.8703185
+      ],
+      [
+       106.8030231,
+       10.8703614
       ]
      ]
     ]
@@ -1485,36 +1437,40 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8028872,
-       10.8704216
+       106.8029978,
+       10.8704698
       ],
       [
-       106.8028958,
-       10.8703358
+       106.8029101,
+       10.8704689
       ],
       [
-       106.8029911,
-       10.8703452
+       106.8028686,
+       10.8704269
       ],
       [
-       106.8029825,
-       10.870431
+       106.8029585,
+       10.8703399
       ],
       [
-       106.8028872,
-       10.8704216
+       106.8030434,
+       10.8704257
+      ],
+      [
+       106.8029978,
+       10.8704698
       ]
      ]
     ]
@@ -1523,42 +1479,86 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.1A4",
+    "room_code": "A108",
+    "room_name": "Phòng Quản trị thiết bị",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030933,
+       10.8701654
+      ],
+      [
+       106.803068,
+       10.8701899
+      ],
+      [
+       106.8030016,
+       10.8701229
+      ],
+      [
+       106.803027,
+       10.8700984
+      ],
+      [
+       106.8030933,
+       10.8701654
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.1A8",
     "room_name": "Phòng giáo sư",
     "room_type": "Office",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029592,
-       10.8703035
+       106.803068,
+       10.8701899
       ],
       [
-       106.8029618,
-       10.8702773
+       106.8030246,
+       10.8702319
       ],
       [
-       106.8029976,
-       10.8702808
+       106.8030029,
+       10.87021
       ],
       [
-       106.8029949,
-       10.870307
+       106.8030463,
+       10.870168
       ],
       [
-       106.8029592,
-       10.8703035
+       106.803068,
+       10.8701899
       ]
      ]
     ]
@@ -1567,42 +1567,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.1A2",
-    "room_name": "Phòng trưởng phòng SĐH - KHCN & QHĐN",
+    "room_code": "A.1A6",
+    "room_name": "Phòng giáo sư",
     "room_type": "Office",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029235,
-       10.8703
+       106.8030246,
+       10.8702319
       ],
       [
-       106.8029261,
-       10.8702738
+       106.8029812,
+       10.8702739
       ],
       [
-       106.8029618,
-       10.8702773
+       106.8029595,
+       10.8702519
       ],
       [
-       106.8029592,
-       10.8703035
+       106.8030029,
+       10.87021
       ],
       [
-       106.8029235,
-       10.8703
+       106.8030246,
+       10.8702319
       ]
      ]
     ]
@@ -1611,86 +1611,98 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A114",
+    "room_code": "A110",
+    "room_name": "Phòng Thí nghiệm Hệ thống thông tin",
+    "room_type": "Lab",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030463,
+       10.870168
+      ],
+      [
+       106.8029595,
+       10.8702519
+      ],
+      [
+       106.8028994,
+       10.8701912
+      ],
+      [
+       106.8029526,
+       10.8701397
+      ],
+      [
+       106.8029528,
+       10.8701224
+      ],
+      [
+       106.8030016,
+       10.8701229
+      ],
+      [
+       106.8030463,
+       10.870168
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A112",
     "room_name": "Phòng họp",
     "room_type": "Office",
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029499,
-       10.8702761
+       106.8029526,
+       10.8701397
       ],
       [
-       106.8029593,
-       10.8701832
+       106.8028994,
+       10.8701912
       ],
       [
-       106.8030307,
-       10.8701902
+       106.8028715,
+       10.870163
       ],
       [
-       106.8030214,
-       10.8702831
+       106.8029139,
+       10.8701219
       ],
       [
-       106.8029499,
-       10.8702761
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A116",
-    "room_name": "Phòng Thí nghiệm truyền thông Đa phương tiện",
-    "room_type": "Lab",
-    "building_code": "A",
-    "floor_number": 1,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 0.0,
-    "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.802908,
-       10.8702142
+       106.8029528,
+       10.8701224
       ],
       [
-       106.8029116,
-       10.8701785
-      ],
-      [
-       106.8029593,
-       10.8701832
-      ],
-      [
-       106.8029557,
-       10.8702189
-      ],
-      [
-       106.802908,
-       10.8702142
+       106.8029526,
+       10.8701397
       ]
      ]
     ]
@@ -1705,970 +1717,36 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang1_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029023,
-       10.8702715
-      ],
-      [
-       106.802908,
-       10.8702142
-      ],
-      [
-       106.8029557,
-       10.8702189
-      ],
-      [
-       106.8029499,
-       10.8702761
-      ],
-      [
-       106.8029023,
-       10.8702715
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.HL2",
-    "room_name": "Hành lang tầng 2",
-    "room_type": "Corridor",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
     "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 4.0,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8028925,
-       10.8705608
-      ],
-      [
-       106.8031307,
-       10.8705842
-      ],
-      [
-       106.803266,
-       10.8704732
-      ],
-      [
-       106.8032899,
-       10.8702349
-      ],
-      [
-       106.8031793,
-       10.8700998
-      ],
-      [
-       106.8029411,
-       10.8700764
-      ],
-      [
-       106.8028058,
-       10.8701874
-      ],
-      [
-       106.8027819,
-       10.8704257
-      ],
-      [
-       106.8028925,
-       10.8705608
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A201",
-    "room_name": "Phòng trưởng phòng Công tác sinh viên",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8028993,
-       10.8704931
-      ],
-      [
-       106.8029469,
-       10.8704978
-      ],
-      [
-       106.8029401,
-       10.8705655
-      ],
-      [
-       106.8028925,
-       10.8705608
-      ],
-      [
-       106.8028993,
-       10.8704931
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-N-2",
-    "room_name": "Cầu thang Bắc - tầng 2",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029469,
-       10.8704978
-      ],
-      [
-       106.8029827,
-       10.8705013
-      ],
-      [
-       106.8029759,
-       10.870569
-      ],
-      [
-       106.8029401,
-       10.8705655
-      ],
-      [
-       106.8029469,
-       10.8704978
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.WC-N-2",
-    "room_name": "Nhà vệ sinh Bắc - tầng 2",
-    "room_type": "WC",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029827,
-       10.8705013
-      ],
-      [
-       106.803047,
-       10.8705076
-      ],
-      [
-       106.8030402,
-       10.8705753
-      ],
-      [
-       106.8029759,
-       10.870569
-      ],
-      [
-       106.8029827,
-       10.8705013
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A203",
-    "room_name": "Phòng trưởng phòng Dữ liệu & CNTT",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.803047,
-       10.8705076
-      ],
-      [
-       106.8031375,
-       10.8705165
-      ],
-      [
-       106.8031307,
-       10.8705842
-      ],
-      [
-       106.8030402,
-       10.8705753
-      ],
-      [
-       106.803047,
-       10.8705076
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A205",
-    "room_name": "Phòng thực hành Vật lý",
-    "room_type": "Lab",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8032084,
-       10.8703665
-      ],
-      [
-       106.803276,
-       10.8703731
-      ],
-      [
-       106.803266,
-       10.8704732
-      ],
-      [
-       106.8031983,
-       10.8704666
-      ],
-      [
-       106.8032084,
-       10.8703665
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-E-2",
-    "room_name": "Cầu thang Đông - tầng 2",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8032122,
-       10.8703283
-      ],
-      [
-       106.8032799,
-       10.870335
-      ],
-      [
-       106.803276,
-       10.8703731
-      ],
-      [
-       106.8032084,
-       10.8703665
-      ],
-      [
-       106.8032122,
-       10.8703283
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A207",
-    "room_name": "Phòng Dữ liệu & CNTT",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8032223,
-       10.8702282
-      ],
-      [
-       106.8032899,
-       10.8702349
-      ],
-      [
-       106.8032799,
-       10.870335
-      ],
-      [
-       106.8032122,
-       10.8703283
-      ],
-      [
-       106.8032223,
-       10.8702282
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A211",
-    "room_name": "Văn phòng Công đoàn",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029411,
-       10.8700764
-      ],
-      [
-       106.8029816,
-       10.8700804
-      ],
-      [
-       106.8029748,
-       10.8701481
-      ],
-      [
-       106.8029343,
-       10.8701441
-      ],
-      [
-       106.8029411,
-       10.8700764
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-S-2",
-    "room_name": "Cầu thang Nam - tầng 2",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029816,
-       10.8700804
-      ],
-      [
-       106.8030197,
-       10.8700841
-      ],
-      [
-       106.8030129,
-       10.8701518
-      ],
-      [
-       106.8029748,
-       10.8701481
-      ],
-      [
-       106.8029816,
-       10.8700804
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.WC-S-2",
-    "room_name": "Nhà vệ sinh Nam - tầng 2",
-    "room_type": "WC",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030197,
-       10.8700841
-      ],
-      [
-       106.803084,
-       10.8700904
-      ],
-      [
-       106.8030772,
-       10.8701581
-      ],
-      [
-       106.8030129,
-       10.8701518
-      ],
-      [
-       106.8030197,
-       10.8700841
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A209",
-    "room_name": "Trung tâm Công nghệ Đào tạo trực tuyến",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.803084,
-       10.8700904
-      ],
-      [
-       106.8031793,
-       10.8700998
-      ],
-      [
-       106.8031725,
-       10.8701675
-      ],
-      [
-       106.8030772,
-       10.8701581
-      ],
-      [
-       106.803084,
-       10.8700904
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A215",
-    "room_name": "Phòng Dữ liệu & CNTT",
-    "room_type": "Office",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.802792,
-       10.8703256
-      ],
-      [
-       106.8028596,
-       10.8703323
-      ],
-      [
-       106.8028496,
-       10.8704324
-      ],
-      [
-       106.8027819,
-       10.8704257
-      ],
-      [
-       106.802792,
-       10.8703256
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-W-2",
-    "room_name": "Cầu thang Tây - tầng 2",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8027958,
-       10.8702875
-      ],
-      [
-       106.8028634,
-       10.8702941
-      ],
-      [
-       106.8028596,
-       10.8703323
-      ],
-      [
-       106.802792,
-       10.8703256
-      ],
-      [
-       106.8027958,
-       10.8702875
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A213",
-    "room_name": "Phòng thực hành khoa Kỹ thuật máy tính",
-    "room_type": "Lab",
-    "building_code": "A",
-    "floor_number": 2,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 3.8,
-    "extrude_height": 7.3,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang2_so_do_phong.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8028058,
-       10.8701874
-      ],
-      [
-       106.8028735,
-       10.870194
-      ],
-      [
-       106.8028634,
-       10.8702941
-      ],
-      [
-       106.8027958,
-       10.8702875
-      ],
-      [
-       106.8028058,
-       10.8701874
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.HL3",
-    "room_name": "Hành lang tầng 3",
-    "room_type": "Corridor",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 7.8,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8028925,
-       10.8705608
-      ],
-      [
-       106.8031307,
-       10.8705842
-      ],
-      [
-       106.803266,
-       10.8704732
-      ],
-      [
-       106.8032899,
-       10.8702349
-      ],
-      [
-       106.8031793,
-       10.8700998
-      ],
-      [
-       106.8029411,
-       10.8700764
-      ],
-      [
-       106.8028058,
-       10.8701874
-      ],
-      [
-       106.8027819,
-       10.8704257
-      ],
-      [
-       106.8028925,
-       10.8705608
-      ]
-     ],
-     [
-      [
-       106.8031407,
-       10.8703406
-      ],
-      [
-       106.8031385,
-       10.8703542
-      ],
-      [
-       106.8031345,
-       10.8703674
-      ],
-      [
-       106.8031287,
+       106.8028716,
        10.8703799
       ],
       [
-       106.8031215,
-       10.8703916
+       106.8028462,
+       10.8704044
       ],
       [
-       106.8031127,
-       10.8704023
+       106.8027799,
+       10.8703374
       ],
       [
-       106.8031026,
-       10.8704117
+       106.8028053,
+       10.8703128
       ],
       [
-       106.8030914,
-       10.8704198
-      ],
-      [
-       106.8030792,
-       10.8704263
-      ],
-      [
-       106.8030663,
-       10.8704311
-      ],
-      [
-       106.8030529,
-       10.8704343
-      ],
-      [
-       106.8030392,
-       10.8704357
-      ],
-      [
-       106.8030254,
-       10.8704352
-      ],
-      [
-       106.8030118,
-       10.870433
-      ],
-      [
-       106.8029986,
-       10.870429
-      ],
-      [
-       106.8029861,
-       10.8704232
-      ],
-      [
-       106.8029744,
-       10.870416
-      ],
-      [
-       106.8029637,
-       10.8704073
-      ],
-      [
-       106.8029543,
-       10.8703972
-      ],
-      [
-       106.8029463,
-       10.870386
-      ],
-      [
-       106.8029398,
-       10.8703738
-      ],
-      [
-       106.8029351,
-       10.8703609
-      ],
-      [
-       106.8029319,
-       10.8703475
-      ],
-      [
-       106.8029306,
-       10.8703338
-      ],
-      [
-       106.8029311,
-       10.87032
-      ],
-      [
-       106.8029333,
-       10.8703064
-      ],
-      [
-       106.8029373,
-       10.8702932
-      ],
-      [
-       106.8029431,
-       10.8702807
-      ],
-      [
-       106.8029504,
-       10.8702689
-      ],
-      [
-       106.8029591,
-       10.8702583
-      ],
-      [
-       106.8029692,
-       10.8702488
-      ],
-      [
-       106.8029804,
-       10.8702408
-      ],
-      [
-       106.8029926,
-       10.8702343
-      ],
-      [
-       106.8030055,
-       10.8702295
-      ],
-      [
-       106.8030189,
-       10.8702263
-      ],
-      [
-       106.8030326,
-       10.8702249
-      ],
-      [
-       106.8030464,
-       10.8702254
-      ],
-      [
-       106.8030601,
-       10.8702276
-      ],
-      [
-       106.8030732,
-       10.8702316
-      ],
-      [
-       106.8030857,
-       10.8702374
-      ],
-      [
-       106.8030974,
-       10.8702446
-      ],
-      [
-       106.8031081,
-       10.8702533
-      ],
-      [
-       106.8031175,
-       10.8702634
-      ],
-      [
-       106.8031255,
-       10.8702746
-      ],
-      [
-       106.803132,
-       10.8702868
-      ],
-      [
-       106.8031368,
-       10.8702996
-      ],
-      [
-       106.8031399,
-       10.870313
-      ],
-      [
-       106.8031412,
-       10.8703268
-      ],
-      [
-       106.8031407,
-       10.8703406
+       106.8028716,
+       10.8703799
       ]
      ]
     ]
@@ -2677,218 +1755,86 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.HT",
-    "room_name": "Hội trường Tòa A",
-    "room_type": "Theory",
+    "room_code": "A.1A4",
+    "room_name": "Phòng giáo sư",
+    "room_type": "Office",
     "building_code": "A",
-    "floor_number": 3,
-    "capacity": 300,
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
     "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8031407,
-       10.8703406
+       106.8029584,
+       10.8702959
       ],
       [
-       106.8031385,
-       10.8703542
+       106.802915,
+       10.8703379
       ],
       [
-       106.8031345,
-       10.8703674
+       106.8028933,
+       10.870316
       ],
       [
-       106.8031287,
+       106.8029367,
+       10.870274
+      ],
+      [
+       106.8029584,
+       10.8702959
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.1A2",
+    "room_name": "Phòng trưởng phòng SĐH - KHCN & QHĐN",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.802915,
+       10.8703379
+      ],
+      [
+       106.8028716,
        10.8703799
       ],
       [
-       106.8031215,
-       10.8703916
+       106.8028499,
+       10.8703579
       ],
       [
-       106.8031127,
-       10.8704023
+       106.8028933,
+       10.870316
       ],
       [
-       106.8031026,
-       10.8704117
-      ],
-      [
-       106.8030914,
-       10.8704198
-      ],
-      [
-       106.8030792,
-       10.8704263
-      ],
-      [
-       106.8030663,
-       10.8704311
-      ],
-      [
-       106.8030529,
-       10.8704343
-      ],
-      [
-       106.8030392,
-       10.8704357
-      ],
-      [
-       106.8030254,
-       10.8704352
-      ],
-      [
-       106.8030118,
-       10.870433
-      ],
-      [
-       106.8029986,
-       10.870429
-      ],
-      [
-       106.8029861,
-       10.8704232
-      ],
-      [
-       106.8029744,
-       10.870416
-      ],
-      [
-       106.8029637,
-       10.8704073
-      ],
-      [
-       106.8029543,
-       10.8703972
-      ],
-      [
-       106.8029463,
-       10.870386
-      ],
-      [
-       106.8029398,
-       10.8703738
-      ],
-      [
-       106.8029351,
-       10.8703609
-      ],
-      [
-       106.8029319,
-       10.8703475
-      ],
-      [
-       106.8029306,
-       10.8703338
-      ],
-      [
-       106.8029311,
-       10.87032
-      ],
-      [
-       106.8029333,
-       10.8703064
-      ],
-      [
-       106.8029373,
-       10.8702932
-      ],
-      [
-       106.8029431,
-       10.8702807
-      ],
-      [
-       106.8029504,
-       10.8702689
-      ],
-      [
-       106.8029591,
-       10.8702583
-      ],
-      [
-       106.8029692,
-       10.8702488
-      ],
-      [
-       106.8029804,
-       10.8702408
-      ],
-      [
-       106.8029926,
-       10.8702343
-      ],
-      [
-       106.8030055,
-       10.8702295
-      ],
-      [
-       106.8030189,
-       10.8702263
-      ],
-      [
-       106.8030326,
-       10.8702249
-      ],
-      [
-       106.8030464,
-       10.8702254
-      ],
-      [
-       106.8030601,
-       10.8702276
-      ],
-      [
-       106.8030732,
-       10.8702316
-      ],
-      [
-       106.8030857,
-       10.8702374
-      ],
-      [
-       106.8030974,
-       10.8702446
-      ],
-      [
-       106.8031081,
-       10.8702533
-      ],
-      [
-       106.8031175,
-       10.8702634
-      ],
-      [
-       106.8031255,
-       10.8702746
-      ],
-      [
-       106.803132,
-       10.8702868
-      ],
-      [
-       106.8031368,
-       10.8702996
-      ],
-      [
-       106.8031399,
-       10.870313
-      ],
-      [
-       106.8031412,
-       10.8703268
-      ],
-      [
-       106.8031407,
-       10.8703406
+       106.802915,
+       10.8703379
       ]
      ]
     ]
@@ -2897,86 +1843,50 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A301",
-    "room_name": "Phòng học A301",
-    "room_type": "Theory",
+    "room_code": "A116",
+    "room_name": "Phòng Thí nghiệm truyền thông Đa phương tiện",
+    "room_type": "Lab",
     "building_code": "A",
-    "floor_number": 3,
-    "capacity": 30,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8028993,
-       10.8704931
-      ],
-      [
-       106.8029493,
-       10.870498
-      ],
-      [
-       106.8029425,
-       10.8705657
-      ],
-      [
-       106.8028925,
-       10.8705608
-      ],
-      [
-       106.8028993,
-       10.8704931
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-N-3",
-    "room_name": "Cầu thang Bắc - tầng 3",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 3,
+    "floor_number": 1,
     "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
     "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029493,
-       10.870498
+       106.8029367,
+       10.870274
       ],
       [
-       106.8029803,
-       10.870501
+       106.8028499,
+       10.8703579
       ],
       [
-       106.8029735,
-       10.8705687
+       106.8028053,
+       10.8703128
       ],
       [
-       106.8029425,
-       10.8705657
+       106.8028058,
+       10.8702645
       ],
       [
-       106.8029493,
-       10.870498
+       106.8028233,
+       10.8702647
+      ],
+      [
+       106.8028766,
+       10.8702132
+      ],
+      [
+       106.8029367,
+       10.870274
       ]
      ]
     ]
@@ -2985,482 +1895,142 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.WC-N-3",
-    "room_name": "Nhà vệ sinh Bắc - tầng 3",
+    "room_code": "A114",
+    "room_name": "Phòng họp",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028766,
+       10.8702132
+      ],
+      [
+       106.8028233,
+       10.8702647
+      ],
+      [
+       106.8028058,
+       10.8702645
+      ],
+      [
+       106.8028062,
+       10.8702261
+      ],
+      [
+       106.8028487,
+       10.8701851
+      ],
+      [
+       106.8028766,
+       10.8702132
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TV-P1",
+    "room_name": "Phòng chức năng Thư viện (1)",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.803253,
+       10.870739
+      ],
+      [
+       106.8032328,
+       10.8707586
+      ],
+      [
+       106.8031925,
+       10.8707179
+      ],
+      [
+       106.8032343,
+       10.8706775
+      ],
+      [
+       106.8032535,
+       10.8706969
+      ],
+      [
+       106.803253,
+       10.870739
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TV-WC",
+    "room_name": "Nhà vệ sinh Thư viện - tầng 1",
     "room_type": "WC",
     "building_code": "A",
-    "floor_number": 3,
+    "floor_number": 1,
     "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
     "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029803,
-       10.870501
+       106.8032343,
+       10.8706775
       ],
       [
-       106.8030113,
-       10.8705041
+       106.8031925,
+       10.8707179
       ],
       [
-       106.8030045,
-       10.8705718
-      ],
-      [
-       106.8029735,
-       10.8705687
-      ],
-      [
-       106.8029803,
-       10.870501
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A303",
-    "room_name": "Phòng học A303",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030113,
-       10.8705041
-      ],
-      [
-       106.8030708,
-       10.8705099
-      ],
-      [
-       106.803064,
-       10.8705776
-      ],
-      [
-       106.8030045,
-       10.8705718
-      ],
-      [
-       106.8030113,
-       10.8705041
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A305",
-    "room_name": "Phòng học A305",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": 30,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030708,
-       10.8705099
-      ],
-      [
-       106.8031375,
-       10.8705165
-      ],
-      [
-       106.8031307,
-       10.8705842
-      ],
-      [
-       106.803064,
-       10.8705776
-      ],
-      [
-       106.8030708,
-       10.8705099
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A309",
-    "room_name": "Phòng học A309",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": 30,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8032084,
-       10.8703665
-      ],
-      [
-       106.803276,
-       10.8703731
-      ],
-      [
-       106.803266,
-       10.8704732
-      ],
-      [
-       106.8031983,
-       10.8704666
-      ],
-      [
-       106.8032084,
-       10.8703665
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-E-3",
-    "room_name": "Cầu thang Đông - tầng 3",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8032122,
-       10.8703283
-      ],
-      [
-       106.8032799,
-       10.870335
-      ],
-      [
-       106.803276,
-       10.8703731
-      ],
-      [
-       106.8032084,
-       10.8703665
-      ],
-      [
-       106.8032122,
-       10.8703283
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A311",
-    "room_name": "Phòng học A311",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": 25,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8032223,
-       10.8702282
-      ],
-      [
-       106.8032899,
-       10.8702349
-      ],
-      [
-       106.8032799,
-       10.870335
-      ],
-      [
-       106.8032122,
-       10.8703283
-      ],
-      [
-       106.8032223,
-       10.8702282
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A319",
-    "room_name": "Phòng học A319",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8029411,
-       10.8700764
-      ],
-      [
-       106.803003,
-       10.8700825
-      ],
-      [
-       106.8029963,
-       10.8701502
-      ],
-      [
-       106.8029343,
-       10.8701441
-      ],
-      [
-       106.8029411,
-       10.8700764
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-S-3",
-    "room_name": "Cầu thang Nam - tầng 3",
-    "room_type": "Stairs",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.803003,
-       10.8700825
-      ],
-      [
-       106.803034,
-       10.8700855
-      ],
-      [
-       106.8030272,
-       10.8701532
-      ],
-      [
-       106.8029963,
-       10.8701502
-      ],
-      [
-       106.803003,
-       10.8700825
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.WC-S-3",
-    "room_name": "Nhà vệ sinh Nam - tầng 3",
-    "room_type": "WC",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.803034,
-       10.8700855
-      ],
-      [
-       106.8030626,
-       10.8700883
-      ],
-      [
-       106.8030558,
-       10.870156
-      ],
-      [
-       106.8030272,
-       10.8701532
-      ],
-      [
-       106.803034,
-       10.8700855
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A317",
-    "room_name": "Phòng học A317",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8030626,
-       10.8700883
-      ],
-      [
-       106.8031126,
-       10.8700933
-      ],
-      [
-       106.8031058,
-       10.870161
-      ],
-      [
-       106.8030558,
-       10.870156
-      ],
-      [
-       106.8030626,
-       10.8700883
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A315",
-    "room_name": "Phòng học A315",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": 50,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8031126,
-       10.8700933
-      ],
-      [
-       106.8031793,
-       10.8700998
+       106.8031522,
+       10.8706772
       ],
       [
        106.8031725,
-       10.8701675
+       10.8706576
       ],
       [
-       106.8031058,
-       10.870161
+       106.8032151,
+       10.8706581
       ],
       [
-       106.8031126,
-       10.8700933
+       106.8032343,
+       10.8706775
       ]
      ]
     ]
@@ -3469,86 +2039,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A325",
-    "room_name": "Phòng học A325",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": 48,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.802792,
-       10.8703256
-      ],
-      [
-       106.8028596,
-       10.8703323
-      ],
-      [
-       106.8028496,
-       10.8704324
-      ],
-      [
-       106.8027819,
-       10.8704257
-      ],
-      [
-       106.802792,
-       10.8703256
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A.CT-W-3",
-    "room_name": "Cầu thang Tây - tầng 3",
+    "room_code": "A.TV-CT1",
+    "room_name": "Cầu thang Thư viện (1)",
     "room_type": "Stairs",
     "building_code": "A",
-    "floor_number": 3,
+    "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8027958,
-       10.8702875
+       106.803273,
+       10.8709183
       ],
       [
-       106.8028634,
-       10.8702941
+       106.8032318,
+       10.8709581
       ],
       [
-       106.8028596,
-       10.8703323
+       106.8031835,
+       10.8709093
       ],
       [
-       106.802792,
-       10.8703256
+       106.8032246,
+       10.8708694
       ],
       [
-       106.8027958,
-       10.8702875
+       106.803273,
+       10.8709183
       ]
      ]
     ]
@@ -3557,130 +2083,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A323",
-    "room_name": "Phòng học A323",
-    "room_type": "Theory",
+    "room_code": "A.TV-P2",
+    "room_name": "Phòng chức năng Thư viện (2)",
+    "room_type": "Office",
     "building_code": "A",
-    "floor_number": 3,
-    "capacity": 30,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8028058,
-       10.8701874
-      ],
-      [
-       106.8028735,
-       10.870194
-      ],
-      [
-       106.8028634,
-       10.8702941
-      ],
-      [
-       106.8027958,
-       10.8702875
-      ],
-      [
-       106.8028058,
-       10.8701874
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A307",
-    "room_name": "Phòng học A307",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
-    "capacity": 30,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
-   },
-   "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-     [
-      [
-       106.8031877,
-       10.8704588
-      ],
-      [
-       106.803132,
-       10.8705045
-      ],
-      [
-       106.8031653,
-       10.8705452
-      ],
-      [
-       106.803221,
-       10.8704995
-      ],
-      [
-       106.8031877,
-       10.8704588
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "room_code": "A313",
-    "room_name": "Phòng học A313",
-    "room_type": "Theory",
-    "building_code": "A",
-    "floor_number": 3,
+    "floor_number": 1,
     "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
     "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8031647,
-       10.8701782
+       106.8032318,
+       10.8709581
       ],
       [
-       106.8032102,
-       10.8702338
+       106.8031906,
+       10.870998
       ],
       [
-       106.803251,
-       10.8702003
+       106.8031423,
+       10.8709491
       ],
       [
-       106.8032055,
-       10.8701447
+       106.8031835,
+       10.8709093
       ],
       [
-       106.8031647,
-       10.8701782
+       106.8032318,
+       10.8709581
       ]
      ]
     ]
@@ -3689,42 +2127,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A321",
-    "room_name": "Phòng học A321",
-    "room_type": "Theory",
+    "room_code": "A.TV-CT2",
+    "room_name": "Cầu thang Thư viện (2)",
+    "room_type": "Stairs",
     "building_code": "A",
-    "floor_number": 3,
+    "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8028842,
-       10.8702018
+       106.8030325,
+       10.8706753
       ],
       [
-       106.8029398,
-       10.8701561
+       106.8029913,
+       10.8707151
       ],
       [
-       106.8029065,
-       10.8701154
+       106.8029504,
+       10.8706738
       ],
       [
-       106.8028508,
-       10.8701611
+       106.8029916,
+       10.870634
       ],
       [
-       106.8028842,
-       10.8702018
+       106.8030325,
+       10.8706753
       ]
      ]
     ]
@@ -3733,42 +2171,42 @@
   {
    "type": "Feature",
    "properties": {
-    "room_code": "A.WC-NW-3",
-    "room_name": "Nhà vệ sinh Tây Bắc - tầng 3",
-    "room_type": "WC",
+    "room_code": "A.TV-P3",
+    "room_name": "Phòng chức năng Thư viện (3)",
+    "room_type": "Office",
     "building_code": "A",
-    "floor_number": 3,
+    "floor_number": 1,
     "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
     "equipment_info": null,
-    "base_height": 7.6,
-    "extrude_height": 11.1,
-    "source": "field_survey floorplan (số hóa gần đúng)",
-    "source_ref": "raw/field_survey/photos/toa_A_tang3_so_do_minh_hoa.jpg",
-    "verified": false
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.8029071,
-       10.8704824
+       106.8029913,
+       10.8707151
       ],
       [
-       106.8028616,
-       10.8704268
+       106.8029502,
+       10.8707549
       ],
       [
-       106.8028208,
-       10.8704603
+       106.8029093,
+       10.8707136
       ],
       [
-       106.8028663,
-       10.8705158
+       106.8029504,
+       10.8706738
       ],
       [
-       106.8029071,
-       10.8704824
+       106.8029913,
+       10.8707151
       ]
      ]
     ]
@@ -3783,108 +2221,1864 @@
     "building_code": "A",
     "floor_number": 1,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 0.0,
     "extrude_height": 3.5,
-    "source": "campus.glb outline",
-    "source_ref": "interim/toa_A_model_outline.geojson part=library",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.802981,
-       10.8706435
+       106.8032246,
+       10.8708694
       ],
       [
-       106.8031822,
-       10.8706475
+       106.8031423,
+       10.8709491
       ],
       [
-       106.8031911,
-       10.8706568
+       106.8029502,
+       10.8707549
+      ],
+      [
+       106.8030325,
+       10.8706753
+      ],
+      [
+       106.8031522,
+       10.8706772
+      ],
+      [
+       106.8032328,
+       10.8707586
+      ],
+      [
+       106.8032246,
+       10.8708694
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TV-DOC",
+    "room_name": "Phòng đọc Thư viện UIT",
+    "room_type": "Library",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 3.5,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.80303,
+       10.8709547
+      ],
+      [
+       106.8030085,
+       10.8709755
+      ],
+      [
+       106.8029659,
+       10.8709751
+      ],
+      [
+       106.8029275,
+       10.8709362
+      ],
+      [
+       106.8029279,
+       10.8708941
+      ],
+      [
+       106.8029495,
+       10.8708733
+      ],
+      [
+       106.8029502,
+       10.8707549
+      ],
+      [
+       106.8031423,
+       10.8709491
+      ],
+      [
+       106.80303,
+       10.8709547
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.HL-TV",
+    "room_name": "Sảnh nối Tòa A - Thư viện UIT",
+    "room_type": "Corridor",
+    "building_code": "A",
+    "floor_number": 1,
+    "capacity": null,
+    "base_height": 0.0,
+    "extrude_height": 0.2,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 1 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 1 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031725,
+       10.8706576
+      ],
+      [
+       106.8031522,
+       10.8706772
+      ],
+      [
+       106.8030325,
+       10.8706753
+      ],
+      [
+       106.8029916,
+       10.870634
+      ],
+      [
+       106.8029688,
+       10.870656
+      ],
+      [
+       106.8028654,
+       10.8705515
+      ],
+      [
+       106.8028855,
+       10.8705098
+      ],
+      [
+       106.8030716,
+       10.8705118
+      ],
+      [
+       106.8031162,
+       10.8705569
+      ],
+      [
+       106.8031279,
+       10.8705787
+      ],
+      [
+       106.8031808,
+       10.8706397
+      ],
+      [
+       106.8031725,
+       10.8706576
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.HL2",
+    "room_name": "Hành lang tầng 2",
+    "room_type": "Corridor",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 4.0,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031113,
+       10.8705517
+      ],
+      [
+       106.8030716,
+       10.8705116
+      ],
+      [
+       106.8028855,
+       10.8705096
+      ],
+      [
+       106.8028541,
+       10.8705399
+      ],
+      [
+       106.8027921,
+       10.8705392
+      ],
+      [
+       106.8027307,
+       10.8704772
+      ],
+      [
+       106.8027314,
+       10.8704159
+      ],
+      [
+       106.8027628,
+       10.8703856
+      ],
+      [
+       106.8027648,
+       10.8702016
+      ],
+      [
+       106.8027341,
+       10.8701706
+      ],
+      [
+       106.8027347,
+       10.870121
+      ],
+      [
+       106.8027288,
+       10.870115
+      ],
+      [
+       106.8027975,
+       10.8700486
+      ],
+      [
+       106.8028596,
+       10.8700492
+      ],
+      [
+       106.8028903,
+       10.8700802
+      ],
+      [
+       106.8030764,
+       10.8700822
+      ],
+      [
+       106.8031077,
+       10.8700519
+      ],
+      [
+       106.8031697,
+       10.8700526
+      ],
+      [
+       106.8032311,
+       10.8701146
+      ],
+      [
+       106.8032304,
+       10.8701759
+      ],
+      [
+       106.8031991,
+       10.8702062
+      ],
+      [
+       106.803197,
+       10.8703902
       ],
       [
        106.8032277,
-       10.8706575
+       10.8704213
       ],
       [
-       106.8032701,
-       10.8707104
+       106.803227,
+       10.8704826
       ],
       [
-       106.8032645,
-       10.87076
+       106.8031551,
+       10.8705521
       ],
       [
-       106.803241,
-       10.8707912
+       106.8031113,
+       10.8705517
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A201",
+    "room_name": "Phòng trưởng phòng Công tác sinh viên",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031113,
+       10.8705517
       ],
       [
-       106.8032347,
-       10.8708725
+       106.8030716,
+       10.8705116
       ],
       [
-       106.8032703,
-       10.8709229
+       106.8030982,
+       10.8704858
       ],
       [
-       106.8031796,
-       10.8709957
+       106.8031596,
+       10.8705478
       ],
       [
-       106.8031657,
-       10.8710045
+       106.8031551,
+       10.8705521
       ],
       [
-       106.8031255,
-       10.8709585
+       106.8031113,
+       10.8705517
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-NE-2",
+    "room_name": "Cầu thang Đông Bắc - tầng 2",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031596,
+       10.8705478
       ],
       [
-       106.8030249,
-       10.8709519
+       106.803106,
+       10.8704937
       ],
       [
-       106.803011,
-       10.8709652
+       106.8031237,
+       10.8704765
       ],
       [
-       106.8029698,
-       10.8709644
+       106.8031773,
+       10.8705307
       ],
       [
-       106.8029562,
-       10.8709596
+       106.8031596,
+       10.8705478
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.WC-NE-2",
+    "room_name": "Nhà vệ sinh Đông Bắc - tầng 2",
+    "room_type": "WC",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031773,
+       10.8705307
       ],
       [
-       106.8029183,
-       10.8709113
+       106.8031159,
+       10.8704687
       ],
       [
-       106.8029239,
-       10.8708617
+       106.8031584,
+       10.8704276
       ],
       [
-       106.8029425,
-       10.870844
+       106.8032198,
+       10.8704896
       ],
       [
-       106.8029476,
-       10.8708215
+       106.8031773,
+       10.8705307
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TM-NE-2",
+    "room_name": "Thang máy Đông Bắc - tầng 2",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": "2 thang máy",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031816,
+       10.8704511
       ],
       [
-       106.8029536,
-       10.8707492
+       106.8031584,
+       10.8704276
       ],
       [
-       106.8029135,
-       10.8706987
+       106.803197,
+       10.8703902
       ],
       [
-       106.802981,
-       10.8706435
+       106.8032203,
+       10.8704137
+      ],
+      [
+       106.8031816,
+       10.8704511
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A203",
+    "room_name": "Phòng trưởng phòng Dữ liệu & CNTT",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8032198,
+       10.8704896
+      ],
+      [
+       106.8031816,
+       10.8704511
+      ],
+      [
+       106.8032203,
+       10.8704137
+      ],
+      [
+       106.8032277,
+       10.8704213
+      ],
+      [
+       106.803227,
+       10.8704826
+      ],
+      [
+       106.8032198,
+       10.8704896
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A205",
+    "room_name": "Phòng thực hành Vật lý",
+    "room_type": "Lab",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031991,
+       10.8702062
+      ],
+      [
+       106.8031352,
+       10.8701417
+      ],
+      [
+       106.8031979,
+       10.8700811
+      ],
+      [
+       106.8032311,
+       10.8701146
+      ],
+      [
+       106.8032304,
+       10.8701759
+      ],
+      [
+       106.8031991,
+       10.8702062
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-SE-2",
+    "room_name": "Cầu thang Đông Nam - tầng 2",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031432,
+       10.8701341
+      ],
+      [
+       106.803127,
+       10.8701178
+      ],
+      [
+       106.8031818,
+       10.8700648
+      ],
+      [
+       106.8031979,
+       10.8700811
+      ],
+      [
+       106.8031432,
+       10.8701341
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A207",
+    "room_name": "Phòng Dữ liệu & CNTT",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031191,
+       10.8701255
+      ],
+      [
+       106.8030764,
+       10.8700822
+      ],
+      [
+       106.8031077,
+       10.8700519
+      ],
+      [
+       106.8031697,
+       10.8700526
+      ],
+      [
+       106.8031818,
+       10.8700648
+      ],
+      [
+       106.8031191,
+       10.8701255
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A211",
+    "room_name": "Văn phòng Công đoàn",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027648,
+       10.8702016
+      ],
+      [
+       106.8027341,
+       10.8701706
+      ],
+      [
+       106.8027347,
+       10.870121
+      ],
+      [
+       106.8027902,
+       10.870177
+      ],
+      [
+       106.8027648,
+       10.8702016
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-SW-2",
+    "room_name": "Cầu thang Tây Nam - tầng 2",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027824,
+       10.8701692
+      ],
+      [
+       106.8027288,
+       10.870115
+      ],
+      [
+       106.8027459,
+       10.8700985
+      ],
+      [
+       106.8027995,
+       10.8701527
+      ],
+      [
+       106.8027824,
+       10.8701692
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.WC-SW-2",
+    "room_name": "Nhà vệ sinh Tây Nam - tầng 2",
+    "room_type": "WC",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028073,
+       10.8701605
+      ],
+      [
+       106.8027459,
+       10.8700985
+      ],
+      [
+       106.8027883,
+       10.8700574
+      ],
+      [
+       106.8028497,
+       10.8701194
+      ],
+      [
+       106.8028073,
+       10.8701605
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A209",
+    "room_name": "Trung tâm Công nghệ Đào tạo trực tuyến",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028497,
+       10.8701194
+      ],
+      [
+       106.8027883,
+       10.8700574
+      ],
+      [
+       106.8027975,
+       10.8700486
+      ],
+      [
+       106.8028596,
+       10.8700492
+      ],
+      [
+       106.8028903,
+       10.8700802
+      ],
+      [
+       106.8028497,
+       10.8701194
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A215",
+    "room_name": "Phòng Dữ liệu & CNTT",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027921,
+       10.8705392
+      ],
+      [
+       106.80278,
+       10.870527
+      ],
+      [
+       106.8028427,
+       10.8704664
+      ],
+      [
+       106.8028855,
+       10.8705096
+      ],
+      [
+       106.8028541,
+       10.8705399
+      ],
+      [
+       106.8027921,
+       10.8705392
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-NW-2",
+    "room_name": "Cầu thang Tây Bắc - tầng 2",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.80278,
+       10.870527
+      ],
+      [
+       106.8027639,
+       10.8705107
+      ],
+      [
+       106.8028187,
+       10.8704577
+      ],
+      [
+       106.8028348,
+       10.870474
+      ],
+      [
+       106.80278,
+       10.870527
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A213",
+    "room_name": "Phòng thực hành khoa Kỹ thuật máy tính",
+    "room_type": "Lab",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027307,
+       10.8704772
+      ],
+      [
+       106.8027314,
+       10.8704159
+      ],
+      [
+       106.8027628,
+       10.8703856
+      ],
+      [
+       106.8028266,
+       10.8704501
+      ],
+      [
+       106.8027639,
+       10.8705107
+      ],
+      [
+       106.8027307,
+       10.8704772
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.KHO-W-2",
+    "room_name": "Kho tầng 2 (Tây)",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.803046,
+       10.8703617
+      ],
+      [
+       106.8030863,
+       10.8704024
+      ],
+      [
+       106.8030765,
+       10.8704111
+      ],
+      [
+       106.803066,
+       10.8704188
+      ],
+      [
+       106.8030548,
+       10.8704257
+      ],
+      [
+       106.8030431,
+       10.8704316
+      ],
+      [
+       106.8030309,
+       10.8704364
+      ],
+      [
+       106.8030183,
+       10.8704402
+      ],
+      [
+       106.8030055,
+       10.8704429
+      ],
+      [
+       106.8029924,
+       10.8704444
+      ],
+      [
+       106.8029793,
+       10.8704448
+      ],
+      [
+       106.8029662,
+       10.8704441
+      ],
+      [
+       106.8029531,
+       10.8704423
+      ],
+      [
+       106.8029403,
+       10.8704394
+      ],
+      [
+       106.8029279,
+       10.8704353
+      ],
+      [
+       106.8029158,
+       10.8704302
+      ],
+      [
+       106.8029042,
+       10.8704241
+      ],
+      [
+       106.8028932,
+       10.870417
+      ],
+      [
+       106.8028828,
+       10.870409
+      ],
+      [
+       106.8028732,
+       10.8704001
+      ],
+      [
+       106.8028645,
+       10.8703904
+      ],
+      [
+       106.8028566,
+       10.87038
+      ],
+      [
+       106.8028496,
+       10.870369
+      ],
+      [
+       106.8028437,
+       10.8703574
+      ],
+      [
+       106.8028388,
+       10.8703453
+      ],
+      [
+       106.802835,
+       10.8703329
+      ],
+      [
+       106.8028323,
+       10.8703202
+      ],
+      [
+       106.8028307,
+       10.8703073
+      ],
+      [
+       106.8028303,
+       10.8702943
+      ],
+      [
+       106.802831,
+       10.8702813
+      ],
+      [
+       106.8028329,
+       10.8702684
+      ],
+      [
+       106.8028358,
+       10.8702558
+      ],
+      [
+       106.8028399,
+       10.8702434
+      ],
+      [
+       106.8028451,
+       10.8702315
+      ],
+      [
+       106.8028513,
+       10.87022
+      ],
+      [
+       106.8028585,
+       10.8702091
+      ],
+      [
+       106.8028666,
+       10.8701989
+      ],
+      [
+       106.8028756,
+       10.8701894
+      ],
+      [
+       106.8029159,
+       10.8702301
+      ],
+      [
+       106.8029103,
+       10.870236
+      ],
+      [
+       106.8029053,
+       10.8702423
+      ],
+      [
+       106.8029009,
+       10.870249
+      ],
+      [
+       106.802897,
+       10.8702561
+      ],
+      [
+       106.8028938,
+       10.8702635
+      ],
+      [
+       106.8028913,
+       10.8702711
+      ],
+      [
+       106.8028895,
+       10.8702789
+      ],
+      [
+       106.8028883,
+       10.8702869
+      ],
+      [
+       106.8028879,
+       10.8702949
+      ],
+      [
+       106.8028881,
+       10.8703029
+      ],
+      [
+       106.8028891,
+       10.8703109
+      ],
+      [
+       106.8028908,
+       10.8703187
+      ],
+      [
+       106.8028931,
+       10.8703264
+      ],
+      [
+       106.8028962,
+       10.8703339
+      ],
+      [
+       106.8028998,
+       10.870341
+      ],
+      [
+       106.8029041,
+       10.8703478
+      ],
+      [
+       106.802909,
+       10.8703543
+      ],
+      [
+       106.8029144,
+       10.8703602
+      ],
+      [
+       106.8029203,
+       10.8703657
+      ],
+      [
+       106.8029267,
+       10.8703707
+      ],
+      [
+       106.8029335,
+       10.8703751
+      ],
+      [
+       106.8029407,
+       10.8703789
+      ],
+      [
+       106.8029481,
+       10.870382
+      ],
+      [
+       106.8029559,
+       10.8703845
+      ],
+      [
+       106.8029638,
+       10.8703863
+      ],
+      [
+       106.8029718,
+       10.8703875
+      ],
+      [
+       106.8029799,
+       10.8703879
+      ],
+      [
+       106.802988,
+       10.8703876
+      ],
+      [
+       106.8029961,
+       10.8703867
+      ],
+      [
+       106.803004,
+       10.870385
+      ],
+      [
+       106.8030118,
+       10.8703827
+      ],
+      [
+       106.8030193,
+       10.8703797
+      ],
+      [
+       106.8030266,
+       10.8703761
+      ],
+      [
+       106.8030335,
+       10.8703718
+      ],
+      [
+       106.80304,
+       10.870367
+      ],
+      [
+       106.803046,
+       10.8703617
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.KHO-NE-2",
+    "room_name": "Kho tầng 2 (Đông Bắc)",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.803074,
+       10.8702969
+      ],
+      [
+       106.8031316,
+       10.8702975
+      ],
+      [
+       106.8031307,
+       10.8703121
+      ],
+      [
+       106.8031284,
+       10.8703266
+      ],
+      [
+       106.8031246,
+       10.8703407
+      ],
+      [
+       106.8031195,
+       10.8703544
+      ],
+      [
+       106.803113,
+       10.8703676
+      ],
+      [
+       106.8031053,
+       10.87038
+      ],
+      [
+       106.8030963,
+       10.8703916
+      ],
+      [
+       106.8030863,
+       10.8704024
+      ],
+      [
+       106.803046,
+       10.8703617
+      ],
+      [
+       106.8030522,
+       10.870355
+      ],
+      [
+       106.8030577,
+       10.8703478
+      ],
+      [
+       106.8030625,
+       10.8703402
+      ],
+      [
+       106.8030665,
+       10.870332
+      ],
+      [
+       106.8030697,
+       10.8703236
+      ],
+      [
+       106.803072,
+       10.8703148
+      ],
+      [
+       106.8030734,
+       10.8703059
+      ],
+      [
+       106.803074,
+       10.8702969
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.KHO-E-2",
+    "room_name": "Kho tầng 2 (Đông)",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030474,
+       10.8702316
+      ],
+      [
+       106.8030886,
+       10.8701917
+      ],
+      [
+       106.8030984,
+       10.8702027
+      ],
+      [
+       106.8031071,
+       10.8702145
+      ],
+      [
+       106.8031146,
+       10.8702271
+      ],
+      [
+       106.8031207,
+       10.8702404
+      ],
+      [
+       106.8031256,
+       10.8702542
+      ],
+      [
+       106.803129,
+       10.8702684
+      ],
+      [
+       106.803131,
+       10.8702829
+      ],
+      [
+       106.8031316,
+       10.8702975
+      ],
+      [
+       106.803074,
+       10.8702969
+      ],
+      [
+       106.8030736,
+       10.8702879
+      ],
+      [
+       106.8030724,
+       10.8702789
+      ],
+      [
+       106.8030703,
+       10.8702702
+      ],
+      [
+       106.8030673,
+       10.8702616
+      ],
+      [
+       106.8030635,
+       10.8702534
+      ],
+      [
+       106.8030589,
+       10.8702456
+      ],
+      [
+       106.8030535,
+       10.8702383
+      ],
+      [
+       106.8030474,
+       10.8702316
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.KHO-SE-2",
+    "room_name": "Kho tầng 2 (Đông Nam)",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8029159,
+       10.8702301
+      ],
+      [
+       106.8028756,
+       10.8701894
+      ],
+      [
+       106.8028866,
+       10.8701797
+      ],
+      [
+       106.8028986,
+       10.8701712
+      ],
+      [
+       106.8029114,
+       10.8701638
+      ],
+      [
+       106.8029248,
+       10.8701577
+      ],
+      [
+       106.8029388,
+       10.8701529
+      ],
+      [
+       106.8029532,
+       10.8701495
+      ],
+      [
+       106.8029678,
+       10.8701475
+      ],
+      [
+       106.8029826,
+       10.870147
+      ],
+      [
+       106.8029973,
+       10.8701478
+      ],
+      [
+       106.8030119,
+       10.8701501
+      ],
+      [
+       106.8030262,
+       10.8701538
+      ],
+      [
+       106.8030401,
+       10.8701589
+      ],
+      [
+       106.8030534,
+       10.8701653
+      ],
+      [
+       106.803066,
+       10.870173
+      ],
+      [
+       106.8030778,
+       10.8701818
+      ],
+      [
+       106.8030886,
+       10.8701917
+      ],
+      [
+       106.8030474,
+       10.8702316
+      ],
+      [
+       106.8030407,
+       10.8702254
+      ],
+      [
+       106.8030335,
+       10.87022
+      ],
+      [
+       106.8030257,
+       10.8702152
+      ],
+      [
+       106.8030175,
+       10.8702113
+      ],
+      [
+       106.8030089,
+       10.8702082
+      ],
+      [
+       106.8030001,
+       10.8702059
+      ],
+      [
+       106.8029911,
+       10.8702044
+      ],
+      [
+       106.8029819,
+       10.8702039
+      ],
+      [
+       106.8029728,
+       10.8702043
+      ],
+      [
+       106.8029638,
+       10.8702055
+      ],
+      [
+       106.8029549,
+       10.8702076
+      ],
+      [
+       106.8029463,
+       10.8702105
+      ],
+      [
+       106.802938,
+       10.8702143
+      ],
+      [
+       106.8029301,
+       10.8702189
+      ],
+      [
+       106.8029227,
+       10.8702242
+      ],
+      [
+       106.8029159,
+       10.8702301
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TV2-P1",
+    "room_name": "Phòng chức năng Thư viện - tầng 2",
+    "room_type": "Office",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8032323,
+       10.8707579
+      ],
+      [
+       106.8031922,
+       10.8707173
+      ],
+      [
+       106.8032346,
+       10.8706763
+      ],
+      [
+       106.803252,
+       10.8706939
+      ],
+      [
+       106.8032514,
+       10.8707395
+      ],
+      [
+       106.8032323,
+       10.8707579
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TV2-WC",
+    "room_name": "Nhà vệ sinh Thư viện - tầng 2",
+    "room_type": "WC",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031922,
+       10.8707173
+      ],
+      [
+       106.8031519,
+       10.8706766
+      ],
+      [
+       106.8031737,
+       10.8706555
+      ],
+      [
+       106.8032144,
+       10.8706559
+      ],
+      [
+       106.8032346,
+       10.8706763
+      ],
+      [
+       106.8031922,
+       10.8707173
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TV2-CT1",
+    "room_name": "Cầu thang Thư viện (1) - tầng 2",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8032314,
+       10.8709577
+      ],
+      [
+       106.8031913,
+       10.8709172
+      ],
+      [
+       106.8032323,
+       10.8708775
+      ],
+      [
+       106.8032725,
+       10.870918
+      ],
+      [
+       106.8032314,
+       10.8709577
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.TV2-CT2",
+    "room_name": "Cầu thang Thư viện (2) - tầng 2",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 7.3,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.80299,
+       10.8707138
+      ],
+      [
+       106.8029498,
+       10.8706731
+      ],
+      [
+       106.8029909,
+       10.8706334
+      ],
+      [
+       106.8030311,
+       10.8706741
+      ],
+      [
+       106.80299,
+       10.8707138
       ]
      ]
     ]
@@ -3894,113 +4088,1477 @@
    "type": "Feature",
    "properties": {
     "room_code": "A.TV2",
-    "room_name": "Thư viện UIT",
+    "room_name": "Thư viện UIT - tầng 2",
     "room_type": "Library",
     "building_code": "A",
     "floor_number": 2,
     "capacity": null,
-    "equipment_info": null,
     "base_height": 3.8,
     "extrude_height": 7.3,
-    "source": "campus.glb outline",
-    "source_ref": "interim/toa_A_model_outline.geojson part=library",
-    "verified": false
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
    },
    "geometry": {
     "type": "Polygon",
     "coordinates": [
      [
       [
-       106.802981,
-       10.8706435
+       106.8029489,
+       10.8707536
       ],
       [
-       106.8031822,
-       10.8706475
+       106.8029086,
+       10.870713
       ],
       [
-       106.8031911,
-       10.8706568
+       106.8029498,
+       10.8706731
+      ],
+      [
+       106.80299,
+       10.8707138
+      ],
+      [
+       106.8030311,
+       10.8706741
+      ],
+      [
+       106.8031519,
+       10.8706766
+      ],
+      [
+       106.8032323,
+       10.8707579
+      ],
+      [
+       106.8032323,
+       10.8708775
+      ],
+      [
+       106.8031913,
+       10.8709172
+      ],
+      [
+       106.8032314,
+       10.8709577
+      ],
+      [
+       106.8031903,
+       10.8709976
+      ],
+      [
+       106.8031501,
+       10.870957
+      ],
+      [
+       106.8030316,
+       10.8709557
+      ],
+      [
+       106.8030092,
+       10.8709773
+      ],
+      [
+       106.8029667,
+       10.870975
+      ],
+      [
+       106.8029265,
+       10.8709344
+      ],
+      [
+       106.802925,
+       10.8708923
+      ],
+      [
+       106.8029474,
+       10.8708706
+      ],
+      [
+       106.8029489,
+       10.8707536
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.HL2-TV-1",
+    "room_name": "Sảnh nối Tòa A - Thư viện (Đông Bắc) - tầng 2",
+    "room_type": "Corridor",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 4.0,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030311,
+       10.8706741
+      ],
+      [
+       106.8029909,
+       10.8706334
+      ],
+      [
+       106.8028855,
+       10.8705096
+      ],
+      [
+       106.8030716,
+       10.8705116
+      ],
+      [
+       106.803133,
+       10.8705736
+      ],
+      [
+       106.8031387,
+       10.8705907
+      ],
+      [
+       106.8031799,
+       10.8706398
+      ],
+      [
+       106.8031778,
+       10.8706515
+      ],
+      [
+       106.8031519,
+       10.8706766
+      ],
+      [
+       106.8030311,
+       10.8706741
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.HL2-TV-2",
+    "room_name": "Cầu nối Tòa A - Thư viện (Tây Bắc) - tầng 2",
+    "room_type": "Corridor",
+    "building_code": "A",
+    "floor_number": 2,
+    "capacity": null,
+    "base_height": 3.8,
+    "extrude_height": 4.0,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 2 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ hướng dẫn phòng làm việc Tòa nhà A - Tầng 2 & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8029683,
+       10.8706553
+      ],
+      [
+       106.8028541,
+       10.8705399
+      ],
+      [
+       106.8028855,
+       10.8705096
+      ],
+      [
+       106.8029909,
+       10.8706334
+      ],
+      [
+       106.8029683,
+       10.8706553
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.HL3",
+    "room_name": "Hành lang tầng 3",
+    "room_type": "Corridor",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 7.8,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031113,
+       10.8705517
+      ],
+      [
+       106.8030716,
+       10.8705116
+      ],
+      [
+       106.8030509,
+       10.8705095
+      ],
+      [
+       106.8028839,
+       10.870508
+      ],
+      [
+       106.8028646,
+       10.8705267
+      ],
+      [
+       106.8028643,
+       10.8705301
+      ],
+      [
+       106.8028541,
+       10.8705399
+      ],
+      [
+       106.8027921,
+       10.8705392
+      ],
+      [
+       106.8027307,
+       10.8704772
+      ],
+      [
+       106.8027314,
+       10.8704159
+      ],
+      [
+       106.8027628,
+       10.8703856
+      ],
+      [
+       106.8027648,
+       10.8702016
+      ],
+      [
+       106.8027341,
+       10.8701706
+      ],
+      [
+       106.8027347,
+       10.870121
+      ],
+      [
+       106.8027288,
+       10.870115
+      ],
+      [
+       106.8027975,
+       10.8700486
+      ],
+      [
+       106.8028596,
+       10.8700492
+      ],
+      [
+       106.8028903,
+       10.8700802
+      ],
+      [
+       106.8030764,
+       10.8700822
+      ],
+      [
+       106.8031077,
+       10.8700519
+      ],
+      [
+       106.8031697,
+       10.8700526
+      ],
+      [
+       106.8032311,
+       10.8701146
+      ],
+      [
+       106.8032304,
+       10.8701759
+      ],
+      [
+       106.8031991,
+       10.8702062
+      ],
+      [
+       106.803197,
+       10.8703902
       ],
       [
        106.8032277,
-       10.8706575
+       10.8704213
       ],
       [
-       106.8032701,
-       10.8707104
+       106.803227,
+       10.8704826
       ],
       [
-       106.8032645,
-       10.87076
+       106.8031551,
+       10.8705521
       ],
       [
-       106.803241,
-       10.8707912
+       106.8031113,
+       10.8705517
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.HT",
+    "room_name": "Hội trường Tòa A",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 300,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030739,
+       10.8701787
       ],
       [
-       106.8032347,
-       10.8708725
+       106.8030886,
+       10.8701917
       ],
       [
-       106.8032703,
-       10.8709229
+       106.8031015,
+       10.8702065
       ],
       [
-       106.8031796,
-       10.8709957
+       106.8031122,
+       10.8702228
+      ],
+      [
+       106.8031207,
+       10.8702404
+      ],
+      [
+       106.8031269,
+       10.8702589
+      ],
+      [
+       106.8031305,
+       10.8702781
+      ],
+      [
+       106.8031316,
+       10.8702975
+      ],
+      [
+       106.8031301,
+       10.870317
+      ],
+      [
+       106.803126,
+       10.870336
+      ],
+      [
+       106.8031195,
+       10.8703544
+      ],
+      [
+       106.8031106,
+       10.8703718
+      ],
+      [
+       106.8030995,
+       10.8703879
+      ],
+      [
+       106.8030863,
+       10.8704024
+      ],
+      [
+       106.8030713,
+       10.8704151
+      ],
+      [
+       106.8030548,
+       10.8704257
+      ],
+      [
+       106.8030371,
+       10.8704341
+      ],
+      [
+       106.8030183,
+       10.8704402
+      ],
+      [
+       106.802999,
+       10.8704438
+      ],
+      [
+       106.8029793,
+       10.8704448
+      ],
+      [
+       106.8029596,
+       10.8704434
+      ],
+      [
+       106.8029403,
+       10.8704394
+      ],
+      [
+       106.8029218,
+       10.8704329
+      ],
+      [
+       106.8029042,
+       10.8704241
+      ],
+      [
+       106.8028879,
+       10.8704131
+      ],
+      [
+       106.8028732,
+       10.8704001
+      ],
+      [
+       106.8028604,
+       10.8703853
+      ],
+      [
+       106.8028496,
+       10.870369
+      ],
+      [
+       106.8028411,
+       10.8703514
+      ],
+      [
+       106.802835,
+       10.8703329
+      ],
+      [
+       106.8028314,
+       10.8703137
+      ],
+      [
+       106.8028303,
+       10.8702943
+      ],
+      [
+       106.8028318,
+       10.8702748
+      ],
+      [
+       106.8028358,
+       10.8702558
+      ],
+      [
+       106.8028424,
+       10.8702374
+      ],
+      [
+       106.8028513,
+       10.87022
+      ],
+      [
+       106.8028624,
+       10.8702039
+      ],
+      [
+       106.8028756,
+       10.8701894
+      ],
+      [
+       106.8028905,
+       10.8701767
+      ],
+      [
+       106.802907,
+       10.8701661
+      ],
+      [
+       106.8029248,
+       10.8701577
+      ],
+      [
+       106.8029435,
+       10.8701516
+      ],
+      [
+       106.8029629,
+       10.870148
+      ],
+      [
+       106.8029826,
+       10.870147
+      ],
+      [
+       106.8030022,
+       10.8701484
+      ],
+      [
+       106.8030215,
+       10.8701525
+      ],
+      [
+       106.8030401,
+       10.8701589
+      ],
+      [
+       106.8030577,
+       10.8701677
+      ],
+      [
+       106.8030739,
+       10.8701787
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A301",
+    "room_name": "Phòng học A301",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 30,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031113,
+       10.8705517
+      ],
+      [
+       106.8030716,
+       10.8705116
+      ],
+      [
+       106.8030982,
+       10.8704858
+      ],
+      [
+       106.8031596,
+       10.8705478
+      ],
+      [
+       106.8031551,
+       10.8705521
+      ],
+      [
+       106.8031113,
+       10.8705517
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-NE-3",
+    "room_name": "Cầu thang Đông Bắc - tầng 3",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031596,
+       10.8705478
+      ],
+      [
+       106.803106,
+       10.8704937
+      ],
+      [
+       106.8031237,
+       10.8704765
+      ],
+      [
+       106.8031773,
+       10.8705307
+      ],
+      [
+       106.8031596,
+       10.8705478
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.WC-NE-3",
+    "room_name": "Nhà vệ sinh Đông Bắc - tầng 3",
+    "room_type": "WC",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031773,
+       10.8705307
+      ],
+      [
+       106.8031159,
+       10.8704687
+      ],
+      [
+       106.8031372,
+       10.8704482
+      ],
+      [
+       106.8031985,
+       10.8705102
+      ],
+      [
+       106.8031773,
+       10.8705307
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A303",
+    "room_name": "Phòng học A303",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031985,
+       10.8705102
+      ],
+      [
+       106.8031372,
+       10.8704482
       ],
       [
        106.8031657,
-       10.8710045
+       10.8704206
       ],
       [
-       106.8031255,
-       10.8709585
+       106.803227,
+       10.8704826
       ],
       [
-       106.8030249,
-       10.8709519
+       106.8031985,
+       10.8705102
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A305",
+    "room_name": "Phòng học A305",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 30,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.803227,
+       10.8704826
       ],
       [
-       106.803011,
-       10.8709652
+       106.8031657,
+       10.8704206
       ],
       [
-       106.8029698,
-       10.8709644
+       106.803197,
+       10.8703902
       ],
       [
-       106.8029562,
-       10.8709596
+       106.8032277,
+       10.8704213
       ],
       [
-       106.8029183,
-       10.8709113
+       106.803227,
+       10.8704826
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A307",
+    "room_name": "Phòng học A307",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 30,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031577,
+       10.8703434
       ],
       [
-       106.8029239,
-       10.8708617
+       106.8031587,
+       10.8702523
       ],
       [
-       106.8029425,
-       10.870844
+       106.8031959,
+       10.8702527
       ],
       [
-       106.8029476,
-       10.8708215
+       106.8031949,
+       10.8703438
       ],
       [
-       106.8029536,
-       10.8707492
+       106.8031577,
+       10.8703434
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A309",
+    "room_name": "Phòng học A309",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 30,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031991,
+       10.8702062
       ],
       [
-       106.8029135,
-       10.8706987
+       106.8031352,
+       10.8701417
       ],
       [
-       106.802981,
-       10.8706435
+       106.8031979,
+       10.8700811
+      ],
+      [
+       106.8032311,
+       10.8701146
+      ],
+      [
+       106.8032304,
+       10.8701759
+      ],
+      [
+       106.8031991,
+       10.8702062
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-SE-3",
+    "room_name": "Cầu thang Đông Nam - tầng 3",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031432,
+       10.8701341
+      ],
+      [
+       106.803127,
+       10.8701178
+      ],
+      [
+       106.8031818,
+       10.8700648
+      ],
+      [
+       106.8031979,
+       10.8700811
+      ],
+      [
+       106.8031432,
+       10.8701341
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A311",
+    "room_name": "Phòng học A311",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 25,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8031191,
+       10.8701255
+      ],
+      [
+       106.8030764,
+       10.8700822
+      ],
+      [
+       106.8031077,
+       10.8700519
+      ],
+      [
+       106.8031697,
+       10.8700526
+      ],
+      [
+       106.8031818,
+       10.8700648
+      ],
+      [
+       106.8031191,
+       10.8701255
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A313",
+    "room_name": "Phòng học A313",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8030289,
+       10.8701212
+      ],
+      [
+       106.8029368,
+       10.8701202
+      ],
+      [
+       106.8029372,
+       10.8700834
+      ],
+      [
+       106.8030294,
+       10.8700844
+      ],
+      [
+       106.8030289,
+       10.8701212
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A315",
+    "room_name": "Phòng học A315",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 50,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028548,
+       10.8701145
+      ],
+      [
+       106.8027934,
+       10.8700525
+      ],
+      [
+       106.8027975,
+       10.8700486
+      ],
+      [
+       106.8028596,
+       10.8700492
+      ],
+      [
+       106.8028903,
+       10.8700802
+      ],
+      [
+       106.8028548,
+       10.8701145
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A317",
+    "room_name": "Phòng học A317",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028282,
+       10.8701403
+      ],
+      [
+       106.8027668,
+       10.8700783
+      ],
+      [
+       106.8027934,
+       10.8700525
+      ],
+      [
+       106.8028548,
+       10.8701145
+      ],
+      [
+       106.8028282,
+       10.8701403
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.WC-SW-3",
+    "room_name": "Nhà vệ sinh Tây Nam - tầng 3",
+    "room_type": "WC",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028073,
+       10.8701605
+      ],
+      [
+       106.8027459,
+       10.8700985
+      ],
+      [
+       106.8027668,
+       10.8700783
+      ],
+      [
+       106.8028282,
+       10.8701403
+      ],
+      [
+       106.8028073,
+       10.8701605
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-SW-3",
+    "room_name": "Cầu thang Tây Nam - tầng 3",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027824,
+       10.8701692
+      ],
+      [
+       106.8027288,
+       10.870115
+      ],
+      [
+       106.8027459,
+       10.8700985
+      ],
+      [
+       106.8027995,
+       10.8701527
+      ],
+      [
+       106.8027824,
+       10.8701692
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A319",
+    "room_name": "Phòng học A319",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027648,
+       10.8702016
+      ],
+      [
+       106.8027341,
+       10.8701706
+      ],
+      [
+       106.8027347,
+       10.870121
+      ],
+      [
+       106.8027902,
+       10.870177
+      ],
+      [
+       106.8027648,
+       10.8702016
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A321",
+    "room_name": "Phòng học A321",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8028042,
+       10.8702484
+      ],
+      [
+       106.8028032,
+       10.8703395
+      ],
+      [
+       106.802766,
+       10.8703391
+      ],
+      [
+       106.802767,
+       10.870248
+      ],
+      [
+       106.8028042,
+       10.8702484
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A323",
+    "room_name": "Phòng học A323",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 30,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027307,
+       10.8704772
+      ],
+      [
+       106.8027314,
+       10.8704159
+      ],
+      [
+       106.8027628,
+       10.8703856
+      ],
+      [
+       106.8028266,
+       10.8704501
+      ],
+      [
+       106.8027639,
+       10.8705107
+      ],
+      [
+       106.8027307,
+       10.8704772
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.CT-NW-3",
+    "room_name": "Cầu thang Tây Bắc - tầng 3",
+    "room_type": "Stairs",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": "Thang bộ",
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.80278,
+       10.870527
+      ],
+      [
+       106.8027639,
+       10.8705107
+      ],
+      [
+       106.8028187,
+       10.8704577
+      ],
+      [
+       106.8028348,
+       10.870474
+      ],
+      [
+       106.80278,
+       10.870527
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A325",
+    "room_name": "Phòng học A325",
+    "room_type": "Theory",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": 48,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8027921,
+       10.8705392
+      ],
+      [
+       106.80278,
+       10.870527
+      ],
+      [
+       106.8028427,
+       10.8704664
+      ],
+      [
+       106.8028839,
+       10.870508
+      ],
+      [
+       106.8028646,
+       10.8705267
+      ],
+      [
+       106.8028643,
+       10.8705301
+      ],
+      [
+       106.8028541,
+       10.8705399
+      ],
+      [
+       106.8027921,
+       10.8705392
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "room_code": "A.WC-NW-3",
+    "room_name": "Nhà vệ sinh Tây Bắc - tầng 3",
+    "room_type": "WC",
+    "building_code": "A",
+    "floor_number": 3,
+    "capacity": null,
+    "base_height": 7.6,
+    "extrude_height": 11.1,
+    "equipment_info": null,
+    "source": "field_survey floorplan (chỉnh chuẩn 1:1 theo sơ đồ tầng 3 Tòa A & vỏ 3D)",
+    "source_ref": "Sơ đồ minh họa Tòa nhà A - Tầng 3 (A301-A325, A.HT) & Models_3D/buildings/toa_A.glb",
+    "verified": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       106.8029347,
+       10.870468
+      ],
+      [
+       106.8030233,
+       10.870469
+      ],
+      [
+       106.8030229,
+       10.8705058
+      ],
+      [
+       106.8029343,
+       10.8705048
+      ],
+      [
+       106.8029347,
+       10.870468
       ]
      ]
     ]

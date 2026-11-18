@@ -23,9 +23,10 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 
 ## Cấu trúc thư mục
 ```text
-database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, 05_sports_fields.sql, checks.sql
+database/   01_schema.sql, 02_seed_uit_data.sql, 03_toa_a_indoor.sql, 04_campus_graph.sql, 05_sports_fields.sql, 06_toa_b_e_indoor.sql, checks.sql
 dataset/    bộ dữ liệu chuẩn GeoJSON: buildings, floors, rooms, amenities, paths, campus_boundary;
-            sports_fields (sân thể thao tách từ model, nạp bằng database/05_sports_fields.sql)
+            sports_fields (sân thể thao tách từ model, nạp bằng database/05_sports_fields.sql);
+            rooms_b_e, floors_b_e (nội thất LOD 3 Tòa B, E, nạp bằng database/06_toa_b_e_indoor.sql)
 backend/    FastAPI, chia theo lớp:
             main.py (tạo app, CORS, gắn router) · routes/api.py (URL -> controller)
             controllers/ (nhận request, kiểm tra tham số) · services/ (truy vấn PostGIS, pgRouting)
@@ -40,7 +41,8 @@ frontend/   index.html, style.css, models/uit_campus.glb (mô hình toàn trư�
 Models_3D/scripts/  dựng model tách tòa (01–03, chạy trong Blender), 04_align_gis_to_model.py (nắn
             dataset/ và database/ theo model), 05_export_web_glb.py (xuất bản nén cho frontend),
             06_extract_sports_fields.py (tách sân thể thao, sinh
-            dataset/sports_fields.geojson và database/05_sports_fields.sql).
+            dataset/sports_fields.geojson và database/05_sports_fields.sql),
+            07_import_lod3.py (nạp nội thất LOD 3 Tòa A, B, E vào dataset/ và database/03, 06).
             File model nguồn (.blend, .glb) không đưa lên repo.
 docs/       features.md (danh sách chức năng, cách dùng, giới hạn)
 ```
@@ -82,6 +84,7 @@ psql -U postgres -d uit_campus -f database\02_seed_uit_data.sql
 psql -U postgres -d uit_campus -f database\03_toa_a_indoor.sql
 psql -U postgres -d uit_campus -f database\04_campus_graph.sql
 psql -U postgres -d uit_campus -f database\05_sports_fields.sql
+psql -U postgres -d uit_campus -f database\06_toa_b_e_indoor.sql
 psql -U postgres -d uit_campus -tA -f database\checks.sql
 ```
 
@@ -94,7 +97,7 @@ psql -U postgres -d uit_campus -c "SELECT 'buildings', count(*) FROM buildings U
 
 `02_seed_uit_data.sql` và `03_toa_a_indoor.sql` chứa bộ dữ liệu chuẩn trong `dataset/` (GeoJSON, EPSG:4326).
 
-Muốn nạp lại từ đầu thì chạy lại `01_schema.sql` (file này tự `DROP` bảng cũ) rồi chạy lần lượt `02_seed_uit_data.sql`, `03_toa_a_indoor.sql`, `04_campus_graph.sql`, `05_sports_fields.sql` (đúng thứ tự). `checks.sql` in kết quả kiểm tra: các dòng `invalid` phải bằng 0, có tuyến `c_route_gate_to_A305`.
+Muốn nạp lại từ đầu thì chạy lại `01_schema.sql` (file này tự `DROP` bảng cũ) rồi chạy lần lượt `02_seed_uit_data.sql`, `03_toa_a_indoor.sql`, `04_campus_graph.sql`, `05_sports_fields.sql`, `06_toa_b_e_indoor.sql` (đúng thứ tự). `checks.sql` in kết quả kiểm tra: các dòng `invalid` phải bằng 0, có tuyến `c_route_gate_to_A305`.
 
 ### 3. Chạy Backend (FastAPI)
 

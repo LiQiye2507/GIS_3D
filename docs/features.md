@@ -12,17 +12,19 @@ Web GIS 3D phục vụ **số hóa dữ liệu khuôn viên** và các chức n�
 |---|---|---|---|
 | Ranh giới khuôn viên | (hằng số frontend, từ OSM) | 1 | – |
 | Tòa nhà | `buildings` | 6 | `building_code` (A, B, C, D, E, NHA_PVSV) |
-| Tầng | `floors` | 6 (Tòa A, C) | `building_id` + `floor_number` |
-| Phòng | `rooms` | 145 (Tòa A: 78, Tòa C: 67) | `room_code` (vd. `A305`, `C312`) |
+| Tầng | `floors` | 28 (Tòa A: 3, B: 9, C: 3, E: 13) | `building_id` + `floor_number` |
+| Phòng | `rooms` | 434 (Tòa A: 78, B: 135, C: 67, E: 154) | `room_code` (vd. `A305`, `C312`, `B1.02`, `E7.1`) |
 | Tiện ích | `amenities` | 7 (căn tin, ATM, nước uống, bãi xe) | `id` |
 | Sân thể thao | `sports_fields` | 9 (tách từ mô hình 3D) | `field_code` (SF01–SF09) |
 | Mạng lưới đường đi | `campus_paths` | 145 cạnh (đường ngoài trời 62, hành lang 75, cầu thang 8) | `id`, `source_node`, `target_node` |
 
 **Nguồn hình học:** mô hình 3D toàn trường (`frontend/models/uit_campus.glb`) là chuẩn vị trí. Footprint các tòa được lấy từ mô hình và quy đổi sang WGS84 bằng một phép đồng dạng (tỉ lệ 0,969, xoay 0,63°, fit với footprint OSM của 5 tòa). Phòng, sàn và tiện ích của mỗi tòa được dời và xoay theo tòa đó, còn lối đi, cổng và ranh giới được dời theo các tòa lân cận. Cách tính nằm trong `Models_3D/scripts/04_align_gis_to_model.py`.
 
+**Nội thất Tòa A, B, E** (`Models_3D/scripts/07_import_lod3.py`): Tòa A (98 phòng) và Tòa E (154 phòng, mã dạng `E7.01`, hội trường `HTE`) lấy theo bộ mô hình nội thất LOD 3 dựng từ sơ đồ tầng; Tòa B (135 phòng) bố trí theo sơ đồ tầng của trường (phòng đánh số từ đông sang tây), hình dạng ô phòng cắt theo khối tòa trong mô hình 3D. Dữ liệu lưu ở `dataset/rooms.geojson` + `database/03_toa_a_indoor.sql` (Tòa A) và `dataset/rooms_b_e.geojson`, `dataset/floors_b_e.geojson` + `database/06_toa_b_e_indoor.sql` (Tòa B, E). Tọa độ được quy đổi về cùng hệ với mô hình khuôn viên (sai số khớp khoảng 6 mm; Tòa E bù thêm tỉ lệ và góc xoay để nằm trong vỏ tòa, sai lệch còn dưới 1 m).
+
 **Sân thể thao:** 9 sân tách từ mặt sân của mô hình 3D, lưu ở `dataset/sports_fields.geojson` (`Models_3D/scripts/06_extract_sports_fields.py`). Dữ liệu được nạp vào bảng `sports_fields` (`database/05_sports_fields.sql`). Loại sân (`sport_type`) và giờ mở cửa để trống, mọi sân có `verified = false`.
 
-Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí. Phòng Y tế (A103, tầng 1 Tòa A) cũng được trả về theo cách này với danh mục `Medical`.
+Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp tiện ích. Nhà vệ sinh (WC) và Thư viện được lưu là phòng (`rooms.room_type`) và được API tiện ích trả về như một danh mục tiện ích, lấy tâm phòng làm vị trí. Phòng Y tế (A103, tầng 1 Tòa A) cũng được trả về theo cách này với danh mục `Medical`; các phòng có tên bắt đầu bằng "Hội trường" (A.HT tầng 3 Tòa A, E.HT tầng 12 Tòa E) được trả về với danh mục `Hall`. Biểu tượng của tiện ích trên tầng cao được đặt đúng độ cao sàn phòng.
 
 Độ cao 3D: mỗi tầng cao 3.8 m. `base_height = (tầng − 1) × 3.8`, `extrude_height = base_height + 3.5` (hành lang chỉ dày 0.2 m).
 
@@ -67,11 +69,11 @@ Quan hệ phân cấp: **tòa nhà → tầng → phòng**, cộng với lớp t
 | `GET /api/buildings` | Danh sách tòa nhà (GeoJSON) |
 | `GET /api/rooms?building_code=&floor_number=` | Phòng theo tòa/tầng; 404 nếu sai mã tòa |
 | `GET /api/search?q=` | Tìm phòng theo mã/tên (`ILIKE`, có chống SQL injection) |
-| `GET /api/amenities/nearby?lat=&lng=&radius=&category=` | Tiện ích trong bán kính 50–500 m, sắp theo khoảng cách. Danh mục: `Canteen, ATM, Water, Parking, Medical, FireSafety, WC, Library` |
+| `GET /api/amenities/nearby?lat=&lng=&radius=&category=` | Tiện ích trong bán kính 50–500 m, sắp theo khoảng cách. Danh mục: `Canteen, ATM, Water, Parking, Medical, FireSafety, WC, Library, Hall` |
 | `GET /api/sports-fields` | Danh sách sân thể thao (GeoJSON) |
 | `GET /api/route?start_lng=&start_lat=&end_room_code=` | Tuyến đường nhiều tầng: `total_length_m`, `floors`, `reaches_room` |
 
-Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Việt (`middlewares/errors.py`). Kiểm thử bằng lệnh `cd backend; .venv\Scripts\python -m pytest -q` (15 test).
+Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Việt (`middlewares/errors.py`). Kiểm thử bằng lệnh `cd backend; .venv\Scripts\python -m pytest -q` (17 test).
 
 ## 4. Giới hạn và hướng xử lý
 
@@ -80,13 +82,13 @@ Khi không kết nối được CSDL, API trả 503 với thông báo tiếng Vi
 | Không định vị được trong nhà | Web thuần chỉ có Geolocation API (GPS/Wi-Fi), sai số trong nhà vài chục mét và không biết tầng | Người dùng chọn điểm xuất phát trên bản đồ (**Click chọn vị trí giả lập**) hoặc quét **mã QR** dán tại phòng/sảnh (liên kết `?room=`) |
 | GPS chỉ chính xác ngoài trời | Sai số phụ thuộc thiết bị | Hiện vòng tròn sai số và ghi chú trên giao diện |
 | Không có tùy chọn "tránh cầu thang" | Chưa có dữ liệu thang máy / lối tiếp cận | Cần bổ sung cạnh thang máy vào `campus_paths` |
-| Tòa C chưa có đường đi trong nhà | Đồ thị hành lang/cầu thang mới có cho Tòa A | Tuyến dừng ở lối vào gần nhất (`reaches_room = false`) và có ghi chú trên giao diện |
-| Lọc theo sức chứa chưa đầy đủ | 105/145 phòng chưa có `capacity` | Phòng thiếu sức chứa bị loại khi lọc và được đếm trong dòng tổng kết |
+| Tòa B, C, E chưa có đường đi trong nhà | Đồ thị hành lang/cầu thang mới có cho Tòa A | Tuyến dừng ở lối vào gần nhất (`reaches_room = false`) và có ghi chú trên giao diện |
+| Lọc theo sức chứa chưa đầy đủ | 186/384 phòng (không tính hành lang) chưa có `capacity` | Phòng thiếu sức chứa bị loại khi lọc và được đếm trong dòng tổng kết |
 | Một số phòng Tòa C bị phân loại sai | Kho (`C*-STORE*`) và hồ nước (`C1-POOL1`) đang mang `room_type = 'WC'` | Cần nhóm khảo sát xác nhận lại loại phòng |
 | Dữ liệu chưa được kiểm chứng thực địa | Phần lớn đối tượng có `verified = false` (lấy từ OSM, sơ đồ PCCC); hình học đã nắn theo mô hình 3D, mô hình lệch OSM 8–20 m ở một số tòa | Cần đối chiếu thực địa trước khi dùng chính thức |
 | Phòng Tòa C chưa khớp hẳn vỏ tòa | Lưới phòng Tòa C là bản tạm, không có sân trong như mô hình | Khoảng 5% diện tích phòng (WC, cầu thang ở hai đầu) nhô ra ngoài vỏ vài mét; cần số hóa lại theo sơ đồ thật |
 | Sân thể thao chưa xác định | Mô hình không ghi loại sân; 3 sân phía đông bắc (SF01–SF03) nằm ngoài ranh giới khuôn viên lấy từ OSM | Thẻ thông tin ghi "Chưa xác định"; cần khảo sát loại sân và đối chiếu ranh giới |
-| Tiện ích còn ít | Mới có 7 điểm, Y tế chỉ có phòng A103 và chưa có PCCC | Lớp và chú giải đã hỗ trợ đủ 8 danh mục, chỉ cần bổ sung dữ liệu |
+| Tiện ích còn ít | Mới có 7 điểm, Y tế chỉ có phòng A103 và chưa có PCCC | Lớp và chú giải đã hỗ trợ đủ 9 danh mục, chỉ cần bổ sung dữ liệu |
 
 ## 5. Thư viện bên ngoài (nạp từ CDN, có ghi rõ phiên bản)
 

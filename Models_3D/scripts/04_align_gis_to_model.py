@@ -342,10 +342,15 @@ CAFE_VOI_CANTEEN = {
 # Tiện ích thêm mới (không có trong dữ liệu gốc): (thuộc tính, (lng, lat))
 EXTRA_AMENITIES = [(GATE_2_PARKING, GATE_2_LNGLAT), (CAFE_VOI_CANTEEN, (106.8039055, 10.8693549))]
 # Tiện ích đặt lại theo model thay vì nội suy: ATM ra mặt đường trước chòi bảo vệ Cổng A,
-# bãi xe máy phía Bắc Tòa A vào mái nhà xe (cách mép mái 3 m)
+# bãi xe máy phía Bắc Tòa A vào mái nhà xe (cách mép mái 3 m),
+# phòng ăn E7.1 vào tâm phòng E7.01 của LOD 3 Tòa E (tầng 7, floor_number 8 vì có tầng G), cao = sàn 26.6 m + 1 m.
+# Giá trị (lng, lat) hoặc (lng, lat, z)
 AMENITY_LNGLAT = {
     'Trụ ATM ngoài Cổng A (Đường Hàn Thuyên)': (106.8018981, 10.8706263),
     'Bãi giữ xe máy UIT (Phía Bắc Tòa A)': (106.8028612, 10.8714743),
+    'Phòng ăn GV - VC & NLĐ (E7.1)': (106.8028959, 10.8697993, 27.6),
+    # máy bán nước tầng 1 Tòa A: góc hành lang cạnh thư viện (vị trí người dùng chỉ trên sơ đồ)
+    'Máy bán nước tự động Tầng 1 Tòa A': (106.80297, 10.8706288),
 }
 
 
@@ -394,7 +399,10 @@ def write_all(r) -> None:
                 else:
                     p['description'] = p['description'].rstrip().rstrip('.') + '. Hình học nắn theo model 3D.'
             elif name == 'amenities' and p['name'] in AMENITY_LNGLAT:
-                f['geometry']['coordinates'][:2] = AMENITY_LNGLAT[p['name']]
+                v = AMENITY_LNGLAT[p['name']]
+                f['geometry']['coordinates'][:len(v)] = v
+                if len(v) == 3:
+                    p['elevation_z'] = v[2]
             else:
                 f['geometry']['coordinates'] = _move_coords(f['geometry']['coordinates'], move, p.get('building_code'))
         if name == 'buildings':
@@ -416,8 +424,12 @@ def write_all(r) -> None:
                 code = re.search(r"VALUES \('([^']+)'", line).group(1)
                 line = WKT_RE.sub(lambda w: f"ST_GeomFromText('{_wkt_polygon(new_geom[code])}'", line)
             elif m and m.group(1) == 'amenities' and (nm := re.search(r"VALUES \('((?:[^']|'')+)'", line).group(1).replace("''", "'")) in AMENITY_LNGLAT:
-                lng, lat = AMENITY_LNGLAT[nm]
-                line = re.sub(r'POINT Z \((\S+) (\S+) ', f'POINT Z ({lng!r} {lat!r} ', line)
+                v = AMENITY_LNGLAT[nm]
+                if len(v) == 3:  # elevation_z là số ngay trước NULL (open_hours) và trong POINT Z
+                    line = re.sub(r', [\d.]+, NULL, ST_GeomFromText', f', {v[2]}, NULL, ST_GeomFromText', line)
+                    line = re.sub(r'POINT Z \(\S+ \S+ \S+\)', f'POINT Z ({v[0]!r} {v[1]!r} {v[2]})', line)
+                else:
+                    line = re.sub(r'POINT Z \((\S+) (\S+) ', f'POINT Z ({v[0]!r} {v[1]!r} ', line)
             elif m:
                 bc = re.search(r"building_code = '(\w+)'", line)
                 code = bc.group(1) if bc else None
@@ -485,7 +497,7 @@ def verify_outputs() -> None:
             g_js = shapely.force_2d(shape(feat['geometry']))
             assert g_sql.equals_exact(g_js, 1e-7), (table, line[:80])
             n += 1
-    assert len(sql['rooms']) == 145 and n == 7 + 145 + 6 + 8 + 33, n
+    assert len(sql['rooms']) == 165 and n == 7 + 165 + 6 + 8 + 33, n
     assert any("VALUES ('CAFE_VOI'" in l for l in sql['buildings']), 'thiếu Cafe Voi'
     for g, _ in EXTRA_AMENITIES:
         assert any(g['name'] in l for l in sql['amenities']), f"thiếu {g['name']}"

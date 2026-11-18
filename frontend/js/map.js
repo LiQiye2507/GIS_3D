@@ -43,3 +43,21 @@ export const campus = create(map, {
   onReady: () => campusHandlers.onReady(),
   onError: (err) => campusHandlers.onError(err),
 });
+
+// Popup neo ở mặt đất (lngLat), đẩy lên đúng điểm ở độ cao z mét (phòng/tiện ích tầng cao); cập nhật mỗi khung hình
+let lifted = null;
+function placeLifted() {
+  if (!lifted) return;
+  if (!lifted.popup.isOpen()) {
+    lifted = null;
+    return;
+  }
+  const top = campus.project(lifted.lngLat, lifted.z);
+  const ground = campus.project(lifted.lngLat, 0);
+  if (top && ground) lifted.popup.setOffset([top.x - ground.x, top.y - ground.y - 16]);
+}
+export function liftPopup(popup, lngLat, z) {
+  lifted = z > 0 ? { popup, lngLat, z } : null;
+  placeLifted();
+}
+map.on('render', placeLifted);

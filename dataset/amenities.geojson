@@ -61,7 +61,7 @@
     "name": "Bãi để xe ô tô - tầng G tòa E",
     "category": "Parking",
     "building_code": "E",
-    "floor_number": 0,
+    "floor_number": 1,
     "elevation_z": 1.0,
     "open_hours": null,
     "source": "field_survey",
@@ -84,7 +84,7 @@
     "name": "Phòng ăn GV - VC & NLĐ (E7.1)",
     "category": "Canteen",
     "building_code": "E",
-    "floor_number": 7,
+    "floor_number": 8,
     "elevation_z": 27.6,
     "open_hours": null,
     "source": "field_survey",
@@ -94,8 +94,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     106.8027852,
-     10.8697498,
+     106.8028959,
+     10.8697993,
      27.6
     ]
    }
@@ -140,8 +140,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     106.8031046,
-     10.8706275,
+     106.80297,
+     10.8706288,
      1.0
     ]
    }
