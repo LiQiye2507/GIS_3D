@@ -1,5 +1,5 @@
 // Truy vấn phòng theo thuộc tính (tòa, tầng, loại, sức chứa >= N): lọc trên dữ liệu đã nạp, tô màu và liệt kê kết quả
-import { ROOM_LABELS } from './config.js';
+import { ROOM_LABELS, floorName, floorShort } from './config.js';
 import { state } from './state.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { map } from './map.js';
@@ -22,7 +22,7 @@ export function renderFloorOptions() {
   const feat = state.buildingsList.find((b) => b.properties.building_code === buildingEl.value);
   const floors = (feat && feat.properties.total_floors) || 3;
   floorEl.length = 1;
-  for (let f = 1; f <= floors; f += 1) floorEl.add(new Option(`Tầng ${f}`, String(f)));
+  for (let f = 1; f <= floors; f += 1) floorEl.add(new Option(floorName(buildingEl.value, f), String(f)));
 }
 buildingEl.addEventListener('change', renderFloorOptions);
 
@@ -69,7 +69,7 @@ formEl.addEventListener('submit', (e) => {
     li.innerHTML = `
       <button type="button" class="panel-row-btn">
         <span class="row-name">${escapeHtml(p.room_code)} – ${escapeHtml(p.room_name)}</span>
-        <span class="row-meta-right">T${escapeHtml(p.floor_number)}${p.capacity != null ? ` · ${escapeHtml(p.capacity)} chỗ` : ''}</span>
+        <span class="row-meta-right">${escapeHtml(floorShort(p.building_code, p.floor_number))}${p.capacity != null ? ` · ${escapeHtml(p.capacity)} chỗ` : ''}</span>
       </button>
     `;
     li.firstElementChild.addEventListener('click', () => selectRoom(p, getFeatureCenter(f), true));

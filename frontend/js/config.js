@@ -14,6 +14,12 @@ export const SPIN_DEG_PER_SEC = 6;
 // Tòa có dữ liệu nội thất LOD 3 (bảng rooms)
 export const INDOOR_CODES = ['A', 'B', 'C', 'E'];
 
+// Tòa có tầng G: floor_number 1 là tầng G, các tầng trên hiển thị floor_number - 1 (như bảng nút thang máy)
+const G_FLOOR_CODES = ['E'];
+export const floorNo = (code, f) => (G_FLOOR_CODES.includes(code) ? (f === 1 ? 'G' : f - 1) : f);
+export const floorShort = (code, f) => (floorNo(code, f) === 'G' ? 'G' : `T${floorNo(code, f)}`);
+export const floorName = (code, f) => `Tầng ${floorNo(code, f)}`;
+
 // Cổng A/B đã nắn theo model 3D (Models_3D/scripts/04_align_gis_to_model.py)
 export const GATE_A = [106.802094, 10.8704303];
 export const GATE_B = [106.8038368, 10.8689126];
