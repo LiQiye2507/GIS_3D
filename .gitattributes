@@ -1,0 +1,3 @@
+# Giữ LF cho file chạy trong container Linux
+*.sql text eol=lf
+*.sh text eol=lf

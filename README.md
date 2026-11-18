@@ -6,7 +6,7 @@ Hệ thống WebGIS 3D phục vụ **số hóa dữ liệu khuôn viên** và c�
 - **Trong nhà (LOD 3):** bóc tách từng tầng cho **Tòa A, B, C, E**; Tòa A có thêm đồ thị dẫn đường trong nhà.
 
 ## Công nghệ
-- **CSDL:** PostgreSQL 16 + PostGIS + pgRouting (cài trực tiếp trên Windows, không Docker)
+- **CSDL:** PostgreSQL 16 + PostGIS + pgRouting (cài trực tiếp trên Windows, hoặc chạy bằng Docker Compose)
 - **Backend:** Python FastAPI, Psycopg2 – trả GeoJSON FeatureCollection, chia lớp `routes → controllers → services`
 - **Frontend:** HTML/CSS/JavaScript thuần, MapLibre GL JS + Three.js (custom 3D layer nạp `.glb`); mỗi chức năng là một module trong `frontend/js/`
 
@@ -114,6 +114,7 @@ Models_3D/scripts/  dựng model tách tòa (01–03, chạy trong Blender), 04_
             dataset/sports_fields.geojson và database/05_sports_fields.sql),
             07_import_lod3.py (nạp nội thất LOD 3 Tòa A, B, E vào dataset/ và database/03, 06).
             File model nguồn (.blend, .glb) không đưa lên repo.
+docker-compose.yml  chạy CSDL + backend bằng Docker (backend/Dockerfile, backend/.dockerignore)
 ```
 
 ## Cài đặt & chạy (Windows, không Docker)
@@ -174,6 +175,7 @@ uvicorn main:app --reload --port 8000
 ```
 
 - Chuỗi kết nối trong `.env`: `DATABASE_URL=postgresql://postgres:<mật_khẩu>@localhost:5432/uit_campus`
+- Dùng PostgreSQL cài trên Windows thì giữ cổng `5432`. Nếu chạy backend trên Windows nhưng nối vào CSDL trong Docker (xem mục Docker bên dưới) thì đổi thành `DATABASE_URL=postgresql://postgres:postgres@localhost:5433/uit_campus`
 - Tài liệu API: http://localhost:8000/docs
 - Nếu PowerShell chặn `Activate.ps1`, chạy: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
 - Nếu `pip install` lỗi trên Python 3.14 (thường do `psycopg2-binary` chưa có bản wheel), cài thêm **Python 3.12** rồi tạo venv bằng nó: `py -3.12 -m venv .venv`
@@ -200,6 +202,82 @@ Backend phải bật CORS cho `http://localhost:5500`.
 | `could not open extension control file ... pgrouting` | Chưa cài PostGIS Bundle qua Stack Builder (bước 1.3) |
 | `could not load library ".../postgis-3.dll": The specified module could not be found` | Thiếu `libwinpthread-1.dll` trong `bin`. PowerShell (Admin): `Copy-Item "C:\Program Files\PostgreSQL\16\bin\postgisgui\libwinpthread-1.dll" "C:\Program Files\PostgreSQL\16\bin\"` |
 | `Address already in use` (port 8000/5500) | Đổi port, ví dụ `--port 8001`, rồi sửa URL API trong frontend |
+
+## Cách 2: Chạy bằng Docker (khuyên dùng)
+
+Chỉ cần cài Docker Desktop. Không cần cài PostgreSQL, PostGIS, pgRouting hay Python. Docker chạy hai thành phần:
+
+- `db`: PostgreSQL 16 + PostGIS 3.5 + pgRouting 4.0 (image `pgrouting/pgrouting:16-3.5-4.0.1`). Lần đầu khởi động, CSDL tự nạp `database/01_schema.sql` → `06_toa_b_e_indoor.sql` rồi chạy `checks.sql`.
+- `backend`: FastAPI, tự nối vào `db`.
+
+### 1. Cài Docker Desktop
+
+1. Cài WSL 2. Mở PowerShell bằng **Run as administrator**, chạy:
+   ```powershell
+   wsl --install --no-distribution
+   ```
+   Sau đó **khởi động lại máy**. Nếu báo lỗi liên quan đến virtualization, vào BIOS/UEFI bật Intel VT-x hoặc AMD-V/SVM.
+2. Cài Docker Desktop: tải từ https://www.docker.com/products/docker-desktop/, hoặc chạy `winget install -e --id Docker.DockerDesktop`. Có thể phải khởi động lại máy lần nữa.
+3. Mở **Docker Desktop**, đợi góc dưới bên trái hiện **Engine running**. Không cần đăng nhập.
+4. Kiểm tra:
+   ```powershell
+   docker info
+   docker run --rm hello-world
+   ```
+
+### 2. Chạy
+
+```powershell
+git clone https://github.com/LiQiye2507/GIS_3D.git
+cd GIS_3D
+docker compose up -d --build --wait
+```
+
+Lần đầu phải tải image và nạp dữ liệu, nên mất vài phút. Khi lệnh chạy xong, cả `db` và `backend` đều ở trạng thái healthy.
+
+- Tài liệu API: http://localhost:8000/docs
+- Frontend vẫn chạy như mục 4 ở trên: `cd frontend` → `python -m http.server 5500` → mở http://localhost:5500
+
+Kiểm tra dữ liệu:
+
+```powershell
+docker compose logs db                     # phải thấy "running /docker-entrypoint-initdb.d/07_checks.sql", không có ERROR
+docker compose exec db psql -U postgres -d uit_campus -c "SELECT postgis_full_version(), pgr_version();"
+docker compose exec db psql -U postgres -d uit_campus -c "SELECT count(*) FROM rooms;"
+```
+
+### 3. Thông tin kết nối CSDL
+
+| Mục | Giá trị |
+|---|---|
+| Host | `localhost` |
+| Port | `5433` (khác `5432` để không trùng PostgreSQL cài trên Windows) |
+| User | `postgres` |
+| Mật khẩu | `postgres` |
+| Database | `uit_campus` |
+
+- Mật khẩu `postgres` chỉ dành cho môi trường dev trên máy cá nhân. Không dùng cho máy chủ thật.
+- Cổng `5433` (CSDL) và `8000` (backend) chỉ mở cho chính máy đang chạy (`127.0.0.1`). Muốn máy khác trong mạng LAN truy cập được thì bỏ `127.0.0.1:` trong mục `ports` của `docker-compose.yml`.
+- Muốn chạy backend trên Windows nhưng dùng CSDL trong Docker: chạy `docker compose up -d db`, rồi đặt trong `backend/.env`: `DATABASE_URL=postgresql://postgres:postgres@localhost:5433/uit_campus`. Biến `DATABASE_URL` của service `backend` trong compose đã ghi đè `.env`, nên không cần sửa `.env` khi chạy backend bằng Docker.
+
+### 4. Dừng và reset dữ liệu
+
+```powershell
+docker compose down        # dừng, GIỮ dữ liệu (volume pgdata)
+docker compose down -v     # dừng và XÓA dữ liệu; lần up sau sẽ nạp lại từ các file SQL
+docker compose up -d --build --wait
+```
+
+### 5. Lỗi thường gặp
+
+| Lỗi | Cách xử lý |
+|---|---|
+| `error during connect` / `Cannot connect to the Docker daemon` / `The system cannot find the file specified` | Docker Desktop chưa chạy. Mở Docker Desktop, đợi **Engine running** rồi chạy lại |
+| Docker Desktop báo `WSL not installed` hoặc kẹt ở "Engine starting" | Chưa cài WSL 2 (mục 1.1), hoặc chưa khởi động lại máy |
+| `docker` không được nhận là lệnh | Mở lại terminal hoặc VS Code sau khi cài Docker Desktop |
+| `Bind for 127.0.0.1:5433 failed: port is already allocated` (hoặc 8000) | Cổng đang bị chương trình khác dùng. Tắt chương trình đó, hoặc đổi cổng bên trái trong `ports`, ví dụ `"127.0.0.1:5434:5432"` |
+| Sửa file SQL nhưng dữ liệu trong Docker không đổi | Script init chỉ chạy khi volume còn trống. Chạy `docker compose down -v` rồi `docker compose up -d --build --wait` |
+| Backend báo lỗi 503 ngay sau khi khởi động | CSDL chưa sẵn sàng. Đợi vài giây, hoặc xem `docker compose logs db` |
 
 ## Kiểm thử
 - **API:** `backend\.venv\Scripts\python -m pytest backend/tests -q` (19 test)

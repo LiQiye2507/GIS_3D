@@ -1,0 +1,43 @@
+# Chạy CSDL (PostgreSQL 16 + PostGIS + pgRouting) và backend bằng Docker.
+# Lần đầu khởi động, các file SQL được nạp theo thứ tự tên 01_ → 07_.
+# Mật khẩu "postgres" chỉ dùng cho môi trường dev trên máy cá nhân.
+services:
+  db:
+    image: pgrouting/pgrouting:16-3.5-4.0.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: uit_campus
+      LANG: C.UTF-8
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Mount từng file (không mount cả thư mục) để không chạy load_all.sql và không che script có sẵn của image
+      - ./database/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./database/02_seed_uit_data.sql:/docker-entrypoint-initdb.d/02_seed_uit_data.sql:ro
+      - ./database/03_toa_a_indoor.sql:/docker-entrypoint-initdb.d/03_toa_a_indoor.sql:ro
+      - ./database/04_campus_graph.sql:/docker-entrypoint-initdb.d/04_campus_graph.sql:ro
+      - ./database/05_sports_fields.sql:/docker-entrypoint-initdb.d/05_sports_fields.sql:ro
+      - ./database/06_toa_b_e_indoor.sql:/docker-entrypoint-initdb.d/06_toa_b_e_indoor.sql:ro
+      - ./database/checks.sql:/docker-entrypoint-initdb.d/07_checks.sql:ro
+    healthcheck:
+      # Kiểm tra qua TCP: lúc nạp init script, server tạm chỉ mở unix socket nên chưa tính là sẵn sàng
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U postgres -d uit_campus"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build: ./backend
+    environment:
+      # Ghi đè DATABASE_URL trong backend/.env
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/uit_campus
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
