@@ -7,6 +7,7 @@ import { campus, map } from './map.js';
 import { focusCamera, overviewCamera, startSpin, stopSpin } from './camera.js';
 import { applyLod, setIndoorBuilding } from './layers.js';
 import { openAmenityPopup } from './amenities.js';
+import { renderFloorPlan } from './floorplan.js';
 
 let allAmenitiesList = [];
 const buildingMarkerEl = document.createElement('div');
@@ -154,6 +155,7 @@ export function selectBuildingByIndex(idx) {
   const roomCount = state.roomFeatures.filter((f) => f.properties.building_code === p.building_code).length;
   if (roomCount) specs.push(`Dữ liệu nội thất LOD 3: ${roomCount} phòng học & chức năng`);
   bpIndoorBoxEl.classList.toggle('hidden', !roomCount);
+  if (roomCount) renderFloorPlan(p.building_code);
 
   bpSpecsEl.innerHTML = '';
   specs.forEach((text, i) => {

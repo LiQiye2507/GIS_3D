@@ -2240,3 +2240,76 @@ body.is-sheet-open .lod3-dock {
   font-size: 11px;
   color: var(--accent);
 }
+
+/* Sơ đồ mặt bằng 2D theo tầng (floorplan.js) */
+.plan__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.plan__tab {
+  min-width: 34px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  color: var(--paper-70);
+}
+
+.plan__tab:hover {
+  color: var(--paper);
+  border-color: var(--paper-50);
+}
+
+.plan__tab[aria-pressed="true"] {
+  color: var(--stage);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.plan {
+  display: block;
+  width: 100%;
+  height: 260px;
+  margin-bottom: 14px;
+  padding: 6px;
+  background: rgba(241, 240, 234, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.plan__room polygon {
+  stroke: rgba(7, 10, 14, 0.85);
+  stroke-width: 1;
+  fill-opacity: 0.85;
+}
+
+.plan__room text {
+  fill: #fff;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.plan__room.is-corridor polygon {
+  fill-opacity: 0.55;
+}
+
+.plan__room:not(.is-corridor) {
+  cursor: pointer;
+}
+
+.plan__room:hover polygon {
+  fill-opacity: 1;
+  stroke: #fff;
+}
+
+.plan__room.is-selected polygon {
+  fill: #EAB308;
+  fill-opacity: 1;
+  stroke: #fff;
+  stroke-width: 2;
+}
