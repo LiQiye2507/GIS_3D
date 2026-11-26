@@ -16,7 +16,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 112.0,
+    "length_m": 118.4,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -31,13 +31,8 @@
       0.0
      ],
      [
-      106.8033637,
-      10.8716005,
-      0.0
-     ],
-     [
-      106.803338,
-      10.8717521,
+      106.8033652,
+      10.8718112,
       0.0
      ]
     ]
@@ -86,7 +81,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 43.0,
+    "length_m": 41.6,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -96,23 +91,13 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8021343,
-      10.8703769,
+      106.8021322,
+      10.8703863,
       0.0
      ],
      [
-      106.8020411,
-      10.870478,
-      0.0
-     ],
-     [
-      106.8019835,
-      10.8705065,
-      0.0
-     ],
-     [
-      106.8019393,
-      10.870561,
+      106.8019876,
+      10.8705179,
       0.0
      ],
      [
@@ -131,7 +116,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 212.0,
+    "length_m": 210.4,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -141,13 +126,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8024693,
-      10.8699242,
-      0.0
-     ],
-     [
-      106.8024359,
-      10.8698594,
+      106.8024373,
+      10.8699182,
       0.0
      ],
      [
@@ -163,11 +143,6 @@
      [
       106.8025334,
       10.8693136,
-      0.0
-     ],
-     [
-      106.802638,
-      10.8693148,
       0.0
      ],
      [
@@ -196,7 +171,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 45.6,
+    "length_m": 45.5,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -206,8 +181,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8031683,
-      10.8698858,
+      106.8031686,
+      10.8698864,
       0.0
      ],
      [
@@ -231,7 +206,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 201.2,
+    "length_m": 12.7,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -241,43 +216,13 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.804466,
-      10.8706234,
+      106.8045866,
+      10.8708419,
       0.0
      ],
      [
-      106.8045005,
-      10.8706942,
-      0.0
-     ],
-     [
-      106.8045858,
-      10.8707957,
-      0.0
-     ],
-     [
-      106.8046016,
-      10.8708573,
-      0.0
-     ],
-     [
-      106.8042057,
-      10.8712389,
-      0.0
-     ],
-     [
-      106.8042031,
-      10.8712579,
-      0.0
-     ],
-     [
-      106.804136,
-      10.8713242,
-      0.0
-     ],
-     [
-      106.8034883,
-      10.8719298,
+      106.804517,
+      10.870933,
       0.0
      ]
     ]
@@ -291,7 +236,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 17.4,
+    "length_m": 20.0,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -301,18 +246,13 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8024283,
-      10.8700744,
+      106.8024241,
+      10.8700979,
       0.0
      ],
      [
-      106.8024472,
-      10.8700333,
-      0.0
-     ],
-     [
-      106.8024693,
-      10.8699242,
+      106.8024373,
+      10.8699182,
       0.0
      ]
     ]
@@ -326,7 +266,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 19.6,
+    "length_m": 21.3,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -336,8 +276,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8028665,
-      10.8699043,
+      106.8028818,
+      10.8699026,
       0.0
      ],
      [
@@ -456,7 +396,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 24.7,
+    "length_m": 25.6,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -466,8 +406,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8040798,
-      10.8701512,
+      106.8040787,
+      10.8701603,
       0.0
      ],
      [
@@ -586,7 +526,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 51.0,
+    "length_m": 51.3,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -602,12 +542,12 @@
      ],
      [
       106.8043217,
-      10.8697884,
+      10.8697773,
       0.0
      ],
      [
-      106.8043643,
-      10.869785,
+      106.804398,
+      10.8697819,
       0.0
      ],
      [
@@ -651,13 +591,13 @@
       0.0
      ],
      [
-      106.8037512,
-      10.8697996,
+      106.8037374,
+      10.8697919,
       0.0
      ],
      [
-      106.8036725,
-      10.869826,
+      106.8036979,
+      10.8698063,
       0.0
      ],
      [
@@ -711,7 +651,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 35.0,
+    "length_m": 35.2,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -721,8 +661,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8032712,
-      10.8700805,
+      106.8032666,
+      10.8700823,
       0.0
      ],
      [
@@ -746,7 +686,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 44.3,
+    "length_m": 45.2,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -761,38 +701,8 @@
       0.0
      ],
      [
-      106.8021343,
-      10.8703769,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "drawn_20",
-    "name": null,
-    "source": "manual",
-    "highway": "footway",
-    "floor_to": 1,
-    "length_m": 24.4,
-    "verified": false,
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8031683,
-      10.8698858,
-      0.0
-     ],
-     [
-      106.8032712,
-      10.8700805,
+      106.8021322,
+      10.8703863,
       0.0
      ]
     ]
@@ -806,7 +716,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 26.1,
+    "length_m": 26.2,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -821,18 +731,18 @@
       0.0
      ],
      [
-      106.8029684,
-      10.8699027,
+      106.8029799,
+      10.8699026,
       0.0
      ],
      [
-      106.8030805,
-      10.8698887,
+      106.8031176,
+      10.8698849,
       0.0
      ],
      [
-      106.8031683,
-      10.8698858,
+      106.8031686,
+      10.8698864,
       0.0
      ]
     ]
@@ -846,7 +756,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 52.8,
+    "length_m": 54.1,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -861,18 +771,13 @@
       0.0
      ],
      [
-      106.8046167,
-      10.8704938,
-      0.0
-     ],
-     [
       106.8044357,
       10.8705119,
       0.0
      ],
      [
-      106.8043998,
-      10.8705459,
+      106.804395,
+      10.8705585,
       0.0
      ]
     ]
@@ -886,7 +791,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 56.8,
+    "length_m": 56.2,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -896,28 +801,18 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8040798,
-      10.8701512,
+      106.8040787,
+      10.8701603,
       0.0
      ],
      [
-      106.8042136,
-      10.8703048,
+      106.8042012,
+      10.8703125,
       0.0
      ],
      [
-      106.8042421,
-      10.8703381,
-      0.0
-     ],
-     [
-      106.8042473,
-      10.8703777,
-      0.0
-     ],
-     [
-      106.8043998,
-      10.8705459,
+      106.804395,
+      10.8705585,
       0.0
      ]
     ]
@@ -981,7 +876,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 156.6,
+    "length_m": 158.5,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -996,18 +891,8 @@
       0.0
      ],
      [
-      106.8032476,
-      10.8717061,
-      0.0
-     ],
-     [
-      106.803338,
-      10.8717521,
-      0.0
-     ],
-     [
-      106.8033314,
-      10.8717904,
+      106.8033652,
+      10.8718112,
       0.0
      ]
     ]
@@ -1021,7 +906,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 52.5,
+    "length_m": 52.2,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1033,16 +918,6 @@
      [
       106.8037953,
       10.869195,
-      0.0
-     ],
-     [
-      106.803792,
-      10.8691197,
-      0.0
-     ],
-     [
-      106.8037783,
-      10.868999,
       0.0
      ],
      [
@@ -1071,7 +946,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 23.1,
+    "length_m": 18.8,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1081,8 +956,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8033314,
-      10.8717904,
+      106.8033652,
+      10.8718112,
       0.0
      ],
      [
@@ -1136,7 +1011,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 64.6,
+    "length_m": 63.5,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1146,8 +1021,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8040798,
-      10.8701512,
+      106.8040787,
+      10.8701603,
       0.0
      ],
      [
@@ -1156,13 +1031,13 @@
       0.0
      ],
      [
-      106.803863,
-      10.8702815,
+      106.8038627,
+      10.8702675,
       0.0
      ],
      [
-      106.8037047,
-      10.8702722,
+      106.8037094,
+      10.8702792,
       0.0
      ],
      [
@@ -1301,7 +1176,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 24.9,
+    "length_m": 28.3,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1326,8 +1201,8 @@
       0.0
      ],
      [
-      106.8024693,
-      10.8699242,
+      106.8024373,
+      10.8699182,
       0.0
      ]
     ]
@@ -1341,7 +1216,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 5.0,
+    "length_m": 6.7,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1356,8 +1231,8 @@
       0.0
      ],
      [
-      106.8034633,
-      10.869659,
+      106.8034707,
+      10.8696449,
       0.0
      ]
     ]
@@ -1371,7 +1246,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 13.9,
+    "length_m": 14.1,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1381,8 +1256,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8021575,
-      10.8706273,
+      106.8021527,
+      10.8706297,
       0.0
      ],
      [
@@ -1401,7 +1276,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 49.6,
+    "length_m": 50.0,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1426,13 +1301,13 @@
       0.0
      ],
      [
-      106.8028165,
-      10.8699347,
+      106.802801,
+      10.869923,
       0.0
      ],
      [
-      106.8028665,
-      10.8699043,
+      106.8028818,
+      10.8699026,
       0.0
      ],
      [
@@ -1451,7 +1326,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 34.0,
+    "length_m": 33.6,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1461,8 +1336,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8032712,
-      10.8700805,
+      106.8032666,
+      10.8700823,
       0.0
      ],
      [
@@ -1516,7 +1391,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 15.5,
+    "length_m": 14.2,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1533,11 +1408,6 @@
      [
       106.8034473,
       10.869735,
-      0.0
-     ],
-     [
-      106.8034394,
-      10.8697457,
       0.0
      ],
      [
@@ -1616,7 +1486,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 58.2,
+    "length_m": 57.4,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1631,8 +1501,8 @@
       0.0
      ],
      [
-      106.8022628,
-      10.8707869,
+      106.8023363,
+      10.8708822,
       0.0
      ],
      [
@@ -1741,36 +1611,6 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "gapfix_2",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 11.2,
-    "highway": "footway",
-    "name": null,
-    "source": "manual",
-    "source_ref": "Vá chỗ hở (gần nhau nhưng phải đi vòng > 2,5 lần)",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8043998,
-      10.8705459,
-      0.0
-     ],
-     [
-      106.804466,
-      10.8706234,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
     "id": "gapfix_3",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1793,36 +1633,6 @@
      [
       106.8035799,
       10.869865,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "gapfix_4",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 2.7,
-    "highway": "footway",
-    "name": null,
-    "source": "manual",
-    "source_ref": "Vá chỗ hở (gần nhau nhưng phải đi vòng > 2,5 lần)",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8024241,
-      10.8700979,
-      0.0
-     ],
-     [
-      106.8024283,
-      10.8700744,
       0.0
      ]
     ]
@@ -1861,7 +1671,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 30.5,
+    "length_m": 30.3,
     "id": "qgis_001",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1878,13 +1688,13 @@
       0.0
      ],
      [
-      106.8030054,
-      10.869721,
+      106.8030149,
+      10.8697206,
       0.0
      ],
      [
-      106.8029684,
-      10.8699027,
+      106.8029799,
+      10.8699026,
       0.0
      ]
     ]
@@ -1979,7 +1789,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 36.0,
+    "length_m": 36.8,
     "id": "qgis_005",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -1996,8 +1806,8 @@
       0.0
      ],
      [
-      106.8027588,
-      10.8696206,
+      106.8027355,
+      10.8696055,
       0.0
      ],
      [
@@ -2011,7 +1821,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 5.3,
+    "length_m": 7.8,
     "id": "qgis_006",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -2023,13 +1833,13 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8027588,
-      10.8696206,
+      106.8027355,
+      10.8696055,
       0.0
      ],
      [
-      106.802725,
-      10.8696544,
+      106.8027277,
+      10.8696748,
       0.0
      ]
     ]
@@ -2038,7 +1848,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 48.4,
+    "length_m": 49.2,
     "id": "qgis_007",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -2050,8 +1860,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8034633,
-      10.869659,
+      106.8034707,
+      10.8696449,
       0.0
      ],
      [
@@ -2096,7 +1906,7 @@
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 20.9,
+    "length_m": 21.9,
     "highway": "footway",
     "name": null,
     "source": "manual",
@@ -2107,13 +1917,13 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8020411,
-      10.870478,
+      106.8019876,
+      10.8705179,
       0.0
      ],
      [
-      106.8021575,
-      10.8706273,
+      106.8021527,
+      10.8706297,
       0.0
      ]
     ]
@@ -2149,7 +1959,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 84.9,
+    "length_m": 86.5,
     "id": "qgis_010",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -2161,8 +1971,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8042136,
-      10.8703048,
+      106.8042012,
+      10.8703125,
       0.0
      ],
      [
@@ -2255,7 +2065,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 11.6,
+    "length_m": 9.9,
     "id": "qgis_013",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -2267,13 +2077,18 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8029684,
-      10.8699027,
+      106.8029799,
+      10.8699026,
       0.0
      ],
      [
-      106.802941,
-      10.8700036,
+      106.8029473,
+      10.8699354,
+      0.0
+     ],
+     [
+      106.8029437,
+      10.8699783,
       0.0
      ]
     ]
@@ -2336,7 +2151,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 12.7,
+    "length_m": 11.1,
     "id": "qgis_016",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -2348,8 +2163,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8034633,
-      10.869659,
+      106.8034707,
+      10.8696449,
       0.0
      ],
      [
@@ -2530,7 +2345,7 @@
   {
    "type": "Feature",
    "properties": {
-    "length_m": 20.9,
+    "length_m": 21.0,
     "id": "qgis_026",
     "path_type": "Walkway",
     "floor_from": 1,
@@ -2542,13 +2357,18 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8030054,
-      10.869721,
+      106.8030149,
+      10.8697206,
       0.0
      ],
      [
-      106.8028162,
-      10.8696932,
+      106.8029188,
+      10.8697277,
+      0.0
+     ],
+     [
+      106.802824,
+      10.8697406,
       0.0
      ]
     ]
@@ -2562,7 +2382,7 @@
     "source": "manual",
     "highway": "footway",
     "floor_to": 1,
-    "length_m": 12.8,
+    "length_m": 10.0,
     "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
@@ -2577,18 +2397,8 @@
       0.0
      ],
      [
-      106.8038124,
-      10.8688342,
-      0.0
-     ],
-     [
       106.8038292,
       10.8687845,
-      0.0
-     ],
-     [
-      106.8038288,
-      10.8687593,
       0.0
      ]
     ]
@@ -2690,8 +2500,8 @@
     "type": "LineString",
     "coordinates": [
      [
-      106.8031683,
-      10.8698858,
+      106.8031686,
+      10.8698864,
       0.0
      ],
      [
@@ -2702,6 +2512,343 @@
      [
       106.8034473,
       10.869735,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 16.0,
+    "id": "qgis_028",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.802801,
+      10.869923,
+      0.0
+     ],
+     [
+      106.8029473,
+      10.8699354,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 157.8,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25",
+    "id": "qgis_029"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.804517,
+      10.870933,
+      0.0
+     ],
+     [
+      106.8034883,
+      10.8719298,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 38.1,
+    "id": "qgis_030",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.804395,
+      10.8705585,
+      0.0
+     ],
+     [
+      106.8045525,
+      10.8707608,
+      0.0
+     ],
+     [
+      106.8045866,
+      10.8708419,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 28.5,
+    "id": "qgis_031",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8024241,
+      10.8700979,
+      0.0
+     ],
+     [
+      106.802613,
+      10.8699216,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 22.5,
+    "id": "qgis_032",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8027381,
+      10.8699794,
+      0.0
+     ],
+     [
+      106.8029437,
+      10.8699783,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 29.5,
+    "id": "qgis_033",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8032666,
+      10.8700823,
+      0.0
+     ],
+     [
+      106.8031035,
+      10.8699177,
+      0.0
+     ],
+     [
+      106.8031176,
+      10.8698849,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 13.6,
+    "id": "qgis_034",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8031035,
+      10.8699177,
+      0.0
+     ],
+     [
+      106.8029799,
+      10.8699026,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 9.8,
+    "id": "qgis_035",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8031277,
+      10.8705087,
+      0.0
+     ],
+     [
+      106.8030457,
+      10.8705436,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 34.5,
+    "id": "qgis_036",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8024241,
+      10.8700979,
+      0.0
+     ],
+     [
+      106.8026935,
+      10.8699366,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 41.9,
+    "id": "qgis_037",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8035336,
+      10.8702251,
+      0.0
+     ],
+     [
+      106.8033831,
+      10.8705722,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 20.7,
+    "id": "qgis_038",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8027277,
+      10.8696748,
+      0.0
+     ],
+     [
+      106.8029169,
+      10.8696835,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 4.9,
+    "id": "qgis_039",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8029169,
+      10.8696835,
+      0.0
+     ],
+     [
+      106.8029188,
+      10.8697277,
       0.0
      ]
     ]
