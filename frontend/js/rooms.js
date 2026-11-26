@@ -63,15 +63,18 @@ export function selectRoom(roomData, clickLngLat, shouldFly = false) {
   // giữ nhóm đang mở (vd. Truy vấn) để không mất danh sách kết quả; thẻ phòng hiện ở mọi nhóm
   setPlacesPanelOpen(true, placesPanelEl.classList.contains('hidden') ? 'places' : placesPanelEl.dataset.tab);
 
+  const mobile = window.matchMedia('(max-width: 720px)').matches;
   if (lngLat) {
     if (shouldFly) {
       stopSpin();
-      // Điện thoại: danh sách là bottom sheet 55vh nên đẩy phòng lên nửa trên màn hình
-      const mobile = window.matchMedia('(max-width: 720px)').matches;
+      // Điện thoại: ngăn trượt che nửa dưới, thanh điều khiển che ~115px trên -> đẩy phòng vào khoảng giữa
       // phòng tầng cao (Tòa B, E): nhìn dốc hơn và xa hơn để khối phòng không trôi ra ngoài khung hình
       const high = Number(merged.extrude_height) > 12;
-      map.flyTo({ center: lngLat, zoom: high ? 18.6 : 19.5, pitch: high ? 35 : 60, ...(mobile && { padding: { top: 40, bottom: innerHeight * 0.55, left: 0, right: 0 } }) });
+      map.flyTo({ center: lngLat, zoom: high ? 18.6 : 19.5, pitch: high ? 35 : 60, ...(mobile && { padding: { top: 200, bottom: innerHeight * 0.55, left: 0, right: 0 } }) });
     }
-    openRoomPopup(lngLat, merged);
+    // Điện thoại: thẻ phòng trong ngăn trượt đã đủ thông tin, popup chỉ che bản đồ (không đủ chỗ phía trên)
+    if (mobile) {
+      if (state.activePopup) state.activePopup.remove();
+    } else openRoomPopup(lngLat, merged);
   }
 }
