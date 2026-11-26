@@ -2086,7 +2086,9 @@ body.is-sheet-open .lod3-dock {
     z-index: calc(var(--z-panel) + 2);
     top: auto;
     bottom: 64px;
-    height: 50vh;
+    /* co theo nội dung (Đo đạc, Truy vấn ngắn) để chừa bản đồ mà nhấp */
+    height: auto;
+    max-height: 50vh;
     border-radius: 14px 14px 0 0;
     width: 100vw;
     padding: 14px 16px 16px;
@@ -2121,7 +2123,15 @@ body.is-sheet-open .lod3-dock {
   }
 
   .hud__gis-group {
-    gap: 6px;
+    gap: 4px;
+  }
+
+  .lod-control {
+    gap: 2px;
+  }
+
+  .hud__tools .icon-btn {
+    width: 36px;
   }
 
   .hud-text-btn {
@@ -2179,6 +2189,22 @@ body.is-sheet-open .lod3-dock {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
+    padding: 2px 6px 2px 10px;
+  }
+
+  .hud__identity {
+    min-height: 40px;
+    padding: 0 12px;
+  }
+
+  .topsearch__box {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .topsearch__input {
+    font-size: 13px;
   }
 
   .daynight__slider-wrap {

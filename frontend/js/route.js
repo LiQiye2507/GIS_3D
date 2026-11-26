@@ -7,6 +7,9 @@ import { campus, map } from './map.js';
 import { setFloor } from './layers.js';
 import { stopSpin } from './camera.js';
 import { onFrameChange, warpFc } from './frame.js';
+import { setPlacesPanelOpen } from './buildings.js';
+
+const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
 
 // Độ cao (m) cần đặt đáy khối tuyến để nằm trên mặt mô hình giữa hai điểm a, b (lấy mặt cao nhất ở 3 điểm)
 function liftOverModel(a, b) {
@@ -89,9 +92,11 @@ function fitSegments(features, bearing) {
   features.forEach((f) => (f.geometry.coordinates || []).forEach((c) => bounds.extend([c[0], c[1]])));
   if (bounds.isEmpty()) return;
   const drawerOpen = !document.getElementById('places-panel').classList.contains('hidden');
-  const padding = window.matchMedia('(max-width: 720px)').matches
-    ? { top: 110, bottom: innerHeight * 0.5 + 70, left: 20, right: 20 }
-    : { top: 90, bottom: 60, left: drawerOpen ? 500 : 80, right: 160 };
+  const padding = isMobile()
+    ? { top: 110, bottom: drawerOpen ? innerHeight * 0.5 + 70 : 90, left: 20, right: 20 }
+    : { top: 90, bottom: 60, left: drawerOpen ? 500 : 80, right: document.body.classList.contains('is-sheet-open') ? 420 : 160 };
+  // MapLibre cộng dồn padding còn giữ từ lần bay camera trước (chọn phòng/tòa) -> vượt khung, fitBounds bị bỏ qua
+  map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
   map.fitBounds(bounds, { padding, pitch: 55, bearing, maxZoom: 19 });
 }
 
@@ -156,6 +161,12 @@ document.getElementById('btn-route').addEventListener('click', async () => {
     routeSummaryEl.textContent = `Quãng đường: ${routeFc.total_length_m} m · khoảng ${minutes} phút đi bộ · Qua tầng ${routeFc.floors.join(' → ')}`
       + (routeFc.reaches_room ? '' : ` · Tòa ${state.selectedRoom.building_code} chưa có dữ liệu đường đi trong nhà, tuyến dừng ở lối vào`);
     routeSummaryEl.classList.remove('hidden');
+    // Điện thoại: ngăn trượt + popup che gần hết bản đồ -> thu lại, tóm tắt đưa lên thông báo
+    if (isMobile()) {
+      setPlacesPanelOpen(false);
+      if (state.activePopup) state.activePopup.remove();
+      showToast(routeSummaryEl.textContent);
+    }
 
     const startConnector = routeFc.features.find((feature) => feature.properties.path_type === 'Connector');
     if (startConnector && startConnector.properties.floor_from === 1
