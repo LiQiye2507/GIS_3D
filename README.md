@@ -146,6 +146,7 @@ Toàn bộ hình học lưu ở `EPSG:4326`; khoảng cách luôn tính bằng `
 - [docs/INSTALL_WINDOWS.md](docs/INSTALL_WINDOWS.md) – cài PostgreSQL/PostGIS/pgRouting, nạp dữ liệu, chạy backend và frontend trên Windows
 - [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) – lỗi thường gặp (Windows và Docker)
 - [docs/DATA.md](docs/DATA.md) – nguồn dữ liệu, nắn tọa độ, nội thất từng tòa, quy ước độ cao, số lượng đối tượng
+- [docs/EDIT_PATHS.md](docs/EDIT_PATHS.md) – sửa lối đi ngay trên web (`?edit=paths`) hoặc bằng QGIS, rồi nạp vào CSDL
 - [docs/USER_GUIDE.md](docs/USER_GUIDE.md) – hướng dẫn sử dụng từng chức năng
 
 ## Thành viên

@@ -4,6 +4,7 @@ CREATE EXTENSION IF NOT EXISTS pgrouting;
 
 -- Xóa bảng cũ nếu làm mới
 DROP TABLE IF EXISTS sports_fields CASCADE;
+DROP TABLE IF EXISTS path_entrances CASCADE;
 DROP TABLE IF EXISTS campus_paths CASCADE;
 DROP TABLE IF EXISTS amenities CASCADE;
 DROP TABLE IF EXISTS rooms CASCADE;
@@ -77,6 +78,14 @@ CREATE TABLE campus_paths (
     cost DOUBLE PRECISION GENERATED ALWAYS AS (CASE WHEN path_type = 'Stairs' THEN length_m * 2.5 ELSE length_m END) STORED,
     reverse_cost DOUBLE PRECISION GENERATED ALWAYS AS (CASE WHEN path_type = 'Stairs' THEN length_m * 2.5 ELSE length_m END) STORED,
     geom GEOMETRY(LineStringZ, 4326) NOT NULL
+);
+
+-- 5b. Lối vào tòa do người dùng vẽ: đầu lối cụt chạm tòa trên sơ đồ model (paths_tool.py sync sinh ra).
+-- Tuyến chỉ đường tới tòa chưa có đường trong nhà sẽ kết thúc ở đúng các điểm này.
+CREATE TABLE path_entrances (
+    id SERIAL PRIMARY KEY,
+    building_code VARCHAR(20) NOT NULL,
+    geom GEOMETRY(Point, 4326) NOT NULL
 );
 
 -- 6. Bảng Sân thể thao (mở rộng, tách từ mặt sân của model 3D)

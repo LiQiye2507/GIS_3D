@@ -50,6 +50,47 @@ export function create(map, { onReady, onError, onProgress } = {}) {
   const tmp4 = new THREE.Vector4();
   const tmpV = new THREE.Vector3();
   const raycaster = new THREE.Raycaster();
+  // Lưới các tam giác "mặt thấp" (cao 0.05–2 m: quảng trường, bậc thềm, vỉa hè) theo ô 2 m trên mặt phẳng x-z,
+  // dựng 1 lần khi cần; tra độ cao 1 điểm chỉ xét vài tam giác trong ô (bắn tia vào cả model mất ~10 ms/điểm).
+  const LOW_MAX = 2;
+  const CELL = 2;
+  let lowTris = null;
+  const cellKey = (x, z) => `${Math.floor(x / CELL)},${Math.floor(z / CELL)}`;
+  function buildLowTris() {
+    lowTris = new Map();
+    if (!modelRoot) return;
+    modelRoot.updateMatrixWorld(true);
+    const shown = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
+    const v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+    const bb = new THREE.Box3();
+    modelRoot.traverse((o) => {
+      if (!o.isMesh || o.isInstancedMesh || !shown(o)) return;
+      const g = o.geometry;
+      if (!g.boundingBox) g.computeBoundingBox();
+      bb.copy(g.boundingBox).applyMatrix4(o.matrixWorld);
+      if (bb.min.y > LOW_MAX || bb.max.y < 0.05) return;
+      const pos = g.getAttribute('position');
+      const idx = g.index;
+      const n = idx ? idx.count : pos.count;
+      for (let i = 0; i + 2 < n; i += 3) {
+        for (let k = 0; k < 3; k += 1) v[k].fromBufferAttribute(pos, idx ? idx.getX(i + k) : i + k).applyMatrix4(o.matrixWorld);
+        const ymax = Math.max(v[0].y, v[1].y, v[2].y);
+        if (ymax > LOW_MAX || ymax < 0.05) continue; // mái / tầng trên, hoặc mặt đất phẳng
+        const area = (v[1].x - v[0].x) * (v[2].z - v[0].z) - (v[2].x - v[0].x) * (v[1].z - v[0].z);
+        if (Math.abs(area) < 1e-4) continue; // mặt đứng (thành bậc, tường)
+        const t = [v[0].x, v[0].y, v[0].z, v[1].x, v[1].y, v[1].z, v[2].x, v[2].y, v[2].z, area];
+        const [x0, x1] = [Math.min(t[0], t[3], t[6]), Math.max(t[0], t[3], t[6])];
+        const [z0, z1] = [Math.min(t[2], t[5], t[8]), Math.max(t[2], t[5], t[8])];
+        for (let cx = Math.floor(x0 / CELL); cx <= Math.floor(x1 / CELL); cx += 1) {
+          for (let cz = Math.floor(z0 / CELL); cz <= Math.floor(z1 / CELL); cz += 1) {
+            const key = `${cx},${cz}`;
+            if (!lowTris.has(key)) lowTris.set(key, []);
+            lowTris.get(key).push(t);
+          }
+        }
+      }
+    });
+  }
 
   const origin = maplibregl.MercatorCoordinate.fromLngLat([GEO.lng, GEO.lat], 0);
   const mv = origin.meterInMercatorCoordinateUnits();
@@ -95,6 +136,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       node.quaternion.setFromAxisAngle(yAxis, atModel ? 0 : turnOf(code)).multiply(b.quat);
     });
     if (modelRoot) modelRoot.updateMatrixWorld(true);
+    lowTris = null; // tòa vừa dời / ẩn hiện: dựng lại lưới mặt thấp khi cần
   };
   const applySatellite = () => {
     if (modelRoot) modelRoot.children.forEach((o) => { if (!o.name.startsWith('Root_')) o.visible = !satellite; });
@@ -644,6 +686,7 @@ export function create(map, { onReady, onError, onProgress } = {}) {
     setHidden(code) {
       hiddenCode = code;
       applyHidden();
+      lowTris = null;
       if (renderer) renderer.shadowMap.needsUpdate = true;
       map.triggerRepaint();
     },
@@ -705,6 +748,23 @@ export function create(map, { onReady, onError, onProgress } = {}) {
       raycaster.set(near, far.sub(near).normalize());
       const hit = raycaster.intersectObjects(pickMeshes, false)[0];
       return hit ? hit.object.userData.code : null;
+    },
+    // Độ cao (m) bề mặt mô hình tại (lng, lat theo hệ đang hiển thị): mặt cao nhất thấp hơn maxM (quảng trường,
+    // bậc thềm, vỉa hè; bỏ mái nhà / tán cây / tầng trên). 0 nếu model chưa nạp. Dùng để tuyến không chìm dưới mặt sân.
+    groundHeight(lngLat, maxM = 2) {
+      if (!ready || !modelRoot) return 0;
+      if (!lowTris) buildLowTris();
+      const p = lngLatToModel(lngLat[0], lngLat[1]);
+      let best = 0;
+      (lowTris.get(cellKey(p.x, p.z)) || []).forEach((t) => {
+        // tọa độ trọng tâm của (x, z) trong tam giác, nội suy độ cao
+        const w1 = ((p.x - t[0]) * (t[8] - t[2]) - (t[6] - t[0]) * (p.z - t[2])) / t[9];
+        const w2 = ((t[3] - t[0]) * (p.z - t[2]) - (p.x - t[0]) * (t[5] - t[2])) / t[9];
+        if (w1 < -1e-6 || w2 < -1e-6 || w1 + w2 > 1 + 1e-6) return;
+        const y = t[1] + w1 * (t[4] - t[1]) + w2 * (t[7] - t[1]);
+        if (y <= maxM && y > best) best = y;
+      });
+      return best;
     },
     // Vị trí màn hình của điểm (lng, lat) ở độ cao altM mét
     project(lngLat, altM = 0) {

@@ -67,3 +67,52 @@ WHERE cc.node IN (
     UNION
     SELECT target_node FROM campus_paths WHERE path_type IN ('Corridor', 'Stairs')
 );
+
+-- (e) Số thành phần liên thông của toàn bộ đồ thị (phải = 1)
+SELECT 'e_all_graph_components', count(DISTINCT component)
+FROM pgr_connectedComponents(
+    'SELECT id, source_node AS source, target_node AS target, cost, reverse_cost FROM campus_paths'
+);
+
+-- (f) Đỉnh bậc 1 cách một đỉnh CHƯA NỐI CẠNH dưới 3 m theo 3D (phải = 0).
+-- Bỏ qua láng giềng đã có cạnh để không đếm các đoạn đường ngắn hợp lệ.
+-- Dùng ST_3DDWithin để cầu thang khác tầng không bị tính nhầm là hai đỉnh gần nhau.
+WITH node_occurrences AS (
+    SELECT source_node AS node_id, ST_StartPoint(geom) AS pt FROM campus_paths
+    UNION ALL
+    SELECT target_node AS node_id, ST_EndPoint(geom) AS pt FROM campus_paths
+),
+node_points AS (
+    SELECT DISTINCT ON (node_id)
+        node_id,
+        ST_Transform(pt, 32648) AS geom_m
+    FROM node_occurrences
+    WHERE node_id IS NOT NULL
+    ORDER BY node_id
+),
+degrees AS (
+    SELECT node_id, count(*) AS degree
+    FROM (
+        SELECT source_node AS node_id FROM campus_paths
+        UNION ALL
+        SELECT target_node AS node_id FROM campus_paths
+    ) endpoints
+    GROUP BY node_id
+),
+dangling AS (
+    SELECT np.node_id, np.geom_m
+    FROM node_points np
+    JOIN degrees d USING (node_id)
+    WHERE d.degree = 1
+)
+SELECT 'f_dangling_nodes_near_vertex', count(DISTINCT a.node_id)
+FROM dangling a
+JOIN node_points b
+  ON b.node_id <> a.node_id
+ AND NOT EXISTS (
+     SELECT 1
+     FROM campus_paths cp
+     WHERE (cp.source_node = a.node_id AND cp.target_node = b.node_id)
+        OR (cp.source_node = b.node_id AND cp.target_node = a.node_id)
+ )
+ AND ST_3DDWithin(a.geom_m, b.geom_m, 3);
