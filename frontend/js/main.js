@@ -1,7 +1,7 @@
 // Điểm vào: khởi tạo và nạp dữ liệu khi bản đồ sẵn sàng
 import { CAMPUS_BOUNDARY_FC, EMPTY_FC, INDOOR_CODES } from './config.js';
 import { state } from './state.js';
-import { btnInfoCloseEl, btnInfoEl, infoPopoverEl, introStatsEl, placesCountEl, placesPanelSummaryEl, placesSummaryEl, tourCardSubEl } from './dom.js';
+import { btnInfoCloseEl, btnInfoEl, infoPopoverEl, introStatsEl, placesPanelSummaryEl } from './dom.js';
 import { api, showToast } from './utils.js';
 import { campus, campusHandlers, map } from './map.js';
 import { markIntroStep } from './intro.js';
@@ -97,12 +97,7 @@ map.on('load', async () => {
     const bCount = buildingsFc.features.length;
     const rCount = roomsFc.features.length;
     const aCount = amenitiesFc.features.filter((f) => !f.properties.room_code).length;
-    state.defaultPlacesCount = String(bCount).padStart(2, '0');
-    state.defaultPlacesSummary = `${bCount} địa điểm · ${aCount} tiện ích`;
-    placesCountEl.textContent = state.defaultPlacesCount;
-    placesSummaryEl.textContent = state.defaultPlacesSummary;
-    placesPanelSummaryEl.textContent = state.defaultPlacesSummary;
-    tourCardSubEl.textContent = `TÒA A · ${bCount} ĐIỂM`;
+    placesPanelSummaryEl.textContent = `${bCount} địa điểm · ${aCount} tiện ích`;
     introStatsEl.textContent = `${bCount} công trình · ${rCount} phòng (Tòa ${INDOOR_CODES.join(', ')})`;
     setLighting(state.currentLighting);
     applyLod(state.campusLoadFailed ? 1 : 2);

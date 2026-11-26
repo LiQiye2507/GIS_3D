@@ -5,7 +5,7 @@ import { state } from './state.js';
 import { searchInputEl, searchResultsEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { selectRoom } from './rooms.js';
-import { filterBuildingsList, selectBuildingByIndex } from './buildings.js';
+import { selectBuildingByIndex } from './buildings.js';
 import { focusAmenity } from './amenities.js';
 import { focusSportsField } from './sports.js';
 
@@ -108,7 +108,10 @@ function renderResults(results) {
         <span class="row-meta-right">${escapeHtml(item.meta)}</span>
       </button>
     `;
-    li.firstElementChild.addEventListener('click', () => openResult(item));
+    li.firstElementChild.addEventListener('click', () => {
+      searchResultsEl.innerHTML = '';
+      openResult(item);
+    });
     searchResultsEl.appendChild(li);
   });
 }
@@ -118,18 +121,22 @@ searchInputEl.addEventListener('input', () => {
   clearTimeout(debounceTimer);
   if (!q) {
     searchResultsEl.innerHTML = '';
-    filterBuildingsList('');
     return;
   }
-  debounceTimer = setTimeout(() => {
-    renderResults(search(q));
-    filterBuildingsList(q);
-  }, 300);
+  debounceTimer = setTimeout(() => renderResults(search(q)), 300);
 });
 
 // Enter: mở ngay kết quả đầu tiên
 searchInputEl.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return;
   const first = search(searchInputEl.value.trim())[0];
-  if (first) openResult(first);
+  if (first) {
+    searchResultsEl.innerHTML = '';
+    openResult(first);
+  }
+});
+
+// Bấm ra ngoài thì đóng danh sách gợi ý (ô tìm kiếm nổi trên bản đồ)
+document.addEventListener('click', (e) => {
+  if (!searchResultsEl.parentElement.contains(e.target)) searchResultsEl.innerHTML = '';
 });

@@ -1,11 +1,11 @@
 // Danh sách tòa nhà, bảng chi tiết, nhãn trên nóc
-import { LIGHTING_CONFIG, floorShort } from './config.js';
+import { LIGHTING_CONFIG } from './config.js';
 import { state } from './state.js';
-import { bpCloseEl, bpDescEl, bpFloorPillsEl, bpFloorsEl, bpIndexEl, bpIndoorBoxEl, bpNameEl, bpNextEl, bpNextNameEl, bpPrevEl, bpPrevNameEl, bpSpecsEl, bpViewIndoorEl, btnPlacesCloseEl, btnPlacesToggleEl, btnResetViewEl, buildingPanelEl, buildingsListEl, colophonEl, hudBottomLeftEl, hudTopLeftEl, placesCountEl, placesPanelEl, placesSummaryEl, placesTitleEl, searchInputEl, searchResultsEl, tourCardEl, tourWrapEl } from './dom.js';
+import { bpCloseEl, bpDescEl, bpFloorsEl, bpIndoorBoxEl, bpNameEl, bpSpecsEl, bpViewIndoorEl, btnPlacesCloseEl, btnResetViewEl, buildingPanelEl, buildingsListEl, placesPanelEl, placesPanelTitleEl, railTabBtns } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { campus, map } from './map.js';
 import { focusCamera, overviewCamera, startSpin, stopSpin } from './camera.js';
-import { applyLod, setFloor, setIndoorBuilding } from './layers.js';
+import { applyLod, setIndoorBuilding } from './layers.js';
 import { openAmenityPopup } from './amenities.js';
 
 let allAmenitiesList = [];
@@ -44,11 +44,15 @@ export function updateBuildingMarker() {
   buildingMarkerEl.classList.remove('is-hidden');
 }
 
-export function setPlacesPanelOpen(open) {
+// Ngăn trái chỉ hiện một nhóm chức năng (tab) chọn từ thanh dọc
+export function setPlacesPanelOpen(open, tab = 'places') {
   placesPanelEl.classList.toggle('hidden', !open);
-  btnPlacesToggleEl.setAttribute('aria-expanded', String(open));
-  hudBottomLeftEl.classList.toggle('hidden', open);
-  hudTopLeftEl.classList.toggle('is-dimmed', open);
+  if (open) placesPanelEl.dataset.tab = tab;
+  railTabBtns.forEach((btn) => {
+    const active = open && btn.dataset.tab === tab;
+    btn.setAttribute('aria-pressed', String(active));
+    if (active) placesPanelTitleEl.textContent = btn.textContent.trim();
+  });
 }
 
 function selectedCode() {
@@ -119,15 +123,8 @@ export function closeBuildingPanel() {
   state.selectedBuildingIndex = -1;
   buildingPanelEl.classList.add('hidden');
   document.body.classList.remove('is-sheet-open');
-  tourWrapEl.classList.remove('hidden');
-  if (colophonEl) colophonEl.classList.remove('is-hidden');
   btnResetViewEl.setAttribute('data-label', 'Đặt lại góc nhìn');
   btnResetViewEl.setAttribute('aria-label', 'Đặt lại góc nhìn');
-  btnPlacesToggleEl.classList.remove('is-selected');
-  placesCountEl.classList.remove('hidden');
-  placesCountEl.textContent = state.defaultPlacesCount;
-  placesTitleEl.textContent = 'Danh sách địa điểm';
-  placesSummaryEl.textContent = state.defaultPlacesSummary;
   updateBuildingWallColors();
   updateBuildingMarker();
   map.easeTo({ ...overviewCamera(), duration: 1600 });
@@ -143,11 +140,8 @@ export function selectBuildingByIndex(idx) {
   const feat = state.buildingsList[normIdx];
   const p = feat.properties || {};
   const floors = p.total_floors || 1;
-  const prevFeat = state.buildingsList[(normIdx - 1 + len) % len];
-  const nextFeat = state.buildingsList[(normIdx + 1) % len];
 
   buildingPanelEl.dataset.meta = getBuildingMetaType(p);
-  bpIndexEl.textContent = `${String(normIdx + 1).padStart(2, '0')} — ${String(len).padStart(2, '0')}`;
   bpFloorsEl.textContent = `${floors} TẦNG`;
   bpNameEl.textContent = p.name || p.building_code || 'Công trình';
   bpDescEl.textContent = getBuildingDisplayDesc(p);
@@ -158,26 +152,8 @@ export function selectBuildingByIndex(idx) {
     `Quy mô kết cấu: ${floors} tầng`,
   ];
   const roomCount = state.roomFeatures.filter((f) => f.properties.building_code === p.building_code).length;
-  if (roomCount) {
-    specs.push(`Dữ liệu nội thất LOD 3: ${roomCount} phòng học & chức năng`);
-    bpIndoorBoxEl.classList.remove('hidden');
-    bpFloorPillsEl.innerHTML = '';
-    for (let f = floors; f >= 1; f -= 1) {
-      const pill = document.createElement('button');
-      pill.type = 'button';
-      pill.className = 'sheet__floor-pill';
-      pill.textContent = floorShort(p.building_code, f);
-      pill.addEventListener('click', () => {
-        closeBuildingPanel();
-        setIndoorBuilding(p.building_code);
-        setFloor(f);
-      });
-      bpFloorPillsEl.appendChild(pill);
-    }
-  } else {
-    bpIndoorBoxEl.classList.add('hidden');
-    bpFloorPillsEl.innerHTML = '';
-  }
+  if (roomCount) specs.push(`Dữ liệu nội thất LOD 3: ${roomCount} phòng học & chức năng`);
+  bpIndoorBoxEl.classList.toggle('hidden', !roomCount);
 
   bpSpecsEl.innerHTML = '';
   specs.forEach((text, i) => {
@@ -186,24 +162,13 @@ export function selectBuildingByIndex(idx) {
     bpSpecsEl.appendChild(li);
   });
 
-  bpPrevNameEl.textContent = getBuildingShortLabel(prevFeat.properties);
-  bpNextNameEl.textContent = getBuildingShortLabel(nextFeat.properties);
-
   setPlacesPanelOpen(false);
   buildingPanelEl.classList.remove('hidden');
   document.body.classList.add('is-sheet-open');
-  tourWrapEl.classList.add('hidden');
-  if (colophonEl) colophonEl.classList.add('is-hidden');
   btnResetViewEl.setAttribute('data-label', 'Về chế độ tổng quan');
   btnResetViewEl.setAttribute('aria-label', 'Về chế độ tổng quan');
 
   updateBuildingMarker();
-
-  btnPlacesToggleEl.classList.add('is-selected');
-  placesCountEl.classList.add('hidden');
-  placesTitleEl.textContent = getBuildingShortLabel(p);
-  placesSummaryEl.textContent = `${floors} TẦNG · ĐANG CHỌN`;
-
   updateBuildingWallColors();
   stopSpin();
   map.easeTo({ ...focusCamera(feat), duration: 1700 });
@@ -232,7 +197,7 @@ function getAmenitiesForBuilding(feat) {
   });
 }
 
-export function filterBuildingsList(query = '') {
+function drawBuildingsList() {
   buildingsListEl.innerHTML = '';
   if (!state.buildingsList.length) {
     const li = document.createElement('li');
@@ -241,30 +206,8 @@ export function filterBuildingsList(query = '') {
     buildingsListEl.appendChild(li);
     return;
   }
-  const q = query.trim().toLowerCase();
-  const matches = state.buildingsList
-    .map((feat, idx) => ({ feat, idx, amenities: getAmenitiesForBuilding(feat) }))
-    .filter(({ feat, amenities }) => {
-      if (!q) return true;
-      const p = feat.properties || {};
-      const matchBld =
-        String(p.name || '').toLowerCase().includes(q) ||
-        String(p.building_code || '').toLowerCase().includes(q);
-      const matchAm = amenities.some((am) =>
-        String((am.properties && am.properties.name) || '').toLowerCase().includes(q)
-      );
-      return matchBld || matchAm;
-    });
-  if (!matches.length) {
-    if (!q || !searchResultsEl.children.length) {
-      const li = document.createElement('li');
-      li.className = 'result-empty';
-      li.textContent = 'Không tìm thấy công trình';
-      buildingsListEl.appendChild(li);
-    }
-    return;
-  }
-  matches.forEach(({ feat, idx, amenities }) => {
+  state.buildingsList.forEach((feat, idx) => {
+    const amenities = getAmenitiesForBuilding(feat);
     const p = feat.properties || {};
     const li = document.createElement('li');
     li.className = 'explorer__group-item';
@@ -288,11 +231,12 @@ export function filterBuildingsList(query = '') {
     li.appendChild(btn);
 
     if (amenities.length) {
-      const amWrap = document.createElement('div');
+      // Thu gọn mặc định cho danh sách ngắn
+      const amWrap = document.createElement('details');
       amWrap.className = 'amenity-group';
-      const amHead = document.createElement('div');
+      const amHead = document.createElement('summary');
       amHead.className = 'eyebrow amenity-group__title';
-      amHead.textContent = 'TIỆN ÍCH TRONG TÒA';
+      amHead.textContent = `TIỆN ÍCH TRONG TÒA (${amenities.length})`;
       amWrap.appendChild(amHead);
 
       amenities.forEach((am) => {
@@ -331,34 +275,23 @@ export function renderBuildingsList(buildingsFc, amenitiesFc = null) {
   if (amenitiesFc && Array.isArray(amenitiesFc.features)) {
     allAmenitiesList = amenitiesFc.features;
   }
-  filterBuildingsList(searchInputEl.value);
+  drawBuildingsList();
 }
 
-btnPlacesToggleEl.addEventListener('click', () => {
-  const isHidden = placesPanelEl.classList.contains('hidden');
-  setPlacesPanelOpen(isHidden);
-});
+// Bấm lại nút đang mở thì đóng ngăn
+railTabBtns.forEach((btn) => btn.addEventListener('click', () => {
+  const same = !placesPanelEl.classList.contains('hidden') && placesPanelEl.dataset.tab === btn.dataset.tab;
+  setPlacesPanelOpen(!same, btn.dataset.tab);
+}));
 
 btnPlacesCloseEl.addEventListener('click', () => {
   setPlacesPanelOpen(false);
 });
 
 bpCloseEl.addEventListener('click', closeBuildingPanel);
-bpPrevEl.addEventListener('click', () => {
-  if (state.buildingsList.length) selectBuildingByIndex(state.selectedBuildingIndex - 1);
-});
-bpNextEl.addEventListener('click', () => {
-  if (state.buildingsList.length) selectBuildingByIndex(state.selectedBuildingIndex + 1);
-});
 bpViewIndoorEl.addEventListener('click', () => {
   const code = selectedCode();
   closeBuildingPanel();
   if (code) setIndoorBuilding(code);
   applyLod(3);
-});
-
-tourCardEl.addEventListener('click', () => {
-  if (!state.buildingsList.length) return;
-  const idx = state.buildingsList.findIndex((b) => b.properties && b.properties.building_code === 'A');
-  selectBuildingByIndex(idx >= 0 ? idx : 0);
 });

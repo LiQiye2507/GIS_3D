@@ -15,8 +15,6 @@ export const state = {
   userPos: null,
   buildingsList: [],
   selectedBuildingIndex: -1,
-  defaultPlacesCount: '00',
-  defaultPlacesSummary: '0 ĐỊA ĐIỂM · 0 TIỆN ÍCH',
   hoveredCode: null,
   campusCenter: DEFAULT_CENTER,
 };

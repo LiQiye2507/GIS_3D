@@ -1,7 +1,7 @@
 // Phòng: popup, thẻ thông tin, chọn phòng
 import { ROOM_LABELS, floorName, floorNo } from './config.js';
 import { state } from './state.js';
-import { roomCardEl } from './dom.js';
+import { placesPanelEl, roomCardEl } from './dom.js';
 import { escapeHtml, getFeatureCenter } from './utils.js';
 import { liftPopup, map } from './map.js';
 import { applyHighlightFilter, setFloor, setIndoorBuilding } from './layers.js';
@@ -60,7 +60,8 @@ export function selectRoom(roomData, clickLngLat, shouldFly = false) {
   }
   applyHighlightFilter();
   renderRoomCard(merged);
-  setPlacesPanelOpen(true);
+  // giữ nhóm đang mở (vd. Truy vấn) để không mất danh sách kết quả; thẻ phòng hiện ở mọi nhóm
+  setPlacesPanelOpen(true, placesPanelEl.dataset.tab);
 
   if (lngLat) {
     if (shouldFly) {
