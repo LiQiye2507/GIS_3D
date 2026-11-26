@@ -83,7 +83,7 @@
             type="search"
             id="search-input"
             class="topsearch__input"
-            placeholder="Tìm phòng, tòa nhà, tiện ích (vd: A305, thu vien)"
+            placeholder="Tìm phòng, tòa nhà, tiện ích (vd: A305)"
             autocomplete="off"
           />
         </label>
@@ -384,18 +384,18 @@
       </div>
 
       <div class="sheet__body">
-        <div class="sheet__section">
-          <div class="eyebrow sheet__section-title">ĐIỂM NỔI BẬT &amp; THÔNG SỐ</div>
-          <ul id="bp-specs" class="sheet__list"></ul>
-        </div>
-
-        <div id="bp-indoor-box" class="sheet__indoor hidden">
+        <div id="bp-indoor-box" class="hidden">
           <div class="eyebrow sheet__section-title">SƠ ĐỒ MẶT BẰNG</div>
           <div id="bp-floor-tabs" class="plan__tabs" role="group" aria-label="Chọn tầng xem sơ đồ"></div>
           <svg id="bp-plan" class="plan" role="img" aria-label="Sơ đồ mặt bằng tầng, bấm vào phòng để xem trên bản đồ"></svg>
           <button type="button" id="bp-view-indoor" class="sheet__indoor-btn">
             XEM TRONG NHÀ →
           </button>
+        </div>
+
+        <div class="sheet__section">
+          <div class="eyebrow sheet__section-title">ĐIỂM NỔI BẬT &amp; THÔNG SỐ</div>
+          <ul id="bp-specs" class="sheet__list"></ul>
         </div>
 
         <button type="button" id="bp-share" class="sheet__indoor-btn sheet__share-btn">CHIA SẺ · MÃ QR</button>

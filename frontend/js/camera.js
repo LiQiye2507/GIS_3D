@@ -84,9 +84,12 @@ export function focusCamera(feat) {
     45
   );
   const canvas = map.getCanvas();
-  const viewW = Math.max(320, canvas.clientWidth - SHEET_PADDING.right);
+  // Điện thoại: bảng chi tiết trượt từ dưới lên (~58vh) nên chừa phía dưới thay vì bên phải
+  const mobile = window.matchMedia('(max-width: 720px)').matches;
+  const padding = mobile ? { top: 110, bottom: canvas.clientHeight * 0.62, left: 0, right: 0 } : SHEET_PADDING;
+  const viewW = mobile ? canvas.clientWidth : Math.max(320, canvas.clientWidth - SHEET_PADDING.right);
   const zoom = Math.log2((78271.52 * cosLat * viewW * 0.5) / extent);
-  return { center, zoom: Math.min(19.6, zoom), pitch: 67, bearing, padding: SHEET_PADDING };
+  return { center, zoom: Math.min(19.6, zoom), pitch: 67, bearing, padding };
 }
 
 // Người dùng thao tác thì dừng tự xoay, rảnh 6 giây thì xoay chậm trở lại
