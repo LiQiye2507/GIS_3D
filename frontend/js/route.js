@@ -161,10 +161,11 @@ document.getElementById('btn-route').addEventListener('click', async () => {
     routeSummaryEl.textContent = `Quãng đường: ${routeFc.total_length_m} m · khoảng ${minutes} phút đi bộ · Qua tầng ${routeFc.floors.join(' → ')}`
       + (routeFc.reaches_room ? '' : ` · Tòa ${state.selectedRoom.building_code} chưa có dữ liệu đường đi trong nhà, tuyến dừng ở lối vào`);
     routeSummaryEl.classList.remove('hidden');
-    // Điện thoại: ngăn trượt + popup che gần hết bản đồ -> thu lại, tóm tắt đưa lên thông báo
+    // Popup phòng đích bị đẩy sát mép trên khi xem toàn tuyến, thông tin đã có ở thẻ phòng
+    if (state.activePopup) state.activePopup.remove();
+    // Điện thoại: ngăn trượt che gần hết bản đồ -> thu lại, tóm tắt đưa lên thông báo
     if (isMobile()) {
       setPlacesPanelOpen(false);
-      if (state.activePopup) state.activePopup.remove();
       showToast(routeSummaryEl.textContent);
     }
 
