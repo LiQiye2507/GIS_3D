@@ -183,6 +183,7 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
   map.addSource('amenities', { type: 'geojson', data: EMPTY_FC });
   map.addSource('route', { type: 'geojson', data: EMPTY_FC });
   map.addSource('route-3d', { type: 'geojson', data: EMPTY_FC });
+  map.addSource('route-connectors-3d', { type: 'geojson', data: EMPTY_FC });
 
   const cfg = LIGHTING_CONFIG[state.currentLighting];
 
@@ -318,6 +319,19 @@ export function initLayers(buildingsFc, roomsFc, boundaryFc) {
       'fill-extrusion-opacity': 0.95,
     },
   });
+  // Đoạn nối nét đứt: vị trí xuất phát -> lối đi, lối đi -> cửa tòa / phòng đích
+  map.addLayer({
+    id: 'route-connectors-3d',
+    type: 'fill-extrusion',
+    source: 'route-connectors-3d',
+    layout: { visibility: routeVis },
+    paint: {
+      'fill-extrusion-color': '#F87171',
+      'fill-extrusion-base': ['get', 'base'],
+      'fill-extrusion-height': ['get', 'height'],
+      'fill-extrusion-opacity': 0.95,
+    },
+  });
 
   addAmenityLayer();
 
@@ -396,5 +410,6 @@ lightingSliderEl.addEventListener('input', () => {
 
 document.getElementById('toggle-route').addEventListener('change', (e) => {
   setLayerVisibility('route-3d', e.target.checked);
+  setLayerVisibility('route-connectors-3d', e.target.checked);
 });
 
