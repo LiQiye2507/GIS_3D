@@ -11,268 +11,33 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_259211701",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 75.2,
-    "highway": "service",
+    "id": "drawn_01",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 259211701",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8025635,
-      10.8700426,
-      0.0
-     ],
-     [
-      106.8021884,
-      10.8704167,
-      0.0
-     ],
-     [
-      106.8021349,
-      10.8704607,
-      0.0
-     ],
-     [
-      106.8020613,
-      10.8705225,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_290360506",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 183.6,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 290360506",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8034087,
-      10.8715088,
-      0.0
-     ],
-     [
-      106.8032753,
-      10.8713855,
-      0.0
-     ],
-     [
-      106.8029386,
-      10.8710508,
-      0.0
-     ],
-     [
-      106.8025222,
-      10.8707291,
-      0.0
-     ],
-     [
-      106.8024739,
-      10.8706832,
-      0.0
-     ],
-     [
-      106.8021884,
-      10.8704167,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_290360508",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 52.3,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 290360508",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8030252,
-      10.871793,
-      0.0
-     ],
-     [
-      106.8034087,
-      10.8715088,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_327427161",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 353.9,
-    "highway": "residential",
-    "name": "Hàn Thuyên",
-    "source": "osm",
-    "source_ref": "OSM way 327427161",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8020613,
-      10.8705225,
-      0.0
-     ],
-     [
-      106.8021451,
-      10.8706282,
-      0.0
-     ],
-     [
-      106.8022003,
-      10.8706977,
-      0.0
-     ],
-     [
-      106.8023976,
-      10.8709593,
-      0.0
-     ],
-     [
-      106.8025648,
-      10.8711726,
-      0.0
-     ],
-     [
-      106.8026346,
-      10.8712786,
-      0.0
-     ],
-     [
-      106.802694,
-      10.8713795,
-      0.0
-     ],
-     [
-      106.8027369,
-      10.8714691,
-      0.0
-     ],
-     [
-      106.8028086,
-      10.8716201,
-      0.0
-     ],
-     [
-      106.8028443,
-      10.87173,
-      0.0
-     ],
-     [
-      106.8028752,
-      10.8718595,
-      0.0
-     ],
-     [
-      106.8028842,
-      10.8719548,
-      0.0
-     ],
-     [
-      106.8028935,
-      10.8720525,
-      0.0
-     ],
-     [
-      106.8028928,
-      10.8721525,
-      0.0
-     ],
-     [
-      106.8028873,
-      10.8722623,
-      0.0
-     ],
-     [
-      106.8028738,
-      10.8724961,
-      0.0
-     ],
-     [
-      106.802843,
-      10.8728636,
-      0.0
-     ],
-     [
-      106.8028198,
-      10.8732862,
-      0.0
-     ],
-     [
-      106.8028102,
-      10.8734626,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_327427163",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 28.2,
+    "source": "manual",
     "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 327427163",
-    "verified": false
+    "floor_to": 1,
+    "length_m": 112.0,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8027313,
-      10.8702566,
+      106.8033546,
+      10.8707467,
       0.0
      ],
      [
-      106.8025694,
-      10.8700562,
+      106.8033637,
+      10.8716005,
       0.0
      ],
      [
-      106.8025635,
-      10.8700426,
+      106.803338,
+      10.8717521,
       0.0
      ]
     ]
@@ -281,93 +46,33 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_327427167",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 76.2,
-    "highway": "service",
+    "id": "drawn_02",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 327427167",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8019917,
-      10.8704332,
-      0.0
-     ],
-     [
-      106.8020586,
-      10.8703766,
-      0.0
-     ],
-     [
-      106.802165,
-      10.8702915,
-      0.0
-     ],
-     [
-      106.8023793,
-      10.8701191,
-      0.0
-     ],
-     [
-      106.8024047,
-      10.8700984,
-      0.0
-     ],
-     [
-      106.8025635,
-      10.8700426,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_327427170",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 52.4,
+    "source": "manual",
     "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 327427170",
-    "verified": false
+    "floor_to": 1,
+    "length_m": 46.3,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8027565,
-      10.8694167,
+      106.8037953,
+      10.869195,
       0.0
      ],
      [
-      106.8027991,
-      10.8694561,
+      106.8038182,
+      10.8694923,
       0.0
      ],
      [
-      106.8028148,
-      10.869487,
-      0.0
-     ],
-     [
-      106.8029934,
-      10.8698473,
-      0.0
-     ],
-     [
-      106.8031024,
-      10.8699464,
+      106.8038051,
+      10.8696097,
       0.0
      ]
     ]
@@ -376,258 +81,43 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_490694218",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 261.1,
-    "highway": "service",
+    "id": "drawn_03",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 490694218",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8037366,
-      10.8691184,
-      0.0
-     ],
-     [
-      106.803708,
-      10.8691943,
-      0.0
-     ],
-     [
-      106.8037198,
-      10.8694083,
-      0.0
-     ],
-     [
-      106.8037202,
-      10.8694667,
-      0.0
-     ],
-     [
-      106.8038264,
-      10.8694783,
-      0.0
-     ],
-     [
-      106.8039851,
-      10.8695134,
-      0.0
-     ],
-     [
-      106.8041113,
-      10.8695884,
-      0.0
-     ],
-     [
-      106.8041807,
-      10.8696655,
-      0.0
-     ],
-     [
-      106.8042206,
-      10.8696893,
-      0.0
-     ],
-     [
-      106.8042355,
-      10.8697192,
-      0.0
-     ],
-     [
-      106.804242,
-      10.8697339,
-      0.0
-     ],
-     [
-      106.8042487,
-      10.8697993,
-      0.0
-     ],
-     [
-      106.8042443,
-      10.8698485,
-      0.0
-     ],
-     [
-      106.8042236,
-      10.8699057,
-      0.0
-     ],
-     [
-      106.8042008,
-      10.8699738,
-      0.0
-     ],
-     [
-      106.8041442,
-      10.8700673,
-      0.0
-     ],
-     [
-      106.8040577,
-      10.8701442,
-      0.0
-     ],
-     [
-      106.80393,
-      10.8702179,
-      0.0
-     ],
-     [
-      106.8038243,
-      10.8702548,
-      0.0
-     ],
-     [
-      106.8034067,
-      10.870247,
-      0.0
-     ],
-     [
-      106.8032853,
-      10.8705719,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_693343285",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 291.5,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 693343285",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8023793,
-      10.8701191,
-      0.0
-     ],
-     [
-      106.8024812,
-      10.8698723,
-      0.0
-     ],
-     [
-      106.802496,
-      10.869829,
-      0.0
-     ],
-     [
-      106.8025171,
-      10.8697483,
-      0.0
-     ],
-     [
-      106.8024919,
-      10.8696052,
-      0.0
-     ],
-     [
-      106.802463,
-      10.8695484,
-      0.0
-     ],
-     [
-      106.8024986,
-      10.8694167,
-      0.0
-     ],
-     [
-      106.8027932,
-      10.8693326,
-      0.0
-     ],
-     [
-      106.8030117,
-      10.8692965,
-      0.0
-     ],
-     [
-      106.80317,
-      10.8692644,
-      0.0
-     ],
-     [
-      106.8034078,
-      10.8692483,
-      0.0
-     ],
-     [
-      106.803584,
-      10.8692234,
-      0.0
-     ],
-     [
-      106.8037366,
-      10.8691184,
-      0.0
-     ],
-     [
-      106.8038375,
-      10.8689147,
-      0.0
-     ],
-     [
-      106.8039293,
-      10.8688134,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_693343288",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 50.1,
+    "source": "manual",
     "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 693343288",
-    "verified": false
+    "floor_to": 1,
+    "length_m": 43.0,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8025635,
-      10.8700426,
+      106.8021343,
+      10.8703769,
       0.0
      ],
      [
-      106.8025792,
-      10.870032,
+      106.8020411,
+      10.870478,
       0.0
      ],
      [
-      106.802744,
-      10.8699495,
+      106.8019835,
+      10.8705065,
       0.0
      ],
      [
-      106.8029934,
-      10.8698473,
+      106.8019393,
+      10.870561,
+      0.0
+     ],
+     [
+      106.8018439,
+      10.870631,
       0.0
      ]
     ]
@@ -636,27 +126,642 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_721494302",
+    "id": "drawn_04",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 212.0,
+    "verified": false,
     "path_type": "Walkway",
     "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 11.7,
-    "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 721494302",
-    "verified": false
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8018555,
-      10.870447,
+      106.8024693,
+      10.8699242,
       0.0
      ],
      [
-      106.801941,
+      106.8024359,
+      10.8698594,
+      0.0
+     ],
+     [
+      106.8024544,
+      10.86975,
+      0.0
+     ],
+     [
+      106.802476,
+      10.8693763,
+      0.0
+     ],
+     [
+      106.8025334,
+      10.8693136,
+      0.0
+     ],
+     [
+      106.802638,
+      10.8693148,
+      0.0
+     ],
+     [
+      106.8027317,
+      10.8693068,
+      0.0
+     ],
+     [
+      106.8034923,
+      10.8693193,
+      0.0
+     ],
+     [
+      106.8037953,
+      10.869195,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_05",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 45.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8031683,
+      10.8698858,
+      0.0
+     ],
+     [
+      106.8034693,
+      10.869899,
+      0.0
+     ],
+     [
+      106.8035799,
+      10.869865,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_06",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 201.2,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.804466,
+      10.8706234,
+      0.0
+     ],
+     [
+      106.8045005,
+      10.8706942,
+      0.0
+     ],
+     [
+      106.8045858,
+      10.8707957,
+      0.0
+     ],
+     [
+      106.8046016,
+      10.8708573,
+      0.0
+     ],
+     [
+      106.8042057,
+      10.8712389,
+      0.0
+     ],
+     [
+      106.8042031,
+      10.8712579,
+      0.0
+     ],
+     [
+      106.804136,
+      10.8713242,
+      0.0
+     ],
+     [
+      106.8034883,
+      10.8719298,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_07",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 17.4,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8024283,
+      10.8700744,
+      0.0
+     ],
+     [
+      106.8024472,
+      10.8700333,
+      0.0
+     ],
+     [
+      106.8024693,
+      10.8699242,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_08",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 19.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8028665,
+      10.8699043,
+      0.0
+     ],
+     [
+      106.8027853,
+      10.8699022,
+      0.0
+     ],
+     [
+      106.8026935,
+      10.8699366,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_09",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 55.2,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8033041,
+      10.8707295,
+      0.0
+     ],
+     [
+      106.8032263,
+      10.870722,
+      0.0
+     ],
+     [
+      106.8032323,
+      10.8706821,
+      0.0
+     ],
+     [
+      106.8032416,
+      10.8706035,
+      0.0
+     ],
+     [
+      106.8031277,
+      10.8705087,
+      0.0
+     ],
+     [
+      106.8031689,
+      10.870472,
+      0.0
+     ],
+     [
+      106.8031933,
+      10.8703761,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_10",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 53.5,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8038051,
+      10.8696097,
+      0.0
+     ],
+     [
+      106.8040054,
+      10.8695411,
+      0.0
+     ],
+     [
+      106.8041036,
+      10.869629,
+      0.0
+     ],
+     [
+      106.804189,
+      10.8697445,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_11",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 24.7,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8040798,
+      10.8701512,
+      0.0
+     ],
+     [
+      106.8041585,
+      10.8700127,
+      0.0
+     ],
+     [
+      106.8041804,
+      10.8699534,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_12",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 27.7,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034521,
+      10.8703325,
+      0.0
+     ],
+     [
+      106.8033831,
+      10.8705722,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_13",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 40.4,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034883,
+      10.8719298,
+      0.0
+     ],
+     [
+      106.8033419,
+      10.8720445,
+      0.0
+     ],
+     [
+      106.8032226,
+      10.8721808,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_14",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 19.7,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8033546,
+      10.8707467,
+      0.0
+     ],
+     [
+      106.8033831,
+      10.8705722,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_15",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 51.0,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8042026,
+      10.869806,
+      0.0
+     ],
+     [
+      106.8043217,
+      10.8697884,
+      0.0
+     ],
+     [
+      106.8043643,
+      10.869785,
+      0.0
+     ],
+     [
+      106.8045364,
+      10.8697912,
+      0.0
+     ],
+     [
+      106.8045734,
+      10.8699155,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_16",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 24.8,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8038543,
+      10.869826,
+      0.0
+     ],
+     [
+      106.8037957,
+      10.8697885,
+      0.0
+     ],
+     [
+      106.8037512,
+      10.8697996,
+      0.0
+     ],
+     [
+      106.8036725,
+      10.869826,
+      0.0
+     ],
+     [
+      106.8036688,
+      10.8698535,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_17",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 15.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8035336,
+      10.8702251,
+      0.0
+     ],
+     [
+      106.8035657,
+      10.8701594,
+      0.0
+     ],
+     [
+      106.8036166,
+      10.8701141,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_18",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 35.0,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8032712,
+      10.8700805,
+      0.0
+     ],
+     [
+      106.8034423,
+      10.8702774,
+      0.0
+     ],
+     [
+      106.8034521,
+      10.8703325,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_19",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 44.3,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8024241,
+      10.8700979,
+      0.0
+     ],
+     [
+      106.8021343,
       10.8703769,
       0.0
      ]
@@ -666,28 +771,998 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_721494303",
+    "id": "drawn_20",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 24.4,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8031683,
+      10.8698858,
+      0.0
+     ],
+     [
+      106.8032712,
+      10.8700805,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_21",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 26.1,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8029305,
+      10.8699084,
+      0.0
+     ],
+     [
+      106.8029684,
+      10.8699027,
+      0.0
+     ],
+     [
+      106.8030805,
+      10.8698887,
+      0.0
+     ],
+     [
+      106.8031683,
+      10.8698858,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_22",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 52.8,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8048682,
+      10.8705027,
+      0.0
+     ],
+     [
+      106.8046167,
+      10.8704938,
+      0.0
+     ],
+     [
+      106.8044357,
+      10.8705119,
+      0.0
+     ],
+     [
+      106.8043998,
+      10.8705459,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_23",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 56.8,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8040798,
+      10.8701512,
+      0.0
+     ],
+     [
+      106.8042136,
+      10.8703048,
+      0.0
+     ],
+     [
+      106.8042421,
+      10.8703381,
+      0.0
+     ],
+     [
+      106.8042473,
+      10.8703777,
+      0.0
+     ],
+     [
+      106.8043998,
+      10.8705459,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_24",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 25.5,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8036971,
+      10.8699041,
+      0.0
+     ],
+     [
+      106.8037331,
+      10.8699312,
+      0.0
+     ],
+     [
+      106.8037826,
+      10.8699305,
+      0.0
+     ],
+     [
+      106.8038204,
+      10.8699097,
+      0.0
+     ],
+     [
+      106.8038478,
+      10.8698765,
+      0.0
+     ],
+     [
+      106.8038543,
+      10.869826,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_26",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 156.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8023479,
+      10.8707945,
+      0.0
+     ],
+     [
+      106.8032476,
+      10.8717061,
+      0.0
+     ],
+     [
+      106.803338,
+      10.8717521,
+      0.0
+     ],
+     [
+      106.8033314,
+      10.8717904,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_27",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 52.5,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8037953,
+      10.869195,
+      0.0
+     ],
+     [
+      106.803792,
+      10.8691197,
+      0.0
+     ],
+     [
+      106.8037783,
+      10.868999,
+      0.0
+     ],
+     [
+      106.8038014,
+      10.8688698,
+      0.0
+     ],
+     [
+      106.803733,
+      10.868819,
+      0.0
+     ],
+     [
+      106.803686,
+      10.8687814,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_29",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 23.1,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8033314,
+      10.8717904,
+      0.0
+     ],
+     [
+      106.8034883,
+      10.8719298,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_30",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 30.3,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8033831,
+      10.8705722,
+      0.0
+     ],
+     [
+      106.8032734,
+      10.8704799,
+      0.0
+     ],
+     [
+      106.8031933,
+      10.8703761,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_31",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 64.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8040798,
+      10.8701512,
+      0.0
+     ],
+     [
+      106.8039864,
+      10.8702217,
+      0.0
+     ],
+     [
+      106.803863,
+      10.8702815,
+      0.0
+     ],
+     [
+      106.8037047,
+      10.8702722,
+      0.0
+     ],
+     [
+      106.8035336,
+      10.8702251,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_32",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 11.5,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8035336,
+      10.8702251,
+      0.0
+     ],
+     [
+      106.8034423,
+      10.8702774,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_34",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 9.8,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8035799,
+      10.869865,
+      0.0
+     ],
+     [
+      106.8036688,
+      10.8698535,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_35",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 19.7,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8026935,
+      10.8699366,
+      0.0
+     ],
+     [
+      106.802571,
+      10.8700672,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_36",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 14.0,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8023479,
+      10.8707945,
+      0.0
+     ],
+     [
+      106.8022549,
+      10.8707077,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_37",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 24.9,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8026935,
+      10.8699366,
+      0.0
+     ],
+     [
+      106.802613,
+      10.8699216,
+      0.0
+     ],
+     [
+      106.8025435,
+      10.86991,
+      0.0
+     ],
+     [
+      106.8024693,
+      10.8699242,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_38",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 5.0,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034598,
+      10.869704,
+      0.0
+     ],
+     [
+      106.8034633,
+      10.869659,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_39",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 13.9,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8021575,
+      10.8706273,
+      0.0
+     ],
+     [
+      106.8022549,
+      10.8707077,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_40",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 49.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.802571,
+      10.8700672,
+      0.0
+     ],
+     [
+      106.8026134,
+      10.870108,
+      0.0
+     ],
+     [
+      106.8027381,
+      10.8699794,
+      0.0
+     ],
+     [
+      106.8028165,
+      10.8699347,
+      0.0
+     ],
+     [
+      106.8028665,
+      10.8699043,
+      0.0
+     ],
+     [
+      106.8029305,
+      10.8699084,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_41",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 34.0,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8032712,
+      10.8700805,
+      0.0
+     ],
+     [
+      106.8032273,
+      10.8702387,
+      0.0
+     ],
+     [
+      106.8031933,
+      10.8703761,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_42",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 5.8,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8033546,
+      10.8707467,
+      0.0
+     ],
+     [
+      106.8033041,
+      10.8707295,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_43",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 15.5,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034598,
+      10.869704,
+      0.0
+     ],
+     [
+      106.8034473,
+      10.869735,
+      0.0
+     ],
+     [
+      106.8034394,
+      10.8697457,
+      0.0
+     ],
+     [
+      106.8035166,
+      10.8697998,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_44",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 16.4,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.802571,
+      10.8700672,
+      0.0
+     ],
+     [
+      106.8024241,
+      10.8700979,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_45",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 6.4,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8036688,
+      10.8698535,
+      0.0
+     ],
+     [
+      106.8036971,
+      10.8699041,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_46",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 58.2,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8025292,
+      10.8711457,
+      0.0
+     ],
+     [
+      106.8022628,
+      10.8707869,
+      0.0
+     ],
+     [
+      106.8022549,
+      10.8707077,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_47",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 68.8,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8023479,
+      10.8707945,
+      0.0
+     ],
+     [
+      106.8026808,
+      10.8707325,
+      0.0
+     ],
+     [
+      106.8029142,
+      10.8705619,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_48",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 16.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Đường tim của vùng đường đi do nhóm khoanh đỏ trên sơ đồ model, số hóa 2026-11-25"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8042026,
+      10.869806,
+      0.0
+     ],
+     [
+      106.8041804,
+      10.8699534,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "gate_drawn_46",
+    "name": null,
+    "source": "manual",
+    "highway": "footway",
+    "floor_to": 1,
+    "length_m": 10.6,
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Nối đường đi ra đường ngoài cổng (osm_327427161)"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8025292,
+      10.8711457,
+      0.0
+     ],
+     [
+      106.802594,
+      10.8712169,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "gapfix_2",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
     "length_m": 11.2,
     "highway": "footway",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 721494303",
+    "source": "manual",
+    "source_ref": "Vá chỗ hở (gần nhau nhưng phải đi vòng > 2,5 lần)",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8020624,
-      10.8706912,
+      106.8043998,
+      10.8705459,
       0.0
      ],
      [
-      106.8021451,
-      10.8706282,
+      106.804466,
+      10.8706234,
       0.0
      ]
     ]
@@ -696,143 +1771,28 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_723160859",
+    "id": "gapfix_3",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 238.9,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723160859",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8034087,
-      10.8715088,
-      0.0
-     ],
-     [
-      106.8045321,
-      10.8706672,
-      0.0
-     ],
-     [
-      106.8045535,
-      10.8706177,
-      0.0
-     ],
-     [
-      106.8045582,
-      10.87057,
-      0.0
-     ],
-     [
-      106.8045494,
-      10.870509,
-      0.0
-     ],
-     [
-      106.8045138,
-      10.8704662,
-      0.0
-     ],
-     [
-      106.8044809,
-      10.8704186,
-      0.0
-     ],
-     [
-      106.8044317,
-      10.8703702,
-      0.0
-     ],
-     [
-      106.8042932,
-      10.8702291,
-      0.0
-     ],
-     [
-      106.8041442,
-      10.8700673,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_723160860",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 45.3,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723160860",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8044317,
-      10.8703702,
-      0.0
-     ],
-     [
-      106.804826,
-      10.8703717,
-      0.0
-     ],
-     [
-      106.8048475,
-      10.8703714,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_723160861",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 68.7,
+    "length_m": 10.0,
     "highway": "footway",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723160861",
+    "source": "manual",
+    "source_ref": "Vá chỗ hở (gần nhau nhưng phải đi vòng > 2,5 lần)",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.804826,
-      10.8703717,
+      106.8035166,
+      10.8697998,
       0.0
      ],
      [
-      106.804844,
-      10.8700865,
-      0.0
-     ],
-     [
-      106.8045852,
-      10.8701053,
-      0.0
-     ],
-     [
-      106.8046634,
-      10.8699559,
+      106.8035799,
+      10.869865,
       0.0
      ]
     ]
@@ -841,48 +1801,28 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_723521738",
+    "id": "gapfix_4",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 64.2,
+    "length_m": 2.7,
     "highway": "footway",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723521738",
+    "source": "manual",
+    "source_ref": "Vá chỗ hở (gần nhau nhưng phải đi vòng > 2,5 lần)",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8037202,
-      10.8694667,
+      106.8024241,
+      10.8700979,
       0.0
      ],
      [
-      106.8037203,
-      10.8694835,
-      0.0
-     ],
-     [
-      106.8037266,
-      10.8696301,
-      0.0
-     ],
-     [
-      106.803808,
-      10.8696569,
-      0.0
-     ],
-     [
-      106.8038323,
-      10.8696771,
-      0.0
-     ],
-     [
-      106.804242,
-      10.8697339,
+      106.8024283,
+      10.8700744,
       0.0
      ]
     ]
@@ -891,73 +1831,28 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_723521741",
+    "id": "gapfix_5",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 44.2,
+    "length_m": 7.0,
     "highway": "footway",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723521741",
+    "source": "manual",
+    "source_ref": "Vá chỗ hở (gần nhau nhưng phải đi vòng > 2,5 lần)",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8037266,
-      10.8696301,
+      106.804189,
+      10.8697445,
       0.0
      ],
      [
-      106.8036702,
-      10.8696711,
-      0.0
-     ],
-     [
-      106.8036775,
-      10.8697129,
-      0.0
-     ],
-     [
-      106.8036812,
-      10.8697275,
-      0.0
-     ],
-     [
-      106.8037173,
-      10.8697937,
-      0.0
-     ],
-     [
-      106.803754,
-      10.8698108,
-      0.0
-     ],
-     [
-      106.8037942,
-      10.8697957,
-      0.0
-     ],
-     [
-      106.8038418,
-      10.8697923,
-      0.0
-     ],
-     [
-      106.8038617,
-      10.8697658,
-      0.0
-     ],
-     [
-      106.8038363,
-      10.8697083,
-      0.0
-     ],
-     [
-      106.803808,
-      10.8696569,
+      106.8042026,
+      10.869806,
       0.0
      ]
     ]
@@ -966,38 +1861,259 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_723521742",
+    "length_m": 30.5,
+    "id": "qgis_001",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 89.3,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8030205,
+      10.8696333,
+      0.0
+     ],
+     [
+      106.8030054,
+      10.869721,
+      0.0
+     ],
+     [
+      106.8029684,
+      10.8699027,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 20.0,
+    "id": "qgis_002",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8038051,
+      10.8696097,
+      0.0
+     ],
+     [
+      106.8037977,
+      10.8696416,
+      0.0
+     ],
+     [
+      106.8037957,
+      10.8697885,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 10.8,
+    "id": "qgis_003",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8028167,
+      10.8698102,
+      0.0
+     ],
+     [
+      106.8027853,
+      10.8699022,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 20.5,
+    "id": "qgis_004",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8026424,
+      10.8697525,
+      0.0
+     ],
+     [
+      106.8024544,
+      10.86975,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 36.0,
+    "id": "qgis_005",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8030205,
+      10.8696333,
+      0.0
+     ],
+     [
+      106.8027588,
+      10.8696206,
+      0.0
+     ],
+     [
+      106.8027433,
+      10.8695561,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 5.3,
+    "id": "qgis_006",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8027588,
+      10.8696206,
+      0.0
+     ],
+     [
+      106.802725,
+      10.8696544,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 48.4,
+    "id": "qgis_007",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034633,
+      10.869659,
+      0.0
+     ],
+     [
+      106.8030205,
+      10.8696333,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 17.0,
+    "id": "qgis_008",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8036756,
+      10.8695533,
+      0.0
+     ],
+     [
+      106.8038182,
+      10.8694923,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "gapfix_6",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "length_m": 20.9,
     "highway": "footway",
     "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723521742",
+    "source": "manual",
+    "source_ref": "Vá chỗ hở ở cổng A sau khi sửa trên web",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8036775,
-      10.8697129,
+      106.8020411,
+      10.870478,
       0.0
      ],
      [
-      106.8036578,
-      10.8697365,
-      0.0
-     ],
-     [
-      106.8032925,
-      10.8697962,
-      0.0
-     ],
-     [
-      106.8029934,
-      10.8698473,
+      106.8021575,
+      10.8706273,
       0.0
      ]
     ]
@@ -1006,243 +2122,473 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_723521744",
+    "length_m": 16.3,
+    "id": "qgis_009",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 30.0,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8026924,
+      10.8702323,
+      0.0
+     ],
+     [
+      106.8026134,
+      10.870108,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 84.9,
+    "id": "qgis_010",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8042136,
+      10.8703048,
+      0.0
+     ],
+     [
+      106.804283,
+      10.8702779,
+      0.0
+     ],
+     [
+      106.8043843,
+      10.8704057,
+      0.0
+     ],
+     [
+      106.8046886,
+      10.8704096,
+      0.0
+     ],
+     [
+      106.8046915,
+      10.8703579,
+      0.0
+     ],
+     [
+      106.8046978,
+      10.8702445,
+      0.0
+     ],
+     [
+      106.8047012,
+      10.8701801,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 12.4,
+    "id": "qgis_011",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8046915,
+      10.8703579,
+      0.0
+     ],
+     [
+      106.8047919,
+      10.8703065,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 11.1,
+    "id": "qgis_012",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8046978,
+      10.8702445,
+      0.0
+     ],
+     [
+      106.8047802,
+      10.8701855,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 11.6,
+    "id": "qgis_013",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8029684,
+      10.8699027,
+      0.0
+     ],
+     [
+      106.802941,
+      10.8700036,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 11.5,
+    "id": "qgis_014",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8038182,
+      10.8694923,
+      0.0
+     ],
+     [
+      106.8038968,
+      10.8694239,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 37.5,
+    "id": "qgis_015",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8037977,
+      10.8696416,
+      0.0
+     ],
+     [
+      106.8034598,
+      10.869704,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 12.7,
+    "id": "qgis_016",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034633,
+      10.869659,
+      0.0
+     ],
+     [
+      106.8034752,
+      10.8695452,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 16.4,
+    "id": "qgis_017",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034923,
+      10.8693193,
+      0.0
+     ],
+     [
+      106.8034666,
+      10.8694646,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 47.1,
+    "id": "qgis_018",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8034423,
+      10.8702774,
+      0.0
+     ],
+     [
+      106.8032273,
+      10.8702387,
+      0.0
+     ],
+     [
+      106.8030149,
+      10.8702332,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 16.2,
+    "id": "qgis_019",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8032263,
+      10.870722,
+      0.0
+     ],
+     [
+      106.8030785,
+      10.8707387,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 38.1,
+    "id": "qgis_020",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8042026,
+      10.869806,
+      0.0
+     ],
+     [
+      106.8038543,
+      10.869826,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 19.1,
+    "id": "qgis_023",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8038749,
+      10.8700725,
+      0.0
+     ],
+     [
+      106.8038204,
+      10.8699097,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 15.8,
+    "id": "qgis_025",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8027317,
+      10.8693068,
+      0.0
+     ],
+     [
+      106.8027516,
+      10.8694479,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "length_m": 20.9,
+    "id": "qgis_026",
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "floor_to": 1,
+    "source": "manual",
+    "verified": false
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      106.8030054,
+      10.869721,
+      0.0
+     ],
+     [
+      106.8028162,
+      10.8696932,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "drawn_27_east",
+    "name": null,
+    "source": "manual",
     "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723521744",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8042932,
-      10.8702291,
-      0.0
-     ],
-     [
-      106.8043224,
-      10.8702025,
-      0.0
-     ],
-     [
-      106.8043546,
-      10.8701672,
-      0.0
-     ],
-     [
-      106.8043831,
-      10.8701305,
-      0.0
-     ],
-     [
-      106.8044088,
-      10.8701013,
-      0.0
-     ],
-     [
-      106.8045501,
-      10.8700814,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_723521745",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 100.5,
-    "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 723521745",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.804242,
-      10.8697339,
-      0.0
-     ],
-     [
-      106.8044867,
-      10.8698058,
-      0.0
-     ],
-     [
-      106.8046168,
-      10.8697048,
-      0.0
-     ],
-     [
-      106.8048618,
-      10.8699246,
-      0.0
-     ],
-     [
-      106.8048444,
-      10.869955,
-      0.0
-     ],
-     [
-      106.804844,
-      10.8700865,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1227497211",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 123.7,
-    "highway": "residential",
-    "name": "Hàn Thuyên",
-    "source": "osm",
-    "source_ref": "OSM way 1227497211",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8011742,
-      10.8696582,
-      0.0
-     ],
-     [
-      106.8013103,
-      10.8697822,
-      0.0
-     ],
-     [
-      106.8013837,
-      10.8698496,
-      0.0
-     ],
-     [
-      106.8016529,
-      10.8700743,
-      0.0
-     ],
-     [
-      106.8017957,
-      10.8702197,
-      0.0
-     ],
-     [
-      106.801941,
-      10.8703769,
-      0.0
-     ],
-     [
-      106.8019917,
-      10.8704332,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1227497212",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 10.9,
-    "highway": "residential",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1227497212",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8019102,
-      10.8704957,
-      0.0
-     ],
-     [
-      106.8019917,
-      10.8704332,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1227497213",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 10.9,
-    "highway": "residential",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1227497213",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8020613,
-      10.8705225,
-      0.0
-     ],
-     [
-      106.8019795,
-      10.8705827,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1227497214",
-    "path_type": "Walkway",
-    "floor_from": 1,
     "floor_to": 1,
     "length_m": 12.8,
-    "highway": "residential",
-    "name": "Hàn Thuyên",
-    "source": "osm",
-    "source_ref": "OSM way 1227497214",
-    "verified": false
+    "verified": false,
+    "path_type": "Walkway",
+    "floor_from": 1,
+    "source_ref": "Tách từ drawn_27: nhánh đi về phía đông, rẽ ra trước cửa Tòa D (tránh nếp gấp)"
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8019917,
-      10.8704332,
+      106.8038014,
+      10.8688698,
       0.0
      ],
      [
-      106.8020613,
-      10.8705225,
+      106.8038124,
+      10.8688342,
+      0.0
+     ],
+     [
+      106.8038292,
+      10.8687845,
+      0.0
+     ],
+     [
+      106.8038288,
+      10.8687593,
       0.0
      ]
     ]
@@ -1251,48 +2597,25 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_1245198319",
+    "length_m": 15.1,
+    "id": "qgis_021",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 263.1,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1245198319",
+    "source": "manual",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8045308,
-      10.8694781,
+      106.8041585,
+      10.8700127,
       0.0
      ],
      [
-      106.8040063,
-      10.8688978,
-      0.0
-     ],
-     [
-      106.8039293,
-      10.8688134,
-      0.0
-     ],
-     [
-      106.803683,
-      10.8686423,
-      0.0
-     ],
-     [
-      106.8031401,
-      10.8682546,
-      0.0
-     ],
-     [
-      106.802715,
-      10.8679464,
+      106.8040385,
+      10.869946,
       0.0
      ]
     ]
@@ -1301,33 +2624,25 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_1307661845",
+    "length_m": 20.5,
+    "id": "qgis_022",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 16.9,
-    "highway": "footway",
-    "name": "Đường đến trạm xe bus",
-    "source": "osm",
-    "source_ref": "OSM way 1307661845",
+    "source": "manual",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8029963,
-      10.869165,
+      106.8038478,
+      10.8698765,
       0.0
      ],
      [
-      106.8030021,
-      10.869255,
-      0.0
-     ],
-     [
-      106.8030117,
-      10.8692965,
+      106.8040065,
+      10.8699748,
       0.0
      ]
     ]
@@ -1336,43 +2651,25 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_1459032883",
+    "length_m": 13.0,
+    "id": "qgis_024",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 52.7,
-    "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1459032883",
+    "source": "manual",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8024739,
-      10.8706832,
+      106.8036971,
+      10.8699041,
       0.0
      ],
      [
-      106.8024888,
-      10.8706775,
-      0.0
-     ],
-     [
-      106.8025405,
-      10.8706583,
-      0.0
-     ],
-     [
-      106.8027793,
-      10.8706554,
-      0.0
-     ],
-     [
-      106.8028986,
-      10.8705323,
+      106.803625,
+      10.8699971,
       0.0
      ]
     ]
@@ -1381,293 +2678,30 @@
   {
    "type": "Feature",
    "properties": {
-    "id": "osm_1459032886",
+    "length_m": 35.5,
+    "id": "qgis_027",
     "path_type": "Walkway",
     "floor_from": 1,
     "floor_to": 1,
-    "length_m": 374.4,
-    "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1459032886",
+    "source": "manual",
     "verified": false
    },
    "geometry": {
     "type": "LineString",
     "coordinates": [
      [
-      106.8025694,
-      10.8700562,
+      106.8031683,
+      10.8698858,
       0.0
      ],
      [
-      106.802547,
-      10.870088,
+      106.8033184,
+      10.8697688,
       0.0
      ],
      [
-      106.8025271,
-      10.8701105,
-      0.0
-     ],
-     [
-      106.8023919,
-      10.8702315,
-      0.0
-     ],
-     [
-      106.8022678,
-      10.8703556,
-      0.0
-     ],
-     [
-      106.8022465,
-      10.870396,
-      0.0
-     ],
-     [
-      106.8022373,
-      10.8704472,
-      0.0
-     ],
-     [
-      106.8024333,
-      10.870628,
-      0.0
-     ],
-     [
-      106.8024888,
-      10.8706775,
-      0.0
-     ],
-     [
-      106.8027169,
-      10.8708607,
-      0.0
-     ],
-     [
-      106.8029878,
-      10.8710605,
-      0.0
-     ],
-     [
-      106.803075,
-      10.871155,
-      0.0
-     ],
-     [
-      106.8032391,
-      10.8713239,
-      0.0
-     ],
-     [
-      106.8032642,
-      10.8713488,
-      0.0
-     ],
-     [
-      106.803267,
-      10.8707355,
-      0.0
-     ],
-     [
-      106.8032575,
-      10.8704458,
-      0.0
-     ],
-     [
-      106.8032519,
-      10.8702222,
-      0.0
-     ],
-     [
-      106.8032572,
-      10.8701355,
-      0.0
-     ],
-     [
-      106.803187,
-      10.8700372,
-      0.0
-     ],
-     [
-      106.8031024,
-      10.8699464,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1459032888",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 94.0,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1459032888",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8032853,
-      10.8705719,
-      0.0
-     ],
-     [
-      106.8032833,
-      10.8709698,
-      0.0
-     ],
-     [
-      106.8032753,
-      10.8713855,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1459032889",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 28.2,
-    "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1459032889",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8025792,
-      10.870032,
-      0.0
-     ],
-     [
-      106.8027478,
-      10.8698123,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1459032890",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 47.0,
-    "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1459032890",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8036578,
-      10.8697365,
-      0.0
-     ],
-     [
-      106.803496,
-      10.8695594,
-      0.0
-     ],
-     [
-      106.80331,
-      10.8695442,
-      0.0
-     ],
-     [
-      106.8033164,
-      10.8694786,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1459032892",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 28.2,
-    "highway": "footway",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1459032892",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.803565,
-      10.8694231,
-      0.0
-     ],
-     [
-      106.8036629,
-      10.8694318,
-      0.0
-     ],
-     [
-      106.8036543,
-      10.8695269,
-      0.0
-     ],
-     [
-      106.8037203,
-      10.8694835,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "id": "osm_1548605803",
-    "path_type": "Walkway",
-    "floor_from": 1,
-    "floor_to": 1,
-    "length_m": 63.2,
-    "highway": "service",
-    "name": null,
-    "source": "osm",
-    "source_ref": "OSM way 1548605803",
-    "verified": false
-   },
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      106.8016529,
-      10.8700743,
-      0.0
-     ],
-     [
-      106.8020466,
-      10.8696345,
+      106.8034473,
+      10.869735,
       0.0
      ]
     ]

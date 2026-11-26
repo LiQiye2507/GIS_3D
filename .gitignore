@@ -31,3 +31,7 @@ Models_3D/scripts/*
 Thumbs.db
 .DS_Store
 .vscode/
+
+# Lớp kiểm tra lối đi sinh bởi database/paths_tool.py issues
+dataset/path_issues.geojson
+dataset/*.geojson.bak
