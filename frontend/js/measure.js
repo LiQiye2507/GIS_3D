@@ -71,6 +71,11 @@ function setMode(mode) {
   resultEl.textContent = mode ? HINTS[mode] : 'Chọn công cụ rồi nhấp lên bản đồ.';
 }
 
+// Rời nhóm Đo đạc (đóng ngăn/chuyển nhóm) thì tắt chế độ đo, tránh nhấp bản đồ không phản hồi mà không thấy lý do
+export function endMeasure() {
+  if (state.measureMode) setMode(null);
+}
+
 buttons.forEach((btn) => {
   btn.addEventListener('click', () => setMode(state.measureMode === btn.dataset.measure ? null : btn.dataset.measure));
 });

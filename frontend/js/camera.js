@@ -31,7 +31,8 @@ export function startSpin() {
       spinRafId = null;
       return;
     }
-    if (!map.isMoving()) {
+    // đang đo hoặc chọn vị trí giả lập thì đứng yên, để điểm nhấp rơi đúng chỗ người dùng nhắm
+    if (!map.isMoving() && !state.measureMode && !state.isPickingLocation) {
       // bearing giảm = cảnh quay cùng chiều kim đồng hồ
       map.setBearing(map.getBearing() - (spinRate * Math.min(now - spinLast, 100)) / 1000);
     }

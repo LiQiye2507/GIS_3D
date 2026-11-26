@@ -8,6 +8,7 @@ import { focusCamera, overviewCamera, startSpin, stopSpin } from './camera.js';
 import { applyLod, setIndoorBuilding } from './layers.js';
 import { openAmenityPopup } from './amenities.js';
 import { renderFloorPlan } from './floorplan.js';
+import { endMeasure } from './measure.js';
 
 let allAmenitiesList = [];
 const buildingMarkerEl = document.createElement('div');
@@ -49,6 +50,7 @@ export function updateBuildingMarker() {
 export function setPlacesPanelOpen(open, tab = 'places') {
   placesPanelEl.classList.toggle('hidden', !open);
   if (open) placesPanelEl.dataset.tab = tab;
+  if (!open || tab !== 'measure') endMeasure();
   railTabBtns.forEach((btn) => {
     const active = open && btn.dataset.tab === tab;
     btn.setAttribute('aria-pressed', String(active));

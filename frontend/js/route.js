@@ -82,10 +82,24 @@ export function buildRoute3dPolygons(routeFc, connectorsOnly = false) {
   return { type: 'FeatureCollection', features };
 }
 
-function fitSegments(features) {
+// Nhìn theo hướng xuất phát -> đích (camera đứng sau điểm xuất phát) để tòa khác không chắn tuyến;
+// chừa chỗ cho ngăn trái (máy tính) hoặc ngăn trượt dưới đáy (điện thoại)
+function fitSegments(features, bearing) {
   const bounds = new maplibregl.LngLatBounds();
   features.forEach((f) => (f.geometry.coordinates || []).forEach((c) => bounds.extend([c[0], c[1]])));
-  if (!bounds.isEmpty()) map.fitBounds(bounds, { padding: 60, pitch: 60, maxZoom: 19 });
+  if (bounds.isEmpty()) return;
+  const drawerOpen = !document.getElementById('places-panel').classList.contains('hidden');
+  const padding = window.matchMedia('(max-width: 720px)').matches
+    ? { top: 110, bottom: innerHeight * 0.5 + 70, left: 20, right: 20 }
+    : { top: 90, bottom: 60, left: drawerOpen ? 500 : 80, right: 160 };
+  map.fitBounds(bounds, { padding, pitch: 55, bearing, maxZoom: 19 });
+}
+
+function routeBearing(features) {
+  if (!features.length) return undefined; // fitBounds giữ hướng hiện tại
+  const s =features[0].geometry.coordinates[0];
+  const e = features[features.length - 1].geometry.coordinates.at(-1);
+  return (Math.atan2((e[0] - s[0]) * Math.cos((s[1] * Math.PI) / 180), e[1] - s[1]) * 180) / Math.PI;
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -102,18 +116,22 @@ let lastRoute = null;
 onFrameChange(() => { if (lastRoute) drawRoute(lastRoute); });
 
 // Xem toàn tuyến, rồi lần lượt bật từng tầng tuyến đi qua (mỗi tầng 2.5 s), dừng ở tầng của phòng đích
+// và quay lại khung toàn tuyến (đoạn ở tầng đích thường rất ngắn, nằm trong khối phòng)
 async function playRouteByFloor(routeFc) {
   const token = ++playToken;
+  const bearing = routeBearing(routeFc.features);
   stopSpin();
   setFloor(null);
-  fitSegments(routeFc.features);
+  fitSegments(routeFc.features, bearing);
   if (routeFc.floors.length < 2) return;
   for (const floor of routeFc.floors) {
     await sleep(2500);
     if (token !== playToken) return;
     setFloor(floor);
-    fitSegments(routeFc.features.filter((f) => f.properties.floor_from === floor || f.properties.floor_to === floor));
+    fitSegments(routeFc.features.filter((f) => f.properties.floor_from === floor || f.properties.floor_to === floor), bearing);
   }
+  await sleep(2500);
+  if (token === playToken) fitSegments(routeFc.features, bearing);
 }
 
 document.getElementById('btn-route').addEventListener('click', async () => {

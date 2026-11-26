@@ -376,6 +376,25 @@ body.is-credits-open .sheet {
   pointer-events: auto;
 }
 
+/* Khung nền tối mờ: chữ vẫn đọc được khi phía sau là sàn trắng / ảnh vệ tinh sáng */
+.hud__identity,
+.hud__tools {
+  padding: 8px 16px;
+  background: rgba(7, 10, 14, 0.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.hud__identity {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+}
+
 .hud__wordmark {
   display: flex;
   align-items: baseline;
@@ -514,7 +533,7 @@ body.is-credits-open .sheet {
 /* Top-Right Toolbar */
 .hud__tools {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
 }
 
@@ -1370,11 +1389,6 @@ body.is-sheet-open .gate-marker {
   height: 100%;
   opacity: 0;
   cursor: pointer;
-}
-
-.layer-toggles {
-  display: flex;
-  gap: 16px;
 }
 
 .toggle-item {

@@ -61,7 +61,7 @@ export function selectRoom(roomData, clickLngLat, shouldFly = false) {
   applyHighlightFilter();
   renderRoomCard(merged);
   // giữ nhóm đang mở (vd. Truy vấn) để không mất danh sách kết quả; thẻ phòng hiện ở mọi nhóm
-  setPlacesPanelOpen(true, placesPanelEl.dataset.tab);
+  setPlacesPanelOpen(true, placesPanelEl.classList.contains('hidden') ? 'places' : placesPanelEl.dataset.tab);
 
   if (lngLat) {
     if (shouldFly) {
